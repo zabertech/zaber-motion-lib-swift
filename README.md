@@ -1,5 +1,5 @@
 # ZML Swift
 
-A Swift library used to operate Zaber devices. See [our documentation portal](https://software.zaber.com/motion-library/docs) for full details. 
+**This is a pre-release of the Swift library. The API may change without notice until an official release.**
 
-Linux users must first [install ZML C++ library](https://software.zaber.com/motion-library/docs/tutorials/install/cpp) so that they have the necessary system library dependencies, namely `libzaber-motion-core.X.X.X.so`.
+A Swift library used to operate Zaber devices. See [our documentation portal](https://software.zaber.com/motion-library/docs) for full details.

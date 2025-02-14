@@ -1,0 +1,4 @@
+module ZaberMotionCore {
+    umbrella header "zaber_motion_core.h"
+    link "zaber-motion-core"
+}
