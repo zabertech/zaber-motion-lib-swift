@@ -5,6 +5,7 @@ import UnitsInternal
 import DtoRequests
 import Gateway
 import ZaberMotionAscii
+import ZaberMotionExceptions
 import Utils
 
 /**
@@ -15,7 +16,7 @@ import Utils
  */
 public final class OfflineTranslator: @unchecked Sendable {
 
-    public init(translatorId: Int) {
+    package init(translatorId: Int) {
         self.translatorId = translatorId
     }
 
@@ -272,4 +273,15 @@ public final class OfflineTranslator: @unchecked Sendable {
         return response.value
     }
 
+    deinit {
+        guard self.translatorId >= 0 else { return }
+
+        do {
+            try OfflineTranslator.free(translatorId: self.translatorId)
+        } catch let e as MotionLibException {
+            print("ZML Error: \(e.toString())")
+        } catch {
+            print("System Error: \(error)")
+        }
+    }
 }

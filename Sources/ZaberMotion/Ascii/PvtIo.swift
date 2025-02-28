@@ -9,13 +9,13 @@ import ZaberMotionExceptions
 /**
  Class providing access to I/O for a PVT sequence.
  */
-public final class PvtIo {
+public final class PvtIo: @unchecked Sendable {
 
     private let device: Device
 
     private let streamId: Int
 
-    public init(device: Device, streamId: Int) {
+    package init(device: Device, streamId: Int) {
         self.device = device
         self.streamId = streamId
     }

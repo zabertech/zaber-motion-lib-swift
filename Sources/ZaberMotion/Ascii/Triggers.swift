@@ -11,9 +11,9 @@ import Utils
  Please note that the Triggers API is currently an experimental feature.
  Requires at least Firmware 7.06.
  */
-public final class Triggers {
+public final class Triggers: @unchecked Sendable {
 
-    public init(device: Device) {
+    package init(device: Device) {
         self.device = device
     }
 

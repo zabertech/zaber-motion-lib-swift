@@ -9,9 +9,9 @@ import ZaberMotionExceptions
  Represents a PVT buffer with this number on a device.
  A PVT buffer is a place to store a queue of PVT actions.
  */
-public final class PvtBuffer {
+public final class PvtBuffer: @unchecked Sendable {
 
-    public init(device: Device, bufferId: Int) {
+    package init(device: Device, bufferId: Int) {
         self.device = device
         self.bufferId = bufferId
     }

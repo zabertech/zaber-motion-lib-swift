@@ -13,9 +13,9 @@ import ZaberMotionExceptions
  PVT sequence methods append actions to a queue which executes
  or stores actions in a first in, first out order.
  */
-public final class PvtSequence {
+public final class PvtSequence: @unchecked Sendable {
 
-    public init(device: Device, pvtId: Int) {
+    package init(device: Device, pvtId: Int) {
         self.device = device
         self.pvtId = pvtId
         self.io = PvtIo(device: device, streamId: pvtId)

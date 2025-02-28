@@ -9,13 +9,13 @@ import ZaberMotionExceptions
 /**
  Class providing access to I/O for a stream.
  */
-public final class StreamIo {
+public final class StreamIo: @unchecked Sendable {
 
     private let device: Device
 
     private let streamId: Int
 
-    public init(device: Device, streamId: Int) {
+    package init(device: Device, streamId: Int) {
         self.device = device
         self.streamId = streamId
     }

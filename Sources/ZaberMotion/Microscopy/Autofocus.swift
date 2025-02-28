@@ -12,7 +12,7 @@ import Utils
 /**
  A generic autofocus device.
  */
-public final class Autofocus {
+public final class Autofocus: @unchecked Sendable {
 
     /**
      Creates instance of `Autofocus` based on the given provider id.

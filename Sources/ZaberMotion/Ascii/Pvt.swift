@@ -9,9 +9,9 @@ import ZaberMotionExceptions
  Class providing access to device PVT (Position-Velocity-Time) features.
  Requires at least Firmware 7.33.
  */
-public final class Pvt {
+public final class Pvt: @unchecked Sendable {
 
-    public init(device: Device) {
+    package init(device: Device) {
         self.device = device
     }
 

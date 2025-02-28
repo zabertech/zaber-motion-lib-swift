@@ -14,7 +14,7 @@ import Utils
  */
 public final class Connection: @unchecked Sendable {
 
-    public init(interfaceId: Int) {
+    package init(interfaceId: Int) {
         self.interfaceId = interfaceId
         ensureSubscribed()
     }
@@ -260,18 +260,19 @@ public final class Connection: @unchecked Sendable {
     /**
      Event invoked when connection is interrupted or closed.
      */
-    public lazy var disconnected: AnyPublisher<DisconnectedEvent, Never> = {
+    public lazy var disconnected = {
         return Events.shared.disconnected.filter {
             disconnectedEvent in
             return disconnectedEvent.interfaceId == self.interfaceId
         }.first()
         .eraseToAnyPublisher()
+        .share()
     }()
 
     /**
      Event invoked when a reply-only command such as a move tracking message is received from a device.
      */
-    public lazy var replyOnly: AnyPublisher<ReplyOnlyEvent, Never> = {
+    public lazy var replyOnly = {
         return Events.shared.binaryReplyOnly.prefix(
             untilOutputFrom: disconnected
         ).filter {
@@ -281,12 +282,13 @@ public final class Connection: @unchecked Sendable {
             binaryReplyOnlyEventWrapper in
             return binaryReplyOnlyEventWrapper.reply
         }.eraseToAnyPublisher()
+        .share()
     }()
 
     /**
      Event invoked when a response from a device cannot be matched to any known request.
      */
-    public lazy var unknownResponse: AnyPublisher<UnknownResponseEvent, Never> = {
+    public lazy var unknownResponse = {
         return Events.shared.unknownResponseBinary.prefix(
             untilOutputFrom: disconnected
         ).filter {
@@ -296,5 +298,6 @@ public final class Connection: @unchecked Sendable {
             unknownBinaryResponseEventWrapper in
             return unknownBinaryResponseEventWrapper.unknownResponse
         }.eraseToAnyPublisher()
+        .share()
     }()
 }

@@ -10,11 +10,11 @@ import Utils
 /**
  Class providing access to the I/O channels of the device.
  */
-public final class DeviceIO {
+public final class DeviceIO: @unchecked Sendable {
 
     private let device: Device
 
-    public init(device: Device) {
+    package init(device: Device) {
         self.device = device
     }
 

@@ -12,9 +12,9 @@ import Utils
  A lockstep group is a movement synchronized pair of axes on a device.
  Requires at least Firmware 6.15 or 7.11.
  */
-public final class Lockstep {
+public final class Lockstep: @unchecked Sendable {
 
-    public init(device: Device, lockstepGroupId: Int) {
+    package init(device: Device, lockstepGroupId: Int) {
         self.device = device
         self.lockstepGroupId = lockstepGroupId
     }

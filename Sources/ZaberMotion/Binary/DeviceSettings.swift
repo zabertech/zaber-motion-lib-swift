@@ -9,11 +9,11 @@ import ZaberMotionExceptions
 /**
  Class providing access to various device settings and properties.
  */
-public final class DeviceSettings {
+public final class DeviceSettings: @unchecked Sendable {
 
     private let device: Device
 
-    public init(device: Device) {
+    package init(device: Device) {
         self.device = device
     }
 

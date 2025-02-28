@@ -12,9 +12,9 @@ import Utils
  The oscilloscope can record the values of some settings over time at high resolution.
  Requires at least Firmware 7.00.
  */
-public final class Oscilloscope {
+public final class Oscilloscope: @unchecked Sendable {
 
-    public init(device: Device) {
+    package init(device: Device) {
         self.device = device
     }
 

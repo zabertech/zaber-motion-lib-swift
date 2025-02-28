@@ -9,9 +9,9 @@ import ZaberMotionExceptions
  Represents a stream buffer with this number on a device.
  A stream buffer is a place to store a queue of stream actions.
  */
-public final class StreamBuffer {
+public final class StreamBuffer: @unchecked Sendable {
 
-    public init(device: Device, bufferId: Int) {
+    package init(device: Device, bufferId: Int) {
         self.device = device
         self.bufferId = bufferId
     }

@@ -14,7 +14,7 @@ import ZaberMotionExceptions
  The movement methods return after all the axes finish the movement successfully
  or throw an error as soon as possible.
  */
-public final class AxisGroup {
+public final class AxisGroup: @unchecked Sendable {
 
     /**
      Initializes the group with the axes to be controlled.

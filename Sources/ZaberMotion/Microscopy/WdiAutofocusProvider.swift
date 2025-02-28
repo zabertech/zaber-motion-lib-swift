@@ -13,7 +13,7 @@ import Utils
  */
 public final class WdiAutofocusProvider: @unchecked Sendable  {
 
-    public init(providerId: Int) {
+    package init(providerId: Int) {
         self.providerId = providerId
     }
 
@@ -155,4 +155,22 @@ public final class WdiAutofocusProvider: @unchecked Sendable  {
         return response.value
     }
 
+    public func closeSync() throws  {
+        var request = DtoRequests.InterfaceEmptyRequest()
+        request.interfaceId = self.providerId
+
+        try Gateway.callSync("wdi/close", request)
+    }
+
+    deinit {
+        guard self.providerId >= 0 else { return }
+
+        do {
+            try closeSync()
+        } catch let e as MotionLibException {
+            print("ZML Error: \(e.toString())")
+        } catch {
+            print("System Error: \(error)")
+        }
+    }
 }

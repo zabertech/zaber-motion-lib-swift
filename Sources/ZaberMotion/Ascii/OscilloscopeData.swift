@@ -11,7 +11,7 @@ import ZaberMotionExceptions
  */
 public final class OscilloscopeData: @unchecked Sendable {
 
-    public init(dataId: Int) {
+    package init(dataId: Int) {
         self.dataId = dataId
     }
 
@@ -187,10 +187,16 @@ public final class OscilloscopeData: @unchecked Sendable {
         return try Gateway.callSync("oscilloscopedata/get_properties", request, OscilloscopeCaptureProperties.fromByteArray)
     }
 
+    deinit {
+        guard self.dataId >= 0 else { return }
 
-    // TODO: Maybe need destructor
-    // ~OscilloscopeData() {
-    //     OscilloscopeData.Free(DataId);
-    // }
+        do {
+            try OscilloscopeData.free(dataId: self.dataId)
+        } catch let e as MotionLibException {
+            print("ZML Error: \(e.toString())")
+        } catch {
+            print("System Error: \(error)")
+        }
+    }
 }
 

@@ -9,9 +9,9 @@ import ZaberMotionExceptions
  Connection transport backend allowing to carry Zaber ASCII protocol over arbitrary protocols.
  Can only be used with a single connection.
  */
-public final class Transport {
+public final class Transport: @unchecked Sendable {
 
-    public init(transportId: Int) {
+    package init(transportId: Int) {
         self.transportId = transportId
     }
 
@@ -89,4 +89,22 @@ public final class Transport {
         return response.value
     }
 
+    public func close() throws  {
+        var request = DtoRequests.CustomInterfaceCloseRequest()
+        request.transportId = self.transportId
+
+        try Gateway.callSync("custom/interface/close", request)
+    }
+
+    deinit {
+        guard self.transportId >= 0 else { return }
+
+        do {
+            try close()
+        } catch let e as MotionLibException {
+            print("ZML Error: \(e.toString())")
+        } catch {
+            print("System Error: \(error)")
+        }
+    }
 }

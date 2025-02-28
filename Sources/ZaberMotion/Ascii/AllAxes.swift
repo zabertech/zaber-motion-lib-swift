@@ -8,9 +8,9 @@ import ZaberMotionExceptions
 /**
  Represents all axes of motion associated with a device.
  */
-public final class AllAxes {
+public final class AllAxes: @unchecked Sendable {
 
-    public init(device: Device) {
+    package init(device: Device) {
         self.device = device
     }
 

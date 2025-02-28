@@ -10,7 +10,7 @@ import ZaberMotionAscii
 /**
  An abstraction over a device and it's digital output channel.
  */
-public final class CameraTrigger {
+public final class CameraTrigger: @unchecked Sendable {
 
     /**
      Creates instance of `CameraTrigger` based on the given device and digital output channel.

@@ -11,9 +11,9 @@ import Utils
 /**
  Represents an axis of motion associated with a device.
  */
-public final class Axis {
+public final class Axis: @unchecked Sendable {
 
-    public init(device: Device, axisNumber: Int) {
+    package init(device: Device, axisNumber: Int) {
         self.device = device
         self.axisNumber = axisNumber
         self.warnings = Warnings(device: device, axisNumber: axisNumber)

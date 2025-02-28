@@ -9,7 +9,7 @@ import ZaberMotionAscii
 /**
  A generic turret device.
  */
-public final class FilterChanger {
+public final class FilterChanger: @unchecked Sendable {
 
     /**
      Creates instance of `FilterChanger` based on the given device.

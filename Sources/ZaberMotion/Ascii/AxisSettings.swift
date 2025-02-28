@@ -10,11 +10,11 @@ import Utils
 /**
  Class providing access to various axis settings and properties.
  */
-public final class AxisSettings {
+public final class AxisSettings: @unchecked Sendable {
 
     private let axis: Axis
 
-    public init(axis: Axis) {
+    package init(axis: Axis) {
         self.axis = axis
     }
 

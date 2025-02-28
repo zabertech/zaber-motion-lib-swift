@@ -11,7 +11,7 @@ import Utils
  Exposes the capabilities to inspect and edit an axis' servo tuning.
  Requires at least Firmware 6.25 or 7.00.
  */
-public final class ServoTuner {
+public final class ServoTuner: @unchecked Sendable {
 
     /**
      Creates instance of ServoTuner for the given axis.

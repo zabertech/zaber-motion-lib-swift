@@ -14,11 +14,11 @@ import Utils
  Use to drive voltage for a process such as a heater, valve, Peltier device, etc.
  Requires at least Firmware 7.35.
  */
-public final class Process {
+public final class Process: @unchecked Sendable {
 
     private let axis: Axis
 
-    public init(controller: ProcessController, processNumber: Int) {
+    package init(controller: ProcessController, processNumber: Int) {
         self.controller = controller
         self.processNumber = processNumber
         self.axis = Axis(device: controller.device, axisNumber: processNumber)

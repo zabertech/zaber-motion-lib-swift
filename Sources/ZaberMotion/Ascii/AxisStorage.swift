@@ -9,11 +9,11 @@ import ZaberMotionExceptions
  Class providing access to axis storage.
  Requires at least Firmware 7.30.
  */
-public final class AxisStorage {
+public final class AxisStorage: @unchecked Sendable {
 
     private let axis: Axis
 
-    public init(axis: Axis) {
+    package init(axis: Axis) {
         self.axis = axis
     }
 

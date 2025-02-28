@@ -9,11 +9,11 @@ import ZaberMotionExceptions
  Class providing access to device storage.
  Requires at least Firmware 7.30.
  */
-public final class DeviceStorage {
+public final class DeviceStorage: @unchecked Sendable {
 
     private let device: Device
 
-    public init(device: Device) {
+    package init(device: Device) {
         self.device = device
     }
 

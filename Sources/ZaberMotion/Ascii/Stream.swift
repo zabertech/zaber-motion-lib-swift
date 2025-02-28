@@ -12,9 +12,9 @@ import ZaberMotionExceptions
  Streams provide a way to execute or store a sequence of actions.
  Stream methods append actions to a queue which executes or stores actions in a first in, first out order.
  */
-public final class Stream {
+public final class Stream: @unchecked Sendable {
 
-    public init(device: Device, streamId: Int) {
+    package init(device: Device, streamId: Int) {
         self.device = device
         self.streamId = streamId
         self.io = StreamIo(device: device, streamId: streamId)

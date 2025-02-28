@@ -9,9 +9,9 @@ import ZaberMotionExceptions
  Class providing access to device streams.
  Requires at least Firmware 7.05.
  */
-public final class Streams {
+public final class Streams: @unchecked Sendable {
 
-    public init(device: Device) {
+    package init(device: Device) {
         self.device = device
     }
 

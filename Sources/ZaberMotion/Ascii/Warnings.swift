@@ -8,13 +8,13 @@ import ZaberMotionExceptions
 /**
  Class used to check and reset warnings and faults on device or axis.
  */
-public final class Warnings {
+public final class Warnings: @unchecked Sendable {
 
     private let device: Device
 
     private let axisNumber: Int
 
-    public init(device: Device, axisNumber: Int) {
+    package init(device: Device, axisNumber: Int) {
         self.device = device
         self.axisNumber = axisNumber
     }

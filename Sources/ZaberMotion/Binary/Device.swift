@@ -14,7 +14,7 @@ import Utils
  */
 public final class Device: @unchecked Sendable {
 
-    public init(connection: Connection, deviceAddress: Int) {
+    package init(connection: Connection, deviceAddress: Int) {
         self.connection = connection
         self.deviceAddress = deviceAddress
 

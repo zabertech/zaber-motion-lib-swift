@@ -12,11 +12,11 @@ import Utils
  Use to control a channel (LED lamp) on an illuminator.
  Requires at least Firmware 7.09.
  */
-public final class IlluminatorChannel {
+public final class IlluminatorChannel: @unchecked Sendable {
 
     private let axis: Axis
 
-    public init(illuminator: Illuminator, channelNumber: Int) {
+    package init(illuminator: Illuminator, channelNumber: Int) {
         self.illuminator = illuminator
         self.channelNumber = channelNumber
         self.axis = Axis(device: illuminator.device, axisNumber: channelNumber)
