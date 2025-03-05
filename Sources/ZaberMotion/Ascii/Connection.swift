@@ -2,6 +2,7 @@
 // ============== DO NOT EDIT DIRECTLY ============== //
 
 import Combine
+import Darwin
 import Foundation
 import DtoRequests
 import DtoAscii
@@ -519,9 +520,9 @@ public final class Connection: @unchecked Sendable {
         do {
             try self.closeSync()
         } catch let e as MotionLibException {
-            print("ZML \(e.self): \(e.message)")
+            fputs("ZML Error \(e.toString())", stderr)
         } catch {
-            print("System Error: \(error)")
+            fputs("System Error: \(error)", stderr)
         }
     }
 

@@ -1,6 +1,7 @@
 ﻿// ===== THIS FILE IS GENERATED FROM A TEMPLATE ===== //
 // ============== DO NOT EDIT DIRECTLY ============== //
 
+import Darwin
 import UnitsInternal
 import DtoRequests
 import Gateway
@@ -193,9 +194,9 @@ public final class OscilloscopeData: @unchecked Sendable {
         do {
             try OscilloscopeData.free(dataId: self.dataId)
         } catch let e as MotionLibException {
-            print("ZML Error: \(e.toString())")
+            fputs("ZML Error: \(e.toString())", stderr)
         } catch {
-            print("System Error: \(error)")
+            fputs("System Error: \(error)", stderr)
         }
     }
 }

@@ -336,15 +336,18 @@ public final class Process: @unchecked Sendable {
 
      - Parameters:
         - state: The state object to check against.
+        - firmwareVersion: The firmware version of the device to apply the state to.
+          Use this to ensure the state will still be compatible after an update.
 
      - Returns: An explanation of why this state cannot be set to this process.
      */
-    public func canSetState(state: String) async throws -> String? {
+    public func canSetState(state: String, firmwareVersion: FirmwareVersion? = nil) async throws -> String? {
         var request = DtoRequests.CanSetStateRequest()
         request.interfaceId = self.controller.device.connection.interfaceId
         request.device = self.controller.device.deviceAddress
         request.axis = self.processNumber
         request.state = state
+        request.firmwareVersion = firmwareVersion
 
         let response = try await Gateway.callAsync("device/can_set_axis_state", request, DtoRequests.CanSetStateAxisResponse.fromByteArray)
         return response.error

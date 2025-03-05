@@ -381,16 +381,19 @@ public final class Device: @unchecked Sendable {
 
      - Parameters:
         - state: The state object to check against.
+        - firmwareVersion: The firmware version of the device to apply the state to.
+          Use this to ensure the state will still be compatible after an update.
 
      - Returns: An object listing errors that come up when trying to set the state.
      */
-    public func canSetState(state: String) async throws -> CanSetStateDeviceResponse {
+    public func canSetState(state: String, firmwareVersion: FirmwareVersion? = nil) async throws -> CanSetStateDeviceResponse {
         _assertSendable(CanSetStateDeviceResponse.self)
 
         var request = DtoRequests.CanSetStateRequest()
         request.interfaceId = self.connection.interfaceId
         request.device = self.deviceAddress
         request.state = state
+        request.firmwareVersion = firmwareVersion
 
         return try await Gateway.callAsync("device/can_set_state", request, CanSetStateDeviceResponse.fromByteArray)
     }
