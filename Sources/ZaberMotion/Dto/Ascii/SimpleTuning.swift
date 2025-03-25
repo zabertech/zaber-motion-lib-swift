@@ -16,9 +16,19 @@ public struct SimpleTuning: Serializable {
     public var isUsed: Bool
 
     /**
+     * If this paramset has been tuned using the simple tuning method, whether or not it's currently in use.
+     */
+    public var isSet: Bool
+
+    /**
      * The mass of the carriage in kg.
      */
     public var carriageMass: Double?
+
+    /**
+     * The mass of the carriage in kg.
+     */
+    public var motorInertia: Double?
 
     /**
      * The mass of the load in kg, excluding the mass of the carriage.
@@ -30,9 +40,11 @@ public struct SimpleTuning: Serializable {
      */
     public var tuningParams: [ServoTuningParam]
 
-    public init(isUsed: Bool = false, carriageMass: Double? = nil, loadMass: Double = 0.0, tuningParams: [ServoTuningParam] = []) {
+    public init(isUsed: Bool = false, isSet: Bool = false, carriageMass: Double? = nil, motorInertia: Double? = nil, loadMass: Double = 0.0, tuningParams: [ServoTuningParam] = []) {
         self.isUsed = isUsed
+        self.isSet = isSet
         self.carriageMass = carriageMass
+        self.motorInertia = motorInertia
         self.loadMass = loadMass
         self.tuningParams = tuningParams
     }

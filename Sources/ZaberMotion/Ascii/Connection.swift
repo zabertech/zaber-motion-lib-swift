@@ -450,6 +450,19 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Releases native resources of the connection.
+
+     - Parameters:
+        - interfaceId: The ID of the connection.
+     */
+    static func free(interfaceId: Int) throws  {
+        var request = DtoRequests.InterfaceEmptyRequest()
+        request.interfaceId = interfaceId
+
+        try Gateway.callSync("interface/free", request)
+    }
+
+    /**
      Returns default request timeout.
 
      - Returns: Default request timeout.
@@ -515,12 +528,20 @@ public final class Connection: @unchecked Sendable {
     }
 
     deinit {
-        guard interfaceId > 0 else { return }
+        guard interfaceId >= 0 else { return }
 
         do {
             try self.closeSync()
         } catch let e as MotionLibException {
             fputs("ZML Error \(e.toString())", stderr)
+        } catch {
+            fputs("System Error: \(error)", stderr)
+        }
+
+        do {
+            try Connection.free(interfaceId: self.interfaceId)
+        } catch let e as MotionLibException {
+            fputs("ZML Error: \(e.toString())", stderr)
         } catch {
             fputs("System Error: \(error)", stderr)
         }

@@ -169,6 +169,7 @@ public enum Units: String, Codable, Sendable {
     case rotationalInertiaGramSquareMetre = "Rotational Inertia:gram-square metre"
     case rotationalInertiaKilogramSquareMetre = "Rotational Inertia:kilogram-square metre"
     case rotationalInertiaPoundSquareFeet = "Rotational Inertia:pound-square-feet"
+    case rotationalInertiaGramSquareMillimetre = "Rotational Inertia:gram-square millimetre"
 
     public static let rotationalInertia: [String: Units] = [
         "g⋅m²": .rotationalInertiaGramSquareMetre,
@@ -177,6 +178,8 @@ public enum Units: String, Codable, Sendable {
         "kg⋅m^2": .rotationalInertiaKilogramSquareMetre,
         "lb⋅ft²": .rotationalInertiaPoundSquareFeet,
         "lb⋅ft^2": .rotationalInertiaPoundSquareFeet,
+        "g⋅mm²": .rotationalInertiaGramSquareMillimetre,
+        "g⋅mm^2": .rotationalInertiaGramSquareMillimetre,
     ]
 
     case forceConstantNewtonsPerAmp = "Force Constant:newtons per amp"

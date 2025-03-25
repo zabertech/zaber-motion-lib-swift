@@ -121,9 +121,9 @@ public final class ServoTuner: @unchecked Sendable {
 
      - Parameters:
         - paramset: The paramset to get tuning for.
-        - p: The proportional gain. Must be in units of N/m.
-        - i: The integral gain. Must be in units of N/m⋅s.
-        - d: The derivative gain. Must be in units of N⋅s/m.
+        - p: The proportional gain. Must be in units of N/m for linear devices, and N⋅m/° for rotary devices.
+        - i: The integral gain. Must be in units of N/(m⋅s) for linear devices, and N⋅m/(°⋅s) for rotary devices.
+        - d: The derivative gain. Must be in units of N⋅s/m for linear devices, and N⋅m⋅s/° for rotary devices.
         - fc: The cutoff frequency. Must be in units of Hz.
 
      - Returns: The PID representation of the current tuning after your changes have been applied.
@@ -189,10 +189,19 @@ public final class ServoTuner: @unchecked Sendable {
         - tuningParams: The params used to tune this device.
           To get what parameters are expected, call GetSimpleTuningParamList.
           All values must be between 0 and 1.
-        - loadMass: The mass loaded on the stage (excluding the mass of the carriage itself) in kg.
-        - carriageMass: The mass of the carriage in kg. If this value is not set the default carriage mass is used.
+        - loadMass: The mass loaded on the stage, excluding the mass of the carriage itself.
+          Unless specified by the LoadMassUnits parameter, this is in units of kg for linear devices,
+          and kg⋅m² for rotary devices.
+        - loadMassUnits: The units the load mass was supplied in.
+        - carriageMass: The mass of the carriage itself. If not supplied, the product's default mass will be used.
+          Unless specified by the CarriageMassUnits parameter, this is in units of kg for linear devices,
+          and kg⋅m² for rotary devices.
+        - carriageMassUnits: The units the carriage mass was supplied in.
+        - motorInertia: The inertia of the motor. Unless specified by the MotorInertiaUnits parameter,
+          this is in units of kg⋅m².
+        - motorInertiaUnits: The units the motor inertia was supplied in.
      */
-    public func setSimpleTuning(paramset: ServoTuningParamset, tuningParams: [ServoTuningParam], loadMass: Double, carriageMass: Double? = nil) async throws  {
+    public func setSimpleTuning(paramset: ServoTuningParamset, tuningParams: [ServoTuningParam], loadMass: Double, loadMassUnits: Units = Units.native, carriageMass: Double? = nil, carriageMassUnits: Units = Units.native, motorInertia: Double? = nil, motorInertiaUnits: Units = Units.native) async throws  {
         var request = DtoRequests.SetSimpleTuning()
         request.interfaceId = self.axis.device.connection.interfaceId
         request.device = self.axis.device.deviceAddress
@@ -200,7 +209,11 @@ public final class ServoTuner: @unchecked Sendable {
         request.paramset = paramset
         request.tuningParams = tuningParams
         request.loadMass = loadMass
+        request.loadMassUnits = loadMassUnits
         request.carriageMass = carriageMass
+        request.carriageMassUnits = carriageMassUnits
+        request.motorInertia = motorInertia
+        request.motorInertiaUnits = motorInertiaUnits
 
         try await Gateway.callAsync("servotuning/set_simple_tuning", request)
     }
