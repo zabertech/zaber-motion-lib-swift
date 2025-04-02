@@ -104,7 +104,7 @@ public final class Library {
     public static func checkVersion() throws  {
         var request = DtoRequests.CheckVersionRequest()
         request.host = "swift"
-        request.version = "7.6.0"
+        request.version = "7.6.1"
 
         try Gateway.callSync("library/check_version", request)
     }

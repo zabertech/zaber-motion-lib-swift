@@ -90,6 +90,19 @@ public final class Transport: @unchecked Sendable {
         return response.value
     }
 
+    /**
+     Frees the transport instance.
+
+     - Parameters:
+        - transportId: Transport ID to be freed.
+     */
+    static func free(transportId: Int) throws  {
+        var request = DtoRequests.CustomInterfaceCloseRequest()
+        request.transportId = transportId
+
+        try Gateway.callSync("custom/interface/free", request)
+    }
+
     public func close() throws  {
         var request = DtoRequests.CustomInterfaceCloseRequest()
         request.transportId = self.transportId
@@ -102,6 +115,14 @@ public final class Transport: @unchecked Sendable {
 
         do {
             try close()
+        } catch let e as MotionLibException {
+            fputs("ZML Error: \(e.toString())", stderr)
+        } catch {
+            fputs("System Error: \(error)", stderr)
+        }
+
+        do {
+            try Transport.free(transportId: self.transportId)
         } catch let e as MotionLibException {
             fputs("ZML Error: \(e.toString())", stderr)
         } catch {

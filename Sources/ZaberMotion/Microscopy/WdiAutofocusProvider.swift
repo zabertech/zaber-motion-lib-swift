@@ -156,6 +156,19 @@ public final class WdiAutofocusProvider: @unchecked Sendable  {
         return response.value
     }
 
+    /**
+     Frees the connection.
+
+     - Parameters:
+        - providerId: The ID of the connection to free.
+     */
+    static func free(providerId: Int) throws  {
+        var request = DtoRequests.InterfaceEmptyRequest()
+        request.interfaceId = providerId
+
+        try Gateway.callSync("wdi/free", request)
+    }
+
     public func closeSync() throws  {
         var request = DtoRequests.InterfaceEmptyRequest()
         request.interfaceId = self.providerId
@@ -168,6 +181,14 @@ public final class WdiAutofocusProvider: @unchecked Sendable  {
 
         do {
             try closeSync()
+        } catch let e as MotionLibException {
+            fputs("ZML Error: \(e.toString())", stderr)
+        } catch {
+            fputs("System Error: \(error)", stderr)
+        }
+
+        do {
+            try WdiAutofocusProvider.free(providerId: self.providerId)
         } catch let e as MotionLibException {
             fputs("ZML Error: \(e.toString())", stderr)
         } catch {
