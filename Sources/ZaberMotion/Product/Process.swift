@@ -11,6 +11,8 @@ import ZaberMotionAscii
 import Utils
 
 /**
+ Module: ZaberMotionProduct
+
  Use to drive voltage for a process such as a heater, valve, Peltier device, etc.
  Requires at least Firmware 7.35.
  */
@@ -28,31 +30,43 @@ public final class Process: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionProduct
+
      Controller for this process.
      */
     public let controller: ProcessController
 
     /**
+     Module: ZaberMotionProduct
+
      The process number identifies the process on the controller.
      */
     public let processNumber: Int
 
     /**
+     Module: ZaberMotionProduct
+
      Settings and properties of this process.
      */
     public let settings: AxisSettings
 
     /**
+     Module: ZaberMotionProduct
+
      Key-value storage of this process.
      */
     public let storage: AxisStorage
 
     /**
+     Module: ZaberMotionProduct
+
      Warnings and faults of this process.
      */
     public let warnings: Warnings
 
     /**
+     Module: ZaberMotionProduct
+
      Sets the enabled state of the driver.
 
      - Parameters:
@@ -69,6 +83,8 @@ public final class Process: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionProduct
+
      Turns this process on. In manual mode, this supplies voltage; in controlled mode, it starts the control loop.
 
      - Parameters:
@@ -88,6 +104,8 @@ public final class Process: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionProduct
+
      Turns this process off.
      */
     public func off() async throws  {
@@ -101,6 +119,8 @@ public final class Process: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionProduct
+
      Sets the control mode of this process.
 
      - Parameters:
@@ -118,6 +138,8 @@ public final class Process: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionProduct
+
      Gets the control mode of this process.
 
      - Returns: Control mode.
@@ -134,6 +156,8 @@ public final class Process: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionProduct
+
      Gets the source used to control this process.
 
      - Returns: The source providing feedback for this process.
@@ -150,6 +174,8 @@ public final class Process: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionProduct
+
      Sets the source used to control this process.
 
      - Parameters:
@@ -166,6 +192,8 @@ public final class Process: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionProduct
+
      Gets the current value of the source used to control this process.
 
      - Returns: The current value of this process's controlling source.
@@ -182,6 +210,8 @@ public final class Process: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionProduct
+
      Creates an H-bridge between this process and its neighbor. This method is only callable on axis 1 and 3.
      */
     public func bridge() async throws  {
@@ -195,6 +225,8 @@ public final class Process: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionProduct
+
      Breaks the H-bridge between this process and its neighbor, allowing them to be independently controlled.
      This method is only callable on axis 1 and 3.
      */
@@ -209,6 +241,8 @@ public final class Process: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionProduct
+
      Detects if the given process is in bridging mode.
 
      - Returns: Whether this process is bridged with its neighbor.
@@ -224,6 +258,8 @@ public final class Process: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionProduct
+
      Sends a generic ASCII command to this process' underlying axis.
      For more information refer to: [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_commands).
 
@@ -250,6 +286,8 @@ public final class Process: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionProduct
+
      Sends a generic ASCII command to this process and expect multiple responses.
      Responses are returned in order of arrival.
      For more information refer to: [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_commands).
@@ -278,6 +316,8 @@ public final class Process: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionProduct
+
      Sends a generic ASCII command to this process without expecting a response and without adding a message ID
      For more information refer to: [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_commands).
 
@@ -295,6 +335,8 @@ public final class Process: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionProduct
+
      Returns a serialization of the current process state that can be saved and reapplied.
 
      - Returns: A serialization of the current state of the process.
@@ -310,6 +352,8 @@ public final class Process: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionProduct
+
      Applies a saved state to this process.
 
      - Parameters:
@@ -330,6 +374,8 @@ public final class Process: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionProduct
+
      Checks if a state can be applied to this process.
      This only covers exceptions that can be determined statically such as mismatches of ID or version,
      the process of applying the state can still fail when running.
@@ -354,6 +400,8 @@ public final class Process: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionProduct
+
      Returns a string that represents the process.
 
      - Returns: A string that represents the process.

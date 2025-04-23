@@ -7,6 +7,8 @@ import Gateway
 import ZaberMotionExceptions
 
 /**
+ Module: ZaberMotionBinary
+
  Class providing access to various device settings and properties.
  */
 public final class DeviceSettings: @unchecked Sendable {
@@ -18,6 +20,8 @@ public final class DeviceSettings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Returns any device setting or property.
 
      - Parameters:
@@ -38,6 +42,8 @@ public final class DeviceSettings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Sets any device setting.
 
      - Parameters:

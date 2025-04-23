@@ -6,6 +6,8 @@ import Gateway
 import ZaberMotionExceptions
 
 /**
+ Module: ZaberMotionAscii
+
  Class used to check and reset warnings and faults on device or axis.
  */
 public final class Warnings: @unchecked Sendable {
@@ -20,6 +22,8 @@ public final class Warnings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns current warnings and faults on axis or device.
 
      - Returns: Retrieved warnings and faults. Refer to WarningFlags to check a particular flag.
@@ -36,6 +40,8 @@ public final class Warnings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Clears (acknowledges) current warnings and faults on axis or device and returns them.
 
      - Returns: Warnings and faults before clearing. Refer to WarningFlags to check a particular flag.
@@ -52,6 +58,8 @@ public final class Warnings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Waits for the specified flags to clear.
      Use for warnings flags that clear on their own.
      Does not clear clearable warnings flags.

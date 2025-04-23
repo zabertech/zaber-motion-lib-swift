@@ -7,6 +7,8 @@ import Gateway
 import ZaberMotionExceptions
 
 /**
+ Module: ZaberMotionAscii
+
  A handle for a PVT sequence with this number on the device.
  PVT sequences provide a way execute or store trajectory
  consisting of points with defined position, velocity, and time.
@@ -22,16 +24,22 @@ public final class PvtSequence: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Device that controls this PVT sequence.
      */
     public let device: Device
 
     /**
+     Module: ZaberMotionAscii
+
      The number that identifies the PVT sequence on the device.
      */
     public let pvtId: Int
 
     /**
+     Module: ZaberMotionAscii
+
      Current mode of the PVT sequence.
      */
     public var mode: PvtMode {
@@ -39,6 +47,8 @@ public final class PvtSequence: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      An array of axes definitions the PVT sequence is set up to control.
      */
     public var axes: [PvtAxisDefinition] {
@@ -46,11 +56,15 @@ public final class PvtSequence: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets an object that provides access to I/O for this sequence.
      */
     public let io: PvtIo
 
     /**
+     Module: ZaberMotionAscii
+
      Setup the PVT sequence to control the specified axes and to queue actions on the device.
      Allows use of lockstep axes in a PVT sequence.
 
@@ -69,6 +83,8 @@ public final class PvtSequence: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Setup the PVT sequence to control the specified axes and to queue actions on the device.
 
      - Parameters:
@@ -86,6 +102,8 @@ public final class PvtSequence: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Setup the PVT sequence to use the specified axes and queue actions into a PVT buffer.
      Allows use of lockstep axes in a PVT sequence.
 
@@ -106,6 +124,8 @@ public final class PvtSequence: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Setup the PVT sequence to use the specified axes and queue actions into a PVT buffer.
 
      - Parameters:
@@ -125,6 +145,8 @@ public final class PvtSequence: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Append the actions in a PVT buffer to the sequence's queue.
 
      - Parameters:
@@ -142,6 +164,8 @@ public final class PvtSequence: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Queues a point with absolute coordinates in the PVT sequence.
      If some or all velocities are not provided, the sequence calculates the velocities
      from surrounding points using finite difference.
@@ -168,6 +192,8 @@ public final class PvtSequence: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Queues a point with coordinates relative to the previous point in the PVT sequence.
      If some or all velocities are not provided, the sequence calculates the velocities
      from surrounding points using finite difference.
@@ -194,6 +220,8 @@ public final class PvtSequence: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Waits until the live PVT sequence executes all queued actions.
 
      - Parameters:
@@ -211,6 +239,8 @@ public final class PvtSequence: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Cork the front of the PVT sequences's action queue, blocking execution.
      Execution resumes upon uncorking the queue, or when the number of queued actions reaches its limit.
      Corking eliminates discontinuities in motion due to subsequent PVT commands reaching the device late.
@@ -227,6 +257,8 @@ public final class PvtSequence: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Uncork the front of the queue, unblocking command execution.
      You can only uncork an idle live PVT sequence that is corked.
      */
@@ -241,6 +273,8 @@ public final class PvtSequence: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns a boolean value indicating whether the live PVT sequence is executing a queued action.
 
      - Returns: True if the PVT sequence is executing a queued action.
@@ -257,6 +291,8 @@ public final class PvtSequence: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns a string which represents the PVT sequence.
 
      - Returns: String which represents the PVT sequence.
@@ -273,6 +309,8 @@ public final class PvtSequence: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Disables the PVT sequence.
      If the PVT sequence is not setup, this command does nothing.
      Once disabled, the PVT sequence will no longer accept PVT commands.
@@ -289,6 +327,8 @@ public final class PvtSequence: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sends a generic ASCII command to the PVT sequence.
      Keeps resending the command while the device rejects with AGAIN reason.
 
@@ -307,6 +347,8 @@ public final class PvtSequence: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sends a batch of generic ASCII commands to the PVT sequence.
      Keeps resending command while the device rejects with AGAIN reason.
      The batch is atomic in terms of thread safety.
@@ -326,6 +368,8 @@ public final class PvtSequence: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Queries the PVT sequence status from the device
      and returns boolean indicating whether the PVT sequence is disabled.
      Useful to determine if execution was interrupted by other movements.
@@ -344,6 +388,8 @@ public final class PvtSequence: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Makes the PVT sequence throw PvtDiscontinuityException when it encounters discontinuities (ND warning flag).
      */
     public func treatDiscontinuitiesAsError() throws  {
@@ -357,6 +403,8 @@ public final class PvtSequence: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Prevents PvtDiscontinuityException as a result of expected discontinuity when resuming the sequence.
      */
     public func ignoreCurrentDiscontinuity() throws  {
@@ -370,6 +418,8 @@ public final class PvtSequence: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets value for the specified digital output channel.
 
      - Parameters:
@@ -390,6 +440,8 @@ public final class PvtSequence: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets values for all digital output channels.
 
      - Parameters:
@@ -408,6 +460,8 @@ public final class PvtSequence: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets value for the specified analog output channel.
 
      - Parameters:
@@ -428,6 +482,8 @@ public final class PvtSequence: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets values for all analog output channels.
 
      - Parameters:
@@ -446,6 +502,8 @@ public final class PvtSequence: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets the axes of the PVT sequence.
 
      - Returns: An array of axis numbers of the axes the PVT sequence is set up to control.
@@ -462,6 +520,8 @@ public final class PvtSequence: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Get the mode of the PVT sequence.
 
      - Returns: Mode of the PVT sequence.

@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a device sends a response with unexpected type or data.
  */
 public final class InvalidResponseException: MotionLibException, @unchecked Sendable {

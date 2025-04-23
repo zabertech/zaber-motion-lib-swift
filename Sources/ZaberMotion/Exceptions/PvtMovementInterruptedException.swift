@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when ongoing PVT movement is interrupted by another command or user input.
  */
 public final class PvtMovementInterruptedException: MotionLibException, @unchecked Sendable {

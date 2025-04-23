@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a parameter of a command is judged to be out of range by the receiving device.
  */
 public final class BadDataException: CommandFailedException, @unchecked Sendable {

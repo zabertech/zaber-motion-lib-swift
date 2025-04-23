@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a streamed motion fails.
  */
 public final class StreamExecutionException: MotionLibException, @unchecked Sendable {

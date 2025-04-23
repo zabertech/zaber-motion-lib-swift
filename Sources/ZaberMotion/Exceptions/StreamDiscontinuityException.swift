@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a stream encounters discontinuity and interrupts the movement.
  */
 public final class StreamDiscontinuityException: MotionLibException, @unchecked Sendable {

@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a device registers a fault during PVT movement.
  */
 public final class PvtMovementFailedException: MotionLibException, @unchecked Sendable {

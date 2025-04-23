@@ -9,6 +9,8 @@ import ZaberMotionAscii
 import Utils
 
 /**
+ Module: ZaberMotionMicroscopy
+
  Represent a microscope.
  Parts of the microscope may or may not be instantiated depending on the configuration.
  Requires at least Firmware 7.34.
@@ -18,6 +20,8 @@ public final class Microscope: @unchecked Sendable {
     private let config: MicroscopeConfig
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Creates instance of `Microscope` from the given config.
      Parts are instantiated depending on device addresses in the config.
      */
@@ -43,56 +47,78 @@ public final class Microscope: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Connection of the microscope.
      */
     public let connection: Connection
 
     /**
+     Module: ZaberMotionMicroscopy
+
      The illuminator.
      */
     public let illuminator: Illuminator?
 
     /**
+     Module: ZaberMotionMicroscopy
+
      The focus axis.
      */
     public let focusAxis: Axis?
 
     /**
+     Module: ZaberMotionMicroscopy
+
      The X axis.
      */
     public let xAxis: Axis?
 
     /**
+     Module: ZaberMotionMicroscopy
+
      The Y axis.
      */
     public let yAxis: Axis?
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Axis group consisting of X and Y axes representing the plate of the microscope.
      */
     public let plate: AxisGroup?
 
     /**
+     Module: ZaberMotionMicroscopy
+
      The objective changer.
      */
     public let objectiveChanger: ObjectiveChanger?
 
     /**
+     Module: ZaberMotionMicroscopy
+
      The filter changer.
      */
     public let filterChanger: FilterChanger?
 
     /**
+     Module: ZaberMotionMicroscopy
+
      The autofocus feature.
      */
     public let autofocus: Autofocus?
 
     /**
+     Module: ZaberMotionMicroscopy
+
      The camera trigger.
      */
     public let cameraTrigger: CameraTrigger?
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Finds a microscope on a connection.
 
      - Parameters:
@@ -113,6 +139,8 @@ public final class Microscope: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Initializes the microscope.
      Homes all axes, filter changer, and objective changer if they require it.
 
@@ -129,6 +157,8 @@ public final class Microscope: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Checks whether the microscope is initialized.
 
      - Returns: True, when the microscope is initialized. False, otherwise.
@@ -143,6 +173,8 @@ public final class Microscope: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Returns a string that represents the microscope.
 
      - Returns: A string that represents the microscope.

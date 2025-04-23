@@ -6,6 +6,8 @@ import Gateway
 import ZaberMotionExceptions
 
 /**
+ Module: ZaberMotionAscii
+
  Class providing access to axis storage.
  Requires at least Firmware 7.30.
  */
@@ -18,6 +20,8 @@ public final class AxisStorage: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets the axis value stored at the provided key.
 
      - Parameters:
@@ -40,6 +44,8 @@ public final class AxisStorage: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets the axis value stored with the provided key.
 
      - Parameters:
@@ -62,6 +68,8 @@ public final class AxisStorage: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets the value at the provided key to the provided number.
 
      - Parameters:
@@ -80,6 +88,8 @@ public final class AxisStorage: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets the value at the provided key interpreted as a number.
 
      - Parameters:
@@ -99,6 +109,8 @@ public final class AxisStorage: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets the value at the provided key to the provided boolean.
 
      - Parameters:
@@ -117,6 +129,8 @@ public final class AxisStorage: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets the value at the provided key interpreted as a boolean.
 
      - Parameters:
@@ -136,6 +150,8 @@ public final class AxisStorage: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Erases the axis value stored at the provided key.
 
      - Parameters:
@@ -155,6 +171,8 @@ public final class AxisStorage: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Lists the axis storage keys matching a given prefix.
      Omit the prefix to list all the keys.
 
@@ -175,6 +193,8 @@ public final class AxisStorage: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Determines whether a given key exists in axis storage.
 
      - Parameters:

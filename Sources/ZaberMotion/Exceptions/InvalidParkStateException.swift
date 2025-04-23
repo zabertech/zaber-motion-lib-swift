@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a device is unable to park.
  */
 public final class InvalidParkStateException: MotionLibException, @unchecked Sendable {

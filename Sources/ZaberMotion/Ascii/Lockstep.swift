@@ -8,6 +8,8 @@ import ZaberMotionExceptions
 import Utils
 
 /**
+ Module: ZaberMotionAscii
+
  Represents a lockstep group with this ID on a device.
  A lockstep group is a movement synchronized pair of axes on a device.
  Requires at least Firmware 6.15 or 7.11.
@@ -20,16 +22,22 @@ public final class Lockstep: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Device that controls this lockstep group.
      */
     public let device: Device
 
     /**
+     Module: ZaberMotionAscii
+
      The number that identifies the lockstep group on the device.
      */
     public let lockstepGroupId: Int
 
     /**
+     Module: ZaberMotionAscii
+
      Activate the lockstep group on the axes specified.
 
      - Parameters:
@@ -46,6 +54,8 @@ public final class Lockstep: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Disable the lockstep group.
      */
     public func disable() async throws  {
@@ -58,6 +68,8 @@ public final class Lockstep: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Stops ongoing lockstep group movement. Decelerates until zero speed.
 
      - Parameters:
@@ -74,6 +86,8 @@ public final class Lockstep: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Retracts the axes of the lockstep group until a home associated with an individual axis is detected.
 
      - Parameters:
@@ -90,6 +104,8 @@ public final class Lockstep: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Move the first axis of the lockstep group to an absolute position.
      The other axes in the lockstep group maintain their offsets throughout movement.
 
@@ -124,6 +140,8 @@ public final class Lockstep: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Move the first axis of the lockstep group to a position relative to its current position.
      The other axes in the lockstep group maintain their offsets throughout movement.
 
@@ -158,6 +176,8 @@ public final class Lockstep: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Moves the first axis of the lockstep group at the specified speed.
      The other axes in the lockstep group maintain their offsets throughout movement.
 
@@ -184,6 +204,8 @@ public final class Lockstep: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Moves the first axis of the lockstep group in a sinusoidal trajectory.
      The other axes in the lockstep group maintain their offsets throughout movement.
 
@@ -213,6 +235,8 @@ public final class Lockstep: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Stops the lockstep group at the end of the sinusoidal trajectory for the first axis.
      If the sinusoidal motion was started with an integer-plus-half cycle count,
      the motion ends at the half-way point of the sinusoidal trajectory.
@@ -231,6 +255,8 @@ public final class Lockstep: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Moves the axes to the maximum valid position.
      The axes in the lockstep group maintain their offsets throughout movement.
      Respects lim.max for all axes in the group.
@@ -262,6 +288,8 @@ public final class Lockstep: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Moves the axes to the minimum valid position.
      The axes in the lockstep group maintain their offsets throughout movement.
      Respects lim.min for all axes in the group.
@@ -293,6 +321,8 @@ public final class Lockstep: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Waits until the lockstep group stops moving.
 
      - Parameters:
@@ -309,6 +339,8 @@ public final class Lockstep: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns bool indicating whether the lockstep group is executing a motion command.
 
      - Returns: True if the axes are currently executing a motion command.
@@ -324,6 +356,8 @@ public final class Lockstep: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets the axes of the lockstep group.
 
      - Returns: LockstepAxes instance which contains the axes numbers of the lockstep group.
@@ -341,6 +375,8 @@ public final class Lockstep: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets the axis numbers of the lockstep group.
 
      - Returns: Axis numbers in order specified when enabling lockstep.
@@ -356,6 +392,8 @@ public final class Lockstep: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets the initial offsets of secondary axes of an enabled lockstep group.
 
      - Parameters:
@@ -376,6 +414,8 @@ public final class Lockstep: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets the twists of secondary axes of an enabled lockstep group.
 
      - Parameters:
@@ -396,6 +436,8 @@ public final class Lockstep: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns current position of the primary axis.
 
      - Parameters:
@@ -415,6 +457,8 @@ public final class Lockstep: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets lockstep twist tolerance.
      Twist tolerances that do not match the system configuration can reduce performance or damage the system.
 
@@ -439,6 +483,8 @@ public final class Lockstep: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Checks if the lockstep group is currently enabled on the device.
 
      - Returns: True if a lockstep group with this ID is enabled on the device.
@@ -454,6 +500,8 @@ public final class Lockstep: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns a string which represents the enabled lockstep group.
 
      - Returns: String which represents the enabled lockstep group.

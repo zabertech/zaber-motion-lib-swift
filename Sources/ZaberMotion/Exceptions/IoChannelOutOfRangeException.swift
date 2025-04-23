@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a device IO operation cannot be performed because the provided channel is not valid.
  */
 public final class IoChannelOutOfRangeException: MotionLibException, @unchecked Sendable {

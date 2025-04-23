@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when device detection fails.
  */
 public final class DeviceDetectionFailedException: MotionLibException, @unchecked Sendable {

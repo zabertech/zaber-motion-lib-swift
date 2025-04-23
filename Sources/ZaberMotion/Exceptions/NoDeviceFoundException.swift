@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when no devices can be found on a connection.
  */
 public final class NoDeviceFoundException: MotionLibException, @unchecked Sendable {

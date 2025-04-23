@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Used for internal error handling.
  Indicates passing values of incorrect type from scripting languages or mixed library binary files.
  */

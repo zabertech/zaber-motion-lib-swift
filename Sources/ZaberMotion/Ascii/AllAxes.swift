@@ -6,6 +6,8 @@ import Gateway
 import ZaberMotionExceptions
 
 /**
+ Module: ZaberMotionAscii
+
  Represents all axes of motion associated with a device.
  */
 public final class AllAxes: @unchecked Sendable {
@@ -15,11 +17,15 @@ public final class AllAxes: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Device that controls this axis.
      */
     public let device: Device
 
     /**
+     Module: ZaberMotionAscii
+
      Homes all axes. Axes return to their homing positions.
 
      - Parameters:
@@ -36,6 +42,8 @@ public final class AllAxes: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Stops ongoing axes movement. Decelerates until zero speed.
 
      - Parameters:
@@ -52,6 +60,8 @@ public final class AllAxes: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Waits until all axes of device stop moving.
 
      - Parameters:
@@ -68,6 +78,8 @@ public final class AllAxes: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Parks the device in anticipation of turning the power off.
      It can later be powered on, unparked, and moved without first having to home it.
      */
@@ -81,6 +93,8 @@ public final class AllAxes: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Unparks the device. The device will now be able to move.
      */
     public func unpark() async throws  {
@@ -93,6 +107,8 @@ public final class AllAxes: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns bool indicating whether any axis is executing a motion command.
 
      - Returns: True if any axis is currently executing a motion command.
@@ -108,6 +124,8 @@ public final class AllAxes: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns bool indicating whether all axes have position reference and were homed.
 
      - Returns: True if all axes have position reference and were homed.
@@ -123,6 +141,8 @@ public final class AllAxes: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Disables all axes drivers, which prevents current from being sent to the motor or load.
      */
     public func driverDisable() async throws  {
@@ -135,6 +155,8 @@ public final class AllAxes: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Attempts to enable all axes drivers (where applicable) repeatedly for the specified timeout.
      If the driver is already enabled, the driver remains enabled.
 
@@ -152,6 +174,8 @@ public final class AllAxes: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns a string that represents the axes.
 
      - Returns: A string that represents the axes.

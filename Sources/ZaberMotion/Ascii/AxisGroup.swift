@@ -8,6 +8,8 @@ import Gateway
 import ZaberMotionExceptions
 
 /**
+ Module: ZaberMotionAscii
+
  Groups multiple axes across devices into a single group to allow for simultaneous movement.
  Note that the movement is not coordinated and trajectory is inconsistent and not repeatable between calls.
  Make sure that any possible trajectory is clear of potential obstacles.
@@ -17,6 +19,8 @@ import ZaberMotionExceptions
 public final class AxisGroup: @unchecked Sendable {
 
     /**
+     Module: ZaberMotionAscii
+
      Initializes the group with the axes to be controlled.
      */
     public init(axes: [Axis]) {
@@ -24,11 +28,15 @@ public final class AxisGroup: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Axes of the group.
      */
     public let axes: [Axis]
 
     /**
+     Module: ZaberMotionAscii
+
      Homes the axes.
      */
     public func home() async throws  {
@@ -41,6 +49,8 @@ public final class AxisGroup: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Stops the axes.
      */
     public func stop() async throws  {
@@ -53,6 +63,8 @@ public final class AxisGroup: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Moves the axes to absolute position.
 
      - Parameters:
@@ -69,6 +81,8 @@ public final class AxisGroup: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Move axes to position relative to the current position.
 
      - Parameters:
@@ -85,6 +99,8 @@ public final class AxisGroup: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Moves axes to the minimum position as specified by limit.min.
      */
     public func moveMin() async throws  {
@@ -97,6 +113,8 @@ public final class AxisGroup: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Moves axes to the maximum position as specified by limit.max.
      */
     public func moveMax() async throws  {
@@ -109,6 +127,8 @@ public final class AxisGroup: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Waits until all the axes stop moving.
      */
     public func waitUntilIdle() async throws  {
@@ -121,6 +141,8 @@ public final class AxisGroup: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns bool indicating whether any of the axes is executing a motion command.
 
      - Returns: True if any of the axes is currently executing a motion command. False otherwise.
@@ -136,6 +158,8 @@ public final class AxisGroup: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns bool indicating whether all the axes are homed.
 
      - Returns: True if all the axes are homed. False otherwise.
@@ -151,6 +175,8 @@ public final class AxisGroup: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns current axes position.
      The positions are requested sequentially.
      The result position may not be accurate if the axes are moving.
@@ -173,6 +199,8 @@ public final class AxisGroup: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns a string that represents the axes.
 
      - Returns: A string that represents the axes.

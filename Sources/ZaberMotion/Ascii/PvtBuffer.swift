@@ -6,6 +6,8 @@ import Gateway
 import ZaberMotionExceptions
 
 /**
+ Module: ZaberMotionAscii
+
  Represents a PVT buffer with this number on a device.
  A PVT buffer is a place to store a queue of PVT actions.
  */
@@ -17,16 +19,22 @@ public final class PvtBuffer: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      The Device this buffer exists on.
      */
     public let device: Device
 
     /**
+     Module: ZaberMotionAscii
+
      The number identifying the buffer on the device.
      */
     public let bufferId: Int
 
     /**
+     Module: ZaberMotionAscii
+
      Gets the buffer contents as an array of strings.
 
      - Returns: A string array containing all the PVT commands stored in the buffer.
@@ -43,6 +51,8 @@ public final class PvtBuffer: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Erases the contents of the buffer.
      This method fails if there is a PVT sequence writing to the buffer.
      */

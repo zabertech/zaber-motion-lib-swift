@@ -1,4 +1,6 @@
 /**
+ Module: ZaberMotionExceptions
+ 
  Error propagated from the native library.
  */
 public class MotionLibException: Error, @unchecked Sendable {

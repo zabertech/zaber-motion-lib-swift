@@ -2,6 +2,8 @@
 // ============== DO NOT EDIT DIRECTLY ============== //
 
 /**
+ Module: ZaberMotionAscii
+
  Warning flag constants that indicate whether any device fault or warning is active.
  For more information please refer to the
  [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_message_format_warning_flags).

@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a command is too long to be written by the ASCII protocol, even when continued across multiple lines.
  */
 public final class CommandTooLongException: MotionLibException, @unchecked Sendable {

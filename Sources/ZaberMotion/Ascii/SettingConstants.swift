@@ -2,6 +2,8 @@
 // ============== DO NOT EDIT DIRECTLY ============== //
 
 /**
+ Module: ZaberMotionAscii
+
  Named constants for all Zaber ASCII protocol settings.
  For more information please refer to the
  [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_settings).

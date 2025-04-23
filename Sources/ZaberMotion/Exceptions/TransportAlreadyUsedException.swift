@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a transport has already been used to open another connection.
  */
 public final class TransportAlreadyUsedException: MotionLibException, @unchecked Sendable {

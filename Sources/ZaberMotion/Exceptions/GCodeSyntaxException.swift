@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a block of G-Code cannot be parsed.
  */
 public final class GCodeSyntaxException: MotionLibException, @unchecked Sendable {

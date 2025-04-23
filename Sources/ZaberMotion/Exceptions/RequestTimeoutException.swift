@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a device does not respond to a request in time.
  */
 public final class RequestTimeoutException: MotionLibException, @unchecked Sendable {

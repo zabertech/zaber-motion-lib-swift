@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a device does not support a requested command or setting.
  */
 public final class NotSupportedException: MotionLibException, @unchecked Sendable {

@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a device rejects a command.
  */
 public class CommandFailedException: MotionLibException, @unchecked Sendable {

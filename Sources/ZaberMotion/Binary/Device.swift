@@ -10,6 +10,8 @@ import ZaberMotionExceptions
 import Utils
 
 /**
+ Module: ZaberMotionBinary
+
  Represents a device using the binary protocol.
  */
 public final class Device: @unchecked Sendable {
@@ -23,27 +25,37 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Default timeout for move commands in seconds.
      */
     public static let defaultMovementTimeout: Double = 60;
 
     /**
+     Module: ZaberMotionBinary
+
      Connection of this device.
      */
     public let connection: Connection
 
     /**
+     Module: ZaberMotionBinary
+
      Settings and properties of this axis.
      */
     public private(set) lazy var settings: DeviceSettings = DeviceSettings(device: self)
 
     /**
+     Module: ZaberMotionBinary
+
      The device address uniquely identifies the device on the connection.
      It can be configured or automatically assigned by the renumber command.
      */
     public let deviceAddress: Int
 
     /**
+     Module: ZaberMotionBinary
+
      Identity of the device.
      */
     public var identity: DeviceIdentity {
@@ -51,6 +63,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Indicates whether or not the device has been identified.
      */
     public var isIdentified: Bool {
@@ -58,6 +72,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Unique ID of the device hardware.
      */
     public var deviceId: Int {
@@ -65,6 +81,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Serial number of the device.
      Requires at least Firmware 6.15 for devices or 6.24 for peripherals.
      */
@@ -73,6 +91,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Name of the product.
      */
     public var name: String {
@@ -80,6 +100,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Version of the firmware.
      */
     public var firmwareVersion: Dto.FirmwareVersion {
@@ -87,6 +109,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Indicates whether the device is a peripheral or part of an integrated device.
      */
     public var isPeripheral: Bool {
@@ -94,6 +118,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Unique ID of the peripheral hardware.
      */
     public var peripheralId: Int {
@@ -101,6 +127,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Name of the peripheral hardware.
      */
     public var peripheralName: String {
@@ -108,6 +136,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Determines the type of an device and units it accepts.
      */
     public var deviceType: DtoBinary.DeviceType {
@@ -115,6 +145,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Sends a generic Binary command to this device.
      For more information please refer to the
      [Binary Protocol Manual](https://www.zaber.com/protocol-manual?protocol=Binary#topic_quick_command_reference).
@@ -142,6 +174,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Sends a generic Binary command to this device without expecting a response.
      For more information please refer to the
      [Binary Protocol Manual](https://www.zaber.com/protocol-manual?protocol=Binary#topic_quick_command_reference).
@@ -161,6 +195,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Sends a generic Binary command to this device with unit conversions for both sent data and retrieved data.
 
      - Parameters:
@@ -187,6 +223,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Homes device. Device returns to its homing position.
 
      - Parameters:
@@ -207,6 +245,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Stops ongoing device movement. Decelerates until zero speed.
 
      - Parameters:
@@ -227,6 +267,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Move device to absolute position.
 
      - Parameters:
@@ -250,6 +292,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Move device to position relative to current position.
 
      - Parameters:
@@ -273,6 +317,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Begins to move device at specified speed.
 
      - Parameters:
@@ -294,6 +340,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Waits until device stops moving.
      */
     public func waitUntilIdle() async throws  {
@@ -305,6 +353,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Check whether the device is moving.
 
      - Returns: True if the device is currently executing a motion command.
@@ -319,6 +369,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Queries the device and the database, gathering information about the product.
      Without this information features such as unit conversions will not work.
      Usually, called automatically by detect devices method.
@@ -342,6 +394,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Parks the axis.
      Motor drivers remain enabled and hold current continues to be applied until the device is powered off.
      It can later be unparked and moved without first having to home it.
@@ -356,6 +410,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Unparks axis. Axis will now be able to move.
      Requires at least Firmware 6.06.
      */
@@ -368,6 +424,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Returns bool indicating whether the axis is parked or not.
      Requires at least Firmware 6.06.
 
@@ -383,6 +441,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Returns current device position.
 
      - Parameters:
@@ -402,6 +462,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Returns a string that represents the device.
 
      - Returns: A string that represents the device.
@@ -416,6 +478,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Returns identity.
 
      - Returns: Device identity.
@@ -429,6 +493,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Returns whether or not the device have been identified.
 
      - Returns: True if the device has already been identified. False otherwise.

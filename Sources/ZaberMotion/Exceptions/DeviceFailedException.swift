@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a device registers fatal failure.
  Contact support if you observe this exception.
  */

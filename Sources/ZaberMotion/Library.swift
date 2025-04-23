@@ -5,6 +5,8 @@ import Gateway
 import DtoRequests
 
 /**
+ Module: ZaberMotion
+
  Access class to general library information and configuration.
  */
 public final class Library {
@@ -13,6 +15,8 @@ public final class Library {
     @available(*, unavailable) private init() {}
 
     /**
+     Module: ZaberMotion
+
      Sets library logging output.
 
      - Parameters:
@@ -28,6 +32,8 @@ public final class Library {
     }
 
     /**
+     Module: ZaberMotion
+
      Sets source of Device DB data. Allows selection of a web service or a local file.
 
      - Parameters:
@@ -44,6 +50,8 @@ public final class Library {
     }
 
     /**
+     Module: ZaberMotion
+
      Enables Device DB store.
      The store uses filesystem to save information obtained from the Device DB.
      The stored data are later used instead of the Device DB.
@@ -62,6 +70,8 @@ public final class Library {
     }
 
     /**
+     Module: ZaberMotion
+
      Disables Device DB store.
      */
     public static func disableDeviceDbStore() throws  {
@@ -71,6 +81,8 @@ public final class Library {
     }
 
     /**
+     Module: ZaberMotion
+
      Disables certain customer checks (like FF flag).
 
      - Parameters:
@@ -84,6 +96,8 @@ public final class Library {
     }
 
     /**
+     Module: ZaberMotion
+
      Sets the period between polling for IDLE during movements.
      Caution: Setting the period too low may cause performance issues.
 
@@ -99,12 +113,14 @@ public final class Library {
     }
 
     /**
+     Module: ZaberMotion
+
      Throws an error if the version of the loaded shared library does not match the caller's version.
      */
     public static func checkVersion() throws  {
         var request = DtoRequests.CheckVersionRequest()
         request.host = "swift"
-        request.version = "7.6.1"
+        request.version = "7.6.2"
 
         try Gateway.callSync("library/check_version", request)
     }

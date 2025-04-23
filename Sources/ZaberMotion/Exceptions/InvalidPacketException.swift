@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a packet from a device cannot be parsed.
  */
 public final class InvalidPacketException: MotionLibException, @unchecked Sendable {

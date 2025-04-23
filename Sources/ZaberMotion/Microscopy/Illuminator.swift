@@ -9,12 +9,16 @@ import ZaberMotionAscii
 import Utils
 
 /**
+ Module: ZaberMotionMicroscopy
+
  Use to manage an LED controller.
  Requires at least Firmware 7.09.
  */
 public final class Illuminator: @unchecked Sendable {
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Creates instance of `Illuminator` based on the given device.
      If the device is identified, this constructor will ensure it is an illuminator.
      */
@@ -25,16 +29,22 @@ public final class Illuminator: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      The base device of this illuminator.
      */
     public let device: Device
 
     /**
+     Module: ZaberMotionMicroscopy
+
      I/O channels of this device.
      */
     public let io: DeviceIO
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Finds an illuminator on a connection.
      In case of conflict, specify the optional device address.
 
@@ -56,6 +66,8 @@ public final class Illuminator: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Gets an IlluminatorChannel class instance that allows control of a particular channel.
      Channels are numbered from 1.
 
@@ -73,6 +85,8 @@ public final class Illuminator: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Returns a string that represents the device.
 
      - Returns: A string that represents the device.
@@ -87,6 +101,8 @@ public final class Illuminator: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Checks if this is an illuminator or some other type of device and throws an error if it is not.
      */
     func verifyIsIlluminator() throws  {

@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when incoming device data cannot be parsed as expected.
  */
 public final class InvalidDataException: MotionLibException, @unchecked Sendable {

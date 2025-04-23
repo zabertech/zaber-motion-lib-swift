@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when the library cannot perform an operation on a file.
  */
 public final class IoFailedException: MotionLibException, @unchecked Sendable {

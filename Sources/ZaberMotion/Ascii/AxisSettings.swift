@@ -8,6 +8,8 @@ import ZaberMotionExceptions
 import Utils
 
 /**
+ Module: ZaberMotionAscii
+
  Class providing access to various axis settings and properties.
  */
 public final class AxisSettings: @unchecked Sendable {
@@ -19,6 +21,8 @@ public final class AxisSettings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns any axis setting or property.
      For more information refer to the [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_settings).
 
@@ -41,6 +45,8 @@ public final class AxisSettings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets any axis setting.
      For more information refer to the [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_settings).
 
@@ -62,6 +68,8 @@ public final class AxisSettings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns any axis setting or property as a string.
      For more information refer to the [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_settings).
 
@@ -82,6 +90,8 @@ public final class AxisSettings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets any axis setting as a string.
      For more information refer to the [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_settings).
 
@@ -101,6 +111,8 @@ public final class AxisSettings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Convert arbitrary setting value to Zaber native units.
 
      - Parameters:
@@ -124,6 +136,8 @@ public final class AxisSettings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Convert arbitrary setting value from Zaber native units.
 
      - Parameters:
@@ -148,6 +162,8 @@ public final class AxisSettings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns the default value of a setting.
 
      - Parameters:
@@ -169,6 +185,8 @@ public final class AxisSettings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns the default value of a setting as a string.
 
      - Parameters:
@@ -188,6 +206,8 @@ public final class AxisSettings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Indicates if given setting can be converted from and to native units.
 
      - Parameters:
@@ -207,6 +227,8 @@ public final class AxisSettings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Overrides default unit conversions.
      Conversion factors are specified by setting names representing underlying dimensions.
      Requires at least Firmware 7.30.
@@ -225,6 +247,8 @@ public final class AxisSettings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets many setting values in as few requests as possible.
 
      - Parameters:
@@ -246,6 +270,8 @@ public final class AxisSettings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets many setting values in the same tick, ensuring their values are synchronized.
      Requires at least Firmware 7.35.
 

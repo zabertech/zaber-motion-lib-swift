@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when attempting an operation that requires an identified device.
  */
 public final class DeviceNotIdentifiedException: MotionLibException, @unchecked Sendable {

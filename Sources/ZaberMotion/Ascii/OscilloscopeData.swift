@@ -8,6 +8,8 @@ import Gateway
 import ZaberMotionExceptions
 
 /**
+ Module: ZaberMotionAscii
+
  Contains a block of contiguous recorded data for one channel of the device's oscilloscope.
  */
 public final class OscilloscopeData: @unchecked Sendable {
@@ -17,11 +19,15 @@ public final class OscilloscopeData: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Unique ID for this block of recorded data.
      */
     public let dataId: Int
 
     /**
+     Module: ZaberMotionAscii
+
      Indicates whether the data came from a setting or an I/O pin.
      */
     public var dataSource: OscilloscopeDataSource {
@@ -29,6 +35,8 @@ public final class OscilloscopeData: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      The name of the recorded setting.
      */
     public var setting: String {
@@ -36,6 +44,8 @@ public final class OscilloscopeData: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      The number of the axis the data was recorded from, or 0 for the controller.
      */
     public var axisNumber: Int {
@@ -43,6 +53,8 @@ public final class OscilloscopeData: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Which kind of I/O port data was recorded from.
      */
     public var ioType: IoPortType {
@@ -50,6 +62,8 @@ public final class OscilloscopeData: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Which I/O pin within the port was recorded.
      */
     public var ioChannel: Int {
@@ -57,6 +71,8 @@ public final class OscilloscopeData: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Get the sample interval that this data was recorded with.
 
      - Parameters:
@@ -74,6 +90,8 @@ public final class OscilloscopeData: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Get the sampling frequency that this data was recorded with.
 
      - Parameters:
@@ -91,6 +109,8 @@ public final class OscilloscopeData: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Get the user-specified time period between receipt of the start command and the first data point.
      Under some circumstances, the actual delay may be different - call GetSampleTime(0) to get the effective delay.
 
@@ -109,6 +129,8 @@ public final class OscilloscopeData: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Calculate the time a sample was recorded, relative to when the recording was triggered.
 
      - Parameters:
@@ -128,6 +150,8 @@ public final class OscilloscopeData: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Calculate the time for all samples, relative to when the recording was triggered.
 
      - Parameters:
@@ -145,6 +169,8 @@ public final class OscilloscopeData: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Get the recorded data as an array of doubles, with optional unit conversion.
      Note that not all quantities can be unit converted.
      For example, digital I/O channels and pure numbers such as device mode settings have no units.
@@ -164,6 +190,8 @@ public final class OscilloscopeData: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Releases native resources of an oscilloscope data buffer.
 
      - Parameters:
@@ -177,6 +205,8 @@ public final class OscilloscopeData: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns recording properties.
 
      - Returns: Capture properties.

@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when trying to access a key that has not been set.
  */
 public final class NoValueForKeyException: MotionLibException, @unchecked Sendable {

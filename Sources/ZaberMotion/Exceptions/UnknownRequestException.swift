@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Used for internal error handling. Indicates mixed library binary files. Reinstall the library.
  */
 public final class UnknownRequestException: MotionLibException, @unchecked Sendable {

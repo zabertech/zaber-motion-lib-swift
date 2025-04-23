@@ -6,6 +6,8 @@ import Gateway
 import ZaberMotionExceptions
 
 /**
+ Module: ZaberMotionAscii
+
  Represents a stream buffer with this number on a device.
  A stream buffer is a place to store a queue of stream actions.
  */
@@ -17,16 +19,22 @@ public final class StreamBuffer: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      The Device this buffer exists on.
      */
     public let device: Device
 
     /**
+     Module: ZaberMotionAscii
+
      The number identifying the buffer on the device.
      */
     public let bufferId: Int
 
     /**
+     Module: ZaberMotionAscii
+
      Get the buffer contents as an array of strings.
 
      - Returns: A string array containing all the stream commands stored in the buffer.
@@ -42,6 +50,8 @@ public final class StreamBuffer: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Erase the contents of the buffer.
      This method fails if there is a stream writing to the buffer.
      */

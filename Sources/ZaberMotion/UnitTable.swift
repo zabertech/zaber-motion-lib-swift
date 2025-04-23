@@ -6,6 +6,8 @@ import Gateway
 import DtoRequests
 
 /**
+ Module: ZaberMotion
+
  Helper for working with units of measure.
  */
 public final class UnitTable {
@@ -14,6 +16,8 @@ public final class UnitTable {
     @available(*, unavailable) private init() {}
 
     /**
+     Module: ZaberMotion
+
      Gets the standard symbol associated with a given unit.
 
      - Parameters:
@@ -30,6 +34,8 @@ public final class UnitTable {
     }
 
     /**
+     Module: ZaberMotion
+
      Gets the unit enum value associated with a standard symbol.
      Note not all units can be retrieved this way.
 

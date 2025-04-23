@@ -9,6 +9,8 @@ import ZaberMotionExceptions
 import Utils
 
 /**
+ Module: ZaberMotionAscii
+
  Class providing access to various device settings and properties.
  */
 public final class DeviceSettings: @unchecked Sendable {
@@ -20,6 +22,8 @@ public final class DeviceSettings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns any device setting or property.
      For more information refer to the [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_settings).
 
@@ -41,6 +45,8 @@ public final class DeviceSettings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets any device setting.
      For more information refer to the [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_settings).
 
@@ -61,6 +67,8 @@ public final class DeviceSettings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns any device setting or property as a string.
      For more information refer to the [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_settings).
 
@@ -80,6 +88,8 @@ public final class DeviceSettings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets any device setting as a string.
      For more information refer to the [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_settings).
 
@@ -98,6 +108,8 @@ public final class DeviceSettings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Convert arbitrary setting value to Zaber native units.
 
      - Parameters:
@@ -120,6 +132,8 @@ public final class DeviceSettings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Convert arbitrary setting value from Zaber native units.
 
      - Parameters:
@@ -143,6 +157,8 @@ public final class DeviceSettings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns the default value of a setting.
 
      - Parameters:
@@ -163,6 +179,8 @@ public final class DeviceSettings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns the default value of a setting as a string.
 
      - Parameters:
@@ -181,6 +199,8 @@ public final class DeviceSettings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Indicates if given setting can be converted from and to native units.
 
      - Parameters:
@@ -199,6 +219,8 @@ public final class DeviceSettings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets the value of an axis scope setting for each axis on the device.
      Values may be NaN where the setting is not applicable.
 
@@ -218,6 +240,8 @@ public final class DeviceSettings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets many setting values in as few device requests as possible.
 
      - Parameters:
@@ -238,6 +262,8 @@ public final class DeviceSettings: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets many setting values in the same tick, ensuring their values are synchronized.
      Requires at least Firmware 7.35.
 

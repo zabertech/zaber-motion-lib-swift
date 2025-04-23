@@ -7,6 +7,8 @@ import ZaberMotionExceptions
 import Utils
 
 /**
+ Module: ZaberMotionAscii
+
  Class providing access to device triggers.
  Please note that the Triggers API is currently an experimental feature.
  Requires at least Firmware 7.06.
@@ -18,11 +20,15 @@ public final class Triggers: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Device that these triggers belong to.
      */
     public let device: Device
 
     /**
+     Module: ZaberMotionAscii
+
      Get the number of triggers for this device.
 
      - Returns: Number of triggers for this device.
@@ -38,6 +44,8 @@ public final class Triggers: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Get the number of actions for each trigger for this device.
 
      - Returns: Number of actions for each trigger for this device.
@@ -53,6 +61,8 @@ public final class Triggers: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Get a specific trigger for this device.
 
      - Parameters:
@@ -69,6 +79,8 @@ public final class Triggers: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Get the state for every trigger for this device.
 
      - Returns: Complete state for every trigger.
@@ -85,6 +97,8 @@ public final class Triggers: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets the enabled state for every trigger for this device.
 
      - Returns: Whether triggers are enabled and the number of times they will fire.
@@ -101,6 +115,8 @@ public final class Triggers: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets the labels for every trigger for this device.
 
      - Returns: The labels for every trigger for this device. If a trigger has no label, the value will be an empty string.

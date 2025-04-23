@@ -8,6 +8,8 @@ import ZaberMotionExceptions
 import Utils
 
 /**
+ Module: ZaberMotionAscii
+
  Class providing access to the I/O channels of the device.
  */
 public final class DeviceIO: @unchecked Sendable {
@@ -19,6 +21,8 @@ public final class DeviceIO: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns the number of I/O channels the device has.
 
      - Returns: An object containing the number of I/O channels the device has.
@@ -34,6 +38,8 @@ public final class DeviceIO: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets the label of the specified channel.
 
      - Parameters:
@@ -54,6 +60,8 @@ public final class DeviceIO: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns the label of the specified channel.
 
      - Parameters:
@@ -74,6 +82,8 @@ public final class DeviceIO: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns every label assigned to an IO port on this device.
 
      - Returns: The labels set for this device's IO.
@@ -90,6 +100,8 @@ public final class DeviceIO: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns the current value of the specified digital input channel.
 
      - Parameters:
@@ -109,6 +121,8 @@ public final class DeviceIO: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns the current value of the specified digital output channel.
 
      - Parameters:
@@ -128,6 +142,8 @@ public final class DeviceIO: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns the current value of the specified analog input channel.
 
      - Parameters:
@@ -147,6 +163,8 @@ public final class DeviceIO: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns the current values of the specified analog output channel.
 
      - Parameters:
@@ -166,6 +184,8 @@ public final class DeviceIO: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns the current values of all digital input channels.
 
      - Returns: True if voltage is present on the input channel and false otherwise.
@@ -181,6 +201,8 @@ public final class DeviceIO: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns the current values of all digital output channels.
 
      - Returns: True if the output channel is conducting and false otherwise.
@@ -196,6 +218,8 @@ public final class DeviceIO: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns the current values of all analog input channels.
 
      - Returns: Measurements of the voltages present on the input channels.
@@ -211,6 +235,8 @@ public final class DeviceIO: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns the current values of all analog output channels.
 
      - Returns: Measurements of voltage that the output channels are conducting.
@@ -226,6 +252,8 @@ public final class DeviceIO: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets value for the specified digital output channel.
 
      - Parameters:
@@ -243,6 +271,8 @@ public final class DeviceIO: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets values for all digital output channels.
 
      - Parameters:
@@ -258,6 +288,8 @@ public final class DeviceIO: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets current and future value for the specified digital output channel.
      Requires at least Firmware 7.37.
 
@@ -286,6 +318,8 @@ public final class DeviceIO: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets current and future values for all digital output channels.
      Requires at least Firmware 7.37.
 
@@ -312,6 +346,8 @@ public final class DeviceIO: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets value for the specified analog output channel.
 
      - Parameters:
@@ -329,6 +365,8 @@ public final class DeviceIO: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets values for all analog output channels.
 
      - Parameters:
@@ -344,6 +382,8 @@ public final class DeviceIO: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets current and future value for the specified analog output channel.
      Requires at least Firmware 7.38.
 
@@ -372,6 +412,8 @@ public final class DeviceIO: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets current and future values for all analog output channels.
      Requires at least Firmware 7.38.
 
@@ -398,6 +440,8 @@ public final class DeviceIO: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets the cutoff frequency of the low-pass filter for the specified analog input channel.
      Set the frequency to 0 to disable the filter.
 
@@ -418,6 +462,8 @@ public final class DeviceIO: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Cancels a scheduled digital output action.
      Requires at least Firmware 7.37.
 
@@ -435,6 +481,8 @@ public final class DeviceIO: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Cancel all scheduled digital output actions.
      Requires at least Firmware 7.37.
 
@@ -454,6 +502,8 @@ public final class DeviceIO: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Cancels a scheduled analog output value.
      Requires at least Firmware 7.38.
 
@@ -471,6 +521,8 @@ public final class DeviceIO: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Cancel all scheduled analog output actions.
      Requires at least Firmware 7.38.
 

@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a device cannot be set to the supplied state.
  */
 public final class SetDeviceStateFailedException: MotionLibException, @unchecked Sendable {

@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Used for internal error handling. Please report an issue if observed.
  */
 public final class InternalErrorException: MotionLibException, @unchecked Sendable {

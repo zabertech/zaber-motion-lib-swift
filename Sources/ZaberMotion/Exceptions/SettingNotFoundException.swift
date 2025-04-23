@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a get or a set command cannot be found for a setting.
  */
 public final class SettingNotFoundException: MotionLibException, @unchecked Sendable {

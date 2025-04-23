@@ -9,6 +9,8 @@ import ZaberMotionExceptions
 import Utils
 
 /**
+ Module: ZaberMotionAscii
+
  Represents an axis of motion associated with a device.
  */
 public final class Axis: @unchecked Sendable {
@@ -24,33 +26,45 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Device that controls this axis.
      */
     public let device: Device
 
     /**
+     Module: ZaberMotionAscii
+
      The axis number identifies the axis on the device.
      The first axis has the number one.
      */
     public let axisNumber: Int
 
     /**
+     Module: ZaberMotionAscii
+
      Settings and properties of this axis.
      */
     public private(set) lazy var settings: AxisSettings = AxisSettings(axis: self)
 
     /**
+     Module: ZaberMotionAscii
+
      Key-value storage of this axis.
      Requires at least Firmware 7.30.
      */
     public private(set) lazy var storage: AxisStorage = AxisStorage(axis: self)
 
     /**
+     Module: ZaberMotionAscii
+
      Warnings and faults of this axis.
      */
     public let warnings: Warnings
 
     /**
+     Module: ZaberMotionAscii
+
      Identity of the axis.
      */
     public var identity: AxisIdentity {
@@ -58,6 +72,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Unique ID of the peripheral hardware.
      */
     public var peripheralId: Int {
@@ -65,6 +81,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Name of the peripheral.
      */
     public var peripheralName: String {
@@ -72,6 +90,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Serial number of the peripheral, or 0 when not applicable.
      */
     public var peripheralSerialNumber: UInt {
@@ -79,6 +99,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Indicates whether the axis is a peripheral or part of an integrated device.
      */
     public var isPeripheral: Bool {
@@ -86,6 +108,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Determines the type of an axis and units it accepts.
      */
     public var axisType: AxisType {
@@ -93,6 +117,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      User-assigned label of the peripheral.
      */
     public var label: String {
@@ -100,6 +126,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Homes axis. Axis returns to its homing position.
 
      - Parameters:
@@ -116,6 +144,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Stops ongoing axis movement. Decelerates until zero speed.
 
      - Parameters:
@@ -132,6 +162,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Parks the axis in anticipation of turning the power off.
      It can later be powered on, unparked, and moved without first having to home it.
      */
@@ -145,6 +177,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Unparks axis. Axis will now be able to move.
      */
     public func unpark() async throws  {
@@ -157,6 +191,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns bool indicating whether the axis is parked or not.
 
      - Returns: True if the axis is currently parked. False otherwise.
@@ -172,6 +208,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Waits until axis stops moving.
 
      - Parameters:
@@ -188,6 +226,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns bool indicating whether the axis is executing a motion command.
 
      - Returns: True if the axis is currently executing a motion command.
@@ -203,6 +243,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns bool indicating whether the axis has position reference and was homed.
 
      - Returns: True if the axis has position reference and was homed.
@@ -218,6 +260,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Move axis to absolute position.
 
      - Parameters:
@@ -251,6 +295,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Moves the axis to the maximum position as specified by limit.max.
 
      - Parameters:
@@ -280,6 +326,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Moves the axis to the minimum position as specified by limit.min.
 
      - Parameters:
@@ -309,6 +357,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Move axis to position relative to current position.
 
      - Parameters:
@@ -342,6 +392,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Begins to move axis at specified speed.
 
      - Parameters:
@@ -367,6 +419,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns current axis position.
 
      - Parameters:
@@ -387,6 +441,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets number of index positions of the axis.
 
      - Returns: Number of index positions.
@@ -402,6 +458,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns current axis index position.
 
      - Returns: Index position starting from 1 or 0 if the position is not an index position.
@@ -417,6 +475,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Moves the axis to index position.
 
      - Parameters:
@@ -448,6 +508,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sends a generic ASCII command to this axis.
      For more information refer to: [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_commands).
 
@@ -474,6 +536,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sends a generic ASCII command to this axis and expect multiple responses.
      Responses are returned in order of arrival.
      For more information refer to: [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_commands).
@@ -502,6 +566,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sends a generic ASCII command to this axis without expecting a response and without adding a message ID
      For more information refer to: [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_commands).
 
@@ -519,6 +585,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Formats parameters into a command and performs unit conversions.
      Parameters in the command template are denoted by a question mark.
      Command returned is only valid for this axis and this device.
@@ -543,6 +611,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets the user-assigned peripheral label.
      The label is stored on the controller and recognized by other software.
 
@@ -560,6 +630,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns a string that represents the axis.
 
      - Returns: A string that represents the axis.
@@ -575,6 +647,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns a serialization of the current axis state that can be saved and reapplied.
 
      - Returns: A serialization of the current state of the axis.
@@ -590,6 +664,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Applies a saved state to this axis.
 
      - Parameters:
@@ -610,6 +686,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Checks if a state can be applied to this axis.
      This only covers exceptions that can be determined statically such as mismatches of ID or version,
      the process of applying the state can still fail when running.
@@ -634,6 +712,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Disables the driver, which prevents current from being sent to the motor or load.
      If the driver is already disabled, the driver remains disabled.
      */
@@ -647,6 +727,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Attempts to enable the driver repeatedly for the specified timeout.
      If the driver is already enabled, the driver remains enabled.
 
@@ -664,6 +746,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Activates a peripheral on this axis.
      Removes all identity information for the device.
      Run the identify method on the device after activating to refresh the information.
@@ -678,6 +762,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Restores all axis settings to their default values.
      Deletes all zaber axis storage keys.
      Disables lockstep if the axis is part of one. Unparks the axis.
@@ -694,6 +780,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Moves the axis in a sinusoidal trajectory.
 
      - Parameters:
@@ -722,6 +810,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Stops the axis at the end of the sinusoidal trajectory.
      If the sinusoidal motion was started with an integer-plus-half cycle count,
      the motion ends at the half-way point of the sinusoidal trajectory.
@@ -740,6 +830,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets the peripheral name.
 
      - Returns: The label.
@@ -755,6 +847,8 @@ public final class Axis: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns identity.
 
      - Returns: Axis identity.

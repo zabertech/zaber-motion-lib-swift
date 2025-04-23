@@ -10,6 +10,8 @@ import ZaberMotionExceptions
 import Utils
 
 /**
+ Module: ZaberMotionBinary
+
  Class representing access to particular connection (serial port, TCP connection) using the legacy Binary protocol.
  */
 public final class Connection: @unchecked Sendable {
@@ -20,16 +22,22 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Default baud rate for serial connections.
      */
     public static let defaultBaudRate: Int = 9600;
 
     /**
+     Module: ZaberMotionBinary
+
      The interface ID identifies thisConnection instance with the underlying library.
      */
     public let interfaceId: Int
 
     /**
+     Module: ZaberMotionBinary
+
      Opens a serial port.
 
      - Parameters:
@@ -54,6 +62,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Opens a TCP connection.
 
      - Parameters:
@@ -78,6 +88,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Close the connection.
      */
     public func close() async throws  {
@@ -88,6 +100,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Sends a generic Binary command to this connection.
      For more information please refer to the
      [Binary Protocol Manual](https://www.zaber.com/protocol-manual?protocol=Binary#topic_quick_command_reference).
@@ -116,6 +130,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Sends a generic Binary command to this connection without expecting a response.
      For more information please refer to the
      [Binary Protocol Manual](https://www.zaber.com/protocol-manual?protocol=Binary#topic_quick_command_reference).
@@ -136,6 +152,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Sends a generic Binary command to this connection and expects responses from one or more devices.
      Responses are returned in order of arrival.
      For more information please refer to the
@@ -164,6 +182,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Renumbers devices present on this connection. After renumbering, you must identify devices again.
 
      - Returns: Total number of devices that responded to the renumber.
@@ -177,6 +197,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Attempts to detect any devices present on this connection.
 
      - Parameters:
@@ -196,6 +218,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Gets a Device class instance which allows you to control a particular device on this connection.
      Devices are numbered from 1.
 
@@ -213,6 +237,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Returns a string that represents the connection.
 
      - Returns: A string that represents the connection.
@@ -226,6 +252,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Releases native resources of the connection.
 
      - Parameters:
@@ -240,6 +268,7 @@ public final class Connection: @unchecked Sendable {
 
 
     /**
+     Module: ZaberMotionBinary
      Close the connection synchronously.
      */
     public func closeSync() throws  {
@@ -279,6 +308,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionBinary
+
      Event invoked when connection is interrupted or closed.
      */
     public lazy var disconnected = {
@@ -291,6 +322,8 @@ public final class Connection: @unchecked Sendable {
     }()
 
     /**
+     Module: ZaberMotionBinary
+
      Event invoked when a reply-only command such as a move tracking message is received from a device.
      */
     public lazy var replyOnly = {
@@ -307,6 +340,8 @@ public final class Connection: @unchecked Sendable {
     }()
 
     /**
+     Module: ZaberMotionBinary
+
      Event invoked when a response from a device cannot be matched to any known request.
      */
     public lazy var unknownResponse = {

@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when the loaded shared library is incompatible with the running code.
  Typically caused by mixed library binary files. Reinstall the library.
  */

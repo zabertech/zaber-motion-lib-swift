@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a movement command gets preempted by another command.
  */
 public final class CommandPreemptedException: MotionLibException, @unchecked Sendable {

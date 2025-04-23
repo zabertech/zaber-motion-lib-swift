@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when attempting to communicate on a closed connection.
  */
 public final class ConnectionClosedException: MotionLibException, @unchecked Sendable {

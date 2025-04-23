@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when the library is overwhelmed with too many simultaneous requests.
  */
 public final class OutOfRequestIdsException: MotionLibException, @unchecked Sendable {

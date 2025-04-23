@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a function is called with invalid values.
  */
 public final class InvalidArgumentException: MotionLibException, @unchecked Sendable {

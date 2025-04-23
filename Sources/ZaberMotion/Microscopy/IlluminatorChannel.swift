@@ -9,6 +9,8 @@ import ZaberMotionAscii
 import Utils
 
 /**
+ Module: ZaberMotionMicroscopy
+
  Use to control a channel (LED lamp) on an illuminator.
  Requires at least Firmware 7.09.
  */
@@ -26,31 +28,43 @@ public final class IlluminatorChannel: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Illuminator of this channel.
      */
     public let illuminator: Illuminator
 
     /**
+     Module: ZaberMotionMicroscopy
+
      The channel number identifies the channel on the illuminator.
      */
     public let channelNumber: Int
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Settings and properties of this channel.
      */
     public let settings: AxisSettings
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Key-value storage of this channel.
      */
     public let storage: AxisStorage
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Warnings and faults of this channel.
      */
     public let warnings: Warnings
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Turns this channel on.
      */
     public func on() async throws  {
@@ -64,6 +78,8 @@ public final class IlluminatorChannel: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Turns this channel off.
      */
     public func off() async throws  {
@@ -77,6 +93,8 @@ public final class IlluminatorChannel: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Turns this channel on or off.
 
      - Parameters:
@@ -93,6 +111,8 @@ public final class IlluminatorChannel: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Checks if this channel is on.
 
      - Returns: True if channel is on, false otherwise.
@@ -108,6 +128,8 @@ public final class IlluminatorChannel: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Sets channel intensity as a fraction of the maximum flux.
 
      - Parameters:
@@ -124,6 +146,8 @@ public final class IlluminatorChannel: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Gets the current intensity of this channel.
 
      - Returns: Current intensity as fraction of maximum flux.
@@ -139,6 +163,8 @@ public final class IlluminatorChannel: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Sends a generic ASCII command to this channel.
      For more information refer to: [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_commands).
 
@@ -165,6 +191,8 @@ public final class IlluminatorChannel: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Sends a generic ASCII command to this channel and expects multiple responses.
      Responses are returned in order of arrival.
      For more information refer to: [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_commands).
@@ -193,6 +221,8 @@ public final class IlluminatorChannel: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Sends a generic ASCII command to this channel without expecting a response and without adding a message ID
      For more information refer to: [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_commands).
 
@@ -210,6 +240,8 @@ public final class IlluminatorChannel: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Returns a serialization of the current channel state that can be saved and reapplied.
 
      - Returns: A serialization of the current state of the channel.
@@ -225,6 +257,8 @@ public final class IlluminatorChannel: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Applies a saved state to this channel.
 
      - Parameters:
@@ -245,6 +279,8 @@ public final class IlluminatorChannel: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Checks if a state can be applied to this channel.
      This only covers exceptions that can be determined statically such as mismatches of ID or version,
      the process of applying the state can still fail when running.
@@ -269,6 +305,8 @@ public final class IlluminatorChannel: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Returns a string that represents the channel.
 
      - Returns: A string that represents the channel.

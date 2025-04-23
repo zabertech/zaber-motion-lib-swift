@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when an operation is not supported by a mode the stream is currently set up in.
  */
 public final class StreamModeException: MotionLibException, @unchecked Sendable {

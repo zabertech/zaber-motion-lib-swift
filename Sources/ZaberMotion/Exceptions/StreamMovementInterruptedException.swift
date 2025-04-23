@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when ongoing stream movement is interrupted by another command or user input.
  */
 public final class StreamMovementInterruptedException: MotionLibException, @unchecked Sendable {

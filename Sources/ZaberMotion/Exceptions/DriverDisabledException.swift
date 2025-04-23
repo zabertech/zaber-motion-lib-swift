@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a device cannot carry out a movement command because the motor driver is disabled.
  */
 public final class DriverDisabledException: CommandFailedException, @unchecked Sendable {

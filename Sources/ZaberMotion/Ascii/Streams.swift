@@ -6,6 +6,8 @@ import Gateway
 import ZaberMotionExceptions
 
 /**
+ Module: ZaberMotionAscii
+
  Class providing access to device streams.
  Requires at least Firmware 7.05.
  */
@@ -16,11 +18,15 @@ public final class Streams: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Device that these streams belong to.
      */
     public let device: Device
 
     /**
+     Module: ZaberMotionAscii
+
      Gets a Stream class instance which allows you to control a particular stream on the device.
 
      - Parameters:
@@ -37,6 +43,8 @@ public final class Streams: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets a StreamBuffer class instance which is a handle for a stream buffer on the device.
 
      - Parameters:
@@ -53,6 +61,8 @@ public final class Streams: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Get a list of buffer IDs that are currently in use.
 
      - Returns: List of buffer IDs.

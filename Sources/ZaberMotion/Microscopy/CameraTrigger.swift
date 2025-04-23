@@ -8,11 +8,15 @@ import Gateway
 import ZaberMotionAscii
 
 /**
+ Module: ZaberMotionMicroscopy
+
  An abstraction over a device and it's digital output channel.
  */
 public final class CameraTrigger: @unchecked Sendable {
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Creates instance of `CameraTrigger` based on the given device and digital output channel.
      */
     public init(device: Device, channel: Int) {
@@ -21,16 +25,22 @@ public final class CameraTrigger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      The device whose digital output triggers the camera.
      */
     public let device: Device
 
     /**
+     Module: ZaberMotionMicroscopy
+
      The digital output channel that triggers the camera.
      */
     public let channel: Int
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Triggers the camera.
      Schedules trigger pulse on the digital output channel.
      By default, the method waits until the trigger pulse is finished.
@@ -54,6 +64,8 @@ public final class CameraTrigger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Returns a string that represents the device.
 
      - Returns: A string that represents the device.

@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when an operation is not supported by a mode the PVT sequence is currently set up in.
  */
 public final class PvtModeException: MotionLibException, @unchecked Sendable {

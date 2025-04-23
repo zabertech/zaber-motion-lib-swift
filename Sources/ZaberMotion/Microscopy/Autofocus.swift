@@ -10,11 +10,15 @@ import ZaberMotionAscii
 import Utils
 
 /**
+ Module: ZaberMotionMicroscopy
+
  A generic autofocus device.
  */
 public final class Autofocus: @unchecked Sendable {
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Creates instance of `Autofocus` based on the given provider id.
      */
     public init(providerId: Int, focusAxis: Axis, objectiveTurret: Device?) {
@@ -24,21 +28,29 @@ public final class Autofocus: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      The identification of external device providing the capability.
      */
     public let providerId: Int
 
     /**
+     Module: ZaberMotionMicroscopy
+
      The focus axis.
      */
     public let focusAxis: Axis
 
     /**
+     Module: ZaberMotionMicroscopy
+
      The objective turret device if the microscope has one.
      */
     public let objectiveTurret: Device?
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Sets the current focus to be target for the autofocus control loop.
      */
     public func setFocusZero() async throws  {
@@ -53,6 +65,8 @@ public final class Autofocus: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Returns the status of the autofocus.
 
      - Returns: The status of the autofocus.
@@ -72,6 +86,8 @@ public final class Autofocus: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Moves the device until it's in focus.
 
      - Parameters:
@@ -93,6 +109,8 @@ public final class Autofocus: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Moves the focus axis continuously maintaining focus.
      Starts the autofocus control loop.
      Note that the control loop may stop if the autofocus comes out of range or a movement error occurs.
@@ -109,6 +127,8 @@ public final class Autofocus: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Stops autofocus control loop.
      If the focus axis already stopped moving because of an error, an exception will be thrown.
      */
@@ -124,6 +144,8 @@ public final class Autofocus: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Gets the lower motion limit for the autofocus control loop.
      Gets motion.tracking.limit.min setting of the focus axis.
 
@@ -145,6 +167,8 @@ public final class Autofocus: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Gets the upper motion limit for the autofocus control loop.
      Gets motion.tracking.limit.max setting of the focus axis.
 
@@ -166,6 +190,8 @@ public final class Autofocus: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Sets the lower motion limit for the autofocus control loop.
      Use the limits to prevent the focus axis from crashing into the sample.
      Changes motion.tracking.limit.min setting of the focus axis.
@@ -187,6 +213,8 @@ public final class Autofocus: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Sets the upper motion limit for the autofocus control loop.
      Use the limits to prevent the focus axis from crashing into the sample.
      Changes motion.tracking.limit.max setting of the focus axis.
@@ -208,6 +236,8 @@ public final class Autofocus: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Typically, the control loop parameters and objective are kept synchronized by the library.
      If the parameters or current objective changes outside of the library, call this method to synchronize them.
      */
@@ -223,6 +253,8 @@ public final class Autofocus: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Sets the parameters for the autofocus objective.
      Note that the method temporarily switches current objective to set the parameters.
 
@@ -245,6 +277,8 @@ public final class Autofocus: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Returns the parameters for the autofocus objective.
 
      - Parameters:
@@ -270,6 +304,8 @@ public final class Autofocus: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Returns a string that represents the autofocus.
 
      - Returns: A string that represents the autofocus.

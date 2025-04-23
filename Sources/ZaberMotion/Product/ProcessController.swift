@@ -9,11 +9,15 @@ import ZaberMotionAscii
 import Utils
 
 /**
+ Module: ZaberMotionProduct
+
  Represents the controller part of one device - may be either a standalone controller or an integrated controller.
  */
 public final class ProcessController: @unchecked Sendable {
 
     /**
+     Module: ZaberMotionProduct
+
      Creates instance of `ProcessController` of the given device.
      If the device is identified, this constructor will ensure it is a process controller.
      */
@@ -23,11 +27,15 @@ public final class ProcessController: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionProduct
+
      The base device of this process controller.
      */
     public let device: Device
 
     /**
+     Module: ZaberMotionProduct
+
      Detects the process controllers on the connection.
 
      - Parameters:
@@ -49,6 +57,8 @@ public final class ProcessController: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionProduct
+
      Gets an Process class instance which allows you to control a particular voltage source.
      Axes are numbered from 1.
 
@@ -66,6 +76,8 @@ public final class ProcessController: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionProduct
+
      Returns a string that represents the device.
 
      - Returns: A string that represents the device.
@@ -80,6 +92,8 @@ public final class ProcessController: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionProduct
+
      Checks if this is a process controller or some other type of device and throws an error if it is not.
      */
     func verifyIsProcessController() throws  {

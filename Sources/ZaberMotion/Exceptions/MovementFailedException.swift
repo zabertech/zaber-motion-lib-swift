@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a device registers a fault during movement.
  */
 public final class MovementFailedException: MotionLibException, @unchecked Sendable {

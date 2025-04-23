@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when an operation cannot be performed because lockstep motion is not enabled.
  */
 public final class LockstepNotEnabledException: MotionLibException, @unchecked Sendable {

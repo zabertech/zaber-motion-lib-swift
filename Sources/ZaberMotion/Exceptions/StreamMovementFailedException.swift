@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a device registers a fault during streamed movement.
  */
 public final class StreamMovementFailedException: MotionLibException, @unchecked Sendable {

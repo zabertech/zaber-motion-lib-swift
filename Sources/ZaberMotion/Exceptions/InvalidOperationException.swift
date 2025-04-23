@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when operation cannot be performed at given time or context.
  */
 public final class InvalidOperationException: MotionLibException, @unchecked Sendable {

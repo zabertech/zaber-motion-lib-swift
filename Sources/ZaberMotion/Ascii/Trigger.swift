@@ -9,6 +9,8 @@ import ZaberMotionExceptions
 import Utils
 
 /**
+ Module: ZaberMotionAscii
+
  A handle for a trigger with this number on the device.
  Triggers allow setting up actions that occur when a certain condition has been met or an event has occurred.
  Please note that the Triggers API is currently an experimental feature.
@@ -22,16 +24,22 @@ public final class Trigger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Device that this trigger belongs to.
      */
     public let device: Device
 
     /**
+     Module: ZaberMotionAscii
+
      Number of this trigger.
      */
     public let triggerNumber: Int
 
     /**
+     Module: ZaberMotionAscii
+
      Enables the trigger.
      Once a trigger is enabled, it will fire whenever its condition transitions from false to true.
      If a trigger condition is true when a disabled trigger is enabled, the trigger will fire immediately.
@@ -55,6 +63,8 @@ public final class Trigger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Disables the trigger.
      Once disabled, the trigger will not fire and trigger actions will not run, even if trigger conditions are met.
      */
@@ -68,6 +78,8 @@ public final class Trigger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets the state of the trigger.
 
      - Returns: Complete state of the trigger.
@@ -84,6 +96,8 @@ public final class Trigger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets the enabled state of the trigger.
 
      - Returns: Whether the trigger is enabled and the number of times it will fire.
@@ -100,6 +114,8 @@ public final class Trigger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Set a generic trigger condition.
 
      - Parameters:
@@ -116,6 +132,8 @@ public final class Trigger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Set a trigger condition for when an encoder position has changed by a specific distance.
 
      - Parameters:
@@ -141,6 +159,8 @@ public final class Trigger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Set a trigger condition for when an axis position has changed by a specific distance.
 
      - Parameters:
@@ -166,6 +186,8 @@ public final class Trigger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Set a trigger condition based on an IO channel value.
 
      - Parameters:
@@ -192,6 +214,8 @@ public final class Trigger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Set a trigger condition based on a setting value.
 
      - Parameters:
@@ -217,6 +241,8 @@ public final class Trigger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Set a trigger condition based on an absolute setting value.
 
      - Parameters:
@@ -242,6 +268,8 @@ public final class Trigger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Set a trigger condition based on a time interval.
 
      - Parameters:
@@ -264,6 +292,8 @@ public final class Trigger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Set a command to be a trigger action.
 
      - Parameters:
@@ -285,6 +315,8 @@ public final class Trigger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Set a trigger action to update a setting.
 
      - Parameters:
@@ -312,6 +344,8 @@ public final class Trigger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Set a trigger action to update a setting with the value of another setting.
 
      - Parameters:
@@ -342,6 +376,8 @@ public final class Trigger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Clear a trigger action.
 
      - Parameters:
@@ -359,6 +395,8 @@ public final class Trigger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns the label for the trigger.
 
      - Returns: The label for the trigger.
@@ -374,6 +412,8 @@ public final class Trigger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets the label for the trigger.
 
      - Parameters:

@@ -8,6 +8,8 @@ import ZaberMotionExceptions
 import Utils
 
 /**
+ Module: ZaberMotionAscii
+
  Represents the controller part of one device - may be either a standalone controller or an integrated controller.
  */
 public final class Device: @unchecked Sendable {
@@ -29,42 +31,58 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Connection of this device.
      */
     public let connection: Connection
 
     /**
+     Module: ZaberMotionAscii
+
      The device address uniquely identifies the device on the connection.
      It can be configured or automatically assigned by the renumber command.
      */
     public let deviceAddress: Int
 
     /**
+     Module: ZaberMotionAscii
+
      Settings and properties of this device.
      */
     public private(set) lazy var settings: DeviceSettings = DeviceSettings(device: self)
 
     /**
+     Module: ZaberMotionAscii
+
      Key-value storage of this device.
      */
     public private(set) lazy var storage: DeviceStorage = DeviceStorage(device: self)
 
     /**
+     Module: ZaberMotionAscii
+
      I/O channels of this device.
      */
     public private(set) lazy var io: DeviceIO = DeviceIO(device: self)
 
     /**
+     Module: ZaberMotionAscii
+
      Virtual axis which allows you to target all axes of this device.
      */
     public private(set) lazy var allAxes: AllAxes = AllAxes(device: self)
 
     /**
+     Module: ZaberMotionAscii
+
      Warnings and faults of this device and all its axes.
      */
     public private(set) lazy var warnings: Warnings = Warnings(device: self, axisNumber: 0)
 
     /**
+     Module: ZaberMotionAscii
+
      Identity of the device.
      */
     public var identity: DeviceIdentity {
@@ -72,6 +90,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Indicates whether or not the device has been identified.
      */
     public var isIdentified: Bool {
@@ -79,12 +99,16 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Oscilloscope recording helper for this device.
      Requires at least Firmware 7.00.
      */
     public private(set) lazy var oscilloscope: Oscilloscope = Oscilloscope(device: self)
 
     /**
+     Module: ZaberMotionAscii
+
      Unique ID of the device hardware.
      */
     public var deviceId: Int {
@@ -92,6 +116,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Serial number of the device.
      */
     public var serialNumber: UInt {
@@ -99,6 +125,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Name of the product.
      */
     public var name: String {
@@ -106,6 +134,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Number of axes this device has.
      */
     public var axisCount: Int {
@@ -113,6 +143,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Version of the firmware.
      */
     public var firmwareVersion: FirmwareVersion {
@@ -120,6 +152,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      The device is an integrated product.
      */
     public var isIntegrated: Bool {
@@ -127,6 +161,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      User-assigned label of the device.
      */
     public var label: String {
@@ -134,18 +170,24 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Triggers for this device.
      Requires at least Firmware 7.06.
      */
     public private(set) lazy var triggers: Triggers = Triggers(device: self)
 
     /**
+     Module: ZaberMotionAscii
+
      Gets an object that provides access to Streams on this device.
      Requires at least Firmware 7.05.
      */
     public private(set) lazy var streams: Streams = Streams(device: self)
 
     /**
+     Module: ZaberMotionAscii
+
      Gets an object that provides access to PVT functions of this device.
      Note that as of ZML v5.0.0, this returns a Pvt object and NOT a PvtSequence object.
      The PvtSequence can now be obtained from the Pvt object.
@@ -154,6 +196,8 @@ public final class Device: @unchecked Sendable {
     public private(set) lazy var pvt: Pvt = Pvt(device: self)
 
     /**
+     Module: ZaberMotionAscii
+
      Queries the device and the database, gathering information about the product.
      Without this information features such as unit conversions will not work.
      Usually, called automatically by detect devices method.
@@ -177,6 +221,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sends a generic ASCII command to this device.
      For more information refer to: [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_commands).
 
@@ -204,6 +250,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sends a generic ASCII command to this device and expect multiple responses.
      Responses are returned in order of arrival.
      For more information refer to: [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_commands).
@@ -233,6 +281,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sends a generic ASCII command to this device without expecting a response and without adding a message ID
      For more information refer to: [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_commands).
 
@@ -252,6 +302,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets an Axis class instance which allows you to control a particular axis on this device.
      Axes are numbered from 1.
 
@@ -269,6 +321,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets a Lockstep class instance which allows you to control a particular lockstep group on the device.
      Requires at least Firmware 6.15 or 7.11.
 
@@ -286,6 +340,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Formats parameters into a command and performs unit conversions.
      Parameters in the command template are denoted by a question mark.
      Command returned is only valid for this device.
@@ -310,6 +366,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets the user-assigned device label.
      The label is stored on the controller and recognized by other software.
 
@@ -326,6 +384,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns a string that represents the device.
 
      - Returns: A string that represents the device.
@@ -340,6 +400,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns a serialization of the current device state that can be saved and reapplied.
 
      - Returns: A serialization of the current state of the device.
@@ -354,6 +416,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Applies a saved state to this device.
 
      - Parameters:
@@ -375,6 +439,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Checks if a state can be applied to this device.
      This only covers exceptions that can be determined statically such as mismatches of ID or version,
      the process of applying the state can still fail when running.
@@ -399,6 +465,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Waits for the device to start responding to messages.
      Useful to call after resetting the device.
      Throws RequestTimeoutException upon timeout.
@@ -416,6 +484,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Changes the address of this device.
      After the address is successfully changed, the existing device class instance no longer represents the device.
      Instead, use the new device instance returned by this method.
@@ -442,6 +512,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Restores most of the settings to their default values.
      Deletes all triggers, stream and PVT buffers, servo tunings.
      Deletes all zaber storage keys.
@@ -462,6 +534,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets the device name.
 
      - Returns: The label.
@@ -476,6 +550,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns identity.
 
      - Returns: Device identity.
@@ -489,6 +565,8 @@ public final class Device: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns whether or not the device have been identified.
 
      - Returns: True if the device has already been identified. False otherwise.

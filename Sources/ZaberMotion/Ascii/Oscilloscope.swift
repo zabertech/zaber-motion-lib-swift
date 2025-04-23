@@ -8,6 +8,8 @@ import ZaberMotionExceptions
 import Utils
 
 /**
+ Module: ZaberMotionAscii
+
  Provides a convenient way to control the oscilloscope data recording feature of some devices.
  The oscilloscope can record the values of some settings over time at high resolution.
  Requires at least Firmware 7.00.
@@ -19,11 +21,15 @@ public final class Oscilloscope: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Device that this Oscilloscope measures.
      */
     public let device: Device
 
     /**
+     Module: ZaberMotionAscii
+
      Select a setting to be recorded.
 
      - Parameters:
@@ -41,6 +47,8 @@ public final class Oscilloscope: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Select an I/O pin to be recorded.
      Requires at least Firmware 7.33.
 
@@ -59,6 +67,8 @@ public final class Oscilloscope: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Clear the list of channels to record.
      */
     public func clear() async throws  {
@@ -70,6 +80,8 @@ public final class Oscilloscope: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Get the current sampling interval.
 
      - Parameters:
@@ -89,6 +101,8 @@ public final class Oscilloscope: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Set the sampling interval.
 
      - Parameters:
@@ -107,6 +121,8 @@ public final class Oscilloscope: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Get the current sampling frequency.
      The values is calculated as the inverse of the current sampling interval.
 
@@ -127,6 +143,8 @@ public final class Oscilloscope: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Set the sampling frequency (inverse of the sampling interval).
      The value is quantized to the next closest value supported by the firmware.
 
@@ -146,6 +164,8 @@ public final class Oscilloscope: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Get the delay before oscilloscope recording starts.
 
      - Parameters:
@@ -165,6 +185,8 @@ public final class Oscilloscope: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Set the sampling start delay.
 
      - Parameters:
@@ -183,6 +205,8 @@ public final class Oscilloscope: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Get the maximum number of channels that can be recorded.
 
      - Returns: The maximum number of channels that can be added to an Oscilloscope recording.
@@ -198,6 +222,8 @@ public final class Oscilloscope: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Get the maximum number of samples that can be recorded per Oscilloscope channel.
 
      - Returns: The maximum number of samples that can be recorded per Oscilloscope channel.
@@ -213,6 +239,8 @@ public final class Oscilloscope: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Get the number of samples that can be recorded per channel given the current number of channels added.
 
      - Returns: Number of samples that will be recorded per channel with the current channels. Zero if none have been added.
@@ -228,6 +256,8 @@ public final class Oscilloscope: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Trigger data recording.
 
      - Parameters:
@@ -245,6 +275,8 @@ public final class Oscilloscope: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      End data recording if currently in progress.
      */
     public func stop() async throws  {
@@ -256,6 +288,8 @@ public final class Oscilloscope: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Reads the last-recorded data from the oscilloscope. Will block until any in-progress recording completes.
 
      - Returns: Array of recorded channel data arrays, in the order added.

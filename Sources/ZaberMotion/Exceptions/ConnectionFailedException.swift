@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a connection breaks during a request.
  */
 public class ConnectionFailedException: MotionLibException, @unchecked Sendable {

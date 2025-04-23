@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a device receives an invalid command.
  */
 public final class BadCommandException: CommandFailedException, @unchecked Sendable {

@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when an axis cannot be set to the supplied state.
  */
 public final class SetPeripheralStateFailedException: MotionLibException, @unchecked Sendable {

@@ -8,12 +8,16 @@ import ZaberMotionExceptions
 import Utils
 
 /**
+ Module: ZaberMotionAscii
+
  Exposes the capabilities to inspect and edit an axis' servo tuning.
  Requires at least Firmware 6.25 or 7.00.
  */
 public final class ServoTuner: @unchecked Sendable {
 
     /**
+     Module: ZaberMotionAscii
+
      Creates instance of ServoTuner for the given axis.
      */
     public init(axis: Axis) {
@@ -21,11 +25,15 @@ public final class ServoTuner: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      The axis that will be tuned.
      */
     public let axis: Axis
 
     /**
+     Module: ZaberMotionAscii
+
      Get the paramset that this device uses by default when it starts up.
 
      - Returns: The paramset used when the device restarts.
@@ -41,6 +49,8 @@ public final class ServoTuner: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Set the paramset that this device uses by default when it starts up.
 
      - Parameters:
@@ -57,6 +67,8 @@ public final class ServoTuner: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Load the values from one paramset into another.
 
      - Parameters:
@@ -75,6 +87,8 @@ public final class ServoTuner: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Get the full set of tuning parameters used by the firmware driving this axis.
 
      - Parameters:
@@ -95,6 +109,8 @@ public final class ServoTuner: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Set individual tuning parameters.
      Only use this method if you have a strong understanding of Zaber specific tuning parameters.
 
@@ -117,6 +133,8 @@ public final class ServoTuner: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets the tuning of a paramset using the PID method.
 
      - Parameters:
@@ -145,6 +163,8 @@ public final class ServoTuner: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets the PID representation of this paramset's servo tuning.
 
      - Parameters:
@@ -165,6 +185,8 @@ public final class ServoTuner: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets the parameters that are required to tune this device.
 
      - Returns: The tuning parameters.
@@ -182,6 +204,8 @@ public final class ServoTuner: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Set the tuning of this device using the simple input method.
 
      - Parameters:
@@ -219,6 +243,8 @@ public final class ServoTuner: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Get the simple tuning parameters for this device.
 
      - Parameters:
@@ -239,6 +265,8 @@ public final class ServoTuner: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Checks if the provided simple tuning is being stored by this paramset.
 
      - Parameters:

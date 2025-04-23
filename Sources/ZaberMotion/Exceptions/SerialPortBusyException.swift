@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a serial port cannot be opened because it is in use by another application.
  */
 public final class SerialPortBusyException: ConnectionFailedException, @unchecked Sendable {

@@ -10,6 +10,8 @@ import ZaberMotionAscii
 import Utils
 
 /**
+ Module: ZaberMotionMicroscopy
+
  Class representing access to WDI Autofocus connection.
  */
 public final class WdiAutofocusProvider: @unchecked Sendable  {
@@ -19,16 +21,22 @@ public final class WdiAutofocusProvider: @unchecked Sendable  {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Default port number for TCP connections to WDI autofocus.
      */
     public static let defaultTcpPort: Int = 27;
 
     /**
+     Module: ZaberMotionMicroscopy
+
      The ID identifies the autofocus with the underlying library.
      */
     public let providerId: Int
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Opens a TCP connection to WDI autofocus.
 
      - Parameters:
@@ -50,6 +58,8 @@ public final class WdiAutofocusProvider: @unchecked Sendable  {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Close the connection.
      */
     public func close() async throws  {
@@ -60,6 +70,8 @@ public final class WdiAutofocusProvider: @unchecked Sendable  {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Generic read operation.
 
      - Parameters:
@@ -85,6 +97,8 @@ public final class WdiAutofocusProvider: @unchecked Sendable  {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Generic write operation.
 
      - Parameters:
@@ -107,6 +121,8 @@ public final class WdiAutofocusProvider: @unchecked Sendable  {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Enables the laser.
      */
     public func enableLaser() async throws  {
@@ -118,6 +134,8 @@ public final class WdiAutofocusProvider: @unchecked Sendable  {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Disables the laser.
      */
     public func disableLaser() async throws  {
@@ -129,6 +147,8 @@ public final class WdiAutofocusProvider: @unchecked Sendable  {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Gets the status of the autofocus.
 
      - Returns: The status of the autofocus.
@@ -144,6 +164,8 @@ public final class WdiAutofocusProvider: @unchecked Sendable  {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Returns a string that represents the autofocus connection.
 
      - Returns: A string that represents the connection.
@@ -157,6 +179,8 @@ public final class WdiAutofocusProvider: @unchecked Sendable  {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Frees the connection.
 
      - Parameters:

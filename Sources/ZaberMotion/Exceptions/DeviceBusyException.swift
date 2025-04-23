@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a requested operation fails because the device is currently busy.
  */
 public final class DeviceBusyException: MotionLibException, @unchecked Sendable {

@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a PVT sequence encounters discontinuity and interrupts the sequence.
  */
 public final class PvtDiscontinuityException: MotionLibException, @unchecked Sendable {

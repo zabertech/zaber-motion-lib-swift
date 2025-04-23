@@ -7,11 +7,15 @@ import Gateway
 import ZaberMotionAscii
 
 /**
+ Module: ZaberMotionMicroscopy
+
  A generic turret device.
  */
 public final class FilterChanger: @unchecked Sendable {
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Creates instance of `FilterChanger` based on the given device.
      */
     public init(device: Device) {
@@ -19,11 +23,15 @@ public final class FilterChanger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      The base device of this turret.
      */
     public let device: Device
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Gets number of filters of the changer.
 
      - Returns: Number of positions.
@@ -39,6 +47,8 @@ public final class FilterChanger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Returns the current filter number starting from 1.
      The value of 0 indicates that the position is either unknown or between two filters.
 
@@ -55,6 +65,8 @@ public final class FilterChanger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Changes to the specified filter.
 
      - Parameters:
@@ -73,6 +85,8 @@ public final class FilterChanger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Returns a string that represents the device.
 
      - Returns: A string that represents the device.

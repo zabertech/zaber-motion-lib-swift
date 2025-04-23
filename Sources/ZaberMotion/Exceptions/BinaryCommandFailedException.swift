@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when a device rejects a binary command with an error.
  */
 public final class BinaryCommandFailedException: MotionLibException, @unchecked Sendable {

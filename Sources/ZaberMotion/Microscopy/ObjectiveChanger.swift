@@ -10,6 +10,8 @@ import ZaberMotionAscii
 import Utils
 
 /**
+ Module: ZaberMotionMicroscopy
+
  Represents an objective changer of a microscope.
  Unstable. Expect breaking changes in future releases.
  Requires at least Firmware 7.32.
@@ -17,6 +19,8 @@ import Utils
 public final class ObjectiveChanger: @unchecked Sendable {
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Creates instance of `ObjectiveChanger` based on the given device.
      If the device is identified, this constructor will ensure it is an objective changer.
      */
@@ -27,16 +31,22 @@ public final class ObjectiveChanger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Device address of the turret.
      */
     public let turret: Device
 
     /**
+     Module: ZaberMotionMicroscopy
+
      The focus axis.
      */
     public let focusAxis: Axis
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Finds an objective changer on a connection.
      In case of conflict, specify the optional device addresses.
      Devices on the connection must be identified.
@@ -63,6 +73,8 @@ public final class ObjectiveChanger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Changes the objective.
      Runs a sequence of movements switching from the current objective to the new one.
      The focus stage moves to the focus datum after the objective change.
@@ -84,6 +96,8 @@ public final class ObjectiveChanger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Moves the focus stage out of the turret releasing the current objective.
      */
     public func release() async throws  {
@@ -97,6 +111,8 @@ public final class ObjectiveChanger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Returns current objective number starting from 1.
      The value of 0 indicates that the position is either unknown or between two objectives.
 
@@ -113,6 +129,8 @@ public final class ObjectiveChanger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Gets number of objectives that the turret can accommodate.
 
      - Returns: Number of positions.
@@ -128,6 +146,8 @@ public final class ObjectiveChanger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Gets the focus datum.
      The focus datum is the position that the focus stage moves to after an objective change.
      It is backed by the limit.home.offset setting.
@@ -150,6 +170,8 @@ public final class ObjectiveChanger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Sets the focus datum.
      The focus datum is the position that the focus stage moves to after an objective change.
      It is backed by the limit.home.offset setting.
@@ -171,6 +193,8 @@ public final class ObjectiveChanger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Returns a string that represents the device.
 
      - Returns: A string that represents the device.
@@ -185,6 +209,8 @@ public final class ObjectiveChanger: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionMicroscopy
+
      Checks if this is a objective changer and throws an error if it is not.
      */
     func verifyIsChanger() throws  {

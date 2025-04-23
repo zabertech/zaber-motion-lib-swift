@@ -8,6 +8,8 @@ import Gateway
 import ZaberMotionExceptions
 
 /**
+ Module: ZaberMotionAscii
+
  A handle for a stream with this number on the device.
  Streams provide a way to execute or store a sequence of actions.
  Stream methods append actions to a queue which executes or stores actions in a first in, first out order.
@@ -21,16 +23,22 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Device that controls this stream.
      */
     public let device: Device
 
     /**
+     Module: ZaberMotionAscii
+
      The number that identifies the stream on the device.
      */
     public let streamId: Int
 
     /**
+     Module: ZaberMotionAscii
+
      Current mode of the stream.
      */
     public var mode: StreamMode {
@@ -38,6 +46,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      An array of axes definitions the stream is set up to control.
      */
     public var axes: [StreamAxisDefinition] {
@@ -45,11 +55,15 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets an object that provides access to I/O for this stream.
      */
     public let io: StreamIo
 
     /**
+     Module: ZaberMotionAscii
+
      Setup the stream to control the specified axes and to queue actions on the device.
      Allows use of lockstep axes in a stream.
 
@@ -67,6 +81,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Setup the stream to control the specified axes and to queue actions on the device.
 
      - Parameters:
@@ -83,6 +99,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Setup the stream to control the specified axes and queue actions into a stream buffer.
      Allows use of lockstep axes in a stream.
 
@@ -102,6 +120,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Setup the stream to control the specified axes and queue actions into a stream buffer.
 
      - Parameters:
@@ -120,6 +140,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Setup the stream to use a specified number of axes, and to queue actions in a stream buffer.
      Afterwards, you may call the resulting stream buffer on arbitrary axes.
      This mode does not allow for unit conversions.
@@ -140,6 +162,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Append the actions in a stream buffer to the queue.
 
      - Parameters:
@@ -156,6 +180,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Queue an absolute line movement in the stream.
 
      - Parameters:
@@ -173,6 +199,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Queue a relative line movement in the stream.
 
      - Parameters:
@@ -190,6 +218,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Queue an absolute line movement in the stream, targeting a subset of the stream axes.
      Requires at least Firmware 7.11.
 
@@ -212,6 +242,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Queue a relative line movement in the stream, targeting a subset of the stream axes.
      Requires at least Firmware 7.11.
 
@@ -234,6 +266,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Queue an absolute arc movement on the first two axes of the stream.
      Absolute meaning that the home positions of the axes is treated as the origin.
 
@@ -260,6 +294,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Queue a relative arc movement on the first two axes of the stream.
      Relative meaning that the current position of the axes is treated as the origin.
 
@@ -286,6 +322,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Queue an absolute arc movement in the stream.
      The movement will only target the specified subset of axes in the stream.
      Requires at least Firmware 7.11.
@@ -317,6 +355,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Queue a relative arc movement in the stream.
      The movement will only target the specified subset of axes in the stream.
      Requires at least Firmware 7.11.
@@ -348,6 +388,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Queue an absolute helix movement in the stream.
      Requires at least Firmware 7.28.
 
@@ -382,6 +424,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Queue a relative helix movement in the stream.
      Requires at least Firmware 7.28.
 
@@ -416,6 +460,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Queue an absolute circle movement on the first two axes of the stream.
      Absolute meaning that the home positions of the axes are treated as the origin.
 
@@ -438,6 +484,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Queue a relative circle movement on the first two axes of the stream.
      Relative meaning that the current position of the axes is treated as the origin.
 
@@ -460,6 +508,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Queue an absolute circle movement in the stream.
      The movement will only target the specified subset of axes in the stream.
      Requires at least Firmware 7.11.
@@ -487,6 +537,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Queue a relative circle movement in the stream.
      The movement will only target the specified subset of axes in the stream.
      Requires at least Firmware 7.11.
@@ -514,6 +566,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Wait a specified time.
 
      - Parameters:
@@ -532,6 +586,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Waits until the live stream executes all queued actions.
 
      - Parameters:
@@ -548,6 +604,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Cork the front of the stream's action queue, blocking execution.
      Execution resumes upon uncorking the queue, or when the number of queued actions reaches its limit.
      Corking eliminates discontinuities in motion due to subsequent stream commands reaching the device late.
@@ -563,6 +621,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Uncork the front of the queue, unblocking command execution.
      You can only uncork an idle live stream that is corked.
      */
@@ -576,6 +636,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Pauses or resumes execution of the stream in live mode.
      The hold only takes effect during execution of motion segments.
 
@@ -593,6 +655,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns a boolean value indicating whether the live stream is executing a queued action.
 
      - Returns: True if the stream is executing a queued action.
@@ -608,6 +672,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets the maximum speed of the live stream.
      Converts the units using the first axis of the stream.
 
@@ -628,6 +694,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets the maximum speed of the live stream.
      Converts the units using the first axis of the stream.
 
@@ -647,6 +715,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets the maximum tangential acceleration of the live stream.
      Converts the units using the first axis of the stream.
 
@@ -667,6 +737,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets the maximum tangential acceleration of the live stream.
      Converts the units using the first axis of the stream.
 
@@ -686,6 +758,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets the maximum centripetal acceleration of the live stream.
      Converts the units using the first axis of the stream.
 
@@ -706,6 +780,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets the maximum centripetal acceleration of the live stream.
      Converts the units using the first axis of the stream.
 
@@ -725,6 +801,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns a string which represents the stream.
 
      - Returns: String which represents the stream.
@@ -740,6 +818,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Disables the stream.
      If the stream is not setup, this command does nothing.
      Once disabled, the stream will no longer accept stream commands.
@@ -755,6 +835,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sends a generic ASCII command to the stream.
      Keeps resending the command while the device rejects with AGAIN reason.
 
@@ -772,6 +854,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sends a batch of generic ASCII commands to the stream.
      Keeps resending command while the device rejects with AGAIN reason.
      The batch is atomic in terms of thread safety.
@@ -790,6 +874,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Queries the stream status from the device
      and returns boolean indicating whether the stream is disabled.
      Useful to determine if streaming was interrupted by other movements.
@@ -807,6 +893,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Makes the stream throw StreamDiscontinuityException when it encounters discontinuities (ND warning flag).
      */
     public func treatDiscontinuitiesAsError() throws  {
@@ -819,6 +907,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Prevents StreamDiscontinuityException as a result of expected discontinuity when resuming streaming.
      */
     public func ignoreCurrentDiscontinuity() throws  {
@@ -831,6 +921,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Wait for a digital input channel to reach a given value.
 
      - Parameters:
@@ -851,6 +943,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Wait for the value of a analog input channel to reach a condition concerning a given value.
 
      - Parameters:
@@ -873,6 +967,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets value for the specified digital output channel.
 
      - Parameters:
@@ -892,6 +988,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets values for all digital output channels.
 
      - Parameters:
@@ -909,6 +1007,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets value for the specified analog output channel.
 
      - Parameters:
@@ -928,6 +1028,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets values for all analog output channels.
 
      - Parameters:
@@ -945,6 +1047,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets the axes of the stream.
 
      - Returns: An array of axis numbers of the axes the stream is set up to control.
@@ -960,6 +1064,8 @@ public final class Stream: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Get the mode of the stream.
 
      - Returns: Mode of the stream.

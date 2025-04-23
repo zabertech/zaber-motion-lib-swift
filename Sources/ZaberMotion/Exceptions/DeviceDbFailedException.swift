@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when device information cannot be retrieved from the device database.
  */
 public final class DeviceDbFailedException: MotionLibException, @unchecked Sendable {

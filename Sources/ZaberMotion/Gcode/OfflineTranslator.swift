@@ -10,6 +10,8 @@ import ZaberMotionExceptions
 import Utils
 
 /**
+ Module: ZaberMotionGcode
+
  Represents an offline G-Code translator.
  It allows to translate G-Code blocks to Zaber ASCII protocol stream commands.
  This translator does not need a connected device to perform translation.
@@ -22,11 +24,15 @@ public final class OfflineTranslator: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionGcode
+
      The ID of the translator that serves to identify native resources.
      */
     public let translatorId: Int
 
     /**
+     Module: ZaberMotionGcode
+
      Current coordinate system.
      */
     public var coordinateSystem: String {
@@ -34,6 +40,8 @@ public final class OfflineTranslator: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionGcode
+
      Sets up translator from provided device definition and configuration.
 
      - Parameters:
@@ -55,6 +63,8 @@ public final class OfflineTranslator: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionGcode
+
      Sets up an offline translator from provided device, axes, and configuration.
 
      - Parameters:
@@ -79,6 +89,8 @@ public final class OfflineTranslator: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionGcode
+
      Translates a single block (line) of G-code.
 
      - Parameters:
@@ -95,6 +107,8 @@ public final class OfflineTranslator: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionGcode
+
      Flushes the remaining stream commands waiting in optimization buffer.
      The flush is also performed by M2 and M30 codes.
 
@@ -109,6 +123,8 @@ public final class OfflineTranslator: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionGcode
+
      Sets the speed at which the device moves when traversing (G0).
 
      - Parameters:
@@ -125,6 +141,8 @@ public final class OfflineTranslator: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionGcode
+
      Sets position of translator's axis.
      Use this method to set position after performing movement outside of the translator.
      This method does not cause any movement.
@@ -145,6 +163,8 @@ public final class OfflineTranslator: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionGcode
+
      Gets position of translator's axis.
      This method does not query device but returns value from translator's state.
 
@@ -165,6 +185,8 @@ public final class OfflineTranslator: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionGcode
+
      Sets the home position of translator's axis.
      This position is used by G28.
 
@@ -184,6 +206,8 @@ public final class OfflineTranslator: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionGcode
+
      Sets the secondary home position of translator's axis.
      This position is used by G30.
 
@@ -203,6 +227,8 @@ public final class OfflineTranslator: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionGcode
+
      Gets offset of an axis in a given coordinate system.
 
      - Parameters:
@@ -224,6 +250,8 @@ public final class OfflineTranslator: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionGcode
+
      Resets internal state after device rejected generated command.
      Axis positions become uninitialized.
      */
@@ -235,6 +263,8 @@ public final class OfflineTranslator: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionGcode
+
      Allows to scale feed rate of the translated code by a coefficient.
 
      - Parameters:
@@ -249,6 +279,8 @@ public final class OfflineTranslator: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionGcode
+
      Releases native resources of a translator.
 
      - Parameters:
@@ -262,6 +294,8 @@ public final class OfflineTranslator: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionGcode
+
      Gets current coordinate system (e.g. G54).
 
      - Returns: Current coordinate system.

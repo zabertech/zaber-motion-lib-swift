@@ -11,6 +11,8 @@ import ZaberMotionExceptions
 import Utils
 
 /**
+ Module: ZaberMotionAscii
+
  Class representing access to particular connection (serial port, TCP connection).
  */
 public final class Connection: @unchecked Sendable {
@@ -21,22 +23,30 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Default baud rate for serial connections.
      */
     public static let defaultBaudRate: Int = 115200;
 
     /**
+     Module: ZaberMotionAscii
+
      Commands sent over this port are forwarded to the device chain.
      The bandwidth may be limited as the commands are forwarded over a serial connection.
      */
     public static let tcpPortChain: Int = 55550;
 
     /**
+     Module: ZaberMotionAscii
+
      Local area network share port.
      */
     public static let networkSharePort: Int = 11421;
 
     /**
+     Module: ZaberMotionAscii
+
      Commands send over this port are processed only by the device
      and not forwarded to the rest of the chain.
      Using this port typically makes the communication faster.
@@ -44,11 +54,15 @@ public final class Connection: @unchecked Sendable {
     public static let tcpPortDeviceOnly: Int = 55551;
 
     /**
+     Module: ZaberMotionAscii
+
      The interface ID identifies this Connection instance with the underlying library.
      */
     public let interfaceId: Int
 
     /**
+     Module: ZaberMotionAscii
+
      The default timeout, in milliseconds, for a device to respond to a request.
      Setting the timeout to a too low value may cause request timeout exceptions.
      The initial value is 1000 (one second).
@@ -58,6 +72,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      The default timeout, in milliseconds, for a device to respond to a request.
      Setting the timeout to a too low value may cause request timeout exceptions.
      The initial value is 1000 (one second).
@@ -67,6 +83,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Controls whether outgoing messages contain checksum.
      */
     public func getChecksumEnabled() throws -> Bool {
@@ -74,6 +92,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Controls whether outgoing messages contain checksum.
      */
     public func setChecksumEnabled(_ value: Bool) throws {
@@ -81,6 +101,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Opens a serial port, if Zaber Launcher controls the port, the port will be opened through Zaber Launcher.
      Zaber Launcher allows sharing of the port between multiple applications,
      If port sharing is not desirable, use the `direct` parameter.
@@ -107,6 +129,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Opens a TCP connection.
 
      - Parameters:
@@ -128,6 +152,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Opens a connection using a custom transport.
 
      - Parameters:
@@ -147,6 +173,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Opens a secured connection to a cloud connected device chain.
      Use this method to connect to devices on your account.
 
@@ -178,6 +206,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Opens a connection to Zaber Launcher in your Local Area Network.
      The connection is not secured.
 
@@ -204,6 +234,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sends a generic ASCII command to this connection.
      For more information refer to the [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_commands).
 
@@ -232,6 +264,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sends a generic ASCII command to this connection without expecting a response and without adding a message ID.
      For more information refer to the [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_commands).
 
@@ -253,6 +287,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sends a generic ASCII command to this connection and expect multiple responses,
      either from one device or from many devices.
      Responses are returned in order of arrival.
@@ -284,6 +320,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Enables alerts for all devices on the connection.
      This will change the "comm.alert" setting to 1 on all supported devices.
      */
@@ -296,6 +334,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Disables alerts for all devices on the connection.
      This will change the "comm.alert" setting to 0 on all supported devices.
      */
@@ -308,6 +348,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Resets ASCII protocol message IDs. Only for testing purposes.
      */
     public func resetIds() throws  {
@@ -318,6 +360,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Close the connection.
      */
     public func close() async throws  {
@@ -328,6 +372,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets a Device class instance which allows you to control a particular device on this connection.
      Devices are numbered from 1.
 
@@ -345,6 +391,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Renumbers devices present on this connection. After renumbering, devices need to be identified again.
 
      - Parameters:
@@ -367,6 +415,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Attempts to detect any devices present on this connection.
 
      - Parameters:
@@ -386,6 +436,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Forgets all the information associated with devices on the connection.
      Useful when devices are removed from the chain indefinitely.
 
@@ -401,6 +453,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Stops all of the devices on this connection.
 
      - Parameters:
@@ -419,6 +473,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Homes all of the devices on this connection.
 
      - Parameters:
@@ -437,6 +493,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns a string that represents the connection.
 
      - Returns: A string that represents the connection.
@@ -450,6 +508,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Releases native resources of the connection.
 
      - Parameters:
@@ -463,6 +523,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns default request timeout.
 
      - Returns: Default request timeout.
@@ -476,6 +538,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets default request timeout.
 
      - Parameters:
@@ -490,6 +554,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Returns checksum enabled.
 
      - Returns: Checksum enabled.
@@ -503,6 +569,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets checksum enabled.
 
      - Parameters:
@@ -518,6 +586,7 @@ public final class Connection: @unchecked Sendable {
 
 
     /**
+    Module: ZaberMotionAscii
     Close the connection synchronously.
     */
     public func closeSync() throws  {
@@ -557,6 +626,8 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Event invoked when connection is interrupted or closed.
      */
     public lazy var disconnected = {
@@ -569,6 +640,8 @@ public final class Connection: @unchecked Sendable {
     }()
 
     /**
+     Module: ZaberMotionAscii
+
      Event invoked when an alert is received from a device.
      */
     public lazy var alert = {
@@ -585,6 +658,8 @@ public final class Connection: @unchecked Sendable {
     }()
 
     /**
+     Module: ZaberMotionAscii
+
      Event invoked when a response from a device cannot be matched to any known request.
      */
     public lazy var unknownResponse = {

@@ -6,6 +6,8 @@ import Gateway
 import ZaberMotionExceptions
 
 /**
+ Module: ZaberMotionAscii
+
  Class providing access to device PVT (Position-Velocity-Time) features.
  Requires at least Firmware 7.33.
  */
@@ -16,11 +18,15 @@ public final class Pvt: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Device that this PVT belongs to.
      */
     public let device: Device
 
     /**
+     Module: ZaberMotionAscii
+
      Gets a PvtSequence class instance which allows you to control a particular PVT sequence on the device.
 
      - Parameters:
@@ -37,6 +43,8 @@ public final class Pvt: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Gets a PvtBuffer class instance which is a handle for a PVT buffer on the device.
 
      - Parameters:
@@ -53,6 +61,8 @@ public final class Pvt: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Get a list of buffer IDs that are currently in use.
 
      - Returns: List of buffer IDs.

@@ -4,6 +4,8 @@
 import Foundation
 
 /**
+ Module: ZaberMotionExceptions
+
  Thrown when there is a conflict in device numbers preventing unique addressing.
  */
 public final class DeviceAddressConflictException: MotionLibException, @unchecked Sendable {

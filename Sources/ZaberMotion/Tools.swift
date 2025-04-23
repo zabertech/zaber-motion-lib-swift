@@ -5,6 +5,8 @@ import Gateway
 import DtoRequests
 
 /**
+ Module: ZaberMotion
+
  Class providing various utility functions.
  */
 public final class Tools {
@@ -13,6 +15,8 @@ public final class Tools {
     @available(*, unavailable) private init() {}
 
     /**
+     Module: ZaberMotion
+
      Lists all serial ports on the computer.
 
      - Returns: Array of serial port names.
@@ -25,6 +29,8 @@ public final class Tools {
     }
 
     /**
+     Module: ZaberMotion
+
      Returns path of message router named pipe on Windows
      or file path of unix domain socket on UNIX.
 
@@ -38,6 +44,8 @@ public final class Tools {
     }
 
     /**
+     Module: ZaberMotion
+
      Returns the path for communicating with a local device database service.
      This will be a named pipe on Windows and the file path of a unix domain socket on UNIX.
 

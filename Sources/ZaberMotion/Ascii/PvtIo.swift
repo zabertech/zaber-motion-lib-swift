@@ -7,6 +7,8 @@ import Gateway
 import ZaberMotionExceptions
 
 /**
+ Module: ZaberMotionAscii
+
  Class providing access to I/O for a PVT sequence.
  */
 public final class PvtIo: @unchecked Sendable {
@@ -21,6 +23,8 @@ public final class PvtIo: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets value for the specified digital output channel.
 
      - Parameters:
@@ -40,6 +44,8 @@ public final class PvtIo: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets values for all digital output channels.
 
      - Parameters:
@@ -57,6 +63,8 @@ public final class PvtIo: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets value for the specified analog output channel.
 
      - Parameters:
@@ -76,6 +84,8 @@ public final class PvtIo: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets values for all analog output channels.
 
      - Parameters:
@@ -93,6 +103,8 @@ public final class PvtIo: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets current and future value for the specified digital output channel.
      Requires at least Firmware 7.37.
 
@@ -123,6 +135,8 @@ public final class PvtIo: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets current and future values for all digital output channels.
      Requires at least Firmware 7.37.
 
@@ -151,6 +165,8 @@ public final class PvtIo: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets current and future value for the specified analog output channel.
      Requires at least Firmware 7.38.
 
@@ -181,6 +197,8 @@ public final class PvtIo: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Sets current and future values for all analog output channels.
      Requires at least Firmware 7.38.
 
@@ -209,6 +227,8 @@ public final class PvtIo: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Cancels a scheduled digital output action.
      Requires at least Firmware 7.37.
 
@@ -228,6 +248,8 @@ public final class PvtIo: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Cancel all scheduled digital output actions.
      Requires at least Firmware 7.37.
 
@@ -249,6 +271,8 @@ public final class PvtIo: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Cancels a scheduled analog output value.
      Requires at least Firmware 7.38.
 
@@ -268,6 +292,8 @@ public final class PvtIo: @unchecked Sendable {
     }
 
     /**
+     Module: ZaberMotionAscii
+
      Cancel all scheduled analog output actions.
      Requires at least Firmware 7.38.
 
