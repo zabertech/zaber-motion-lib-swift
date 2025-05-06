@@ -113,6 +113,92 @@ public final class AxisSettings: @unchecked Sendable {
     /**
      Module: ZaberMotionAscii
 
+     Returns any axis setting or property as an integer.
+     For more information refer to the [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_settings).
+
+     - Parameters:
+        - setting: Name of the setting.
+
+     - Returns: Setting value.
+     */
+    public func getInt(setting: String) async throws -> Int64 {
+        var request = DtoRequests.DeviceGetSettingRequest()
+        request.interfaceId = self.axis.device.connection.interfaceId
+        request.device = self.axis.device.deviceAddress
+        request.axis = self.axis.axisNumber
+        request.setting = setting
+
+        let response = try await Gateway.callAsync("device/get_setting_int", request, DtoRequests.Int64Response.fromByteArray)
+        return response.value
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Sets any axis setting or property as an integer.
+     For more information refer to the [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_settings).
+
+     - Parameters:
+        - setting: Name of the setting.
+        - value: Value of the setting.
+     */
+    public func setInt(setting: String, value: Int64) async throws  {
+        var request = DtoRequests.DeviceSetSettingIntRequest()
+        request.interfaceId = self.axis.device.connection.interfaceId
+        request.device = self.axis.device.deviceAddress
+        request.axis = self.axis.axisNumber
+        request.setting = setting
+        request.value = value
+
+        try await Gateway.callAsync("device/set_setting_int", request)
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Returns any axis setting or property as a boolean.
+     For more information refer to the [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_settings).
+
+     - Parameters:
+        - setting: Name of the setting.
+
+     - Returns: Setting value.
+     */
+    public func getBool(setting: String) async throws -> Bool {
+        var request = DtoRequests.DeviceGetSettingRequest()
+        request.interfaceId = self.axis.device.connection.interfaceId
+        request.device = self.axis.device.deviceAddress
+        request.axis = self.axis.axisNumber
+        request.setting = setting
+
+        let response = try await Gateway.callAsync("device/get_setting_bool", request, DtoRequests.BoolResponse.fromByteArray)
+        return response.value
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Sets any axis setting as a boolean.
+     For more information refer to the [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_settings).
+
+     - Parameters:
+        - setting: Name of the setting.
+        - value: Value of the setting.
+     */
+    public func setBool(setting: String, value: Bool) async throws  {
+        var request = DtoRequests.DeviceSetSettingBoolRequest()
+        request.interfaceId = self.axis.device.connection.interfaceId
+        request.device = self.axis.device.deviceAddress
+        request.axis = self.axis.axisNumber
+        request.setting = setting
+        request.value = value
+
+        try await Gateway.callAsync("device/set_setting_bool", request)
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
      Convert arbitrary setting value to Zaber native units.
 
      - Parameters:
@@ -202,6 +288,48 @@ public final class AxisSettings: @unchecked Sendable {
         request.setting = setting
 
         let response = try Gateway.callSync("device/get_setting_default_str", request, DtoRequests.StringResponse.fromByteArray)
+        return response.value
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Returns the default value of a setting as an integer.
+
+     - Parameters:
+        - setting: Name of the setting.
+
+     - Returns: Default setting value.
+     */
+    public func getDefaultInt(setting: String) throws -> Int64 {
+        var request = DtoRequests.DeviceGetSettingRequest()
+        request.interfaceId = self.axis.device.connection.interfaceId
+        request.device = self.axis.device.deviceAddress
+        request.axis = self.axis.axisNumber
+        request.setting = setting
+
+        let response = try Gateway.callSync("device/get_setting_default_int", request, DtoRequests.Int64Response.fromByteArray)
+        return response.value
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Returns the default value of a setting as a boolean.
+
+     - Parameters:
+        - setting: Name of the setting.
+
+     - Returns: Default setting value.
+     */
+    public func getDefaultBool(setting: String) throws -> Bool {
+        var request = DtoRequests.DeviceGetSettingRequest()
+        request.interfaceId = self.axis.device.connection.interfaceId
+        request.device = self.axis.device.deviceAddress
+        request.axis = self.axis.axisNumber
+        request.setting = setting
+
+        let response = try Gateway.callSync("device/get_setting_default_bool", request, DtoRequests.BoolResponse.fromByteArray)
         return response.value
     }
 

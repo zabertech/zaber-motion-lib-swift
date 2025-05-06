@@ -2,9 +2,11 @@
 // ============== DO NOT EDIT DIRECTLY ============== //
 
 import Dto
+import DtoAscii
 import DtoRequests
 import Gateway
 import ZaberMotionExceptions
+import Utils
 
 /**
  Module: ZaberMotionAscii
@@ -61,6 +63,68 @@ public final class PvtSequence: @unchecked Sendable {
      Gets an object that provides access to I/O for this sequence.
      */
     public let io: PvtIo
+
+    /**
+     Module: ZaberMotionAscii
+
+     Saves PvtSequenceData object as csv file.
+     Save format is compatible with Zaber Launcher PVT Editor App.
+
+     Throws InvalidArgumentException if fields are undefined or inconsistent.
+     For example, position and velocity arrays must have the same dimensions.
+     Sequence lengths must be consistent for positions, velocities and times.
+
+     - Parameters:
+        - sequenceData: The PVT sequence data to save.
+        - path: The path to save the file to.
+        - dimensionNames: Optional csv column names for each series.
+          If not provided, the default names will be used: Series 1, Series 2, etc..
+          Length of this array must be equal to number of dimensions in sequence data.
+     */
+    public static func saveSequenceData(sequenceData: PvtSequenceData, path: String, dimensionNames: [String]) async throws  {
+        var request = DtoRequests.PvtSaveCsvRequest()
+        request.sequenceData = sequenceData
+        request.path = path
+        request.dimensionNames = dimensionNames
+
+        try await Gateway.callAsync("device/stream_pvt_save_csv", request)
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Load PVT Sequence data from CSV file.
+     The CSV data can include a header (recommended).
+     There are two possible header formats:
+
+     1. A time column with named position and velocity columns.
+     For example, "Time (ms),X Position (cm),X Velocity (cm/s),...".
+     In this case, position, velocity and time columns are all optional.
+     Also, order does not matter, but position and velocity names must be consistent.
+     This is our recommended CSV format.
+
+     2. A time column with alternating position and velocity columns.
+     For example, "Time (ms),Position (cm),Velocity (cm/s),...".
+     In this case, only the time column is optional and order does matter.
+
+     Units must be wrapped in parens or square braces: ie. (µm/s), [µm/s].
+     Additionally, native units are the default if no units are specified.
+     If no header is included, then column order is assumed to be "T,P1,V1,P2,V2,...".
+     In this case the number of columns must be odd.
+
+     - Parameters:
+        - path: The path from which the csv file will be loaded.
+
+     - Returns: The PVT csv data loaded from the file.
+     */
+    public static func loadSequenceData(path: String) async throws -> PvtCsvData {
+        _assertSendable(PvtCsvData.self)
+
+        var request = DtoRequests.PvtLoadCsvRequest()
+        request.path = path
+
+        return try await Gateway.callAsync("device/stream_pvt_load_csv", request, PvtCsvData.fromByteArray)
+    }
 
     /**
      Module: ZaberMotionAscii
@@ -194,6 +258,32 @@ public final class PvtSequence: @unchecked Sendable {
     /**
      Module: ZaberMotionAscii
 
+     Queues points with absolute coordinates in the PVT sequence.
+
+     - Parameters:
+        - positions: Per-axis sequences of positions.
+        - velocities: Per-axis sequences of velocities.
+          For velocities [v0, v1, ...] and positions [p0, p1, ...], v1 is the target velocity at point p1.
+        - times: Segment times from one point to another.
+          For times [t0, t1, ...] and positions [p0, p1, ...], t1 is the time it takes to move from p0 to p1.
+     */
+    public func points(positions: [MeasurementSequence], velocities: [MeasurementSequence], times: MeasurementSequence) async throws  {
+        var request = DtoRequests.PvtPointsRequest()
+        request.interfaceId = self.device.connection.interfaceId
+        request.device = self.device.deviceAddress
+        request.streamId = self.pvtId
+        request.pvt = true
+        request.type = DtoRequests.StreamSegmentType.abs
+        request.positions = positions
+        request.velocities = velocities
+        request.times = times
+
+        try await Gateway.callAsync("device/stream_points", request)
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
      Queues a point with coordinates relative to the previous point in the PVT sequence.
      If some or all velocities are not provided, the sequence calculates the velocities
      from surrounding points using finite difference.
@@ -217,6 +307,32 @@ public final class PvtSequence: @unchecked Sendable {
         request.time = time
 
         try await Gateway.callAsync("device/stream_point", request)
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Queues points with coordinates relative to the previous point in the PVT sequence.
+
+     - Parameters:
+        - positions: Per-axis sequences of positions.
+        - velocities: Per-axis sequences of velocities.
+          For velocities [v0, v1, ...] and positions [p0, p1, ...], v1 is the target velocity at point p1.
+        - times: Segment times from one point to another.
+          For times [t0, t1, ...] and positions [p0, p1, ...], t1 is the time it takes to move from p0 to p1.
+     */
+    public func pointsRelative(positions: [MeasurementSequence], velocities: [MeasurementSequence], times: MeasurementSequence) async throws  {
+        var request = DtoRequests.PvtPointsRequest()
+        request.interfaceId = self.device.connection.interfaceId
+        request.device = self.device.deviceAddress
+        request.streamId = self.pvtId
+        request.pvt = true
+        request.type = DtoRequests.StreamSegmentType.rel
+        request.positions = positions
+        request.velocities = velocities
+        request.times = times
+
+        try await Gateway.callAsync("device/stream_points", request)
     }
 
     /**

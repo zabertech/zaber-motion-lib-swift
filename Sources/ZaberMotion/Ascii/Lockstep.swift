@@ -516,6 +516,52 @@ public final class Lockstep: @unchecked Sendable {
         return response.value
     }
 
+    /**
+     Module: ZaberMotionAscii
+
+     Parks lockstep group in anticipation of turning the power off.
+     It can later be powered on, unparked, and moved without first having to home it.
+     */
+    public func park() async throws  {
+        var request = DtoRequests.LockstepEmptyRequest()
+        request.interfaceId = self.device.connection.interfaceId
+        request.device = self.device.deviceAddress
+        request.lockstepGroupId = self.lockstepGroupId
+
+        try await Gateway.callAsync("device/lockstep_park", request)
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Unparks lockstep group. Lockstep group will now be able to move.
+     */
+    public func unpark() async throws  {
+        var request = DtoRequests.LockstepEmptyRequest()
+        request.interfaceId = self.device.connection.interfaceId
+        request.device = self.device.deviceAddress
+        request.lockstepGroupId = self.lockstepGroupId
+
+        try await Gateway.callAsync("device/lockstep_unpark", request)
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Returns bool indicating whether the axis is parked or not.
+
+     - Returns: True if lockstep group is parked.
+     */
+    public func isParked() async throws -> Bool {
+        var request = DtoRequests.LockstepEmptyRequest()
+        request.interfaceId = self.device.connection.interfaceId
+        request.device = self.device.deviceAddress
+        request.lockstepGroupId = self.lockstepGroupId
+
+        let response = try await Gateway.callAsync("device/lockstep_is_parked", request, DtoRequests.BoolResponse.fromByteArray)
+        return response.value
+    }
+
 
 }
 

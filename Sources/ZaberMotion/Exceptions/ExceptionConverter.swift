@@ -96,6 +96,8 @@ public final class ExceptionConverter {
                 return InternalErrorException(message: message)
             case DtoRequests.Errors.invalidArgument:
                 return InvalidArgumentException(message: message)
+            case DtoRequests.Errors.invalidCsvData:
+                return InvalidCsvDataException(message: message)
             case DtoRequests.Errors.invalidData:
                 return InvalidDataException(message: message)
             case DtoRequests.Errors.invalidOperation:
