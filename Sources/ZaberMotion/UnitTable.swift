@@ -52,4 +52,27 @@ public final class UnitTable {
         return response.unit
     }
 
+    /**
+     Module: ZaberMotion
+
+     Converts a value from one unit to a different unit of the same dimension.
+     Note that this function does not support native unit conversions.
+
+     - Parameters:
+        - value: The value to be converted.
+        - fromUnit: The unit which the value is being converted from.
+        - toUnit: The unit which the value is being converted to.
+
+     - Returns: The converted value. Throws ConversionFailedException if unit is incompatible.
+     */
+    public static func convertUnits(value: Double, fromUnit: Units, toUnit: Units) throws -> Double {
+        var request = DtoRequests.UnitConvertUnitRequest()
+        request.value = value
+        request.fromUnit = fromUnit
+        request.toUnit = toUnit
+
+        let response = try Gateway.callSync("units/convert_unit", request, DtoRequests.DoubleResponse.fromByteArray)
+        return response.value
+    }
+
 }

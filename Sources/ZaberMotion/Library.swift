@@ -83,6 +83,32 @@ public final class Library {
     /**
      Module: ZaberMotion
 
+     Checks if the Device DB store is currently enabled.
+
+     - Returns: True if the Device DB store is enabled.
+     */
+    public static func isDeviceDbStoreEnabled() throws -> Bool {
+        let request = DtoRequests.EmptyRequest()
+
+        let response = try Gateway.callSync("device_db/check_store", request, DtoRequests.BoolResponse.fromByteArray)
+        return response.value
+    }
+
+    /**
+     Module: ZaberMotion
+
+     Clears the Device DB store on the local filesystem.
+     Note: If the device DB was enabled with a custom store location, store files will be removed in that location.
+     */
+    public static func clearDeviceDbStore() async throws  {
+        let request = DtoRequests.EmptyRequest()
+
+        try await Gateway.callAsync("device_db/clear_store", request)
+    }
+
+    /**
+     Module: ZaberMotion
+
      Disables certain customer checks (like FF flag).
 
      - Parameters:
@@ -120,7 +146,7 @@ public final class Library {
     public static func checkVersion() throws  {
         var request = DtoRequests.CheckVersionRequest()
         request.host = "swift"
-        request.version = "7.7.0"
+        request.version = "7.8.0"
 
         try Gateway.callSync("library/check_version", request)
     }

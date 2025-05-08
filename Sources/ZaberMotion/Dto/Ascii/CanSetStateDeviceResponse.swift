@@ -10,12 +10,13 @@ import DtoSerializable
 public struct CanSetStateDeviceResponse: Serializable {
 
     /**
-     * The error blocking applying this state to the given device.
+     * The error blocking applying this state to the given device, or null if there is no error.
      */
     public var error: String?
 
     /**
-     * A list of errors that block setting state of device's axes.
+     * A list of axis responses, potentially with messages for errors
+     * which would block setting the state of the device's axes.
      */
     public var axisErrors: [CanSetStateAxisResponse]
 

@@ -10,7 +10,7 @@ import DtoSerializable
 public struct CanSetStateAxisResponse: Serializable {
 
     /**
-     * The error blocking applying this state to the given axis.
+     * The error blocking applying this state to the given axis, or null if there is no error.
      */
     public var error: String?
 

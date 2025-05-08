@@ -16,6 +16,7 @@ public typealias PvtAxisDefinition = DtoAscii.PvtAxisDefinition
 public typealias PvtSequenceData = DtoAscii.PvtSequenceData
 public typealias PvtCsvData = DtoAscii.PvtCsvData
 public typealias MeasurementSequence = DtoAscii.MeasurementSequence
+public typealias OptionalMeasurementSequence = DtoAscii.OptionalMeasurementSequence
 public typealias SetStateAxisResponse = DtoAscii.SetStateAxisResponse
 public typealias SetStateDeviceResponse = DtoAscii.SetStateDeviceResponse
 public typealias CanSetStateAxisResponse = DtoAscii.CanSetStateAxisResponse

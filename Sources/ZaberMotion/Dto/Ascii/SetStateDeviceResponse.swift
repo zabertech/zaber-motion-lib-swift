@@ -15,7 +15,8 @@ public struct SetStateDeviceResponse: Serializable {
     public var warnings: [String]
 
     /**
-     * A list of warnings encountered when applying this state to the device's axes.
+     * A list of axis responses, potentially with warnings encountered
+     * when applying this state to the device's axes.
      */
     public var axisResponses: [SetStateAxisResponse]
 

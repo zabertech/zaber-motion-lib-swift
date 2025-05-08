@@ -67,6 +67,76 @@ public final class PvtSequence: @unchecked Sendable {
     /**
      Module: ZaberMotionAscii
 
+     Generates velocities for a sequence of positions and times, and (optionally) a partially defined sequence
+     of velocities. Note that if some velocities are defined, the solver will NOT modify them in any way.
+     If all velocities are defined, the solver will simply return the same velocities.
+     This function calculates velocities by enforcing that acceleration be continuous at each segment transition.
+
+     Also note that if generating a path for multiple axes, the user must provide a position measurement sequence
+     per axis, And the values arrays for each sequence must be equal in length to each other and also to the
+     times sequence.
+
+     - Parameters:
+        - positions: Positions for the axes to move through, relative to their home positions.
+          Each MeasurementSequence represents a sequence of positions along a particular dimension.
+          For example, a 2D path sequence would contain two MeasurementSequence objects,
+          one representing positions along X and one for those along Y.
+        - times: The relative or absolute time of each position in the PVT sequence.
+        - velocities: Optional velocities corresponding to each point in the position sequences.
+        - timesRelative: If true, the times sequence values are interpreted as relative. Otherwise,
+          they are interpreted as absolute. Note that the values of the returned time
+          sequence are ALWAYS relative. This is because the PVT sequence API expects
+          points to have relative times.
+
+     - Returns: Object containing the generated PVT sequence. Note that returned time sequence is always relative.
+     */
+    public static func generateVelocities(positions: [MeasurementSequence], times: MeasurementSequence, velocities: [OptionalMeasurementSequence], timesRelative: Bool = true) async throws -> PvtSequenceData {
+        _assertSendable(PvtSequenceData.self)
+
+        var request = DtoRequests.PvtGenerateVelocitiesRequest()
+        request.positions = positions
+        request.times = times
+        request.velocities = velocities
+        request.timesRelative = timesRelative
+
+        return try await Gateway.callAsync("device/pvt_generate_velocities", request, PvtSequenceData.fromByteArray)
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Generates positions for a sequence of velocities and times. This function calculates
+     positions by enforcing that acceleration be continuous at each segment transition.
+
+     Note that if generating a path for multiple axes, the user must provide a
+     velocity measurement sequence per axis, and the values arrays for each sequence
+     must be equal in length to each other and also to the times sequence.
+
+     - Parameters:
+        - velocities: The sequence of velocities for each axis.
+          Each MeasurementSequence represents a sequence of velocities along particular dimension.
+        - times: The relative or absolute time of each position in the PVT sequence.
+        - timesRelative: If true, the times sequence values are interpreted as relative. Otherwise,
+          they are interpreted as absolute. Note that the values of the returned time
+          sequence are ALWAYS relative. This is because the PVT sequence API expects
+          points to have relative times.
+
+     - Returns: Object containing the generated PVT sequence. Note that returned time sequence is always relative.
+     */
+    public static func generatePositions(velocities: [MeasurementSequence], times: MeasurementSequence, timesRelative: Bool = true) async throws -> PvtSequenceData {
+        _assertSendable(PvtSequenceData.self)
+
+        var request = DtoRequests.PvtGeneratePositionsRequest()
+        request.velocities = velocities
+        request.times = times
+        request.timesRelative = timesRelative
+
+        return try await Gateway.callAsync("device/pvt_generate_positions", request, PvtSequenceData.fromByteArray)
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
      Saves PvtSequenceData object as csv file.
      Save format is compatible with Zaber Launcher PVT Editor App.
 

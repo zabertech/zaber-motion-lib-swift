@@ -168,6 +168,8 @@ public final class ExceptionConverter {
                     throw InvalidArgumentException(message: "ExceptionConverter: \(PvtMovementInterruptedException.self) requires custom data.");
                 }
                 return try PvtMovementInterruptedException(message: message, customData: customDataUnwrapped)
+            case DtoRequests.Errors.pvtSequenceGenerationFailed:
+                return PvtSequenceGenerationFailedException(message: message)
             case DtoRequests.Errors.pvtSetupFailed:
                 return PvtSetupFailedException(message: message)
             case DtoRequests.Errors.remoteMode:
