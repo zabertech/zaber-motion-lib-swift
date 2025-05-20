@@ -90,7 +90,7 @@ public final class PvtSequence: @unchecked Sendable {
 
      - Returns: Object containing the generated PVT sequence. Note that returned time sequence is always relative.
      */
-    public static func generateVelocities(positions: [MeasurementSequence], times: MeasurementSequence, velocities: [OptionalMeasurementSequence], timesRelative: Bool = true) async throws -> PvtSequenceData {
+    public static func generateVelocities(positions: [MeasurementSequence], times: MeasurementSequence, velocities: [OptionalMeasurementSequence] = [], timesRelative: Bool = true) async throws -> PvtSequenceData {
         _assertSendable(PvtSequenceData.self)
 
         var request = DtoRequests.PvtGenerateVelocitiesRequest()
@@ -151,7 +151,7 @@ public final class PvtSequence: @unchecked Sendable {
           If not provided, the default names will be used: Series 1, Series 2, etc..
           Length of this array must be equal to number of dimensions in sequence data.
      */
-    public static func saveSequenceData(sequenceData: PvtSequenceData, path: String, dimensionNames: [String]) async throws  {
+    public static func saveSequenceData(sequenceData: PvtSequenceData, path: String, dimensionNames: [String] = []) async throws  {
         var request = DtoRequests.PvtSaveCsvRequest()
         request.sequenceData = sequenceData
         request.path = path

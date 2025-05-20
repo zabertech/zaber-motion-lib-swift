@@ -5,8 +5,8 @@ import PackageDescription
 #if os(macOS)
     let zaberMotionCoreTarget: Target = .binaryTarget(
         name: "ZaberMotionCore",
-        url: "https://software.zaber.com/downloads/ZML/Swift/7.8.0/ZaberMotionCore.xcframework.zip",
-        checksum: "e32b54aba49d1448475d50a13f13abdb7a47c3c52102a61413e906f22e624593"
+        url: "https://software.zaber.com/downloads/ZML/Swift/7.8.1/ZaberMotionCore.xcframework.zip",
+        checksum: "9a19d41acd9d26292adce8e4335c989a4739ac32ea8b9b362d303be7294248c7"
     )
 #else
     fatalError("Unsupported OS")
