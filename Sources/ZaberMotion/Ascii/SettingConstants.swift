@@ -19,6 +19,11 @@ public final class SettingConstants {
     public static let accel: String = "accel"
 
     /**
+     Autodetect Coil Mode
+     */
+    public static let autodetectCoilMode: String = "autodetect.coil.mode"
+
+    /**
      Brake Mode
      */
     public static let brakeMode: String = "brake.mode"
@@ -32,6 +37,26 @@ public final class SettingConstants {
      Calibration Type
      */
     public static let calibrationType: String = "calibration.type"
+
+    /**
+     Cia 402 Controlword
+     */
+    public static let cia402Controlword: String = "cia402.controlword"
+
+    /**
+     Cia 402 Modes
+     */
+    public static let cia402Modes: String = "cia402.modes"
+
+    /**
+     Cia 402 Modes Display
+     */
+    public static let cia402ModesDisplay: String = "cia402.modes.display"
+
+    /**
+     Cia 402 Statusword
+     */
+    public static let cia402Statusword: String = "cia402.statusword"
 
     /**
      Cloop Continuous Enable

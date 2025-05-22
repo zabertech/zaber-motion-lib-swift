@@ -97,7 +97,7 @@ public func callSync<T>(
     _ request: String, _ requestData: (any Serializable)?, _ responseParser: (Data) throws -> T
 ) throws -> T {
     let data = try callGatewaySyncInternal(request, requestData)
-    return try parseResponse<T>(data, responseParser)
+    return try parseResponse(data, responseParser)
 }
 
 public func callSync(_ request: String, _ requestData: (any Serializable)? = nil) throws {
@@ -161,5 +161,5 @@ public func callAsync<T>(
     _ request: String, _ requestData: (any Serializable)?, _ responseParser: (Data) throws -> T
 ) async throws -> T {
     let data = try await callGatewayAsyncInternal(request, requestData)
-    return try parseResponse<T>(data, responseParser)
+    return try parseResponse(data, responseParser)
 }

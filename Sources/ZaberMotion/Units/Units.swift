@@ -18,6 +18,7 @@ public enum Units: String, Codable, Sendable {
         public static let `mm` = Units.lengthMillimetres
         public static let `µm` = Units.lengthMicrometres
         public static let `um` = Units.lengthMicrometres
+        public static let `μm` = Units.lengthMicrometres
         public static let `nm` = Units.lengthNanometres
         public static let `in` = Units.lengthInches
     }
@@ -35,6 +36,7 @@ public enum Units: String, Codable, Sendable {
         "mm/s": .velocityMillimetresPerSecond,
         "µm/s": .velocityMicrometresPerSecond,
         "um/s": .velocityMicrometresPerSecond,
+        "μm/s": .velocityMicrometresPerSecond,
         "nm/s": .velocityNanometresPerSecond,
         "in/s": .velocityInchesPerSecond,
     ]
@@ -55,6 +57,7 @@ public enum Units: String, Codable, Sendable {
         "mm/s^2": .accelerationMillimetresPerSecondSquared,
         "µm/s²": .accelerationMicrometresPerSecondSquared,
         "um/s^2": .accelerationMicrometresPerSecondSquared,
+        "μm/s²": .accelerationMicrometresPerSecondSquared,
         "nm/s²": .accelerationNanometresPerSecondSquared,
         "nm/s^2": .accelerationNanometresPerSecondSquared,
         "in/s²": .accelerationInchesPerSecondSquared,
@@ -136,6 +139,7 @@ public enum Units: String, Codable, Sendable {
         public static let `ms` = Units.timeMilliseconds
         public static let `µs` = Units.timeMicroseconds
         public static let `us` = Units.timeMicroseconds
+        public static let `μs` = Units.timeMicroseconds
     }
 
     case torqueNewtonMetres = "Torque:newton metres"
@@ -217,6 +221,7 @@ public enum Units: String, Codable, Sendable {
         public static let `mV` = Units.voltageMillivolts
         public static let `µV` = Units.voltageMicrovolts
         public static let `uV` = Units.voltageMicrovolts
+        public static let `μV` = Units.voltageMicrovolts
     }
 
     case currentControllerProportionalGainVoltsPerAmp = "Current Controller Proportional Gain:volts per amp"
@@ -228,6 +233,7 @@ public enum Units: String, Codable, Sendable {
         "mV/A": .currentControllerProportionalGainMillivoltsPerAmp,
         "µV/A": .currentControllerProportionalGainMicrovoltsPerAmp,
         "uV/A": .currentControllerProportionalGainMicrovoltsPerAmp,
+        "μV/A": .currentControllerProportionalGainMicrovoltsPerAmp,
     ]
 
     case currentControllerIntegralGainVoltsPerAmpPerSecond = "Current Controller Integral Gain:volts per amp per second"
@@ -239,6 +245,7 @@ public enum Units: String, Codable, Sendable {
         "mV/(A⋅s)": .currentControllerIntegralGainMillivoltsPerAmpPerSecond,
         "µV/(A⋅s)": .currentControllerIntegralGainMicrovoltsPerAmpPerSecond,
         "uV/(A⋅s)": .currentControllerIntegralGainMicrovoltsPerAmpPerSecond,
+        "μV/(A⋅s)": .currentControllerIntegralGainMicrovoltsPerAmpPerSecond,
     ]
 
     case currentControllerDerivativeGainVoltsSecondPerAmp = "Current Controller Derivative Gain:volts second per amp"
@@ -250,6 +257,7 @@ public enum Units: String, Codable, Sendable {
         "mV⋅s/A": .currentControllerDerivativeGainMillivoltsSecondPerAmp,
         "µV⋅s/A": .currentControllerDerivativeGainMicrovoltsSecondPerAmp,
         "uV⋅s/A": .currentControllerDerivativeGainMicrovoltsSecondPerAmp,
+        "μV⋅s/A": .currentControllerDerivativeGainMicrovoltsSecondPerAmp,
     ]
 
     case resistanceKiloohms = "Resistance:kiloohms"
@@ -266,6 +274,7 @@ public enum Units: String, Codable, Sendable {
         public static let `mΩ` = Units.resistanceMilliohms
         public static let `µΩ` = Units.resistanceMicroohms
         public static let `uΩ` = Units.resistanceMicroohms
+        public static let `μΩ` = Units.resistanceMicroohms
         public static let `nΩ` = Units.resistanceNanoohms
     }
 
@@ -281,6 +290,7 @@ public enum Units: String, Codable, Sendable {
         public static let `mH` = Units.inductanceMillihenries
         public static let `µH` = Units.inductanceMicrohenries
         public static let `uH` = Units.inductanceMicrohenries
+        public static let `μH` = Units.inductanceMicrohenries
         public static let `nH` = Units.inductanceNanohenries
     }
 
@@ -293,6 +303,7 @@ public enum Units: String, Codable, Sendable {
         "mV·s/rad": .voltageConstantMillivoltSecondsPerRadian,
         "µV·s/rad": .voltageConstantMicrovoltSecondsPerRadian,
         "uV·s/rad": .voltageConstantMicrovoltSecondsPerRadian,
+        "μV·s/rad": .voltageConstantMicrovoltSecondsPerRadian,
     ]
 
     case absoluteTemperatureDegreesCelsius = "Absolute Temperature:degrees Celsius"
@@ -343,6 +354,7 @@ public enum Units: String, Codable, Sendable {
         public static let `mHz` = Units.frequencyMillihertz
         public static let `µHz` = Units.frequencyMicrohertz
         public static let `uHz` = Units.frequencyMicrohertz
+        public static let `μHz` = Units.frequencyMicrohertz
         public static let `nHz` = Units.frequencyNanohertz
     }
 }
