@@ -18,11 +18,11 @@ public struct CanSetStateDeviceResponse: Serializable {
      * A list of axis responses, potentially with messages for errors
      * which would block setting the state of the device's axes.
      */
-    public var axisErrors: [CanSetStateAxisResponse]
+    public var axisResponses: [CanSetStateAxisResponse]
 
-    public init(error: String? = nil, axisErrors: [CanSetStateAxisResponse] = []) {
+    public init(error: String? = nil, axisResponses: [CanSetStateAxisResponse] = []) {
         self.error = error
-        self.axisErrors = axisErrors
+        self.axisResponses = axisResponses
     }
 
     public static func fromByteArray(_ byteArray: Data) throws -> CanSetStateDeviceResponse {

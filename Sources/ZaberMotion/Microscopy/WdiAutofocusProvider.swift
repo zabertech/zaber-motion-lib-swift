@@ -102,7 +102,7 @@ public final class WdiAutofocusProvider: @unchecked Sendable  {
      Generic write operation.
 
      - Parameters:
-        - registerId: Register address to read from.
+        - registerId: Register address to write to.
         - size: Data size to write. Valid values are (0,1,2,4). Determines the data type (Nil, Byte, Word, DWord).
         - data: Array of values to write to the register. Empty array is allowed.
         - offset: Offset within the register (defaults to 0).
