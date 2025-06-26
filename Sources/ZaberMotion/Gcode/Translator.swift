@@ -83,7 +83,8 @@ public final class Translator: @unchecked Sendable {
         request.translatorId = self.translatorId
         request.block = block
 
-        return try await Gateway.callAsync("gcode/translate_live", request, TranslateResult.fromByteArray)
+        let response = try await Gateway.callAsync("gcode/translate_live", request, TranslateResult.fromByteArray)
+        return response
     }
 
     /**

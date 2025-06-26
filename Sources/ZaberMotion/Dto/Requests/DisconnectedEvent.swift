@@ -15,6 +15,11 @@ public struct DisconnectedEvent: Serializable {
     public var interfaceId: Int
 
     /**
+     * The id of the connection session.
+     */
+    public var sessionId: Int
+
+    /**
      * The type of error that caused the disconnection.
      */
     public var errorType: Errors
@@ -24,8 +29,9 @@ public struct DisconnectedEvent: Serializable {
      */
     public var errorMessage: String
 
-    public init(interfaceId: Int = 0, errorType: Errors = Errors(rawValue: 0)!, errorMessage: String = "") {
+    public init(interfaceId: Int = 0, sessionId: Int = 0, errorType: Errors = Errors(rawValue: 0)!, errorMessage: String = "") {
         self.interfaceId = interfaceId
+        self.sessionId = sessionId
         self.errorType = errorType
         self.errorMessage = errorMessage
     }

@@ -34,7 +34,8 @@ public final class DeviceIO: @unchecked Sendable {
         request.interfaceId = self.device.connection.interfaceId
         request.device = self.device.deviceAddress
 
-        return try await Gateway.callAsync("device/get_io_info", request, DeviceIOInfo.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_io_info", request, DeviceIOInfo.fromByteArray)
+        return response
     }
 
     /**

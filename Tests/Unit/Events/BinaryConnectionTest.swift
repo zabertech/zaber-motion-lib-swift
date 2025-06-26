@@ -4,6 +4,7 @@ import Foundation
 import Gateway
 import Testing
 import ZaberMotionBinary
+import ZaberMotionExceptions
 
 @Suite struct BinaryConnectionEventsTests {
     @Test("Receive Reply Only Event")
@@ -142,9 +143,9 @@ import ZaberMotionBinary
         var eventReceived = false
 
         let connection = Connection(interfaceId: 3)
-        let cancellable = connection.disconnected.sink { disconnectedEvent in
-            #expect(disconnectedEvent.errorType == .connectionClosed)
-            #expect(disconnectedEvent.errorMessage == "Test")
+        let cancellable = connection.disconnected.sink { error in
+            #expect(error is ConnectionClosedException)
+            #expect(error.message == "Test")
 
             eventReceived = true
         }
@@ -173,8 +174,8 @@ import ZaberMotionBinary
         }
 
         let connection = Connection(interfaceId: 5)
-        let cancellable = connection.disconnected.sink { disconnectedEvent in
-            #expect(disconnectedEvent.errorMessage == "Same Connection")
+        let cancellable = connection.disconnected.sink { error in
+            #expect(error.message == "Same Connection")
 
             eventReceived = true
         }
@@ -201,9 +202,9 @@ import ZaberMotionBinary
         var disconnectedReceived = false
 
         let connection = Connection(interfaceId: 3)
-        var cancellableDisconnected = connection.disconnected.sink { disconnectedEvent in
-            #expect(disconnectedEvent.errorType == .connectionClosed)
-            #expect(disconnectedEvent.errorMessage == "Test")
+        var cancellableDisconnected = connection.disconnected.sink { error in
+            #expect(error is ConnectionClosedException)
+            #expect(error.message == "Test")
             disconnectedReceived = true
         }
         var cancellableReplyOnly = connection.replyOnly.sink { _ in
@@ -250,15 +251,15 @@ import ZaberMotionBinary
         try Events.shared.testSendEvent("interface/disconnected", disconnectedEvent)
 
         var endEventReceived = false
-        let cancellableEnd = Events.shared.test.sink { _ in 
+        let cancellableEnd = Events.shared.test.sink { _ in
             endEventReceived = true
-        } 
+        }
         try Events.shared.testSendEvent("test/event", TestEvent())
 
         await waitForExpectation(timeout: .seconds(1), description: "Received end event") {
             endEventReceived
         }
-        
+
         #expect(eventReceived == false)
         cancellableDisconnected.cancel()
         cancellableReplyOnly.cancel()

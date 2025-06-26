@@ -103,7 +103,8 @@ public final class OfflineTranslator: @unchecked Sendable {
         request.translatorId = self.translatorId
         request.block = block
 
-        return try Gateway.callSync("gcode/translate", request, TranslateResult.fromByteArray)
+        let response = try Gateway.callSync("gcode/translate", request, TranslateResult.fromByteArray)
+        return response
     }
 
     /**

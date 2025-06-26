@@ -187,7 +187,8 @@ public final class IlluminatorChannel: @unchecked Sendable {
         request.checkErrors = checkErrors
         request.timeout = timeout
 
-        return try await Gateway.callAsync("interface/generic_command", request, Response.fromByteArray)
+        let response = try await Gateway.callAsync("interface/generic_command", request, Response.fromByteArray)
+        return response
     }
 
     /**
@@ -275,7 +276,8 @@ public final class IlluminatorChannel: @unchecked Sendable {
         request.axis = self.channelNumber
         request.state = state
 
-        return try await Gateway.callAsync("device/set_axis_state", request, SetStateAxisResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/set_axis_state", request, SetStateAxisResponse.fromByteArray)
+        return response
     }
 
     /**

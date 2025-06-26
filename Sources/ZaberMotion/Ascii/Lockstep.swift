@@ -371,7 +371,8 @@ public final class Lockstep: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.lockstepGroupId = self.lockstepGroupId
 
-        return try await Gateway.callAsync("device/lockstep_get_axes", request, LockstepAxes.fromByteArray)
+        let response = try await Gateway.callAsync("device/lockstep_get_axes", request, LockstepAxes.fromByteArray)
+        return response
     }
 
     /**

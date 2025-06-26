@@ -18,7 +18,7 @@ public final class Connection: @unchecked Sendable {
 
     package init(interfaceId: Int) {
         self.interfaceId = interfaceId
-        ensureSubscribed()
+        subscribe()
     }
 
     /**
@@ -34,6 +34,16 @@ public final class Connection: @unchecked Sendable {
      The interface ID identifies thisConnection instance with the underlying library.
      */
     public let interfaceId: Int
+
+    /**
+     Module: ZaberMotionBinary
+
+     Returns whether the connection is open.
+     Does not guarantee that the subsequent requests will succeed.
+     */
+    public var isOpen: Bool {
+        get throws { return try retrieveIsOpen() }
+    }
 
     /**
      Module: ZaberMotionBinary
@@ -126,7 +136,8 @@ public final class Connection: @unchecked Sendable {
         request.timeout = timeout
         request.checkErrors = checkErrors
 
-        return try await Gateway.callAsync("binary/interface/generic_command", request, Message.fromByteArray)
+        let response = try await Gateway.callAsync("binary/interface/generic_command", request, Message.fromByteArray)
+        return response
     }
 
     /**
@@ -266,6 +277,21 @@ public final class Connection: @unchecked Sendable {
         try Gateway.callSync("interface/free", request)
     }
 
+    /**
+     Module: ZaberMotionBinary
+
+     Returns is open.
+
+     - Returns: Is open.
+     */
+    func retrieveIsOpen() throws -> Bool {
+        var request = DtoRequests.InterfaceEmptyRequest()
+        request.interfaceId = self.interfaceId
+
+        let response = try Gateway.callSync("interface/get_is_open", request, DtoRequests.BoolResponse.fromByteArray)
+        return response.value
+    }
+
 
     /**
      Module: ZaberMotionBinary
@@ -299,61 +325,75 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
-     Force initialization of lazy event publishers to avoid race conditions.
+     Subscribe to all events.
     */
-    private func ensureSubscribed() {
-        _ = self.disconnected
-        _ = self.replyOnly
-        _ = self.unknownResponse
+    private func subscribe() {
+        self._disconnected = Events.shared.disconnected.filter {
+                disconnectedEvent in
+                return disconnectedEvent.interfaceId == self.interfaceId
+            }.map { disconnectedEvent in
+                do {
+                    return try ExceptionConverter.convert(
+                        error: disconnectedEvent.errorType,
+                        message: disconnectedEvent.errorMessage
+                    )
+                } catch {
+                    return InternalErrorException(message: "Failed to convert disconnected event: \(error)")
+                }
+            }.first()
+            .eraseToAnyPublisher()
+            .share()
+
+        self._replyOnly = Events.shared.binaryReplyOnly.prefix(
+                untilOutputFrom: self._disconnected!
+            ).filter {
+                binaryReplyOnlyEventWrapper in
+                return binaryReplyOnlyEventWrapper.interfaceId == self.interfaceId
+            }.map {
+                binaryReplyOnlyEventWrapper in
+                return binaryReplyOnlyEventWrapper.reply
+            }.eraseToAnyPublisher()
+            .share()
+
+        self._unknownResponse = Events.shared.unknownResponseBinary.prefix(
+                untilOutputFrom: self._disconnected!
+            ).filter {
+                unknownBinaryResponseEventWrapper in
+                return unknownBinaryResponseEventWrapper.interfaceId == self.interfaceId
+            }.map {
+                unknownBinaryResponseEventWrapper in
+                return unknownBinaryResponseEventWrapper.unknownResponse
+            }.eraseToAnyPublisher()
+            .share()
     }
 
+    private var _disconnected: Publishers.Share<AnyPublisher<MotionLibException, Never>>?
     /**
      Module: ZaberMotionBinary
 
      Event invoked when connection is interrupted or closed.
      */
-    public lazy var disconnected = {
-        return Events.shared.disconnected.filter {
-            disconnectedEvent in
-            return disconnectedEvent.interfaceId == self.interfaceId
-        }.first()
-        .eraseToAnyPublisher()
-        .share()
-    }()
+    public var disconnected: Publishers.Share<AnyPublisher<MotionLibException, Never>> {
+        return _disconnected!
+    }
 
-    /**
+    private var _replyOnly: Publishers.Share<AnyPublisher<ReplyOnlyEvent, Never>>?
+            /**
      Module: ZaberMotionBinary
 
      Event invoked when a reply-only command such as a move tracking message is received from a device.
      */
-    public lazy var replyOnly = {
-        return Events.shared.binaryReplyOnly.prefix(
-            untilOutputFrom: disconnected
-        ).filter {
-            binaryReplyOnlyEventWrapper in
-            return binaryReplyOnlyEventWrapper.interfaceId == self.interfaceId
-        }.map {
-            binaryReplyOnlyEventWrapper in
-            return binaryReplyOnlyEventWrapper.reply
-        }.eraseToAnyPublisher()
-        .share()
-    }()
+    public var replyOnly: Publishers.Share<AnyPublisher<ReplyOnlyEvent, Never>> {
+        return _replyOnly!
+    }
 
-    /**
+    private var _unknownResponse: Publishers.Share<AnyPublisher<UnknownResponseEvent, Never>>?
+            /**
      Module: ZaberMotionBinary
 
      Event invoked when a response from a device cannot be matched to any known request.
      */
-    public lazy var unknownResponse = {
-        return Events.shared.unknownResponseBinary.prefix(
-            untilOutputFrom: disconnected
-        ).filter {
-            unknownBinaryResponseEventWrapper in
-            return unknownBinaryResponseEventWrapper.interfaceId == self.interfaceId
-        }.map {
-            unknownBinaryResponseEventWrapper in
-            return unknownBinaryResponseEventWrapper.unknownResponse
-        }.eraseToAnyPublisher()
-        .share()
-    }()
+    public var unknownResponse: Publishers.Share<AnyPublisher<UnknownResponseEvent, Never>> {
+        return _unknownResponse!
+    }
 }

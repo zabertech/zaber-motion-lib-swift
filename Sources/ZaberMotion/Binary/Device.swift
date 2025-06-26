@@ -170,7 +170,8 @@ public final class Device: @unchecked Sendable {
         request.timeout = timeout
         request.checkErrors = checkErrors
 
-        return try await Gateway.callAsync("binary/interface/generic_command", request, Message.fromByteArray)
+        let response = try await Gateway.callAsync("binary/interface/generic_command", request, Message.fromByteArray)
+        return response
     }
 
     /**
@@ -390,7 +391,8 @@ public final class Device: @unchecked Sendable {
         request.device = self.deviceAddress
         request.assumeVersion = assumeVersion
 
-        return try await Gateway.callAsync("binary/device/identify", request, DeviceIdentity.fromByteArray)
+        let response = try await Gateway.callAsync("binary/device/identify", request, DeviceIdentity.fromByteArray)
+        return response
     }
 
     /**
@@ -489,7 +491,8 @@ public final class Device: @unchecked Sendable {
         request.interfaceId = self.connection.interfaceId
         request.device = self.deviceAddress
 
-        return try Gateway.callSync("binary/device/get_identity", request, DeviceIdentity.fromByteArray)
+        let response = try Gateway.callSync("binary/device/get_identity", request, DeviceIdentity.fromByteArray)
+        return response
     }
 
     /**

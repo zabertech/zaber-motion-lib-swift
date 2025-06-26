@@ -19,7 +19,7 @@ public final class Connection: @unchecked Sendable {
 
     package init(interfaceId: Int) {
         self.interfaceId = interfaceId
-        ensureSubscribed()
+        subscribe(sessionId: 0)
     }
 
     /**
@@ -98,6 +98,16 @@ public final class Connection: @unchecked Sendable {
      */
     public func setChecksumEnabled(_ value: Bool) throws {
         try changeChecksumEnabled(isEnabled: value)
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Returns whether the connection is open.
+     Does not guarantee that subsequent requests will succeed.
+     */
+    public var isOpen: Bool {
+        get throws { return try retrieveIsOpen() }
     }
 
     /**
@@ -236,6 +246,21 @@ public final class Connection: @unchecked Sendable {
     /**
      Module: ZaberMotionAscii
 
+     Reopens the connection.
+     To continue using events on the connection, you must resubscribe to event observables.
+     Throws an exception if the connection is already open.
+     */
+    public func reopen() async throws  {
+        var request = DtoRequests.InterfaceEmptyRequest()
+        request.interfaceId = self.interfaceId
+
+        let response = try await Gateway.callAsync("interface/reopen", request, DtoRequests.IntResponse.fromByteArray)
+        subscribe(sessionId: response.value);
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
      Sends a generic ASCII command to this connection.
      For more information refer to the [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_commands).
 
@@ -260,7 +285,8 @@ public final class Connection: @unchecked Sendable {
         request.checkErrors = checkErrors
         request.timeout = timeout
 
-        return try await Gateway.callAsync("interface/generic_command", request, Response.fromByteArray)
+        let response = try await Gateway.callAsync("interface/generic_command", request, Response.fromByteArray)
+        return response
     }
 
     /**
@@ -584,6 +610,21 @@ public final class Connection: @unchecked Sendable {
         try Gateway.callSync("interface/set_checksum_enabled", request)
     }
 
+    /**
+     Module: ZaberMotionAscii
+
+     Returns is open.
+
+     - Returns: Is open.
+     */
+    func retrieveIsOpen() throws -> Bool {
+        var request = DtoRequests.InterfaceEmptyRequest()
+        request.interfaceId = self.interfaceId
+
+        let response = try Gateway.callSync("interface/get_is_open", request, DtoRequests.BoolResponse.fromByteArray)
+        return response.value
+    }
+
 
     /**
     Module: ZaberMotionAscii
@@ -617,61 +658,78 @@ public final class Connection: @unchecked Sendable {
     }
 
     /**
-     Force initialization of lazy event publishers to avoid race conditions.
+     Subscribe to all events.
     */
-    private func ensureSubscribed() {
-        _ = self.disconnected
-        _ = self.alert
-        _ = self.unknownResponse
+    private func subscribe(sessionId: Int) {
+        self._disconnected = Events.shared.disconnected.filter {
+                disconnectedEvent in
+                return disconnectedEvent.interfaceId == self.interfaceId &&
+                       disconnectedEvent.sessionId == sessionId
+            }.map { disconnectedEvent in
+                do {
+                    return try ExceptionConverter.convert(
+                        error: disconnectedEvent.errorType,
+                        message: disconnectedEvent.errorMessage
+                    )
+                } catch {
+                    return InternalErrorException(message: "Failed to convert disconnected event: \(error)")
+                }
+            }.first()
+            .eraseToAnyPublisher()
+            .share()
+
+        self._alert = Events.shared.alert.prefix(
+                untilOutputFrom: self._disconnected!
+            ).filter {
+                alertEventWrapper in
+                return alertEventWrapper.interfaceId == self.interfaceId &&
+                       alertEventWrapper.sessionId == sessionId
+            }.map {
+                alertEventWrapper in
+                return alertEventWrapper.alert
+            }.eraseToAnyPublisher()
+            .share()
+
+        self._unknownResponse = Events.shared.unknownResponse.prefix(
+                untilOutputFrom: self._disconnected!
+            ).filter {
+                unknownResponseEventWrapper in
+                return unknownResponseEventWrapper.interfaceId == self.interfaceId &&
+                       unknownResponseEventWrapper.sessionId == sessionId
+            }.map {
+                unknownResponseEventWrapper in
+                return unknownResponseEventWrapper.unknownResponse
+            }.eraseToAnyPublisher()
+            .share()
     }
 
+    private var _disconnected: Publishers.Share<AnyPublisher<MotionLibException, Never>>?
     /**
      Module: ZaberMotionAscii
 
      Event invoked when connection is interrupted or closed.
      */
-    public lazy var disconnected = {
-        return Events.shared.disconnected.filter {
-            disconnectedEvent in
-            return disconnectedEvent.interfaceId == self.interfaceId
-        }.first()
-        .eraseToAnyPublisher()
-        .share()
-    }()
+    public var disconnected: Publishers.Share<AnyPublisher<MotionLibException, Never>> {
+        return _disconnected!
+    }
 
+    private var _alert: Publishers.Share<AnyPublisher<AlertEvent, Never>>?
     /**
      Module: ZaberMotionAscii
 
      Event invoked when an alert is received from a device.
      */
-    public lazy var alert = {
-        return Events.shared.alert.prefix(
-            untilOutputFrom: disconnected
-        ).filter {
-            alertEventWrapper in
-            return alertEventWrapper.interfaceId == self.interfaceId
-        }.map {
-            alertEventWrapper in
-            return alertEventWrapper.alert
-        }.eraseToAnyPublisher()
-        .share()
-    }()
+    public var alert: Publishers.Share<AnyPublisher<AlertEvent, Never>> {
+        return _alert!
+    }
 
+    private var _unknownResponse: Publishers.Share<AnyPublisher<UnknownResponseEvent, Never>>?
     /**
      Module: ZaberMotionAscii
 
      Event invoked when a response from a device cannot be matched to any known request.
      */
-    public lazy var unknownResponse = {
-        return Events.shared.unknownResponse.prefix(
-            untilOutputFrom: disconnected
-        ).filter {
-            unknownResponseEventWrapper in
-            return unknownResponseEventWrapper.interfaceId == self.interfaceId
-        }.map {
-            unknownResponseEventWrapper in
-            return unknownResponseEventWrapper.unknownResponse
-        }.eraseToAnyPublisher()
-        .share()
-    }()
+    public var unknownResponse: Publishers.Share<AnyPublisher<UnknownResponseEvent, Never>> {
+        return _unknownResponse!
+    }
 }

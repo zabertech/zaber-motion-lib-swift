@@ -105,7 +105,8 @@ public final class ServoTuner: @unchecked Sendable {
         request.axis = self.axis.axisNumber
         request.paramset = paramset
 
-        return try await Gateway.callAsync("servotuning/get_raw", request, ParamsetInfo.fromByteArray)
+        let response = try await Gateway.callAsync("servotuning/get_raw", request, ParamsetInfo.fromByteArray)
+        return response
     }
 
     /**
@@ -159,7 +160,8 @@ public final class ServoTuner: @unchecked Sendable {
         request.d = d
         request.fc = fc
 
-        return try await Gateway.callAsync("servotuning/set_pid", request, PidTuning.fromByteArray)
+        let response = try await Gateway.callAsync("servotuning/set_pid", request, PidTuning.fromByteArray)
+        return response
     }
 
     /**
@@ -181,7 +183,8 @@ public final class ServoTuner: @unchecked Sendable {
         request.axis = self.axis.axisNumber
         request.paramset = paramset
 
-        return try await Gateway.callAsync("servotuning/get_pid", request, PidTuning.fromByteArray)
+        let response = try await Gateway.callAsync("servotuning/get_pid", request, PidTuning.fromByteArray)
+        return response
     }
 
     /**
@@ -261,7 +264,8 @@ public final class ServoTuner: @unchecked Sendable {
         request.axis = self.axis.axisNumber
         request.paramset = paramset
 
-        return try await Gateway.callAsync("servotuning/get_simple_tuning", request, SimpleTuning.fromByteArray)
+        let response = try await Gateway.callAsync("servotuning/get_simple_tuning", request, SimpleTuning.fromByteArray)
+        return response
     }
 
     /**

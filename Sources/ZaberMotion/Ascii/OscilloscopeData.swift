@@ -215,7 +215,8 @@ public final class OscilloscopeData: @unchecked Sendable {
         var request = DtoRequests.OscilloscopeDataIdentifier()
         request.dataId = self.dataId
 
-        return try Gateway.callSync("oscilloscopedata/get_properties", request, OscilloscopeCaptureProperties.fromByteArray)
+        let response = try Gateway.callSync("oscilloscopedata/get_properties", request, OscilloscopeCaptureProperties.fromByteArray)
+        return response
     }
 
     deinit {

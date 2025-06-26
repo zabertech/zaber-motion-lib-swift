@@ -99,7 +99,8 @@ public final class PvtSequence: @unchecked Sendable {
         request.velocities = velocities
         request.timesRelative = timesRelative
 
-        return try await Gateway.callAsync("device/pvt_generate_velocities", request, PvtSequenceData.fromByteArray)
+        let response = try await Gateway.callAsync("device/pvt_generate_velocities", request, PvtSequenceData.fromByteArray)
+        return response
     }
 
     /**
@@ -131,7 +132,8 @@ public final class PvtSequence: @unchecked Sendable {
         request.times = times
         request.timesRelative = timesRelative
 
-        return try await Gateway.callAsync("device/pvt_generate_positions", request, PvtSequenceData.fromByteArray)
+        let response = try await Gateway.callAsync("device/pvt_generate_positions", request, PvtSequenceData.fromByteArray)
+        return response
     }
 
     /**
@@ -193,7 +195,8 @@ public final class PvtSequence: @unchecked Sendable {
         var request = DtoRequests.PvtLoadCsvRequest()
         request.path = path
 
-        return try await Gateway.callAsync("device/stream_pvt_load_csv", request, PvtCsvData.fromByteArray)
+        let response = try await Gateway.callAsync("device/stream_pvt_load_csv", request, PvtCsvData.fromByteArray)
+        return response
     }
 
     /**

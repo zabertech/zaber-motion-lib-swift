@@ -532,7 +532,8 @@ public final class Axis: @unchecked Sendable {
         request.checkErrors = checkErrors
         request.timeout = timeout
 
-        return try await Gateway.callAsync("interface/generic_command", request, Response.fromByteArray)
+        let response = try await Gateway.callAsync("interface/generic_command", request, Response.fromByteArray)
+        return response
     }
 
     /**
@@ -682,7 +683,8 @@ public final class Axis: @unchecked Sendable {
         request.axis = self.axisNumber
         request.state = state
 
-        return try await Gateway.callAsync("device/set_axis_state", request, SetStateAxisResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/set_axis_state", request, SetStateAxisResponse.fromByteArray)
+        return response
     }
 
     /**
@@ -859,7 +861,8 @@ public final class Axis: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.axis = self.axisNumber
 
-        return try Gateway.callSync("device/get_axis_identity", request, AxisIdentity.fromByteArray)
+        let response = try Gateway.callSync("device/get_axis_identity", request, AxisIdentity.fromByteArray)
+        return response
     }
 
 }

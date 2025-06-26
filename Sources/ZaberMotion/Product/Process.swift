@@ -170,7 +170,8 @@ public final class Process: @unchecked Sendable {
         request.device = self.controller.device.deviceAddress
         request.axis = self.processNumber
 
-        return try await Gateway.callAsync("process_controller/get_source", request, ProcessControllerSource.fromByteArray)
+        let response = try await Gateway.callAsync("process_controller/get_source", request, ProcessControllerSource.fromByteArray)
+        return response
     }
 
     /**
@@ -206,7 +207,8 @@ public final class Process: @unchecked Sendable {
         request.device = self.controller.device.deviceAddress
         request.axis = self.processNumber
 
-        return try await Gateway.callAsync("process_controller/get_input", request, Measurement.fromByteArray)
+        let response = try await Gateway.callAsync("process_controller/get_input", request, Measurement.fromByteArray)
+        return response
     }
 
     /**
@@ -282,7 +284,8 @@ public final class Process: @unchecked Sendable {
         request.checkErrors = checkErrors
         request.timeout = timeout
 
-        return try await Gateway.callAsync("interface/generic_command", request, Response.fromByteArray)
+        let response = try await Gateway.callAsync("interface/generic_command", request, Response.fromByteArray)
+        return response
     }
 
     /**
@@ -370,7 +373,8 @@ public final class Process: @unchecked Sendable {
         request.axis = self.processNumber
         request.state = state
 
-        return try await Gateway.callAsync("device/set_axis_state", request, SetStateAxisResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/set_axis_state", request, SetStateAxisResponse.fromByteArray)
+        return response
     }
 
     /**

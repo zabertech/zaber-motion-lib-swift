@@ -217,7 +217,8 @@ public final class Device: @unchecked Sendable {
         request.device = self.deviceAddress
         request.assumeVersion = assumeVersion
 
-        return try await Gateway.callAsync("device/identify", request, DeviceIdentity.fromByteArray)
+        let response = try await Gateway.callAsync("device/identify", request, DeviceIdentity.fromByteArray)
+        return response
     }
 
     /**
@@ -246,7 +247,8 @@ public final class Device: @unchecked Sendable {
         request.checkErrors = checkErrors
         request.timeout = timeout
 
-        return try await Gateway.callAsync("interface/generic_command", request, Response.fromByteArray)
+        let response = try await Gateway.callAsync("interface/generic_command", request, Response.fromByteArray)
+        return response
     }
 
     /**
@@ -435,7 +437,8 @@ public final class Device: @unchecked Sendable {
         request.state = state
         request.deviceOnly = deviceOnly
 
-        return try await Gateway.callAsync("device/set_device_state", request, SetStateDeviceResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/set_device_state", request, SetStateDeviceResponse.fromByteArray)
+        return response
     }
 
     /**
@@ -461,7 +464,8 @@ public final class Device: @unchecked Sendable {
         request.state = state
         request.firmwareVersion = firmwareVersion
 
-        return try await Gateway.callAsync("device/can_set_state", request, CanSetStateDeviceResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/can_set_state", request, CanSetStateDeviceResponse.fromByteArray)
+        return response
     }
 
     /**
@@ -561,7 +565,8 @@ public final class Device: @unchecked Sendable {
         request.interfaceId = self.connection.interfaceId
         request.device = self.deviceAddress
 
-        return try Gateway.callSync("device/get_identity", request, DeviceIdentity.fromByteArray)
+        let response = try Gateway.callSync("device/get_identity", request, DeviceIdentity.fromByteArray)
+        return response
     }
 
     /**

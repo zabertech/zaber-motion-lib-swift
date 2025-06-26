@@ -26,29 +26,29 @@ public final class ExceptionConverter {
         switch error {
             case DtoRequests.Errors.badCommand:
                 guard let customDataUnwrapped = customData else {
-                    throw InvalidArgumentException(message: "ExceptionConverter: \(BadCommandException.self) requires custom data.");
+                    throw InternalErrorException(message: "ExceptionConverter: \(BadCommandException.self) requires custom data.");
                 }
                 return try BadCommandException(message: message, customData: customDataUnwrapped)
             case DtoRequests.Errors.badData:
                 guard let customDataUnwrapped = customData else {
-                    throw InvalidArgumentException(message: "ExceptionConverter: \(BadDataException.self) requires custom data.");
+                    throw InternalErrorException(message: "ExceptionConverter: \(BadDataException.self) requires custom data.");
                 }
                 return try BadDataException(message: message, customData: customDataUnwrapped)
             case DtoRequests.Errors.binaryCommandFailed:
                 guard let customDataUnwrapped = customData else {
-                    throw InvalidArgumentException(message: "ExceptionConverter: \(BinaryCommandFailedException.self) requires custom data.");
+                    throw InternalErrorException(message: "ExceptionConverter: \(BinaryCommandFailedException.self) requires custom data.");
                 }
                 return try BinaryCommandFailedException(message: message, customData: customDataUnwrapped)
             case DtoRequests.Errors.commandFailed:
                 guard let customDataUnwrapped = customData else {
-                    throw InvalidArgumentException(message: "ExceptionConverter: \(CommandFailedException.self) requires custom data.");
+                    throw InternalErrorException(message: "ExceptionConverter: \(CommandFailedException.self) requires custom data.");
                 }
                 return try CommandFailedException(message: message, customData: customDataUnwrapped)
             case DtoRequests.Errors.commandPreempted:
                 return CommandPreemptedException(message: message)
             case DtoRequests.Errors.commandTooLong:
                 guard let customDataUnwrapped = customData else {
-                    throw InvalidArgumentException(message: "ExceptionConverter: \(CommandTooLongException.self) requires custom data.");
+                    throw InternalErrorException(message: "ExceptionConverter: \(CommandTooLongException.self) requires custom data.");
                 }
                 return try CommandTooLongException(message: message, customData: customDataUnwrapped)
             case DtoRequests.Errors.connectionClosed:
@@ -59,14 +59,14 @@ public final class ExceptionConverter {
                 return ConversionFailedException(message: message)
             case DtoRequests.Errors.deviceAddressConflict:
                 guard let customDataUnwrapped = customData else {
-                    throw InvalidArgumentException(message: "ExceptionConverter: \(DeviceAddressConflictException.self) requires custom data.");
+                    throw InternalErrorException(message: "ExceptionConverter: \(DeviceAddressConflictException.self) requires custom data.");
                 }
                 return try DeviceAddressConflictException(message: message, customData: customDataUnwrapped)
             case DtoRequests.Errors.deviceBusy:
                 return DeviceBusyException(message: message)
             case DtoRequests.Errors.deviceDbFailed:
                 guard let customDataUnwrapped = customData else {
-                    throw InvalidArgumentException(message: "ExceptionConverter: \(DeviceDbFailedException.self) requires custom data.");
+                    throw InternalErrorException(message: "ExceptionConverter: \(DeviceDbFailedException.self) requires custom data.");
                 }
                 return try DeviceDbFailedException(message: message, customData: customDataUnwrapped)
             case DtoRequests.Errors.deviceDetectionFailed:
@@ -77,17 +77,17 @@ public final class ExceptionConverter {
                 return DeviceNotIdentifiedException(message: message)
             case DtoRequests.Errors.driverDisabled:
                 guard let customDataUnwrapped = customData else {
-                    throw InvalidArgumentException(message: "ExceptionConverter: \(DriverDisabledException.self) requires custom data.");
+                    throw InternalErrorException(message: "ExceptionConverter: \(DriverDisabledException.self) requires custom data.");
                 }
                 return try DriverDisabledException(message: message, customData: customDataUnwrapped)
             case DtoRequests.Errors.gCodeExecution:
                 guard let customDataUnwrapped = customData else {
-                    throw InvalidArgumentException(message: "ExceptionConverter: \(GCodeExecutionException.self) requires custom data.");
+                    throw InternalErrorException(message: "ExceptionConverter: \(GCodeExecutionException.self) requires custom data.");
                 }
                 return try GCodeExecutionException(message: message, customData: customDataUnwrapped)
             case DtoRequests.Errors.gCodeSyntax:
                 guard let customDataUnwrapped = customData else {
-                    throw InvalidArgumentException(message: "ExceptionConverter: \(GCodeSyntaxException.self) requires custom data.");
+                    throw InternalErrorException(message: "ExceptionConverter: \(GCodeSyntaxException.self) requires custom data.");
                 }
                 return try GCodeSyntaxException(message: message, customData: customDataUnwrapped)
             case DtoRequests.Errors.incompatibleSharedLibrary:
@@ -104,7 +104,7 @@ public final class ExceptionConverter {
                 return InvalidOperationException(message: message)
             case DtoRequests.Errors.invalidPacket:
                 guard let customDataUnwrapped = customData else {
-                    throw InvalidArgumentException(message: "ExceptionConverter: \(InvalidPacketException.self) requires custom data.");
+                    throw InternalErrorException(message: "ExceptionConverter: \(InvalidPacketException.self) requires custom data.");
                 }
                 return try InvalidPacketException(message: message, customData: customDataUnwrapped)
             case DtoRequests.Errors.invalidParkState:
@@ -113,7 +113,7 @@ public final class ExceptionConverter {
                 return InvalidRequestDataException(message: message)
             case DtoRequests.Errors.invalidResponse:
                 guard let customDataUnwrapped = customData else {
-                    throw InvalidArgumentException(message: "ExceptionConverter: \(InvalidResponseException.self) requires custom data.");
+                    throw InternalErrorException(message: "ExceptionConverter: \(InvalidResponseException.self) requires custom data.");
                 }
                 return try InvalidResponseException(message: message, customData: customDataUnwrapped)
             case DtoRequests.Errors.ioChannelOutOfRange:
@@ -126,12 +126,12 @@ public final class ExceptionConverter {
                 return LockstepNotEnabledException(message: message)
             case DtoRequests.Errors.movementFailed:
                 guard let customDataUnwrapped = customData else {
-                    throw InvalidArgumentException(message: "ExceptionConverter: \(MovementFailedException.self) requires custom data.");
+                    throw InternalErrorException(message: "ExceptionConverter: \(MovementFailedException.self) requires custom data.");
                 }
                 return try MovementFailedException(message: message, customData: customDataUnwrapped)
             case DtoRequests.Errors.movementInterrupted:
                 guard let customDataUnwrapped = customData else {
-                    throw InvalidArgumentException(message: "ExceptionConverter: \(MovementInterruptedException.self) requires custom data.");
+                    throw InternalErrorException(message: "ExceptionConverter: \(MovementInterruptedException.self) requires custom data.");
                 }
                 return try MovementInterruptedException(message: message, customData: customDataUnwrapped)
             case DtoRequests.Errors.noDeviceFound:
@@ -142,7 +142,7 @@ public final class ExceptionConverter {
                 return NotSupportedException(message: message)
             case DtoRequests.Errors.operationFailed:
                 guard let customDataUnwrapped = customData else {
-                    throw InvalidArgumentException(message: "ExceptionConverter: \(OperationFailedException.self) requires custom data.");
+                    throw InternalErrorException(message: "ExceptionConverter: \(OperationFailedException.self) requires custom data.");
                 }
                 return try OperationFailedException(message: message, customData: customDataUnwrapped)
             case DtoRequests.Errors.osFailed:
@@ -153,19 +153,19 @@ public final class ExceptionConverter {
                 return PvtDiscontinuityException(message: message)
             case DtoRequests.Errors.pvtExecution:
                 guard let customDataUnwrapped = customData else {
-                    throw InvalidArgumentException(message: "ExceptionConverter: \(PvtExecutionException.self) requires custom data.");
+                    throw InternalErrorException(message: "ExceptionConverter: \(PvtExecutionException.self) requires custom data.");
                 }
                 return try PvtExecutionException(message: message, customData: customDataUnwrapped)
             case DtoRequests.Errors.pvtMode:
                 return PvtModeException(message: message)
             case DtoRequests.Errors.pvtMovementFailed:
                 guard let customDataUnwrapped = customData else {
-                    throw InvalidArgumentException(message: "ExceptionConverter: \(PvtMovementFailedException.self) requires custom data.");
+                    throw InternalErrorException(message: "ExceptionConverter: \(PvtMovementFailedException.self) requires custom data.");
                 }
                 return try PvtMovementFailedException(message: message, customData: customDataUnwrapped)
             case DtoRequests.Errors.pvtMovementInterrupted:
                 guard let customDataUnwrapped = customData else {
-                    throw InvalidArgumentException(message: "ExceptionConverter: \(PvtMovementInterruptedException.self) requires custom data.");
+                    throw InternalErrorException(message: "ExceptionConverter: \(PvtMovementInterruptedException.self) requires custom data.");
                 }
                 return try PvtMovementInterruptedException(message: message, customData: customDataUnwrapped)
             case DtoRequests.Errors.pvtSequenceGenerationFailed:
@@ -174,7 +174,7 @@ public final class ExceptionConverter {
                 return PvtSetupFailedException(message: message)
             case DtoRequests.Errors.remoteMode:
                 guard let customDataUnwrapped = customData else {
-                    throw InvalidArgumentException(message: "ExceptionConverter: \(RemoteModeException.self) requires custom data.");
+                    throw InternalErrorException(message: "ExceptionConverter: \(RemoteModeException.self) requires custom data.");
                 }
                 return try RemoteModeException(message: message, customData: customDataUnwrapped)
             case DtoRequests.Errors.requestTimeout:
@@ -183,12 +183,12 @@ public final class ExceptionConverter {
                 return SerialPortBusyException(message: message)
             case DtoRequests.Errors.setDeviceStateFailed:
                 guard let customDataUnwrapped = customData else {
-                    throw InvalidArgumentException(message: "ExceptionConverter: \(SetDeviceStateFailedException.self) requires custom data.");
+                    throw InternalErrorException(message: "ExceptionConverter: \(SetDeviceStateFailedException.self) requires custom data.");
                 }
                 return try SetDeviceStateFailedException(message: message, customData: customDataUnwrapped)
             case DtoRequests.Errors.setPeripheralStateFailed:
                 guard let customDataUnwrapped = customData else {
-                    throw InvalidArgumentException(message: "ExceptionConverter: \(SetPeripheralStateFailedException.self) requires custom data.");
+                    throw InternalErrorException(message: "ExceptionConverter: \(SetPeripheralStateFailedException.self) requires custom data.");
                 }
                 return try SetPeripheralStateFailedException(message: message, customData: customDataUnwrapped)
             case DtoRequests.Errors.settingNotFound:
@@ -197,19 +197,19 @@ public final class ExceptionConverter {
                 return StreamDiscontinuityException(message: message)
             case DtoRequests.Errors.streamExecution:
                 guard let customDataUnwrapped = customData else {
-                    throw InvalidArgumentException(message: "ExceptionConverter: \(StreamExecutionException.self) requires custom data.");
+                    throw InternalErrorException(message: "ExceptionConverter: \(StreamExecutionException.self) requires custom data.");
                 }
                 return try StreamExecutionException(message: message, customData: customDataUnwrapped)
             case DtoRequests.Errors.streamMode:
                 return StreamModeException(message: message)
             case DtoRequests.Errors.streamMovementFailed:
                 guard let customDataUnwrapped = customData else {
-                    throw InvalidArgumentException(message: "ExceptionConverter: \(StreamMovementFailedException.self) requires custom data.");
+                    throw InternalErrorException(message: "ExceptionConverter: \(StreamMovementFailedException.self) requires custom data.");
                 }
                 return try StreamMovementFailedException(message: message, customData: customDataUnwrapped)
             case DtoRequests.Errors.streamMovementInterrupted:
                 guard let customDataUnwrapped = customData else {
-                    throw InvalidArgumentException(message: "ExceptionConverter: \(StreamMovementInterruptedException.self) requires custom data.");
+                    throw InternalErrorException(message: "ExceptionConverter: \(StreamMovementInterruptedException.self) requires custom data.");
                 }
                 return try StreamMovementInterruptedException(message: message, customData: customDataUnwrapped)
             case DtoRequests.Errors.streamSetupFailed:

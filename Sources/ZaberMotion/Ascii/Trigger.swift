@@ -92,7 +92,8 @@ public final class Trigger: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.triggerNumber = self.triggerNumber
 
-        return try await Gateway.callAsync("trigger/get_state", request, TriggerState.fromByteArray)
+        let response = try await Gateway.callAsync("trigger/get_state", request, TriggerState.fromByteArray)
+        return response
     }
 
     /**
@@ -110,7 +111,8 @@ public final class Trigger: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.triggerNumber = self.triggerNumber
 
-        return try await Gateway.callAsync("trigger/get_enabled_state", request, TriggerEnabledState.fromByteArray)
+        let response = try await Gateway.callAsync("trigger/get_enabled_state", request, TriggerEnabledState.fromByteArray)
+        return response
     }
 
     /**
