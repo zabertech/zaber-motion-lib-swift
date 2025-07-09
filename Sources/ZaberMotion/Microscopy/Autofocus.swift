@@ -114,6 +114,7 @@ public final class Autofocus: @unchecked Sendable {
      Moves the focus axis continuously maintaining focus.
      Starts the autofocus control loop.
      Note that the control loop may stop if the autofocus comes out of range or a movement error occurs.
+     Use WaitUntilIdle of the focus axis to wait for the loop to stop and handle potential errors.
      */
     public func startFocusLoop() async throws  {
         var request = DtoRequests.AutofocusFocusRequest()
@@ -141,6 +142,24 @@ public final class Autofocus: @unchecked Sendable {
         request.turretAddress = objectiveTurret?.deviceAddress ?? 0
 
         try await Gateway.callAsync("autofocus/stop_focus_loop", request)
+    }
+
+    /**
+     Module: ZaberMotionMicroscopy
+
+     Returns bool indicating whether the focus axis is busy.
+     Can be used to determine if the focus loop is running.
+
+     - Returns: True if the axis is currently executing a motion command.
+     */
+    public func isBusy() async throws -> Bool {
+        var request = DtoRequests.AxisEmptyRequest()
+        request.interfaceId = self.focusAxis.device.connection.interfaceId
+        request.device = self.focusAxis.device.deviceAddress
+        request.axis = self.focusAxis.axisNumber
+
+        let response = try await Gateway.callAsync("device/is_busy", request, DtoRequests.BoolResponse.fromByteArray)
+        return response.value
     }
 
     /**
