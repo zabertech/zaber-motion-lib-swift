@@ -5,9 +5,9 @@ import SwiftBSON
 import DtoSerializable
 
 /**
- * Contains additional data for a DeviceDbFailedException.
+ * One of the errors that occurred while trying to access information from the device database.
  */
-public struct DeviceDbFailedExceptionData: Serializable {
+public struct DeviceDbInnerError: Serializable {
 
     /**
      * Code describing type of the error.
@@ -15,21 +15,27 @@ public struct DeviceDbFailedExceptionData: Serializable {
     public var code: String
 
     /**
+     * Description of the error.
+     */
+    public var message: String
+
+    /**
      * A list of errors that occurred while trying to access information from the device database.
      */
     public var innerErrors: [DeviceDbInnerError]
 
-    public init(code: String = "", innerErrors: [DeviceDbInnerError] = []) {
+    public init(code: String = "", message: String = "", innerErrors: [DeviceDbInnerError] = []) {
         self.code = code
+        self.message = message
         self.innerErrors = innerErrors
     }
 
-    public static func fromByteArray(_ byteArray: Data) throws -> DeviceDbFailedExceptionData {
+    public static func fromByteArray(_ byteArray: Data) throws -> DeviceDbInnerError {
         do {
             let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(DeviceDbFailedExceptionData.self, from: bson)
+            return try BSONDecoder().decode(DeviceDbInnerError.self, from: bson)
         } catch {
-            throw SerializationError.deserializationFailed(object: "DeviceDbFailedExceptionData", error: error)
+            throw SerializationError.deserializationFailed(object: "DeviceDbInnerError", error: error)
         }
     }
 
@@ -38,7 +44,7 @@ public struct DeviceDbFailedExceptionData: Serializable {
             let bson = try BSONEncoder().encode(self)
             return bson.toData()
         } catch {
-            throw SerializationError.serializationFailed(object: "DeviceDbFailedExceptionData", error: error)
+            throw SerializationError.serializationFailed(object: "DeviceDbInnerError", error: error)
         }
     }
 }

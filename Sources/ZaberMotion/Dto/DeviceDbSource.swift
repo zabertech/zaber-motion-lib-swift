@@ -3,32 +3,33 @@
 import Foundation
 import SwiftBSON
 import DtoSerializable
-import Dto
 
-
-public struct SetDeviceDbSourceRequest: Serializable {
+/**
+ * A source that device information can be retrieved from.
+ */
+public struct DeviceDbSource: Serializable {
 
     /**
      * Whether the source is a web service or a local DB file.
      */
-    public var sourceType: Dto.DeviceDbSourceType
+    public var sourceType: DeviceDbSourceType
 
     /**
      * The URL of the web service or path to the local DB file.
      */
     public var urlOrFilePath: String?
 
-    public init(sourceType: Dto.DeviceDbSourceType = DeviceDbSourceType(rawValue: 0)!, urlOrFilePath: String? = nil) {
+    public init(sourceType: DeviceDbSourceType = DeviceDbSourceType(rawValue: 0)!, urlOrFilePath: String? = nil) {
         self.sourceType = sourceType
         self.urlOrFilePath = urlOrFilePath
     }
 
-    public static func fromByteArray(_ byteArray: Data) throws -> SetDeviceDbSourceRequest {
+    public static func fromByteArray(_ byteArray: Data) throws -> DeviceDbSource {
         do {
             let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(SetDeviceDbSourceRequest.self, from: bson)
+            return try BSONDecoder().decode(DeviceDbSource.self, from: bson)
         } catch {
-            throw SerializationError.deserializationFailed(object: "SetDeviceDbSourceRequest", error: error)
+            throw SerializationError.deserializationFailed(object: "DeviceDbSource", error: error)
         }
     }
 
@@ -37,7 +38,7 @@ public struct SetDeviceDbSourceRequest: Serializable {
             let bson = try BSONEncoder().encode(self)
             return bson.toData()
         } catch {
-            throw SerializationError.serializationFailed(object: "SetDeviceDbSourceRequest", error: error)
+            throw SerializationError.serializationFailed(object: "DeviceDbSource", error: error)
         }
     }
 }

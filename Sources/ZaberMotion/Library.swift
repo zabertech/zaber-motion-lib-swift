@@ -52,6 +52,22 @@ public final class Library {
     /**
      Module: ZaberMotion
 
+     Sets a sequence of sources. When the library needs device information,
+     it will try each source in the order they are provided.
+
+     - Parameters:
+        - sources: The list of sources the library will access data from.
+     */
+    public static func setDeviceDbSources(_ sources: DeviceDbSource...) throws  {
+        var request = DtoRequests.SetDeviceDbLayeredSourcesRequest()
+        request.sources = sources
+
+        try Gateway.callSync("device_db/set_sources", request)
+    }
+
+    /**
+     Module: ZaberMotion
+
      Enables Device DB store.
      The store uses filesystem to save information obtained from the Device DB.
      The stored data are later used instead of the Device DB.
@@ -146,7 +162,7 @@ public final class Library {
     public static func checkVersion() throws  {
         var request = DtoRequests.CheckVersionRequest()
         request.host = "swift"
-        request.version = "7.10.0"
+        request.version = "7.11.0"
 
         try Gateway.callSync("library/check_version", request)
     }

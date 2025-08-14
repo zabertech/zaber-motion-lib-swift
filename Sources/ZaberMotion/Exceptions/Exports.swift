@@ -20,6 +20,7 @@ public typealias BinaryCommandFailedExceptionData = DtoExceptions.BinaryCommandF
 public typealias SetPeripheralStateExceptionData = DtoExceptions.SetPeripheralStateExceptionData
 public typealias SetDeviceStateExceptionData = DtoExceptions.SetDeviceStateExceptionData
 public typealias CommandTooLongExceptionData = DtoExceptions.CommandTooLongExceptionData
+public typealias DeviceDbInnerError = DtoExceptions.DeviceDbInnerError
 public typealias DeviceDbFailedExceptionData = DtoExceptions.DeviceDbFailedExceptionData
 public typealias GCodeSyntaxExceptionData = DtoExceptions.GCodeSyntaxExceptionData
 public typealias GCodeExecutionExceptionData = DtoExceptions.GCodeExecutionExceptionData
