@@ -28,22 +28,7 @@ public final class Microscope: @unchecked Sendable {
     public init(connection: Connection, config: MicroscopeConfig) throws {
         self.connection = connection
         self.config = config
-        self.illuminator = config.illuminator != nil && config.illuminator! > 0 ?
-            try Illuminator(device: Device(connection: connection, deviceAddress: config.illuminator!)) : nil
-        self.focusAxis = config.focusAxis != nil && config.focusAxis!.device > 0 ?
-            Axis(device: Device(connection: connection, deviceAddress: config.focusAxis!.device), axisNumber: config.focusAxis!.axis) : nil
-        self.xAxis = config.xAxis != nil && config.xAxis!.device > 0 ?
-            Axis(device: Device(connection: connection, deviceAddress: config.xAxis!.device), axisNumber: config.xAxis!.axis) : nil
-        self.yAxis = config.yAxis != nil && config.yAxis!.device > 0 ?
-            Axis(device: Device(connection: connection, deviceAddress: config.yAxis!.device), axisNumber: config.yAxis!.axis) : nil
-        self.plate = xAxis != nil && yAxis != nil ? AxisGroup(axes: [xAxis!, yAxis!]) : nil
-        self.objectiveChanger = config.objectiveChanger != nil && config.objectiveChanger! > 0 && focusAxis != nil ?
-            try ObjectiveChanger(turret: Device(connection: connection, deviceAddress: config.objectiveChanger!), focusAxis: focusAxis!) : nil
-        self.filterChanger = config.filterChanger ?? 0 > 0 ? FilterChanger(device: Device(connection: connection, deviceAddress: config.filterChanger!)) : nil
-        self.autofocus = config.autofocus != nil && config.autofocus! > 0 && focusAxis != nil ?
-            Autofocus(providerId: config.autofocus!, focusAxis: focusAxis!, objectiveTurret: objectiveChanger?.turret ?? nil) : nil
-        self.cameraTrigger = config.cameraTrigger != nil && config.cameraTrigger!.device > 0 ?
-            CameraTrigger(device: Device(connection: connection, deviceAddress: config.cameraTrigger!.device), channel: config.cameraTrigger!.channel) : nil
+        try self.initializeComponents()
     }
 
     /**
@@ -58,63 +43,63 @@ public final class Microscope: @unchecked Sendable {
 
      The illuminator.
      */
-    public let illuminator: Illuminator?
+    public private(set) var illuminator: Illuminator?
 
     /**
      Module: ZaberMotionMicroscopy
 
      The focus axis.
      */
-    public let focusAxis: Axis?
+    public private(set) var focusAxis: Axis?
 
     /**
      Module: ZaberMotionMicroscopy
 
      The X axis.
      */
-    public let xAxis: Axis?
+    public private(set) var xAxis: Axis?
 
     /**
      Module: ZaberMotionMicroscopy
 
      The Y axis.
      */
-    public let yAxis: Axis?
+    public private(set) var yAxis: Axis?
 
     /**
      Module: ZaberMotionMicroscopy
 
      Axis group consisting of X and Y axes representing the plate of the microscope.
      */
-    public let plate: AxisGroup?
+    public private(set) var plate: AxisGroup?
 
     /**
      Module: ZaberMotionMicroscopy
 
      The objective changer.
      */
-    public let objectiveChanger: ObjectiveChanger?
+    public private(set) var objectiveChanger: ObjectiveChanger?
 
     /**
      Module: ZaberMotionMicroscopy
 
      The filter changer.
      */
-    public let filterChanger: FilterChanger?
+    public private(set) var filterChanger: FilterChanger?
 
     /**
      Module: ZaberMotionMicroscopy
 
      The autofocus feature.
      */
-    public let autofocus: Autofocus?
+    public private(set) var autofocus: Autofocus?
 
     /**
      Module: ZaberMotionMicroscopy
 
      The camera trigger.
      */
-    public let cameraTrigger: CameraTrigger?
+    public private(set) var cameraTrigger: CameraTrigger?
 
     /**
      Module: ZaberMotionMicroscopy
@@ -188,4 +173,46 @@ public final class Microscope: @unchecked Sendable {
         return response.value
     }
 
+    /**
+     Module: ZaberMotionMicroscopy
+
+     Initializes the components of the microscope based on the configuration.
+     */
+    private func initializeComponents() throws {
+        if let illum = self.config.illuminator, illum > 0 {
+            self.illuminator = try Illuminator(device: Device(connection: self.connection, deviceAddress: illum))
+        }
+
+        if let focus = self.config.focusAxis, focus.device > 0 {
+            self.focusAxis = Axis(device: Device(connection: self.connection, deviceAddress: focus.device), axisNumber: focus.axis)
+        }
+
+        if let x = self.config.xAxis, x.device > 0 {
+            self.xAxis = Axis(device: Device(connection: self.connection, deviceAddress: x.device), axisNumber: x.axis)
+        }
+
+        if let y = self.config.yAxis, y.device > 0 {
+            self.yAxis = Axis(device: Device(connection: self.connection, deviceAddress: y.device), axisNumber: y.axis)
+        }
+
+        if self.xAxis != nil && self.yAxis != nil {
+            self.plate = AxisGroup(axes: [self.xAxis!, self.yAxis!])
+        }
+
+        if let changer = self.config.objectiveChanger, changer > 0, let focus = self.focusAxis {
+            self.objectiveChanger = try ObjectiveChanger(turret: Device(connection: self.connection, deviceAddress: changer), focusAxis: focus)
+        }
+
+        if let filter = self.config.filterChanger, filter > 0 {
+            self.filterChanger = FilterChanger(device: Device(connection: self.connection, deviceAddress: filter))
+        }
+
+        if let autofocus = self.config.autofocus, autofocus > 0, let focus = self.focusAxis {
+            self.autofocus = Autofocus(providerId: autofocus, focusAxis: focus, objectiveTurret: self.objectiveChanger?.turret)
+        }
+
+        if let trigger = self.config.cameraTrigger, trigger.device > 0 {
+            self.cameraTrigger = CameraTrigger(device: Device(connection: self.connection, deviceAddress: trigger.device), channel: trigger.channel)
+        }
+    }
 }

@@ -76,6 +76,8 @@ public final class PvtSequence: @unchecked Sendable {
      per axis, And the values arrays for each sequence must be equal in length to each other and also to the
      times sequence.
 
+     Does not support native units.
+
      - Parameters:
         - positions: Positions for the axes to move through, relative to their home positions.
           Each MeasurementSequence represents a sequence of positions along a particular dimension.
@@ -113,6 +115,8 @@ public final class PvtSequence: @unchecked Sendable {
      velocity measurement sequence per axis, and the values arrays for each sequence
      must be equal in length to each other and also to the times sequence.
 
+     Does not support native units.
+
      - Parameters:
         - velocities: The sequence of velocities for each axis.
           Each MeasurementSequence represents a sequence of velocities along particular dimension.
@@ -133,6 +137,53 @@ public final class PvtSequence: @unchecked Sendable {
         request.timesRelative = timesRelative
 
         let response = try await Gateway.callAsync("device/pvt_generate_positions", request, PvtSequenceData.fromByteArray)
+        return response
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Generates sequences of velocities and times for a sequence of positions.
+     This function fits a geometric spline (not-a-knot cubic for sequences of >3 points,
+     natural cubic for 3, and a straight line for 2) over the position sequence
+     and then calculates the velocity and time information by traversing it using a
+     trapezoidal motion profile.
+
+     This generation scheme attempts to keep speed and acceleration less than the
+     specified target values, but does not guarantee it. Generally speaking, a higher
+     resample number will bring the generated trajectory closer to respecting these
+     limits.
+
+     Note that consecutive duplicate points will be automatically removed as they
+     have no geometric significance without additional time information. Also note that
+     for multi-dimensional paths this function expects axes to be linear and orthogonal,
+     however for paths of a single dimension rotary units are accepted.
+
+     Does not support native units.
+
+     - Parameters:
+        - positions: Positions for the axes to move through, relative to their home positions.
+        - targetSpeed: The target speed used to generate positions and times.
+        - targetAcceleration: The target acceleration used to generate positions and times.
+        - resampleNumber: The number of points to resample the sequence by.
+          Leave undefined to use the specified points.
+
+     - Returns: Object containing the generated PVT sequence. Note that returned time sequence is always relative.
+     */
+    public static func generateVelocitiesAndTimes(positions: [MeasurementSequence], targetSpeed: Measurement, targetAcceleration: Measurement, resampleNumber: Int? = nil) async throws -> PvtSequenceData {
+        _assertSendable(PvtSequenceData.self)
+
+        guard targetSpeed.value > 0 && targetAcceleration.value > 0 else {
+            throw ZaberMotionExceptions.InvalidArgumentException(message: "Target speed and acceleration values must be greater than zero.")
+        }
+
+        var request = DtoRequests.PvtGenerateVelocitiesAndTimesRequest()
+        request.positions = positions
+        request.targetSpeed = targetSpeed
+        request.targetAcceleration = targetAcceleration
+        request.resampleNumber = resampleNumber
+
+        let response = try await Gateway.callAsync("device/pvt_generate_velocities_and_times", request, PvtSequenceData.fromByteArray)
         return response
     }
 
@@ -605,6 +656,24 @@ public final class PvtSequence: @unchecked Sendable {
         request.pvt = true
 
         try Gateway.callSync("device/stream_ignore_discontinuity", request)
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Writes the contents of a PvtSequenceData object to the sequence.
+
+     - Parameters:
+        - sequenceData: The PVT sequence data to submit.
+     */
+    public func submitSequenceData(sequenceData: PvtSequenceData) async throws  {
+        var request = DtoRequests.PvtSubmitSequenceDataRequest()
+        request.interfaceId = self.device.connection.interfaceId
+        request.device = self.device.deviceAddress
+        request.streamId = self.pvtId
+        request.sequenceData = sequenceData
+
+        try await Gateway.callAsync("device/stream_pvt_submit_data", request)
     }
 
     /**

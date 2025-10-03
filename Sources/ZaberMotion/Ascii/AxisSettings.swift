@@ -393,7 +393,7 @@ public final class AxisSettings: @unchecked Sendable {
         request.axis = self.axis.axisNumber
         request.axisSettings = axisSettings
 
-        let response = try await Gateway.callAsync("device/get_many_settings", request, DtoRequests.GetAxisSettingResults.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_many_axis_settings", request, DtoRequests.GetAxisSettingResults.fromByteArray)
         return response.results
     }
 
@@ -417,7 +417,7 @@ public final class AxisSettings: @unchecked Sendable {
         request.axis = self.axis.axisNumber
         request.axisSettings = axisSettings
 
-        let response = try await Gateway.callAsync("device/get_sync_settings", request, DtoRequests.GetAxisSettingResults.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_sync_axis_settings", request, DtoRequests.GetAxisSettingResults.fromByteArray)
         return response.results
     }
 

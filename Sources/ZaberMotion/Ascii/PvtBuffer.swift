@@ -1,9 +1,12 @@
 ﻿// ===== THIS FILE IS GENERATED FROM A TEMPLATE ===== //
 // ============== DO NOT EDIT DIRECTLY ============== //
 
+import Dto
+import DtoAscii
 import DtoRequests
 import Gateway
 import ZaberMotionExceptions
+import Utils
 
 /**
  Module: ZaberMotionAscii
@@ -48,6 +51,25 @@ public final class PvtBuffer: @unchecked Sendable {
 
         let response = try await Gateway.callAsync("device/stream_buffer_get_content", request, DtoRequests.StreamBufferGetContentResponse.fromByteArray)
         return response.bufferLines
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Gets the buffer contents as a PvtSequenceData object.
+
+     - Returns: The PVT data loaded from the buffer.
+     */
+    public func retrieveSequenceData() async throws -> PvtSequenceData {
+        _assertSendable(PvtSequenceData.self)
+
+        var request = DtoRequests.PvtBufferGetSequenceDataRequest()
+        request.interfaceId = self.device.connection.interfaceId
+        request.device = self.device.deviceAddress
+        request.bufferId = self.bufferId
+
+        let response = try await Gateway.callAsync("device/pvt_buffer_get_data", request, PvtSequenceData.fromByteArray)
+        return response
     }
 
     /**
