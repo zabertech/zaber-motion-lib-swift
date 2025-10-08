@@ -119,6 +119,15 @@ public final class Axis: @unchecked Sendable {
     /**
      Module: ZaberMotionAscii
 
+     The number of microsteps per full step for motion axes. Always equal to 0 for non-motion axes.
+     */
+    public var resolution: UInt {
+        get throws { return try identity.resolution }
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
      User-assigned label of the peripheral.
      */
     public var label: String {

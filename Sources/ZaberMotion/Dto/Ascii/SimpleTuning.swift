@@ -26,7 +26,7 @@ public struct SimpleTuning: Serializable {
     public var carriageMass: Double?
 
     /**
-     * The mass of the carriage in kg.
+     * The inertia of the motor in kg⋅m².
      */
     public var motorInertia: Double?
 

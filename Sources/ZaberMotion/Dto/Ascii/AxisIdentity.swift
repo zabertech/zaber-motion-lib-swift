@@ -39,13 +39,19 @@ public struct AxisIdentity: Serializable {
      */
     public var isModified: Bool
 
-    public init(peripheralId: Int = 0, peripheralName: String = "", peripheralSerialNumber: UInt = 0, isPeripheral: Bool = false, axisType: AxisType = AxisType(rawValue: 0)!, isModified: Bool = false) {
+    /**
+     * The number of microsteps per full step for motion axes. Always equal to 0 for non-motion axes.
+     */
+    public var resolution: UInt
+
+    public init(peripheralId: Int = 0, peripheralName: String = "", peripheralSerialNumber: UInt = 0, isPeripheral: Bool = false, axisType: AxisType = AxisType(rawValue: 0)!, isModified: Bool = false, resolution: UInt = 0) {
         self.peripheralId = peripheralId
         self.peripheralName = peripheralName
         self.peripheralSerialNumber = peripheralSerialNumber
         self.isPeripheral = isPeripheral
         self.axisType = axisType
         self.isModified = isModified
+        self.resolution = resolution
     }
 
     public static func fromByteArray(_ byteArray: Data) throws -> AxisIdentity {
