@@ -37,6 +37,15 @@ public final class WdiAutofocusProvider: @unchecked Sendable  {
     /**
      Module: ZaberMotionMicroscopy
 
+     The firmware version of the connected autofocus.
+     */
+    public var firmwareVersion: FirmwareVersion {
+        get throws { return try retrieveFirmwareVersion() }
+    }
+
+    /**
+     Module: ZaberMotionMicroscopy
+
      Opens a TCP connection to WDI autofocus.
 
      - Parameters:
@@ -123,6 +132,53 @@ public final class WdiAutofocusProvider: @unchecked Sendable  {
     /**
      Module: ZaberMotionMicroscopy
 
+     Generic read operation.
+
+     - Parameters:
+        - registerId: Register address to read from.
+        - count: Number of values to read (defaults to 1).
+        - offset: Offset within the register (defaults to 0).
+        - registerBank: Register bank letter (defaults to U for user bank).
+
+     - Returns: Array of floats read from the device.
+     */
+    public func genericReadFloat(registerId: Int, count: Int = 1, offset: Int = 0, registerBank: String = "U") async throws -> [Double] {
+        var request = DtoRequests.WdiGenericFloatRequest()
+        request.interfaceId = self.providerId
+        request.registerId = registerId
+        request.count = count
+        request.offset = offset
+        request.registerBank = registerBank
+
+        let response = try await Gateway.callAsync("wdi/read_float", request, DtoRequests.DoubleArrayResponse.fromByteArray)
+        return response.values
+    }
+
+    /**
+     Module: ZaberMotionMicroscopy
+
+     Generic write operation.
+
+     - Parameters:
+        - registerId: Register address to write to.
+        - data: Array of values to write to the register. Empty array is allowed.
+        - offset: Offset within the register (defaults to 0).
+        - registerBank: Register bank letter (defaults to U for user bank).
+     */
+    public func genericWriteFloat(registerId: Int, data: [Double] = [], offset: Int = 0, registerBank: String = "U") async throws  {
+        var request = DtoRequests.WdiGenericFloatRequest()
+        request.interfaceId = self.providerId
+        request.registerId = registerId
+        request.data = data
+        request.offset = offset
+        request.registerBank = registerBank
+
+        try await Gateway.callAsync("wdi/write_float", request)
+    }
+
+    /**
+     Module: ZaberMotionMicroscopy
+
      Enables the laser.
      */
     public func enableLaser() async throws  {
@@ -191,6 +247,21 @@ public final class WdiAutofocusProvider: @unchecked Sendable  {
         request.interfaceId = providerId
 
         try Gateway.callSync("wdi/free", request)
+    }
+
+    /**
+     Module: ZaberMotionMicroscopy
+
+     Returns FW version.
+
+     - Returns: Firmware version.
+     */
+    func retrieveFirmwareVersion() throws -> FirmwareVersion {
+        var request = DtoRequests.InterfaceEmptyRequest()
+        request.interfaceId = self.providerId
+
+        let response = try Gateway.callSync("wdi/get_firmware_version", request, FirmwareVersion.fromByteArray)
+        return response
     }
 
     public func closeSync() throws  {

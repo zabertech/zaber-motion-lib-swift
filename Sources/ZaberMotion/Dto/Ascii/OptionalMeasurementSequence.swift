@@ -12,7 +12,7 @@ import UnitsInternal
 public struct OptionalMeasurementSequence: Serializable {
 
     /**
-     * Sequence of values.
+     * Sequence of optional values.
      */
     public var values: [Double?]
 
