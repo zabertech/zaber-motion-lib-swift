@@ -2,14 +2,8 @@
 
 import PackageDescription
 
-#if os(macOS)
-    let zaberMotionCoreTarget: Target = .binaryTarget(
-        name: "ZaberMotionCore",
-        url: "https://software.zaber.com/downloads/ZML/Swift/7.14.0/ZaberMotionCore.xcframework.zip",
-        checksum: "4000bda2b90d38d388bbba9c080eea776b92df83553b5e66db54ceff61cd6dca"
-    )
-#else
-    fatalError("Unsupported OS")
+#if !os(macOS)
+    #warning("This package is only supported on MacOS.")
 #endif
 
 let package = Package(
@@ -33,7 +27,11 @@ let package = Package(
         .package(url: "https://github.com/mongodb/swift-bson", .upToNextMajor(from: "3.1.0"))
     ],
     targets: [
-        zaberMotionCoreTarget,
+        .binaryTarget(
+            name: "ZaberMotionCore",
+            url: "https://software.zaber.com/downloads/ZML/Swift/7.14.0/ZaberMotionCore.xcframework.zip",
+            checksum: "4000bda2b90d38d388bbba9c080eea776b92df83553b5e66db54ceff61cd6dca"
+        ),
         .target(
             name: "ZaberMotion",
             dependencies: [
