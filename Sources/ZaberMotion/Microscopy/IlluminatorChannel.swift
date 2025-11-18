@@ -66,13 +66,18 @@ public final class IlluminatorChannel: @unchecked Sendable {
      Module: ZaberMotionMicroscopy
 
      Turns this channel on.
+
+     - Parameters:
+        - duration: Duration for which to turn the channel on.
+          If not specified, the channel remains on until turned off.
      */
-    public func on() async throws  {
+    public func on(duration: Measurement? = nil) async throws  {
         var request = DtoRequests.ChannelOn()
         request.interfaceId = self.illuminator.device.connection.interfaceId
         request.device = self.illuminator.device.deviceAddress
         request.axis = self.channelNumber
         request.on = true
+        request.duration = duration
 
         try await Gateway.callAsync("illuminator/on", request)
     }

@@ -29,8 +29,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "ZaberMotionCore",
-            url: "https://software.zaber.com/downloads/ZML/Swift/7.14.0/ZaberMotionCore.xcframework.zip",
-            checksum: "4000bda2b90d38d388bbba9c080eea776b92df83553b5e66db54ceff61cd6dca"
+            url: "https://software.zaber.com/downloads/ZML/Swift/7.15.0/ZaberMotionCore.xcframework.zip",
+        checksum: "12f86e3fbb64ffe8abd8e4bae06490530338097c02134ebb3039bf72e3b06527"
         ),
         .target(
             name: "ZaberMotion",

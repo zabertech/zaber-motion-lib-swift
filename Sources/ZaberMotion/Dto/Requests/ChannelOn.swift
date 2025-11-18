@@ -3,18 +3,22 @@
 import Foundation
 import SwiftBSON
 import DtoSerializable
+import Dto
+
 
 public struct ChannelOn: Serializable {
     public var interfaceId: Int
     public var device: Int
     public var axis: Int
     public var on: Bool
+    public var duration: Dto.Measurement?
 
-    public init(interfaceId: Int = 0, device: Int = 0, axis: Int = 0, on: Bool = false) {
+    public init(interfaceId: Int = 0, device: Int = 0, axis: Int = 0, on: Bool = false, duration: Dto.Measurement? = nil) {
         self.interfaceId = interfaceId
         self.device = device
         self.axis = axis
         self.on = on
+        self.duration = duration
     }
 
     public static func fromByteArray(_ byteArray: Data) throws -> ChannelOn {

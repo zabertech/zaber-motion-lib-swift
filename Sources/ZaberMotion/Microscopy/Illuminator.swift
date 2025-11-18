@@ -87,6 +87,19 @@ public final class Illuminator: @unchecked Sendable {
     /**
      Module: ZaberMotionMicroscopy
 
+     Turns all channels off.
+     */
+    public func turnOff() async throws  {
+        var request = DtoRequests.DeviceEmptyRequest()
+        request.interfaceId = self.device.connection.interfaceId
+        request.device = self.device.deviceAddress
+
+        try await Gateway.callAsync("illuminator/all_off", request)
+    }
+
+    /**
+     Module: ZaberMotionMicroscopy
+
      Returns a string that represents the device.
 
      - Returns: A string that represents the device.
