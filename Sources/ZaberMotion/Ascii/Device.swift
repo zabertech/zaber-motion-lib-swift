@@ -370,6 +370,29 @@ public final class Device: @unchecked Sendable {
     /**
      Module: ZaberMotionAscii
 
+     Retrieves unit conversion descriptors for a command, allowing unit conversion without a device.
+     The descriptors can be used with the ConvertTo/FromNativeUnits methods of the UnitTable class.
+     Parameters in the command template are denoted by a question mark.
+     For more information refer to: [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_commands).
+
+     - Parameters:
+        - commandTemplate: Template of the command. Parameters are denoted by question marks.
+
+     - Returns: Unit conversion descriptor for each parameter in the command. Nil if a parameter does not have conversion.
+     */
+    public func getCommandUnitConversionDescriptors(commandTemplate: String) throws -> [UnitConversionDescriptor?] {
+        var request = DtoRequests.PrepareCommandRequest()
+        request.interfaceId = self.connection.interfaceId
+        request.device = self.deviceAddress
+        request.commandTemplate = commandTemplate
+
+        let response = try Gateway.callSync("device/get_command_unit_conversion", request, DtoRequests.GetCommandUnitConversionResponse.fromByteArray)
+        return response.value
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
      Sets the user-assigned device label.
      The label is stored on the controller and recognized by other software.
 

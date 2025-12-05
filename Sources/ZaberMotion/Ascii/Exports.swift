@@ -9,7 +9,6 @@ public typealias DeviceIOInfo = DtoAscii.DeviceIOInfo
 public typealias IoPortLabel = DtoAscii.IoPortLabel
 public typealias UnknownResponseEvent = DtoAscii.UnknownResponseEvent
 public typealias AlertEvent = DtoAscii.AlertEvent
-public typealias LockstepAxes = DtoAscii.LockstepAxes
 public typealias OscilloscopeCaptureProperties = DtoAscii.OscilloscopeCaptureProperties
 public typealias StreamAxisDefinition = DtoAscii.StreamAxisDefinition
 public typealias PvtAxisDefinition = DtoAscii.PvtAxisDefinition

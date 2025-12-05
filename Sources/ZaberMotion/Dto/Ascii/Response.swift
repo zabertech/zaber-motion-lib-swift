@@ -21,16 +21,19 @@ public struct Response: Serializable {
 
     /**
      * The reply flag indicates if the request was accepted (OK) or rejected (RJ).
+     * Does not apply to info messages.
      */
     public var replyFlag: String
 
     /**
      * The device status contains BUSY when the axis is moving and IDLE otherwise.
+     * Does not apply to info messages.
      */
     public var status: String
 
     /**
      * The warning flag contains the highest priority warning currently active for the device or axis.
+     * Does not apply to info messages.
      */
     public var warningFlag: String
 
@@ -40,7 +43,7 @@ public struct Response: Serializable {
     public var data: String
 
     /**
-     * Type of the reply received.
+     * Type of the response received (only Reply or Info).
      */
     public var messageType: MessageType
 

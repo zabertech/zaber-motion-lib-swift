@@ -358,26 +358,6 @@ public final class Lockstep: @unchecked Sendable {
     /**
      Module: ZaberMotionAscii
 
-     Gets the axes of the lockstep group.
-
-     - Returns: LockstepAxes instance which contains the axes numbers of the lockstep group.
-     */
-    @available(*, deprecated, message: "Use GetAxisNumbers instead.")
-    public func getAxes() async throws -> LockstepAxes {
-        _assertSendable(LockstepAxes.self)
-
-        var request = DtoRequests.LockstepEmptyRequest()
-        request.interfaceId = self.device.connection.interfaceId
-        request.device = self.device.deviceAddress
-        request.lockstepGroupId = self.lockstepGroupId
-
-        let response = try await Gateway.callAsync("device/lockstep_get_axes", request, LockstepAxes.fromByteArray)
-        return response
-    }
-
-    /**
-     Module: ZaberMotionAscii
-
      Gets the axis numbers of the lockstep group.
 
      - Returns: Axis numbers in order specified when enabling lockstep.

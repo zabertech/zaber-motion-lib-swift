@@ -216,29 +216,29 @@ public final class ServoTuner: @unchecked Sendable {
         - tuningParams: The params used to tune this device.
           To get what parameters are expected, call GetSimpleTuningParamList.
           All values must be between 0 and 1.
-        - loadMass: The mass loaded on the stage, excluding the mass of the carriage itself.
-          Unless specified by the LoadMassUnits parameter, this is in units of kg for linear devices,
+        - loadInertia: The mass loaded on the stage, excluding the mass of the carriage itself.
+          Unless specified by the LoadInertiaUnits parameter, this is in units of kg for linear devices,
           and kg⋅m² for rotary devices.
-        - loadMassUnits: The units the load mass was supplied in.
-        - carriageMass: The mass of the carriage itself. If not supplied, the product's default mass will be used.
-          Unless specified by the CarriageMassUnits parameter, this is in units of kg for linear devices,
+        - loadInertiaUnits: The units the load mass was supplied in.
+        - carriageInertia: The mass of the carriage itself. If not supplied, the product's default mass will be used.
+          Unless specified by the CarriageInertiaUnits parameter, this is in units of kg for linear devices,
           and kg⋅m² for rotary devices.
-        - carriageMassUnits: The units the carriage mass was supplied in.
+        - carriageInertiaUnits: The units the carriage mass was supplied in.
         - motorInertia: The inertia of the motor. Unless specified by the MotorInertiaUnits parameter,
           this is in units of kg⋅m².
         - motorInertiaUnits: The units the motor inertia was supplied in.
      */
-    public func setSimpleTuning(paramset: ServoTuningParamset, tuningParams: [ServoTuningParam], loadMass: Double, loadMassUnits: Units = Units.native, carriageMass: Double? = nil, carriageMassUnits: Units = Units.native, motorInertia: Double? = nil, motorInertiaUnits: Units = Units.native) async throws  {
+    public func setSimpleTuning(paramset: ServoTuningParamset, tuningParams: [ServoTuningParam], loadInertia: Double, loadInertiaUnits: Units = Units.native, carriageInertia: Double? = nil, carriageInertiaUnits: Units = Units.native, motorInertia: Double? = nil, motorInertiaUnits: Units = Units.native) async throws  {
         var request = DtoRequests.SetSimpleTuning()
         request.interfaceId = self.axis.device.connection.interfaceId
         request.device = self.axis.device.deviceAddress
         request.axis = self.axis.axisNumber
         request.paramset = paramset
         request.tuningParams = tuningParams
-        request.loadMass = loadMass
-        request.loadMassUnits = loadMassUnits
-        request.carriageMass = carriageMass
-        request.carriageMassUnits = carriageMassUnits
+        request.loadInertia = loadInertia
+        request.loadInertiaUnits = loadInertiaUnits
+        request.carriageInertia = carriageInertia
+        request.carriageInertiaUnits = carriageInertiaUnits
         request.motorInertia = motorInertia
         request.motorInertiaUnits = motorInertiaUnits
 
@@ -266,36 +266,6 @@ public final class ServoTuner: @unchecked Sendable {
 
         let response = try await Gateway.callAsync("servotuning/get_simple_tuning", request, SimpleTuning.fromByteArray)
         return response
-    }
-
-    /**
-     Module: ZaberMotionAscii
-
-     Checks if the provided simple tuning is being stored by this paramset.
-
-     - Parameters:
-        - paramset: The paramset to set tuning for.
-        - tuningParams: The params used to tune this device.
-          To get what parameters are expected, call GetSimpleTuningParamList.
-          All values must be between 0 and 1.
-        - loadMass: The mass loaded on the stage (excluding the mass of the carriage itself) in kg.
-        - carriageMass: The mass of the carriage in kg. If this value is not set the default carriage mass is used.
-
-     - Returns: True if the provided simple tuning is currently stored in this paramset.
-     */
-    @available(*, deprecated, message: "Use GetSimpleTuning instead.")
-    public func isUsingSimpleTuning(paramset: ServoTuningParamset, tuningParams: [ServoTuningParam], loadMass: Double, carriageMass: Double? = nil) async throws -> Bool {
-        var request = DtoRequests.SetSimpleTuning()
-        request.interfaceId = self.axis.device.connection.interfaceId
-        request.device = self.axis.device.deviceAddress
-        request.axis = self.axis.axisNumber
-        request.paramset = paramset
-        request.tuningParams = tuningParams
-        request.loadMass = loadMass
-        request.carriageMass = carriageMass
-
-        let response = try await Gateway.callAsync("servotuning/is_using_simple_tuning", request, DtoRequests.BoolResponse.fromByteArray)
-        return response.value
     }
 
 }

@@ -12,23 +12,23 @@ public struct SetSimpleTuning: Serializable {
     public var device: Int
     public var axis: Int
     public var paramset: DtoAscii.ServoTuningParamset
-    public var loadMass: Double
-    public var loadMassUnits: Units
-    public var carriageMass: Double?
-    public var carriageMassUnits: Units
+    public var loadInertia: Double
+    public var loadInertiaUnits: Units
+    public var carriageInertia: Double?
+    public var carriageInertiaUnits: Units
     public var motorInertia: Double?
     public var motorInertiaUnits: Units
     public var tuningParams: [DtoAscii.ServoTuningParam]
 
-    public init(interfaceId: Int = 0, device: Int = 0, axis: Int = 0, paramset: DtoAscii.ServoTuningParamset = ServoTuningParamset(rawValue: 0)!, loadMass: Double = 0.0, loadMassUnits: Units = Units.native, carriageMass: Double? = nil, carriageMassUnits: Units = Units.native, motorInertia: Double? = nil, motorInertiaUnits: Units = Units.native, tuningParams: [DtoAscii.ServoTuningParam] = []) {
+    public init(interfaceId: Int = 0, device: Int = 0, axis: Int = 0, paramset: DtoAscii.ServoTuningParamset = ServoTuningParamset(rawValue: 0)!, loadInertia: Double = 0.0, loadInertiaUnits: Units = Units.native, carriageInertia: Double? = nil, carriageInertiaUnits: Units = Units.native, motorInertia: Double? = nil, motorInertiaUnits: Units = Units.native, tuningParams: [DtoAscii.ServoTuningParam] = []) {
         self.interfaceId = interfaceId
         self.device = device
         self.axis = axis
         self.paramset = paramset
-        self.loadMass = loadMass
-        self.loadMassUnits = loadMassUnits
-        self.carriageMass = carriageMass
-        self.carriageMassUnits = carriageMassUnits
+        self.loadInertia = loadInertia
+        self.loadInertiaUnits = loadInertiaUnits
+        self.carriageInertia = carriageInertia
+        self.carriageInertiaUnits = carriageInertiaUnits
         self.motorInertia = motorInertia
         self.motorInertiaUnits = motorInertiaUnits
         self.tuningParams = tuningParams

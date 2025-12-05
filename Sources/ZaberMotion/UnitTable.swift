@@ -3,6 +3,7 @@
 
 import UnitsInternal
 import Gateway
+import Dto
 import DtoRequests
 
 /**
@@ -73,6 +74,94 @@ public final class UnitTable {
 
         let response = try Gateway.callSync("units/convert_unit", request, DtoRequests.DoubleResponse.fromByteArray)
         return response.value
+    }
+
+    /**
+     Module: ZaberMotion
+
+     Converts a value from one unit to native units given unit conversion descriptor.
+
+     - Parameters:
+        - conversion: The unit conversion data retrieved from device or axis.
+        - value: The value to be converted.
+        - toUnit: The unit which the value is being converted to.
+
+     - Returns: The converted value. Throws ConversionFailedException if unit is incompatible.
+     */
+    public static func convertToNativeUnits(conversion: UnitConversionDescriptor, value: Double, toUnit: Units) throws -> Double {
+        var request = DtoRequests.UnitConvertNativeRequest()
+        request.conversion = conversion
+        request.value = value
+        request.unit = toUnit
+
+        let response = try Gateway.callSync("units/convert_to_native_unit", request, DtoRequests.DoubleResponse.fromByteArray)
+        return response.value
+    }
+
+    /**
+     Module: ZaberMotion
+
+     Converts a value from one unit to native units given unit conversion descriptor.
+
+     - Parameters:
+        - conversion: The unit conversion data retrieved from device or axis.
+        - value: The value to be converted.
+        - fromUnit: The unit which the value is being converted from.
+
+     - Returns: The converted value. Throws ConversionFailedException if unit is incompatible.
+     */
+    public static func convertFromNativeUnits(conversion: UnitConversionDescriptor, value: Double, fromUnit: Units) throws -> Double {
+        var request = DtoRequests.UnitConvertNativeRequest()
+        request.conversion = conversion
+        request.value = value
+        request.unit = fromUnit
+
+        let response = try Gateway.callSync("units/convert_from_native_unit", request, DtoRequests.DoubleResponse.fromByteArray)
+        return response.value
+    }
+
+    /**
+     Module: ZaberMotion
+
+     Converts values from one unit to native units given unit conversion descriptor.
+
+     - Parameters:
+        - conversion: The unit conversion data retrieved from device or axis.
+        - values: The value to be converted.
+        - toUnit: The unit which the value is being converted to.
+
+     - Returns: The converted values. Throws ConversionFailedException if unit is incompatible.
+     */
+    public static func convertToNativeUnitsBatch(conversion: UnitConversionDescriptor, values: [Double], toUnit: Units) throws -> [Double] {
+        var request = DtoRequests.UnitConvertNativeRequest()
+        request.conversion = conversion
+        request.values = values
+        request.unit = toUnit
+
+        let response = try Gateway.callSync("units/convert_to_native_unit_batch", request, DtoRequests.DoubleArrayResponse.fromByteArray)
+        return response.values
+    }
+
+    /**
+     Module: ZaberMotion
+
+     Converts values from one unit to native units given unit conversion descriptor.
+
+     - Parameters:
+        - conversion: The unit conversion data retrieved from device or axis.
+        - values: The value to be converted.
+        - fromUnit: The unit which the value is being converted from.
+
+     - Returns: The converted values. Throws ConversionFailedException if unit is incompatible.
+     */
+    public static func convertFromNativeUnitsBatch(conversion: UnitConversionDescriptor, values: [Double], fromUnit: Units) throws -> [Double] {
+        var request = DtoRequests.UnitConvertNativeRequest()
+        request.conversion = conversion
+        request.values = values
+        request.unit = fromUnit
+
+        let response = try Gateway.callSync("units/convert_from_native_unit_batch", request, DtoRequests.DoubleArrayResponse.fromByteArray)
+        return response.values
     }
 
 }

@@ -115,14 +115,14 @@ do {
 
 	try await stream.wait(time: 2, unit: Units.timeSeconds)
 
-	try await stream.setDigitalOutput(channelNumber: 1, value: DigitalOutputAction.on)
-	try await stream.waitDigitalInput(channelNumber: 1, value: true)
+	try await stream.io.setDigitalOutput(channelNumber: 1, value: DigitalOutputAction.on)
+	try await stream.io.waitDigitalInput(channelNumber: 1, value: true)
 
-	try await stream.setDigitalOutput(channelNumber: 1, value: DigitalOutputAction.toggle)
-	try await stream.setDigitalOutput(channelNumber: 1, value: DigitalOutputAction.toggle)
+	try await stream.io.setDigitalOutput(channelNumber: 1, value: DigitalOutputAction.toggle)
+	try await stream.io.setDigitalOutput(channelNumber: 1, value: DigitalOutputAction.toggle)
 
-	try await stream.setAnalogOutput(channelNumber: 1, value: 0.42)
-	try await stream.waitAnalogInput(channelNumber: 1, condition: ">=", value: 0.50)
+	try await stream.io.setAnalogOutput(channelNumber: 1, value: 0.42)
+	try await stream.io.waitAnalogInput(channelNumber: 1, condition: ">=", value: 0.50)
 
 	try await stream.waitUntilIdle()
 

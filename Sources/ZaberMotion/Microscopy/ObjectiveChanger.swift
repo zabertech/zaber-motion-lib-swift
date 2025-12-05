@@ -47,34 +47,6 @@ public final class ObjectiveChanger: @unchecked Sendable {
     /**
      Module: ZaberMotionMicroscopy
 
-     Finds an objective changer on a connection.
-     In case of conflict, specify the optional device addresses.
-     Devices on the connection must be identified.
-
-     - Parameters:
-        - connection: Connection on which to detect the objective changer.
-        - turretAddress: Optional device address of the turret device (X-MOR).
-        - focusAddress: Optional device address of the focus device (X-LDA).
-
-     - Returns: New instance of objective changer.
-     */
-    @available(*, deprecated, message: "Use microscope's `Find` method instead or instantiate manually.")
-    public static func find(connection: Connection, turretAddress: Int = 0, focusAddress: Int = 0) async throws -> ObjectiveChanger {
-        _assertSendable(ObjectiveChanger.self)
-
-        var request = DtoRequests.ObjectiveChangerRequest()
-        request.interfaceId = connection.interfaceId
-        request.turretAddress = turretAddress
-        request.focusAddress = focusAddress
-
-        let response = try await Gateway.callAsync("objective_changer/detect", request, DtoRequests.ObjectiveChangerCreateResponse.fromByteArray)
-        return try ObjectiveChanger(turret: Device(connection: connection, deviceAddress: response.turret),
-            focusAxis: Axis(device: Device(connection: connection, deviceAddress: response.focusAddress), axisNumber: response.focusAxis))
-    }
-
-    /**
-     Module: ZaberMotionMicroscopy
-
      Changes the objective.
      Runs a sequence of movements switching from the current objective to the new one.
      The focus stage moves to the focus datum after the objective change.

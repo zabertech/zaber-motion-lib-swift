@@ -31,6 +31,23 @@ public final class Connection: @unchecked Sendable {
     /**
      Module: ZaberMotionBinary
 
+     Commands sent over this port are forwarded to the device chain.
+     The bandwidth may be limited as the commands are forwarded over a serial connection.
+     */
+    public static let tcpPortChain: Int = 55550;
+
+    /**
+     Module: ZaberMotionBinary
+
+     Commands send over this port are processed only by the device
+     and not forwarded to the rest of the chain.
+     Using this port typically makes the communication faster.
+     */
+    public static let tcpPortDeviceOnly: Int = 55551;
+
+    /**
+     Module: ZaberMotionBinary
+
      The interface ID identifies thisConnection instance with the underlying library.
      */
     public let interfaceId: Int
@@ -78,13 +95,13 @@ public final class Connection: @unchecked Sendable {
 
      - Parameters:
         - hostName: Hostname or IP address.
-        - port: Port number.
+        - port: Optional port number (defaults to 55550).
         - useMessageIds: Enable use of message IDs (defaults to disabled).
           All your devices must be pre-configured to match.
 
      - Returns: An object representing the connection.
      */
-    public static func openTcp(hostName: String, port: Int, useMessageIds: Bool = false) async throws -> Connection {
+    public static func openTcp(hostName: String, port: Int = Connection.tcpPortChain, useMessageIds: Bool = false) async throws -> Connection {
         _assertSendable(Connection.self)
 
         var request = DtoRequests.OpenBinaryInterfaceRequest()

@@ -2,6 +2,7 @@
 // ============== DO NOT EDIT DIRECTLY ============== //
 
 import UnitsInternal
+import Dto
 import DtoRequests
 import Gateway
 import ZaberMotionExceptions
@@ -357,6 +358,28 @@ public final class AxisSettings: @unchecked Sendable {
     /**
      Module: ZaberMotionAscii
 
+     Retrieves unit conversion descriptor for a setting, allowing unit conversion without a device.
+     The descriptor can be used with the ConvertTo/FromNativeUnits methods of the UnitTable class.
+
+     - Parameters:
+        - setting: Name of the setting.
+
+     - Returns: The unit conversion descriptor for the setting.
+     */
+    public func getUnitConversionDescriptor(setting: String) throws -> UnitConversionDescriptor {
+        var request = DtoRequests.DeviceGetSettingRequest()
+        request.interfaceId = self.axis.device.connection.interfaceId
+        request.device = self.axis.device.deviceAddress
+        request.axis = self.axis.axisNumber
+        request.setting = setting
+
+        let response = try Gateway.callSync("device/get_setting_unit_conversion", request, UnitConversionDescriptor.fromByteArray)
+        return response
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
      Overrides default unit conversions.
      Conversion factors are specified by setting names representing underlying dimensions.
      Requires at least Firmware 7.30.
@@ -422,4 +445,3 @@ public final class AxisSettings: @unchecked Sendable {
     }
 
 }
-

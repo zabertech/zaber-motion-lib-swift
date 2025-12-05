@@ -21,9 +21,9 @@ public struct SimpleTuning: Serializable {
     public var isSet: Bool
 
     /**
-     * The mass of the carriage in kg.
+     * The inertia of the carriage in kg (for linear devices) or kg⋅m² (for rotary devices).
      */
-    public var carriageMass: Double?
+    public var carriageInertia: Double?
 
     /**
      * The inertia of the motor in kg⋅m².
@@ -31,21 +31,22 @@ public struct SimpleTuning: Serializable {
     public var motorInertia: Double?
 
     /**
-     * The mass of the load in kg, excluding the mass of the carriage.
+     * The inertia of the load in kg (for linear devices) or kg⋅m² (for rotary devices),
+     * excluding the inertia of the carriage.
      */
-    public var loadMass: Double
+    public var loadInertia: Double
 
     /**
      * The parameters used by simple tuning.
      */
     public var tuningParams: [ServoTuningParam]
 
-    public init(isUsed: Bool = false, isSet: Bool = false, carriageMass: Double? = nil, motorInertia: Double? = nil, loadMass: Double = 0.0, tuningParams: [ServoTuningParam] = []) {
+    public init(isUsed: Bool = false, isSet: Bool = false, carriageInertia: Double? = nil, motorInertia: Double? = nil, loadInertia: Double = 0.0, tuningParams: [ServoTuningParam] = []) {
         self.isUsed = isUsed
         self.isSet = isSet
-        self.carriageMass = carriageMass
+        self.carriageInertia = carriageInertia
         self.motorInertia = motorInertia
-        self.loadMass = loadMass
+        self.loadInertia = loadInertia
         self.tuningParams = tuningParams
     }
 

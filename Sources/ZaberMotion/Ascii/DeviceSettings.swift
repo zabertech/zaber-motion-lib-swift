@@ -343,6 +343,27 @@ public final class DeviceSettings: @unchecked Sendable {
     /**
      Module: ZaberMotionAscii
 
+     Retrieves unit conversion descriptor for a setting, allowing unit conversion without a device.
+     The descriptor can be used with the ConvertTo/FromNativeUnits methods of the UnitTable class.
+
+     - Parameters:
+        - setting: Name of the setting.
+
+     - Returns: The unit conversion descriptor for the setting.
+     */
+    public func getUnitConversionDescriptor(setting: String) throws -> UnitConversionDescriptor {
+        var request = DtoRequests.DeviceGetSettingRequest()
+        request.interfaceId = device.connection.interfaceId
+        request.device = device.deviceAddress
+        request.setting = setting
+
+        let response = try Gateway.callSync("device/get_setting_unit_conversion", request, UnitConversionDescriptor.fromByteArray)
+        return response
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
      Gets the value of an axis scope setting for each axis on the device.
      Values may be NaN where the setting is not applicable.
 
