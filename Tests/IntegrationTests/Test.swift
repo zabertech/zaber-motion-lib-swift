@@ -10,6 +10,14 @@ private enum TestError: Error {
 }
 
 @Suite struct IntegrationTests {
+    @Test("Test that host language is properly set")
+    func testHostLanguage() throws {
+        let response: StringResponse = try Gateway.callSync(
+            "test/get_host_language", nil, StringResponse.fromByteArray)
+
+        #expect(response.value == "swift")
+    }
+
     @Test("Synchronous call")
     func testCallSync() throws {
         let testRequest = TestRequest(

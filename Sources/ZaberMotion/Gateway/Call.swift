@@ -65,11 +65,16 @@ let gatewayCallbackSync: CallbackFn = { (rawResponse: UnsafeMutableRawPointer, t
     gatewayContext.responseData = responseData
 }
 
+private func callGatewaySync(_ request: String, _ requestData: (any Serializable)?) throws
+    -> [Data]
+{
+    LibraryManager.ensureInitialized()
+    return try callGatewaySyncInternal(request, requestData)
+}
+
 private func callGatewaySyncInternal(_ request: String, _ requestData: (any Serializable)?) throws
     -> [Data]
 {
-    Events.shared.ensureInitialized()
-
     let request = GatewayRequest(request: request)
     let requests = requestData == nil ? [request] : [request, requestData!]
     let buffer = try serialize(requests)
@@ -96,12 +101,12 @@ private func callGatewaySyncInternal(_ request: String, _ requestData: (any Seri
 public func callSync<T>(
     _ request: String, _ requestData: (any Serializable)?, _ responseParser: (Data) throws -> T
 ) throws -> T {
-    let data = try callGatewaySyncInternal(request, requestData)
+    let data = try callGatewaySync(request, requestData)
     return try parseResponse(data, responseParser)
 }
 
 public func callSync(_ request: String, _ requestData: (any Serializable)? = nil) throws {
-    let data = try callGatewaySyncInternal(request, requestData)
+    let data = try callGatewaySync(request, requestData)
     try parseResponse(data)
 }
 
@@ -121,7 +126,7 @@ let gatewayCallbackAsync: CallbackFn = { (rawResponse: UnsafeMutableRawPointer, 
 private func callGatewayAsyncInternal(_ request: String, _ requestData: (any Serializable)?)
     async throws -> [Data]
 {
-    Events.shared.ensureInitialized()
+    LibraryManager.ensureInitialized()
 
     let gatewayRequest = GatewayRequest(request: request)
     let requests = requestData == nil ? [gatewayRequest] : [gatewayRequest, requestData!]
@@ -162,4 +167,23 @@ public func callAsync<T>(
 ) async throws -> T {
     let data = try await callGatewayAsyncInternal(request, requestData)
     return try parseResponse(data, responseParser)
+}
+
+// LIBRARY INITIALIZATION
+
+public class LibraryManager {
+    private static let initialized: Void = {
+        do {
+            let request = CheckVersionRequest(version: Constants.version, host: Constants.hostLanguage)
+            try parseResponse(try callGatewaySyncInternal("library/check_version", request))
+
+            Events.shared.ensureInitialized()
+        } catch {
+            fatalError("Failed to initialize Zaber Motion Library: \(error)")
+        }
+    }()
+
+    static func ensureInitialized() {
+        _ = initialized
+    }
 }
