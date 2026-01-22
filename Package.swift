@@ -29,8 +29,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "ZaberMotionCore",
-            url: "https://software.zaber.com/downloads/ZML/Swift/8.0.2/ZaberMotionCore.xcframework.zip",
-        checksum: "9a70f64eb99a3333732b3e6f26978fe1e611ad140aade53cc7de220bb35b8337"
+            url: "https://software.zaber.com/downloads/ZML/Swift/8.0.3/ZaberMotionCore.xcframework.zip",
+        checksum: "b69337937775cb80eebada0388e4e6880fe9f99e4ac333adecca9b017815adef"
         ),
         .target(
             name: "ZaberMotion",
@@ -189,6 +189,7 @@ let package = Package(
             dependencies: [
                 .product(name: "SwiftBSON", package: "swift-bson"),
                 "DtoSerializable",
+                "Dto",
             ],
             path: "Sources/ZaberMotion/Dto/Exceptions"
         ),

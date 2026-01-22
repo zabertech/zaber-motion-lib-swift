@@ -1179,6 +1179,11 @@ public final class SettingConstants {
     public static let maxspeed: String = "maxspeed"
 
     /**
+     Maxspeed Max
+     */
+    public static let maxspeedMax: String = "maxspeed.max"
+
+    /**
      Motion Accel Ramptime
      */
     public static let motionAccelRamptime: String = "motion.accel.ramptime"
@@ -1367,6 +1372,11 @@ public final class SettingConstants {
      Motor Resistance
      */
     public static let motorResistance: String = "motor.resistance"
+
+    /**
+     Motor Temperature
+     */
+    public static let motorTemperature: String = "motor.temperature"
 
     /**
      Parking State

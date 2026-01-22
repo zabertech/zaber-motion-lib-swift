@@ -159,10 +159,11 @@ public final class Library {
 
      Throws an error if the version of the loaded shared library does not match the caller's version.
      */
+    @available(*, deprecated, message: "Calling this function is no longer necessary as the check happens automatically.")
     public static func checkVersion() throws  {
         var request = DtoRequests.CheckVersionRequest()
         request.host = "swift"
-        request.version = "8.0.2"
+        request.version = "8.0.3"
 
         try Gateway.callSync("library/check_version", request)
     }
