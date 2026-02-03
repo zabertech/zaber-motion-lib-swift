@@ -88,6 +88,8 @@ public enum Units: String, Codable, Sendable {
     public static let angularAcceleration: [String: Units] = [
         "°/s²": .angularAccelerationDegreesPerSecondSquared,
         "deg/s^2": .angularAccelerationDegreesPerSecondSquared,
+        "r/s²": .angularAccelerationRadiansPerSecondSquared,
+        "r/s^2": .angularAccelerationRadiansPerSecondSquared,
         "rad/s²": .angularAccelerationRadiansPerSecondSquared,
         "rad/s^2": .angularAccelerationRadiansPerSecondSquared,
     ]
