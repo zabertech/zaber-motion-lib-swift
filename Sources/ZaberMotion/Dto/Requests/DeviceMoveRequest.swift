@@ -4,6 +4,7 @@ import Foundation
 import SwiftBSON
 import DtoSerializable
 import UnitsInternal
+import DtoAscii
 
 
 public struct DeviceMoveRequest: Serializable {
@@ -19,8 +20,10 @@ public struct DeviceMoveRequest: Serializable {
     public var velocityUnit: Units
     public var acceleration: Double
     public var accelerationUnit: Units
+    public var cyclicDirection: DtoAscii.CyclicDirection?
+    public var extraCycles: Int?
 
-    public init(interfaceId: Int = 0, device: Int = 0, axis: Int = 0, waitUntilIdle: Bool = false, type: AxisMoveType = AxisMoveType(rawValue: 0)!, arg: Double = 0.0, argInt: Int = 0, unit: Units = Units.native, velocity: Double = 0.0, velocityUnit: Units = Units.native, acceleration: Double = 0.0, accelerationUnit: Units = Units.native) {
+    public init(interfaceId: Int = 0, device: Int = 0, axis: Int = 0, waitUntilIdle: Bool = false, type: AxisMoveType = AxisMoveType(rawValue: 0)!, arg: Double = 0.0, argInt: Int = 0, unit: Units = Units.native, velocity: Double = 0.0, velocityUnit: Units = Units.native, acceleration: Double = 0.0, accelerationUnit: Units = Units.native, cyclicDirection: DtoAscii.CyclicDirection? = nil, extraCycles: Int? = nil) {
         self.interfaceId = interfaceId
         self.device = device
         self.axis = axis
@@ -33,6 +36,8 @@ public struct DeviceMoveRequest: Serializable {
         self.velocityUnit = velocityUnit
         self.acceleration = acceleration
         self.accelerationUnit = accelerationUnit
+        self.cyclicDirection = cyclicDirection
+        self.extraCycles = extraCycles
     }
 
     public static func fromByteArray(_ byteArray: Data) throws -> DeviceMoveRequest {

@@ -4,6 +4,7 @@
 import UnitsInternal
 import Dto
 import DtoRequests
+import DtoAscii
 import Gateway
 import ZaberMotionExceptions
 import Utils
@@ -285,8 +286,10 @@ public final class Axis: @unchecked Sendable {
           Default value of 0 indicates that the accel setting is used instead.
           Requires at least Firmware 7.25.
         - accelerationUnit: Units of acceleration.
+        - cyclicDirection: Which direction a cyclic device should take to get to the target position.
+        - extraCycles: Number of extra cycles to complete before stopping at the target.
      */
-    public func moveAbsolute(position: Double, unit: Units = Units.native, waitUntilIdle: Bool = true, velocity: Double = 0, velocityUnit: Units = Units.native, acceleration: Double = 0, accelerationUnit: Units = Units.native) async throws  {
+    public func moveAbsolute(position: Double, unit: Units = Units.native, waitUntilIdle: Bool = true, velocity: Double = 0, velocityUnit: Units = Units.native, acceleration: Double = 0, accelerationUnit: Units = Units.native, cyclicDirection: CyclicDirection? = nil, extraCycles: Int? = nil) async throws  {
         var request = DtoRequests.DeviceMoveRequest()
         request.interfaceId = self.device.connection.interfaceId
         request.device = self.device.deviceAddress
@@ -299,6 +302,8 @@ public final class Axis: @unchecked Sendable {
         request.velocityUnit = velocityUnit
         request.acceleration = acceleration
         request.accelerationUnit = accelerationUnit
+        request.cyclicDirection = cyclicDirection
+        request.extraCycles = extraCycles
 
         try await Gateway.callAsync("device/move", request)
     }
