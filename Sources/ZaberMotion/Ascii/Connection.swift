@@ -122,10 +122,12 @@ public final class Connection: @unchecked Sendable {
         - baudRate: Optional baud rate (defaults to 115200).
         - direct: If true will connect to the serial port directly,
           failing if the connection is already opened by a message router instance.
+        - testPort: Some operating systems may allow opening a serial port that is not writable.
+          Tests if the serial port is writable, and throws an exception if it is not.
 
      - Returns: An object representing the port.
      */
-    public static func openSerialPort(portName: String, baudRate: Int = Connection.defaultBaudRate, direct: Bool = false) async throws -> Connection {
+    public static func openSerialPort(portName: String, baudRate: Int = Connection.defaultBaudRate, direct: Bool = false, testPort: Bool = false) async throws -> Connection {
         _assertSendable(Connection.self)
 
         var request = DtoRequests.OpenInterfaceRequest()
@@ -133,6 +135,7 @@ public final class Connection: @unchecked Sendable {
         request.portName = portName
         request.baudRate = baudRate
         request.rejectRoutedConnection = direct
+        request.testPort = testPort
 
         let response = try await Gateway.callAsync("interface/open", request, DtoRequests.OpenInterfaceResponse.fromByteArray)
         return Connection(interfaceId: response.interfaceId)
@@ -238,6 +241,28 @@ public final class Connection: @unchecked Sendable {
         request.hostName = hostName
         request.port = port
         request.connectionName = connectionName
+
+        let response = try await Gateway.callAsync("interface/open", request, DtoRequests.OpenInterfaceResponse.fromByteArray)
+        return Connection(interfaceId: response.interfaceId)
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Opens a mock connection with mock devices for testing purposes.
+     The mock connection cannot be used for communication with mock devices.
+
+     - Parameters:
+        - devices: List of mock devices.
+
+     - Returns: An object representing the mock connection.
+     */
+    public static func openMock(devices: [MockDevice]) async throws -> Connection {
+        _assertSendable(Connection.self)
+
+        var request = DtoRequests.OpenInterfaceRequest()
+        request.interfaceType = InterfaceType.mock
+        request.mockDevices = devices
 
         let response = try await Gateway.callAsync("interface/open", request, DtoRequests.OpenInterfaceResponse.fromByteArray)
         return Connection(interfaceId: response.interfaceId)

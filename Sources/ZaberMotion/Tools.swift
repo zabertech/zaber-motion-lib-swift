@@ -3,6 +3,8 @@
 
 import Gateway
 import DtoRequests
+import Dto
+import Utils
 
 /**
  Module: ZaberMotion
@@ -56,6 +58,29 @@ public final class Tools {
 
         let response = try Gateway.callSync("tools/get_db_service_pipe", request, DtoRequests.StringResponse.fromByteArray)
         return response.value
+    }
+
+    /**
+     Module: ZaberMotion
+
+     Discover Zaber devices shared over local network over TCP/IP.
+
+     - Parameters:
+        - duration: Optional time in ms to wait for mDNS discovery response (defaults to 3000).
+        - interfaceIpAddress: Specify which network interface to use by IP address.
+          If no value or an empty string is provided, mDNS query is sent to all compatible network interfaces.
+
+     - Returns: Array of discovered devices.
+     */
+    public static func discoverTcpDevices(duration: Int = 3000, interfaceIpAddress: String? = nil) async throws -> [DeviceDiscoveryResult] {
+        _assertSendable(DeviceDiscoveryResult.self)
+
+        var request = DtoRequests.DiscoverMdnsRequest()
+        request.duration = duration
+        request.interfaceIpAddress = interfaceIpAddress
+
+        let response = try await Gateway.callAsync("tools/discover_tcp_devices", request, DtoRequests.DiscoverTCPDevicesResponse.fromByteArray)
+        return response.result
     }
 
 }

@@ -6,4 +6,5 @@ public enum InterfaceType: Int, Codable, Sendable {
     case `custom` = 2
     case `iot` = 3
     case `networkShare` = 4
+    case `mock` = 5
 }

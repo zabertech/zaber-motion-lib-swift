@@ -163,9 +163,24 @@ public final class Library {
     public static func checkVersion() throws  {
         var request = DtoRequests.CheckVersionRequest()
         request.host = "swift"
-        request.version = "8.1.0"
+        request.version = "8.2.0"
 
         try Gateway.callSync("library/check_version", request)
+    }
+
+    /**
+     Module: ZaberMotion
+
+     For internal use only: tells zaber motion core which host application it is bundled in.
+
+     - Parameters:
+        - hostApplication: String name of the host application with which ZML is bundled.
+     */
+    public static func setHostApplication(hostApplication: String) throws  {
+        var request = DtoRequests.StringResponse()
+        request.value = hostApplication
+
+        try Gateway.callSync("library/set_host_application", request)
     }
 
 }
