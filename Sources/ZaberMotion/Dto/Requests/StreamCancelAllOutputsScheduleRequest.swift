@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 public struct StreamCancelAllOutputsScheduleRequest: Serializable {
@@ -19,23 +18,5 @@ public struct StreamCancelAllOutputsScheduleRequest: Serializable {
         self.pvt = pvt
         self.analog = analog
         self.channels = channels
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> StreamCancelAllOutputsScheduleRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(StreamCancelAllOutputsScheduleRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "StreamCancelAllOutputsScheduleRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "StreamCancelAllOutputsScheduleRequest", error: error)
-        }
     }
 }

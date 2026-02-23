@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 public struct TriggerFireWhenRequest: Serializable {
@@ -15,23 +14,5 @@ public struct TriggerFireWhenRequest: Serializable {
         self.device = device
         self.triggerNumber = triggerNumber
         self.condition = condition
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> TriggerFireWhenRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(TriggerFireWhenRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "TriggerFireWhenRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "TriggerFireWhenRequest", error: error)
-        }
     }
 }

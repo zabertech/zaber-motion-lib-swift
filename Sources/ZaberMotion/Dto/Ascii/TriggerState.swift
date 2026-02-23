@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 /**
@@ -42,23 +41,5 @@ public struct TriggerState: Serializable {
         self.enabled = enabled
         self.firesTotal = firesTotal
         self.firesRemaining = firesRemaining
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> TriggerState {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(TriggerState.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "TriggerState", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "TriggerState", error: error)
-        }
     }
 }

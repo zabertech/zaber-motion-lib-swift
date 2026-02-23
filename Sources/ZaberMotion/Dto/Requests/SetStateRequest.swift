@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 public struct SetStateRequest: Serializable {
@@ -17,23 +16,5 @@ public struct SetStateRequest: Serializable {
         self.axis = axis
         self.state = state
         self.deviceOnly = deviceOnly
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> SetStateRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(SetStateRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "SetStateRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "SetStateRequest", error: error)
-        }
     }
 }

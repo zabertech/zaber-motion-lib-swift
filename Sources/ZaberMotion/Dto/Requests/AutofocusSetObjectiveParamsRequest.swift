@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 import Dto
 
@@ -23,23 +22,5 @@ public struct AutofocusSetObjectiveParamsRequest: Serializable {
         self.turretAddress = turretAddress
         self.objective = objective
         self.parameters = parameters
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> AutofocusSetObjectiveParamsRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(AutofocusSetObjectiveParamsRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "AutofocusSetObjectiveParamsRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "AutofocusSetObjectiveParamsRequest", error: error)
-        }
     }
 }

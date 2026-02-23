@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 import UnitsInternal
 
@@ -21,23 +20,5 @@ public struct StreamSetMaxSpeedRequest: Serializable {
         self.pvt = pvt
         self.maxSpeed = maxSpeed
         self.unit = unit
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> StreamSetMaxSpeedRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(StreamSetMaxSpeedRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "StreamSetMaxSpeedRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "StreamSetMaxSpeedRequest", error: error)
-        }
     }
 }

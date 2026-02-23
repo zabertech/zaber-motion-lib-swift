@@ -1,9 +1,9 @@
 ﻿// ===== THIS FILE IS GENERATED FROM A TEMPLATE ===== //
 // ============== DO NOT EDIT DIRECTLY ============== //
 
-import Darwin
 import DtoRequests
 import Gateway
+import Utils
 import ZaberMotionExceptions
 
 /**
@@ -132,17 +132,17 @@ public final class Transport: @unchecked Sendable {
         do {
             try close()
         } catch let e as MotionLibException {
-            fputs("ZML Error: \(e.toString())", stderr)
+            printToStderr("ZML Error: \(e.toString())")
         } catch {
-            fputs("System Error: \(error)", stderr)
+            printToStderr("System Error: \(error)")
         }
 
         do {
             try Transport.free(transportId: self.transportId)
         } catch let e as MotionLibException {
-            fputs("ZML Error: \(e.toString())", stderr)
+            printToStderr("ZML Error: \(e.toString())")
         } catch {
-            fputs("System Error: \(error)", stderr)
+            printToStderr("System Error: \(error)")
         }
     }
 }

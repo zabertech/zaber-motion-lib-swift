@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 import DtoProduct
 
@@ -17,23 +16,5 @@ public struct SetProcessControllerSource: Serializable {
         self.device = device
         self.axis = axis
         self.source = source
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> SetProcessControllerSource {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(SetProcessControllerSource.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "SetProcessControllerSource", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "SetProcessControllerSource", error: error)
-        }
     }
 }

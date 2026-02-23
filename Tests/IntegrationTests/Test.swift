@@ -1,4 +1,3 @@
-import NotificationCenter
 import Testing
 
 @testable import DtoRequests
@@ -88,6 +87,7 @@ private enum TestError: Error {
         }
     }
 
+    #if canImport(Combine)
     @Test("Event emission")
     func testEvent() async throws {
         let event: TestEvent = try await withThrowingTaskGroup(of: TestEvent.self) { group in
@@ -112,4 +112,5 @@ private enum TestError: Error {
 
         #expect(event.data == "testing event data")
     }
+    #endif
 }

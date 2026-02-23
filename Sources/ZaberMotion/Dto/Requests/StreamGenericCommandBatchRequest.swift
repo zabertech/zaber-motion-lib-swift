@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 public struct StreamGenericCommandBatchRequest: Serializable {
@@ -17,23 +16,5 @@ public struct StreamGenericCommandBatchRequest: Serializable {
         self.streamId = streamId
         self.pvt = pvt
         self.batch = batch
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> StreamGenericCommandBatchRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(StreamGenericCommandBatchRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "StreamGenericCommandBatchRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "StreamGenericCommandBatchRequest", error: error)
-        }
     }
 }

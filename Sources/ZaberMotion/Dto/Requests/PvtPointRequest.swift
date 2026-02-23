@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 import Dto
 
@@ -25,23 +24,5 @@ public struct PvtPointRequest: Serializable {
         self.positions = positions
         self.velocities = velocities
         self.time = time
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> PvtPointRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(PvtPointRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "PvtPointRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "PvtPointRequest", error: error)
-        }
     }
 }

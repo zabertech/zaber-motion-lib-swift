@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 public struct StreamWaitUntilIdleRequest: Serializable {
@@ -17,23 +16,5 @@ public struct StreamWaitUntilIdleRequest: Serializable {
         self.streamId = streamId
         self.pvt = pvt
         self.throwErrorOnFault = throwErrorOnFault
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> StreamWaitUntilIdleRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(StreamWaitUntilIdleRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "StreamWaitUntilIdleRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "StreamWaitUntilIdleRequest", error: error)
-        }
     }
 }

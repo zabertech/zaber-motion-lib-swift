@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 public struct StreamBufferList: Serializable {
@@ -13,23 +12,5 @@ public struct StreamBufferList: Serializable {
         self.interfaceId = interfaceId
         self.device = device
         self.pvt = pvt
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> StreamBufferList {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(StreamBufferList.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "StreamBufferList", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "StreamBufferList", error: error)
-        }
     }
 }

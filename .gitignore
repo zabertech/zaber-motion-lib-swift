@@ -6,4 +6,8 @@ DerivedData/
 .swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
 .netrc
 *.xcframework.zip
+*.so
+*.dll
+*.lib
+*.dylib
 .DS_Store

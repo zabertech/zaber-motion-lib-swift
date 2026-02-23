@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 public struct GenericCommandRequest: Serializable {
@@ -19,23 +18,5 @@ public struct GenericCommandRequest: Serializable {
         self.command = command
         self.checkErrors = checkErrors
         self.timeout = timeout
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> GenericCommandRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(GenericCommandRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "GenericCommandRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "GenericCommandRequest", error: error)
-        }
     }
 }

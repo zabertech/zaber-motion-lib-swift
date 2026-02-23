@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 import DtoAscii
 import UnitsInternal
@@ -22,23 +21,5 @@ public struct DeviceSetAllDigitalOutputsScheduleRequest: Serializable {
         self.futureValues = futureValues
         self.delay = delay
         self.unit = unit
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> DeviceSetAllDigitalOutputsScheduleRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(DeviceSetAllDigitalOutputsScheduleRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "DeviceSetAllDigitalOutputsScheduleRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "DeviceSetAllDigitalOutputsScheduleRequest", error: error)
-        }
     }
 }

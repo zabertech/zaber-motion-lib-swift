@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 /**
@@ -28,23 +27,5 @@ public struct ReplyOnlyEvent: Serializable {
         self.deviceAddress = deviceAddress
         self.command = command
         self.data = data
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> ReplyOnlyEvent {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(ReplyOnlyEvent.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "ReplyOnlyEvent", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "ReplyOnlyEvent", error: error)
-        }
     }
 }

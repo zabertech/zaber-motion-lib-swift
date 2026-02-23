@@ -2,8 +2,35 @@
 
 import PackageDescription
 
-#if !os(macOS)
-    #warning("This package is only supported on MacOS.")
+#if os(Linux)
+#warning("Events are not supported on Linux due to the absence of the Combine framework.")
+#elseif os(Windows)
+#warning("Events are not supported on Windows due to the absence of the Combine framework.")
+#endif
+
+#if os(macOS)
+let coreTarget: Target = .binaryTarget(
+    name: "ZaberMotionCore",
+    url: "https://software.zaber.com/downloads/ZML/Swift/8.3.0/ZaberMotionCore.xcframework.zip",
+        checksum: "654f0450f34d66f53322c48894bfd7435a1f8aec82747d1af3c1481c27a9b438"
+)
+#else
+let coreTarget: Target = .systemLibrary(
+    name: "ZaberMotionCore",
+    path: "ZaberMotionCore/Headers"
+)
+#endif
+
+#if os(Windows)
+let bsonDependencies: [Package.Dependency] = []
+let bsonTargetDependency: [Target.Dependency] = []
+#else
+let bsonDependencies: [Package.Dependency] = [
+    .package(url: "https://github.com/mongodb/swift-bson", .upToNextMajor(from: "3.1.0"))
+]
+let bsonTargetDependency: [Target.Dependency] = [
+    .product(name: "SwiftBSON", package: "swift-bson")
+]
 #endif
 
 let package = Package(
@@ -23,15 +50,9 @@ let package = Package(
             ]
         )
     ],
-    dependencies: [
-        .package(url: "https://github.com/mongodb/swift-bson", .upToNextMajor(from: "3.1.0"))
-    ],
+    dependencies: bsonDependencies,
     targets: [
-        .binaryTarget(
-            name: "ZaberMotionCore",
-            url: "https://software.zaber.com/downloads/ZML/Swift/8.2.0/ZaberMotionCore.xcframework.zip",
-        checksum: "3e8e49d41d6bf33087674605927f89bc2203e297a97b7ac5a8fd832f1ff5a621"
-        ),
+        coreTarget,
         .target(
             name: "ZaberMotion",
             dependencies: [
@@ -143,7 +164,6 @@ let package = Package(
         .target(
             name: "Dto",
             dependencies: [
-                .product(name: "SwiftBSON", package: "swift-bson"),
                 "DtoSerializable",
                 "UnitsInternal"
             ],
@@ -161,15 +181,12 @@ let package = Package(
         ),
         .target(
             name: "DtoSerializable",
-            dependencies: [
-                .product(name: "SwiftBSON", package: "swift-bson")
-            ],
+            dependencies: ["Utils"],
             path: "Sources/ZaberMotion/Dto/Serializable"
         ),
         .target(
             name: "DtoAscii",
             dependencies: [
-                .product(name: "SwiftBSON", package: "swift-bson"),
                 "DtoSerializable",
                 "Dto",
                 "UnitsInternal"
@@ -179,7 +196,6 @@ let package = Package(
         .target(
             name: "DtoBinary",
             dependencies: [
-                .product(name: "SwiftBSON", package: "swift-bson"),
                 "DtoSerializable",
                 "Dto"
             ],
@@ -188,7 +204,6 @@ let package = Package(
         .target(
             name: "DtoExceptions",
             dependencies: [
-                .product(name: "SwiftBSON", package: "swift-bson"),
                 "DtoSerializable",
                 "Dto",
             ],
@@ -197,7 +212,6 @@ let package = Package(
         .target(
             name: "DtoGcode",
             dependencies: [
-                .product(name: "SwiftBSON", package: "swift-bson"),
                 "DtoSerializable",
                 "Dto"
             ],
@@ -206,7 +220,6 @@ let package = Package(
         .target(
             name: "DtoMicroscopy",
             dependencies: [
-                .product(name: "SwiftBSON", package: "swift-bson"),
                 "DtoSerializable",
                 "Dto"
             ],
@@ -215,7 +228,6 @@ let package = Package(
         .target(
             name: "DtoProduct",
             dependencies: [
-                .product(name: "SwiftBSON", package: "swift-bson"),
                 "DtoSerializable"
             ],
             path: "Sources/ZaberMotion/Dto/Product"
@@ -223,7 +235,6 @@ let package = Package(
         .target(
             name: "DtoRequests",
             dependencies: [
-                .product(name: "SwiftBSON", package: "swift-bson"),
                 "DtoSerializable",
                 "Dto",
                 "DtoAscii",
@@ -237,6 +248,7 @@ let package = Package(
         ),
         .target(
             name: "Utils",
+            dependencies: bsonTargetDependency,
             path: "Sources/ZaberMotion/Utils"
         )
     ]

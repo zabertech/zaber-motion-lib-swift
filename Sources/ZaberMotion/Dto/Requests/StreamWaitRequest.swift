@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 import UnitsInternal
 
@@ -21,23 +20,5 @@ public struct StreamWaitRequest: Serializable {
         self.pvt = pvt
         self.time = time
         self.unit = unit
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> StreamWaitRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(StreamWaitRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "StreamWaitRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "StreamWaitRequest", error: error)
-        }
     }
 }

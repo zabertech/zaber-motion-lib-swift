@@ -1,4 +1,5 @@
-import Foundation 
+#if canImport(Combine)
+import Foundation
 import Gateway
 import DtoRequests
 import Testing
@@ -33,3 +34,4 @@ import Testing
         await eventsState.cancelSubscribers()
     }
 }
+#endif

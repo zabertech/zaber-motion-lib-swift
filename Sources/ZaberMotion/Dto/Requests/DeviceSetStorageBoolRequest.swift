@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 public struct DeviceSetStorageBoolRequest: Serializable {
@@ -17,23 +16,5 @@ public struct DeviceSetStorageBoolRequest: Serializable {
         self.axis = axis
         self.key = key
         self.value = value
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> DeviceSetStorageBoolRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(DeviceSetStorageBoolRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "DeviceSetStorageBoolRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "DeviceSetStorageBoolRequest", error: error)
-        }
     }
 }

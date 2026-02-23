@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 /**
@@ -55,23 +54,5 @@ public struct UnknownResponseEvent: Serializable {
         self.warningFlag = warningFlag
         self.data = data
         self.messageType = messageType
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> UnknownResponseEvent {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(UnknownResponseEvent.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "UnknownResponseEvent", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "UnknownResponseEvent", error: error)
-        }
     }
 }

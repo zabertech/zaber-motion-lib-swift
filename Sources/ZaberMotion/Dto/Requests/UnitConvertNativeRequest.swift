@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 import UnitsInternal
 import Dto
@@ -18,23 +17,5 @@ public struct UnitConvertNativeRequest: Serializable {
         self.values = values
         self.unit = unit
         self.conversion = conversion
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> UnitConvertNativeRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(UnitConvertNativeRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "UnitConvertNativeRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "UnitConvertNativeRequest", error: error)
-        }
     }
 }

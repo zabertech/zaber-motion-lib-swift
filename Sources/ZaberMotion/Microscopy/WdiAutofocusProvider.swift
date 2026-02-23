@@ -1,7 +1,6 @@
 ﻿// ===== THIS FILE IS GENERATED FROM A TEMPLATE ===== //
 // ============== DO NOT EDIT DIRECTLY ============== //
 
-import Darwin
 import Dto
 import DtoRequests
 import ZaberMotionExceptions
@@ -277,17 +276,17 @@ public final class WdiAutofocusProvider: @unchecked Sendable  {
         do {
             try closeSync()
         } catch let e as MotionLibException {
-            fputs("ZML Error: \(e.toString())", stderr)
+            printToStderr("ZML Error: \(e.toString())")
         } catch {
-            fputs("System Error: \(error)", stderr)
+            printToStderr("System Error: \(error)")
         }
 
         do {
             try WdiAutofocusProvider.free(providerId: self.providerId)
         } catch let e as MotionLibException {
-            fputs("ZML Error: \(e.toString())", stderr)
+            printToStderr("ZML Error: \(e.toString())")
         } catch {
-            fputs("System Error: \(error)", stderr)
+            printToStderr("System Error: \(error)")
         }
     }
 }

@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 /**
@@ -40,23 +39,5 @@ public struct AlertEvent: Serializable {
         self.status = status
         self.warningFlag = warningFlag
         self.data = data
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> AlertEvent {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(AlertEvent.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "AlertEvent", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "AlertEvent", error: error)
-        }
     }
 }

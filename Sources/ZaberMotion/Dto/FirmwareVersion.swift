@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 /**
@@ -28,23 +27,5 @@ public struct FirmwareVersion: Serializable {
         self.major = major
         self.minor = minor
         self.build = build
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> FirmwareVersion {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(FirmwareVersion.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "FirmwareVersion", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "FirmwareVersion", error: error)
-        }
     }
 }

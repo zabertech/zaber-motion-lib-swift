@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 /**
@@ -40,23 +39,5 @@ public struct SimpleTuningParamDefinition: Serializable {
         self.maxLabel = maxLabel
         self.dataType = dataType
         self.defaultValue = defaultValue
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> SimpleTuningParamDefinition {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(SimpleTuningParamDefinition.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "SimpleTuningParamDefinition", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "SimpleTuningParamDefinition", error: error)
-        }
     }
 }

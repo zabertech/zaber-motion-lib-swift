@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 import DtoAscii
 import UnitsInternal
@@ -28,23 +27,5 @@ public struct TriggerOnFireSetRequest: Serializable {
         self.operation = operation
         self.value = value
         self.unit = unit
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> TriggerOnFireSetRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(TriggerOnFireSetRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "TriggerOnFireSetRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "TriggerOnFireSetRequest", error: error)
-        }
     }
 }

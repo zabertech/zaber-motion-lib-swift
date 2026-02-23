@@ -8,3 +8,4 @@ typedef int64_t GoInt64;
 
 extern GoInt32 zml_call(void* request, GoInt64 tag, void* callback, GoUint8 async);
 extern void zml_setEventHandler(int64_t tag, void* callback);
+extern void zml_set_serialization_mode(GoInt32 mode);

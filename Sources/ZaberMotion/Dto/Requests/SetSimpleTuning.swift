@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 import DtoAscii
 import UnitsInternal
@@ -32,23 +31,5 @@ public struct SetSimpleTuning: Serializable {
         self.motorInertia = motorInertia
         self.motorInertiaUnits = motorInertiaUnits
         self.tuningParams = tuningParams
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> SetSimpleTuning {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(SetSimpleTuning.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "SetSimpleTuning", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "SetSimpleTuning", error: error)
-        }
     }
 }

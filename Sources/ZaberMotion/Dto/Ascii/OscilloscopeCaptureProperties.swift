@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 /**
@@ -40,23 +39,5 @@ public struct OscilloscopeCaptureProperties: Serializable {
         self.axisNumber = axisNumber
         self.ioType = ioType
         self.ioChannel = ioChannel
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> OscilloscopeCaptureProperties {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(OscilloscopeCaptureProperties.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "OscilloscopeCaptureProperties", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "OscilloscopeCaptureProperties", error: error)
-        }
     }
 }

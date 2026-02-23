@@ -1,12 +1,11 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 import DtoAscii
 
 
-internal enum BsonKeys: String, CodingKey {
+internal enum CodingKeys: String, CodingKey {
     case variantValueType
     case axisTypeValue
     case ioPortLabelValue
@@ -46,23 +45,23 @@ public enum TestVariant: Serializable {
     case stringArray([String])
 
     public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: BsonKeys.self)
-        let tag = try container.decode(String.self, forKey: BsonKeys.variantValueType)
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let tag = try container.decode(String.self, forKey: CodingKeys.variantValueType)
         switch tag {
         case "AxisType":
-            let value = try container.decode(AxisType.self, forKey: BsonKeys.axisTypeValue)
+            let value = try container.decode(AxisType.self, forKey: CodingKeys.axisTypeValue)
             self = .axisType(value)
         case "IoPortLabel":
-            let value = try container.decode(IoPortLabel.self, forKey: BsonKeys.ioPortLabelValue)
+            let value = try container.decode(IoPortLabel.self, forKey: CodingKeys.ioPortLabelValue)
             self = .ioPortLabel(value)
         case "int32":
-            let value = try container.decode(Int.self, forKey: BsonKeys.int32Value)
+            let value = try container.decode(Int.self, forKey: CodingKeys.int32Value)
             self = .int32(value)
         case "optionalDouble":
-            let value = try container.decode(Double?.self, forKey: BsonKeys.optionalDoubleValue)
+            let value = try container.decode(Double?.self, forKey: CodingKeys.optionalDoubleValue)
             self = .optionalDouble(value)
         case "stringArray":
-            let value = try container.decode([String].self, forKey: BsonKeys.stringArrayValue)
+            let value = try container.decode([String].self, forKey: CodingKeys.stringArrayValue)
             self = .stringArray(value)
         default:
             throw SerializationError.deserializationFailed(object: "TestVariant",
@@ -71,41 +70,24 @@ public enum TestVariant: Serializable {
     }
 
     public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: BsonKeys.self)
+        var container = encoder.container(keyedBy: CodingKeys.self)
         switch self {
         case .axisType(let value):
-            try container.encode("AxisType", forKey: BsonKeys.variantValueType)
-            try container.encode(value, forKey: BsonKeys.axisTypeValue)
+            try container.encode("AxisType", forKey: CodingKeys.variantValueType)
+            try container.encode(value, forKey: CodingKeys.axisTypeValue)
         case .ioPortLabel(let value):
-            try container.encode("IoPortLabel", forKey: BsonKeys.variantValueType)
-            try container.encode(value, forKey: BsonKeys.ioPortLabelValue)
+            try container.encode("IoPortLabel", forKey: CodingKeys.variantValueType)
+            try container.encode(value, forKey: CodingKeys.ioPortLabelValue)
         case .int32(let value):
-            try container.encode("int32", forKey: BsonKeys.variantValueType)
-            try container.encode(value, forKey: BsonKeys.int32Value)
+            try container.encode("int32", forKey: CodingKeys.variantValueType)
+            try container.encode(value, forKey: CodingKeys.int32Value)
         case .optionalDouble(let value):
-            try container.encode("optionalDouble", forKey: BsonKeys.variantValueType)
-            try container.encode(value, forKey: BsonKeys.optionalDoubleValue)
+            try container.encode("optionalDouble", forKey: CodingKeys.variantValueType)
+            try container.encode(value, forKey: CodingKeys.optionalDoubleValue)
         case .stringArray(let value):
-            try container.encode("stringArray", forKey: BsonKeys.variantValueType)
-            try container.encode(value, forKey: BsonKeys.stringArrayValue)
+            try container.encode("stringArray", forKey: CodingKeys.variantValueType)
+            try container.encode(value, forKey: CodingKeys.stringArrayValue)
         }
     }
 
-    public static func fromByteArray(_ byteArray: Data) throws -> TestVariant {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(TestVariant.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "TestVariant", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "TestVariant", error: error)
-        }
-    }
 }

@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 import DtoGcode
 
@@ -17,23 +16,5 @@ public struct TranslatorCreateLiveRequest: Serializable {
         self.device = device
         self.streamId = streamId
         self.config = config
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> TranslatorCreateLiveRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(TranslatorCreateLiveRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "TranslatorCreateLiveRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "TranslatorCreateLiveRequest", error: error)
-        }
     }
 }

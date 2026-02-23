@@ -12,6 +12,7 @@ typealias CallbackFn = @convention(c) (UnsafeMutableRawPointer, Int64) -> Void
 
 let GO_SYNC: UInt8 = 0
 let GO_ASYNC: UInt8 = 1
+let JSON_SERIALIZATION_MODE: Int32 = 1
 
 func handleException(_ gatewayResponse: GatewayResponse, _ responses: [Data]) throws {
     guard gatewayResponse.response != ResponseType.ok else {
@@ -174,6 +175,10 @@ public func callAsync<T>(
 public class LibraryManager {
     private static let initialized: Void = {
         do {
+            #if os(Windows)
+            ZaberMotionCore.zml_set_serialization_mode(JSON_SERIALIZATION_MODE)
+            #endif
+
             let request = CheckVersionRequest(version: Constants.version, host: Constants.hostLanguage)
             try parseResponse(try callGatewaySyncInternal("library/check_version", request))
 

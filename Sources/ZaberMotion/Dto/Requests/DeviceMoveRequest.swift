@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 import UnitsInternal
 import Dto
@@ -38,23 +37,5 @@ public struct DeviceMoveRequest: Serializable {
         self.accelerationUnit = accelerationUnit
         self.cyclicDirection = cyclicDirection
         self.extraCycles = extraCycles
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> DeviceMoveRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(DeviceMoveRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "DeviceMoveRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "DeviceMoveRequest", error: error)
-        }
     }
 }

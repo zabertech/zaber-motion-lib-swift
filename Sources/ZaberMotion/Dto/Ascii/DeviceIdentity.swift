@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 import Dto
 
@@ -54,23 +53,5 @@ public struct DeviceIdentity: Serializable {
         self.firmwareVersion = firmwareVersion
         self.isModified = isModified
         self.isIntegrated = isIntegrated
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> DeviceIdentity {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(DeviceIdentity.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "DeviceIdentity", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "DeviceIdentity", error: error)
-        }
     }
 }

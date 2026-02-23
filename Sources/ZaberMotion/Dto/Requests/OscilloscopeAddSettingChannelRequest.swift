@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 public struct OscilloscopeAddSettingChannelRequest: Serializable {
@@ -15,23 +14,5 @@ public struct OscilloscopeAddSettingChannelRequest: Serializable {
         self.device = device
         self.axis = axis
         self.setting = setting
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> OscilloscopeAddSettingChannelRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(OscilloscopeAddSettingChannelRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "OscilloscopeAddSettingChannelRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "OscilloscopeAddSettingChannelRequest", error: error)
-        }
     }
 }

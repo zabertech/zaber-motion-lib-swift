@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 public struct DeviceWaitUntilIdleRequest: Serializable {
@@ -15,23 +14,5 @@ public struct DeviceWaitUntilIdleRequest: Serializable {
         self.device = device
         self.axis = axis
         self.throwErrorOnFault = throwErrorOnFault
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> DeviceWaitUntilIdleRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(DeviceWaitUntilIdleRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "DeviceWaitUntilIdleRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "DeviceWaitUntilIdleRequest", error: error)
-        }
     }
 }

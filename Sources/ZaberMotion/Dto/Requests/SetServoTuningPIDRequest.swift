@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 import DtoAscii
 
@@ -25,23 +24,5 @@ public struct SetServoTuningPIDRequest: Serializable {
         self.i = i
         self.d = d
         self.fc = fc
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> SetServoTuningPIDRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(SetServoTuningPIDRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "SetServoTuningPIDRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "SetServoTuningPIDRequest", error: error)
-        }
     }
 }

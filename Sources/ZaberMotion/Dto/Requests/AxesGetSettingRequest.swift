@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 import UnitsInternal
 
@@ -19,23 +18,5 @@ public struct AxesGetSettingRequest: Serializable {
         self.axes = axes
         self.unit = unit
         self.setting = setting
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> AxesGetSettingRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(AxesGetSettingRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "AxesGetSettingRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "AxesGetSettingRequest", error: error)
-        }
     }
 }

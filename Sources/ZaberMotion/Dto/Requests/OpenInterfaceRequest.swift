@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 import DtoAscii
 
@@ -37,23 +36,5 @@ public struct OpenInterfaceRequest: Serializable {
         self.api = api
         self.testPort = testPort
         self.mockDevices = mockDevices
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> OpenInterfaceRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(OpenInterfaceRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "OpenInterfaceRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "OpenInterfaceRequest", error: error)
-        }
     }
 }

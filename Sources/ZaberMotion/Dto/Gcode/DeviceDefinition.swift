@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 import Dto
 
@@ -32,23 +31,5 @@ public struct DeviceDefinition: Serializable {
         self.deviceId = deviceId
         self.axes = axes
         self.maxSpeed = maxSpeed
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> DeviceDefinition {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(DeviceDefinition.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "DeviceDefinition", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "DeviceDefinition", error: error)
-        }
     }
 }

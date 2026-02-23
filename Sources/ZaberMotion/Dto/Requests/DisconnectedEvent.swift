@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 /**
@@ -34,23 +33,5 @@ public struct DisconnectedEvent: Serializable {
         self.sessionId = sessionId
         self.errorType = errorType
         self.errorMessage = errorMessage
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> DisconnectedEvent {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(DisconnectedEvent.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "DisconnectedEvent", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "DisconnectedEvent", error: error)
-        }
     }
 }

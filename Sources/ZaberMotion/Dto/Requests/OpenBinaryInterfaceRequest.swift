@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 public struct OpenBinaryInterfaceRequest: Serializable {
@@ -19,23 +18,5 @@ public struct OpenBinaryInterfaceRequest: Serializable {
         self.hostName = hostName
         self.port = port
         self.useMessageIds = useMessageIds
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> OpenBinaryInterfaceRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(OpenBinaryInterfaceRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "OpenBinaryInterfaceRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "OpenBinaryInterfaceRequest", error: error)
-        }
     }
 }

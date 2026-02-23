@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 /**
@@ -29,23 +28,5 @@ public struct TranslateMessage: Serializable {
         self.message = message
         self.fromBlock = fromBlock
         self.toBlock = toBlock
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> TranslateMessage {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(TranslateMessage.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "TranslateMessage", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "TranslateMessage", error: error)
-        }
     }
 }

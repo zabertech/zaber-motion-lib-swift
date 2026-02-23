@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 import DtoBinary
 
@@ -19,23 +18,5 @@ public struct UnknownBinaryResponseEventWrapper: Serializable {
         self.interfaceId = interfaceId
         self.sessionId = sessionId
         self.unknownResponse = unknownResponse
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> UnknownBinaryResponseEventWrapper {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(UnknownBinaryResponseEventWrapper.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "UnknownBinaryResponseEventWrapper", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "UnknownBinaryResponseEventWrapper", error: error)
-        }
     }
 }

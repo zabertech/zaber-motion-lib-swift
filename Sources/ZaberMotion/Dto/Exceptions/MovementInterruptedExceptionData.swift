@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 /**
@@ -34,23 +33,5 @@ public struct MovementInterruptedExceptionData: Serializable {
         self.reason = reason
         self.device = device
         self.axis = axis
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> MovementInterruptedExceptionData {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(MovementInterruptedExceptionData.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "MovementInterruptedExceptionData", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "MovementInterruptedExceptionData", error: error)
-        }
     }
 }

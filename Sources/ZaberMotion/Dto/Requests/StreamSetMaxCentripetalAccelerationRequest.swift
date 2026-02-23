@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 import UnitsInternal
 
@@ -21,23 +20,5 @@ public struct StreamSetMaxCentripetalAccelerationRequest: Serializable {
         self.pvt = pvt
         self.maxCentripetalAcceleration = maxCentripetalAcceleration
         self.unit = unit
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> StreamSetMaxCentripetalAccelerationRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(StreamSetMaxCentripetalAccelerationRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "StreamSetMaxCentripetalAccelerationRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "StreamSetMaxCentripetalAccelerationRequest", error: error)
-        }
     }
 }

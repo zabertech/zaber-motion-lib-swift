@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 /**
@@ -58,23 +57,5 @@ public struct CommandFailedExceptionData: Serializable {
         self.deviceAddress = deviceAddress
         self.axisNumber = axisNumber
         self.id = id
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> CommandFailedExceptionData {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(CommandFailedExceptionData.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "CommandFailedExceptionData", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "CommandFailedExceptionData", error: error)
-        }
     }
 }

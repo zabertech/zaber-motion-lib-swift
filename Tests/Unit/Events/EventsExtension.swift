@@ -1,3 +1,4 @@
+#if canImport(Combine)
 import DtoRequests
 import DtoSerializable
 
@@ -10,3 +11,4 @@ extension Events {
         eventHandlerPublisher.send([try gatewayEvent.toByteArray(), eventData])
     }
 }
+#endif

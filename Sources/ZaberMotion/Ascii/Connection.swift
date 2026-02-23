@@ -1,8 +1,9 @@
 ﻿// ===== THIS FILE IS GENERATED FROM A TEMPLATE ===== //
 // ============== DO NOT EDIT DIRECTLY ============== //
 
+#if canImport(Combine)
 import Combine
-import Darwin
+#endif
 import Foundation
 import DtoRequests
 import DtoAscii
@@ -280,7 +281,7 @@ public final class Connection: @unchecked Sendable {
         request.interfaceId = self.interfaceId
 
         let response = try await Gateway.callAsync("interface/reopen", request, DtoRequests.IntResponse.fromByteArray)
-        subscribe(sessionId: response.value);
+        subscribe(sessionId: response.value)
     }
 
     /**
@@ -668,20 +669,21 @@ public final class Connection: @unchecked Sendable {
         do {
             try self.closeSync()
         } catch let e as MotionLibException {
-            fputs("ZML Error \(e.toString())", stderr)
+            printToStderr("ZML Error \(e.toString())")
         } catch {
-            fputs("System Error: \(error)", stderr)
+            printToStderr("System Error: \(error)")
         }
 
         do {
             try Connection.free(interfaceId: self.interfaceId)
         } catch let e as MotionLibException {
-            fputs("ZML Error: \(e.toString())", stderr)
+            printToStderr("ZML Error: \(e.toString())")
         } catch {
-            fputs("System Error: \(error)", stderr)
+            printToStderr("System Error: \(error)")
         }
     }
 
+    #if canImport(Combine)
     /**
      Subscribe to all events.
     */
@@ -757,4 +759,7 @@ public final class Connection: @unchecked Sendable {
     public var unknownResponse: Publishers.Share<AnyPublisher<UnknownResponseEvent, Never>> {
         return _unknownResponse!
     }
+    #else
+    private func subscribe(sessionId: Int) {}
+    #endif
 }

@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 /**
@@ -34,23 +33,5 @@ public struct DeviceIOInfo: Serializable {
         self.numberAnalogInputs = numberAnalogInputs
         self.numberDigitalOutputs = numberDigitalOutputs
         self.numberDigitalInputs = numberDigitalInputs
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> DeviceIOInfo {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(DeviceIOInfo.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "DeviceIOInfo", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "DeviceIOInfo", error: error)
-        }
     }
 }

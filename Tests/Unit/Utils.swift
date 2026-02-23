@@ -1,3 +1,4 @@
+#if canImport(Combine)
 import Testing
 import Combine
 
@@ -38,3 +39,4 @@ actor AsyncSubscribers {
         subscribers.forEach { $0.cancel() }
     }
 }
+#endif

@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 import Dto
 
@@ -33,23 +32,5 @@ public struct StreamArcRequest: Serializable {
         self.endY = endY
         self.targetAxesIndices = targetAxesIndices
         self.endpoint = endpoint
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> StreamArcRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(StreamArcRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "StreamArcRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "StreamArcRequest", error: error)
-        }
     }
 }

@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 public struct LockstepStopRequest: Serializable {
@@ -15,23 +14,5 @@ public struct LockstepStopRequest: Serializable {
         self.device = device
         self.lockstepGroupId = lockstepGroupId
         self.waitUntilIdle = waitUntilIdle
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> LockstepStopRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(LockstepStopRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "LockstepStopRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "LockstepStopRequest", error: error)
-        }
     }
 }

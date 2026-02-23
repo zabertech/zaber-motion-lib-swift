@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 import DtoAscii
 
@@ -17,23 +16,5 @@ public struct PvtSubmitSequenceDataRequest: Serializable {
         self.device = device
         self.streamId = streamId
         self.sequenceData = sequenceData
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> PvtSubmitSequenceDataRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(PvtSubmitSequenceDataRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "PvtSubmitSequenceDataRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "PvtSubmitSequenceDataRequest", error: error)
-        }
     }
 }

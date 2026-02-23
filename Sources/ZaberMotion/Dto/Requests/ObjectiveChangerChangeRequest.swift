@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 import Dto
 
@@ -21,23 +20,5 @@ public struct ObjectiveChangerChangeRequest: Serializable {
         self.focusAxis = focusAxis
         self.objective = objective
         self.focusOffset = focusOffset
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> ObjectiveChangerChangeRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(ObjectiveChangerChangeRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "ObjectiveChangerChangeRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "ObjectiveChangerChangeRequest", error: error)
-        }
     }
 }

@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 public struct StreamWaitAnalogInputRequest: Serializable {
@@ -21,23 +20,5 @@ public struct StreamWaitAnalogInputRequest: Serializable {
         self.channelNumber = channelNumber
         self.condition = condition
         self.value = value
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> StreamWaitAnalogInputRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(StreamWaitAnalogInputRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "StreamWaitAnalogInputRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "StreamWaitAnalogInputRequest", error: error)
-        }
     }
 }

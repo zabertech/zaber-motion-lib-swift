@@ -1,7 +1,6 @@
 ﻿// ===== THIS FILE IS GENERATED FROM A TEMPLATE ===== //
 // ============== DO NOT EDIT DIRECTLY ============== //
 
-import Darwin
 import UnitsInternal
 import DtoRequests
 import Gateway
@@ -312,9 +311,9 @@ public final class Translator: @unchecked Sendable {
         do {
             try Translator.free(translatorId: self.translatorId)
         } catch let e as MotionLibException {
-            fputs("ZML Error: \(e.toString())", stderr)
+            printToStderr("ZML Error: \(e.toString())")
         } catch {
-            fputs("System Error: \(error)", stderr)
+            printToStderr("System Error: \(error)")
         }
     }
 }

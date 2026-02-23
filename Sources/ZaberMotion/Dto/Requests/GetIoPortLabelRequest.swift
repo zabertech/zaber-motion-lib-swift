@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 import DtoAscii
 
@@ -17,23 +16,5 @@ public struct GetIoPortLabelRequest: Serializable {
         self.device = device
         self.portType = portType
         self.channelNumber = channelNumber
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> GetIoPortLabelRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(GetIoPortLabelRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "GetIoPortLabelRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "GetIoPortLabelRequest", error: error)
-        }
     }
 }

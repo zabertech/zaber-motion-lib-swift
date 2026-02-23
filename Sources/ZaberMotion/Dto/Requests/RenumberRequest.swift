@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 public struct RenumberRequest: Serializable {
@@ -13,23 +12,5 @@ public struct RenumberRequest: Serializable {
         self.interfaceId = interfaceId
         self.device = device
         self.address = address
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> RenumberRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(RenumberRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "RenumberRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "RenumberRequest", error: error)
-        }
     }
 }

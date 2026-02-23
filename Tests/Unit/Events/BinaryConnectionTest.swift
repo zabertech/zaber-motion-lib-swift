@@ -1,3 +1,4 @@
+#if canImport(Combine)
 import DtoRequests
 import DtoSerializable
 import Foundation
@@ -306,3 +307,4 @@ import ZaberMotionExceptions
         await eventsState.cancelSubscribers()
     }
 }
+#endif

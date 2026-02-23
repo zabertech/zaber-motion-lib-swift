@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 public struct StreamSetHoldRequest: Serializable {
@@ -17,23 +16,5 @@ public struct StreamSetHoldRequest: Serializable {
         self.streamId = streamId
         self.pvt = pvt
         self.hold = hold
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> StreamSetHoldRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(StreamSetHoldRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "StreamSetHoldRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "StreamSetHoldRequest", error: error)
-        }
     }
 }

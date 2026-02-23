@@ -1,11 +1,11 @@
 ﻿// ===== THIS FILE IS GENERATED FROM A TEMPLATE ===== //
 // ============== DO NOT EDIT DIRECTLY ============== //
 
-import Darwin
 import UnitsInternal
 import DtoRequests
 import Gateway
 import ZaberMotionExceptions
+import Utils
 
 /**
  Module: ZaberMotionAscii
@@ -225,9 +225,9 @@ public final class OscilloscopeData: @unchecked Sendable {
         do {
             try OscilloscopeData.free(dataId: self.dataId)
         } catch let e as MotionLibException {
-            fputs("ZML Error: \(e.toString())", stderr)
+            printToStderr("ZML Error: \(e.toString())")
         } catch {
-            fputs("System Error: \(error)", stderr)
+            printToStderr("System Error: \(error)")
         }
     }
 }

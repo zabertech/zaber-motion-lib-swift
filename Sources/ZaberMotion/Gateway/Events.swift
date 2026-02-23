@@ -1,34 +1,48 @@
+#if canImport(Combine)
 import Combine
+#endif
 import DtoRequests
 import DtoSerializable
 import Foundation
 import ZaberMotionCore
 
+#if canImport(Combine)
 let eventHandler: CallbackFn = {
     (response: UnsafeMutableRawPointer, tag: Int64) in
     let responseData = deserialize(response)
     Events.shared.eventHandlerPublisher.send(responseData)
 }
+#else
+let eventHandler: CallbackFn = {
+    (response: UnsafeMutableRawPointer, tag: Int64) in
+    // Events are not supported on this platform
+}
+#endif
 
 public class Events: @unchecked Sendable {
     public static let shared = Events()
+    #if canImport(Combine)
     let eventHandlerPublisher = PassthroughSubject<[Data], Never>()
+    #endif
 
     private init() {
         ZaberMotionCore.zml_setEventHandler(
             0, unsafeBitCast(eventHandler, to: UnsafeMutableRawPointer.self))
 
+        #if canImport(Combine)
         _ = self.unknownResponse
         _ = self.unknownResponseBinary
         _ = self.alert
         _ = self.binaryReplyOnly
         _ = self.disconnected
         _ = self.test
+        #endif
     }
 
     // Dummy method to be called to make sure that Events singleton has been initialized.
     func ensureInitialized() { }
 
+    #if canImport(Combine)
     public lazy var unknownResponse: AnyPublisher<UnknownResponseEventWrapper, Never> = {
         return eventHandlerPublisher.receive(on: DispatchQueue.main)
             .filter { data in
@@ -100,4 +114,5 @@ public class Events: @unchecked Sendable {
             fatalError("Failed to deserialize \(type(of: T.self))")
         }
     }
+    #endif
 }

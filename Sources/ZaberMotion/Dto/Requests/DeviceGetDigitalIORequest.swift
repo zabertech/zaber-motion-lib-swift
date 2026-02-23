@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 
 public struct DeviceGetDigitalIORequest: Serializable {
@@ -15,23 +14,5 @@ public struct DeviceGetDigitalIORequest: Serializable {
         self.device = device
         self.channelType = channelType
         self.channelNumber = channelNumber
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> DeviceGetDigitalIORequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(DeviceGetDigitalIORequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "DeviceGetDigitalIORequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "DeviceGetDigitalIORequest", error: error)
-        }
     }
 }

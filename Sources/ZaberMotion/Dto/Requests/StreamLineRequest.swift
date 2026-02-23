@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 import Dto
 
@@ -23,23 +22,5 @@ public struct StreamLineRequest: Serializable {
         self.type = type
         self.endpoint = endpoint
         self.targetAxesIndices = targetAxesIndices
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> StreamLineRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(StreamLineRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "StreamLineRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "StreamLineRequest", error: error)
-        }
     }
 }

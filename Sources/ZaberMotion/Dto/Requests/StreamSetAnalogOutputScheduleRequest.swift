@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 import UnitsInternal
 
@@ -27,23 +26,5 @@ public struct StreamSetAnalogOutputScheduleRequest: Serializable {
         self.futureValue = futureValue
         self.delay = delay
         self.unit = unit
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> StreamSetAnalogOutputScheduleRequest {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(StreamSetAnalogOutputScheduleRequest.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "StreamSetAnalogOutputScheduleRequest", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "StreamSetAnalogOutputScheduleRequest", error: error)
-        }
     }
 }

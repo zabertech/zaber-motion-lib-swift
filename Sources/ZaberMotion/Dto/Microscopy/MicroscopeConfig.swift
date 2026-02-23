@@ -1,7 +1,6 @@
 /* This file is generated. Do not modify by hand. */
 
 import Foundation
-import SwiftBSON
 import DtoSerializable
 import Dto
 
@@ -61,23 +60,5 @@ public struct MicroscopeConfig: Serializable {
         self.objectiveChanger = objectiveChanger
         self.autofocus = autofocus
         self.cameraTrigger = cameraTrigger
-    }
-
-    public static func fromByteArray(_ byteArray: Data) throws -> MicroscopeConfig {
-        do {
-            let bson = try BSONDocument(fromBSON: byteArray)
-            return try BSONDecoder().decode(MicroscopeConfig.self, from: bson)
-        } catch {
-            throw SerializationError.deserializationFailed(object: "MicroscopeConfig", error: error)
-        }
-    }
-
-    public func toByteArray() throws -> Data {
-        do {
-            let bson = try BSONEncoder().encode(self)
-            return bson.toData()
-        } catch {
-            throw SerializationError.serializationFailed(object: "MicroscopeConfig", error: error)
-        }
     }
 }
