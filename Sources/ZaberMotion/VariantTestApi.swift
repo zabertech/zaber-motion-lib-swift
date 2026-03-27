@@ -54,5 +54,4 @@ public final class VariantTestApi {
         let response = try await Gateway.callAsync("test/mutate_variant", request, DtoRequests.TestDtoWithVariants.fromByteArray)
         return response.variantArray
     }
-
 }

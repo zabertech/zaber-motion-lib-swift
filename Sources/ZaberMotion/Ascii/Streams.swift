@@ -48,26 +48,26 @@ public final class Streams: @unchecked Sendable {
      Gets a StreamBuffer class instance which is a handle for a stream buffer on the device.
 
      - Parameters:
-        - streamBufferId: The ID of the stream buffer to control. Stream buffer IDs start at one.
+        - streamBufferNumber: The ID number of the stream buffer to control. Stream buffer IDs start at one.
 
      - Returns: StreamBuffer instance.
      */
-    public func getBuffer(streamBufferId: Int) throws -> StreamBuffer {
-        guard streamBufferId > 0 else {
+    public func getBuffer(streamBufferNumber: Int) throws -> StreamBuffer {
+        guard streamBufferNumber > 0 else {
             throw ZaberMotionExceptions.InvalidArgumentException(message: "Invalid value; stream buffers are numbered from 1.")
         }
 
-        return StreamBuffer(device: self.device, bufferId: streamBufferId)
+        return StreamBuffer(device: self.device, bufferNumber: streamBufferNumber)
     }
 
     /**
      Module: ZaberMotionAscii
 
-     Get a list of buffer IDs that are currently in use.
+     Get a list of buffer ID numbers that are currently in use.
 
      - Returns: List of buffer IDs.
      */
-    public func listBufferIds() async throws -> [Int] {
+    public func listBufferNumbers() async throws -> [Int] {
         var request = DtoRequests.StreamBufferList()
         request.interfaceId = self.device.connection.interfaceId
         request.device = self.device.deviceAddress
@@ -76,5 +76,4 @@ public final class Streams: @unchecked Sendable {
         let response = try await Gateway.callAsync("device/stream_buffer_list", request, DtoRequests.IntArrayResponse.fromByteArray)
         return response.values
     }
-
 }

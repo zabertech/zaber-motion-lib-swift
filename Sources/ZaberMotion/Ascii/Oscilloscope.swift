@@ -304,5 +304,4 @@ public final class Oscilloscope: @unchecked Sendable {
         let response = try await Gateway.callAsync("oscilloscope/read", request, DtoRequests.OscilloscopeReadResponse.fromByteArray)
         return response.dataIds.map { OscilloscopeData(dataId: $0) }
     }
-
 }

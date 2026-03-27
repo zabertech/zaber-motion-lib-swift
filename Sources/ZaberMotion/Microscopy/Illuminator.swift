@@ -125,5 +125,4 @@ public final class Illuminator: @unchecked Sendable {
 
         try Gateway.callSync("illuminator/verify", request)
     }
-
 }

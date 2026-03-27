@@ -309,7 +309,7 @@ public final class OfflineTranslator: @unchecked Sendable {
     }
 
     deinit {
-        guard self.translatorId >= 0 else { return }
+        guard translatorId >= 0 else { return }
 
         do {
             try OfflineTranslator.free(translatorId: self.translatorId)

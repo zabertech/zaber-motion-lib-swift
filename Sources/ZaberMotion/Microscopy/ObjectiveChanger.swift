@@ -194,5 +194,4 @@ public final class ObjectiveChanger: @unchecked Sendable {
 
         try Gateway.callSync("objective_changer/verify", request)
     }
-
 }

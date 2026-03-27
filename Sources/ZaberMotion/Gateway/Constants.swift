@@ -1,4 +1,4 @@
+// The version string is updated automatically with `npx gulp set_version`. Do not edit manually.
 public struct Constants {
-    public static let version: String = "8.4.0"
-    public static let hostLanguage: String = "swift"
+    public static let version: String = "9.0.0"
 }

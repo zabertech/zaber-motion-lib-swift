@@ -99,6 +99,4 @@ public final class FilterChanger: @unchecked Sendable {
         let response = try Gateway.callSync("device/device_to_string", request, DtoRequests.StringResponse.fromByteArray)
         return response.value
     }
-
 }
-

@@ -20,7 +20,7 @@ do {
 	print("Number of streams possible: ", numStreams)
 
 	let stream = try device.streams.getStream(streamId: 1)
-	let streamBuffer = try device.streams.getBuffer(streamBufferId: 1)
+	let streamBuffer = try device.streams.getBuffer(streamBufferNumber: 1)
 	try await streamBuffer.erase()
 
 	try await stream.setupStore(streamBuffer: streamBuffer, 1, 2)

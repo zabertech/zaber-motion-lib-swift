@@ -542,7 +542,4 @@ public final class Lockstep: @unchecked Sendable {
         let response = try await Gateway.callAsync("device/lockstep_is_parked", request, DtoRequests.BoolResponse.fromByteArray)
         return response.value
     }
-
-
 }
-

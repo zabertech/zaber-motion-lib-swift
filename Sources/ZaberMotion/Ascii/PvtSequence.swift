@@ -71,38 +71,30 @@ public final class PvtSequence: @unchecked Sendable {
      of velocities. Note that if some velocities are defined, the solver will NOT modify them in any way.
      If all velocities are defined, the solver will simply return the same velocities.
      This function calculates velocities by enforcing that acceleration be continuous at each segment transition.
+     The function does not modify the input positions or times.
 
-     Also note that if generating a path for multiple axes, the user must provide a position measurement sequence
-     per axis, And the values arrays for each sequence must be equal in length to each other and also to the
-     times sequence.
+     Also note that if the first position is relative, all following points must be relative.
+     If the start position is absolute, then the sequence can include a mix of relative and absolute positions.
+     Additionally, all times must be relative to the previous point.
+     Please see the ConvertTimeAbsoluteToRelativePartial function for conversions.
 
      Does not support native units.
 
      - Parameters:
-        - positions: Positions for the axes to move through, relative to their home positions.
-          Each MeasurementSequence represents a sequence of positions along a particular dimension.
-          For example, a 2D path sequence would contain two MeasurementSequence objects,
-          one representing positions along X and one for those along Y.
-        - times: The relative or absolute time of each position in the PVT sequence.
-        - velocities: Optional velocities corresponding to each point in the position sequences.
-        - timesRelative: If true, the times sequence values are interpreted as relative. Otherwise,
-          they are interpreted as absolute. Note that the values of the returned time
-          sequence are ALWAYS relative. This is because the PVT sequence API expects
-          points to have relative times.
+        - sequenceItems: Partial PVT points defining the positions, optional velocities, and times for the sequence.
+          Each point should have positions defined for each axis. Velocities are optional.
+          Times must be defined for each point.
 
-     - Returns: Object containing the generated PVT sequence. Note that returned time sequence is always relative.
+     - Returns: Array of points and actions containing the generated PVT sequence. Note returned times are always relative.
      */
-    public static func generateVelocities(positions: [MeasurementSequence], times: MeasurementSequence, velocities: [OptionalMeasurementSequence] = [], timesRelative: Bool = true) async throws -> PvtSequenceData {
-        _assertSendable(PvtSequenceData.self)
+    public static func generateVelocities(sequenceItems: [PvtPartialSequenceItem]) async throws -> [PvtSequenceItem] {
+        _assertSendable(PvtSequenceItem.self)
 
         var request = DtoRequests.PvtGenerateVelocitiesRequest()
-        request.positions = positions
-        request.times = times
-        request.velocities = velocities
-        request.timesRelative = timesRelative
+        request.sequenceItems = sequenceItems
 
-        let response = try await Gateway.callAsync("device/pvt_generate_velocities", request, PvtSequenceData.fromByteArray)
-        return response
+        let response = try await Gateway.callAsync("device/pvt_generate_velocities", request, DtoRequests.PvtGenerateSequenceResponse.fromByteArray)
+        return response.sequenceData
     }
 
     /**
@@ -111,33 +103,29 @@ public final class PvtSequence: @unchecked Sendable {
      Generates positions for a sequence of velocities and times. This function calculates
      positions by enforcing that acceleration be continuous at each segment transition.
 
-     Note that if generating a path for multiple axes, the user must provide a
-     velocity measurement sequence per axis, and the values arrays for each sequence
-     must be equal in length to each other and also to the times sequence.
+     This function does not modify the input velocities or times, and outputs absolute
+     positions. If your initial point has a time of zero, it will be considered a starting
+     position when submitted to the device, and you must already have moved the device
+     to that position. Additionally, all times must be relative to the previous point.
+     Please see the ConvertTimeAbsoluteToRelativePartial function for conversions.
 
      Does not support native units.
 
      - Parameters:
-        - velocities: The sequence of velocities for each axis.
-          Each MeasurementSequence represents a sequence of velocities along particular dimension.
-        - times: The relative or absolute time of each position in the PVT sequence.
-        - timesRelative: If true, the times sequence values are interpreted as relative. Otherwise,
-          they are interpreted as absolute. Note that the values of the returned time
-          sequence are ALWAYS relative. This is because the PVT sequence API expects
-          points to have relative times.
+        - sequenceItems: Partial PVT points defining the velocities and times for the sequence.
+          Each point should have velocities defined for each axis.
+          Times must be defined for each point.
 
-     - Returns: Object containing the generated PVT sequence. Note that returned time sequence is always relative.
+     - Returns: Array of points and actions containing the generated PVT sequence. Note returned times are always relative.
      */
-    public static func generatePositions(velocities: [MeasurementSequence], times: MeasurementSequence, timesRelative: Bool = true) async throws -> PvtSequenceData {
-        _assertSendable(PvtSequenceData.self)
+    public static func generatePositions(sequenceItems: [PvtPartialSequenceItem]) async throws -> [PvtSequenceItem] {
+        _assertSendable(PvtSequenceItem.self)
 
         var request = DtoRequests.PvtGeneratePositionsRequest()
-        request.velocities = velocities
-        request.times = times
-        request.timesRelative = timesRelative
+        request.sequenceItems = sequenceItems
 
-        let response = try await Gateway.callAsync("device/pvt_generate_positions", request, PvtSequenceData.fromByteArray)
-        return response
+        let response = try await Gateway.callAsync("device/pvt_generate_positions", request, DtoRequests.PvtGenerateSequenceResponse.fromByteArray)
+        return response.sequenceData
     }
 
     /**
@@ -158,40 +146,54 @@ public final class PvtSequence: @unchecked Sendable {
      have no geometric significance without additional time information. Also note that
      for multi-dimensional paths this function expects axes to be linear and orthogonal,
      however for paths of a single dimension rotary units are accepted.
+     Additionally, if the first positions of the input sequence is relative,
+     all following positions must also be relative. If the first position is absolute,
+     the sequence may contain a mix of relative and absolute positions.
+     Resampling a sequence which contains relative positions is not allowed.
+
+     This function outputs points with absolute positions and relative times, with the
+     first time equal to zero, meaning it will be treated as a start position when
+     executing on a device. You must move the device to that position before submitting
+     the sequence, or change the first point's time to a value greater than zero.
 
      Does not support native units.
 
      - Parameters:
-        - positions: Positions for the axes to move through, relative to their home positions.
+        - sequenceItems: Partial PVT points defining the positions for the sequence.
+          Each point should have positions defined for each axis.
         - targetSpeed: The target speed used to generate positions and times.
         - targetAcceleration: The target acceleration used to generate positions and times.
         - resampleNumber: The number of points to resample the sequence by.
           Leave undefined to use the specified points.
 
-     - Returns: Object containing the generated PVT sequence. Note that returned time sequence is always relative.
+     - Returns: Array of points and actions containing the generated PVT sequence. Note returned times are always relative.
      */
-    public static func generateVelocitiesAndTimes(positions: [MeasurementSequence], targetSpeed: Measurement, targetAcceleration: Measurement, resampleNumber: Int? = nil) async throws -> PvtSequenceData {
-        _assertSendable(PvtSequenceData.self)
+    public static func generateVelocitiesAndTimes(sequenceItems: [PvtPartialSequenceItem], targetSpeed: Measurement, targetAcceleration: Measurement, resampleNumber: Int? = nil) async throws -> [PvtSequenceItem] {
+        _assertSendable(PvtSequenceItem.self)
 
         guard targetSpeed.value > 0 && targetAcceleration.value > 0 else {
             throw ZaberMotionExceptions.InvalidArgumentException(message: "Target speed and acceleration values must be greater than zero.")
         }
 
         var request = DtoRequests.PvtGenerateVelocitiesAndTimesRequest()
-        request.positions = positions
+        request.sequenceItems = sequenceItems
         request.targetSpeed = targetSpeed
         request.targetAcceleration = targetAcceleration
         request.resampleNumber = resampleNumber
 
-        let response = try await Gateway.callAsync("device/pvt_generate_velocities_and_times", request, PvtSequenceData.fromByteArray)
-        return response
+        let response = try await Gateway.callAsync("device/pvt_generate_velocities_and_times", request, DtoRequests.PvtGenerateSequenceResponse.fromByteArray)
+        return response.sequenceData
     }
 
     /**
      Module: ZaberMotionAscii
 
-     Saves PvtSequenceData object as csv file.
+     Saves PvtSequenceItem array as a csv file.
      Save format is compatible with Zaber Launcher PVT Editor App.
+
+     Normally a sequence in memory should have relative time values on the points.
+     If you want to store absolute times instead, you can use the
+     ConvertTimeRelativeToAbsolute function to convert before saving.
 
      Throws InvalidArgumentException if fields are undefined or inconsistent.
      For example, position and velocity arrays must have the same dimensions.
@@ -204,7 +206,7 @@ public final class PvtSequence: @unchecked Sendable {
           If not provided, the default names will be used: Series 1, Series 2, etc..
           Length of this array must be equal to number of dimensions in sequence data.
      */
-    public static func saveSequenceData(sequenceData: PvtSequenceData, path: String, dimensionNames: [String] = []) async throws  {
+    public static func saveSequenceData(sequenceData: [PvtSequenceItem], path: String, dimensionNames: [String] = []) async throws  {
         var request = DtoRequests.PvtSaveCsvRequest()
         request.sequenceData = sequenceData
         request.path = path
@@ -217,6 +219,10 @@ public final class PvtSequence: @unchecked Sendable {
      Module: ZaberMotionAscii
 
      Load PVT Sequence data from CSV file.
+     This function expects complete data in the CSV files (a time column and
+     both position and velocity columns for each series).
+     If your CSV file has partial data, use LoadPartialSequenceData instead.
+
      The CSV data can include a header (recommended).
      There are two possible header formats:
 
@@ -236,6 +242,35 @@ public final class PvtSequence: @unchecked Sendable {
      If no header is included, then column order is assumed to be "T,P1,V1,P2,V2,...".
      In this case the number of columns must be odd.
 
+     Users can add a column named "Relative" with true/false values to
+     indicate whether each point's position is relative or absolute.
+     If this column is not included, all points will be assumed to be absolute.
+
+     If the first point has time = zero, it is considered the start position
+     and treated specially. It must have an absolute position, and the device
+     must already be idle at that position when the sequence is submitted.
+     The velocity of the start position is ignored, and should normally be zero.
+     Sequences with nonzero time for the first point do not have these constraints.
+
+     Buffer calls and I/O actions can be added into the CSV file by
+     adding a column titled "Actions", containing the ASCII protocol command(s)
+     shortened by everything up to the PVT stream number, for example
+     "call 2" or "io set do 1 1". If you want to insert multiple actions
+     after a point, put them in the same cell separated by a semicolon.
+     See the ASCII Protocol Manual
+     [PVT command reference](https://www.zaber.com/protocol-manual?protocol=ASCII#topic_command_pvt)
+     section for the list of available commands. Unit symbols are not supported;
+     analog output voltages are always in volts and schedule delay times are
+     always in milliseconds.
+
+     Note that the Relative and Actions columns are not automatically
+     detected, so if you include them you must include a header row.
+
+     Time values should always be relative when sent to a device or to the
+     various Generate... functions on this class. If you want to store
+     absolute times in a CSV file, you can use the ConvertTimeRelativeToAbsolute
+     function to convert after loading the file.
+
      - Parameters:
         - path: The path to the csv file to load.
 
@@ -249,6 +284,167 @@ public final class PvtSequence: @unchecked Sendable {
 
         let response = try await Gateway.callAsync("device/stream_pvt_load_csv", request, PvtCsvData.fromByteArray)
         return response
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Load PVT Sequence data from CSV file, allowing for some combinations of incomplete data.
+     Output from this function cannot be enqueued on a device until the missing data has
+     been filled in using the GenerateVelocities, GeneratePositions or
+     GenerateVelocitiesAndTimes functions.
+
+     The CSV data can include a header (recommended).
+     There are two possible header formats:
+
+     1. A time column with named position and velocity columns.
+     For example, "Time (ms),X Position (cm),X Velocity (cm/s),...".
+     In this case, position, velocity and time columns are all optional.
+     Also, order does not matter, but position and velocity names must be consistent.
+     This is our recommended CSV format.
+
+     2. A time column with alternating position and velocity columns.
+     For example, "Time (ms),Position (cm),Velocity (cm/s),...".
+     In this case, only the time column is optional and order does matter.
+
+     Units must be wrapped in parens or square braces: ie. (µm/s), [µm/s].
+     Additionally, native units are the default if no units are specified.
+     Time values default to milliseconds if no units are provided.
+     If no header is included, then column order is assumed to be "T,P1,V1,P2,V2,...".
+     In this case the number of columns must be odd.
+
+     Users can add a column named "Relative" with true/false values to
+     indicate whether each point's position is relative or absolute.
+     If this column is not included, all points will be assumed to be absolute.
+
+     If the first point has time = zero, it is considered the start position
+     and treated specially. It must have an absolute position, and the device
+     must already be idle at that position when the sequence is submitted.
+     The velocity of the start position is ignored, and should normally be zero.
+     Sequences with nonzero time for the first point do not have these constraints.
+
+     Buffer calls and I/O actions can be added into the CSV file by
+     adding a column titled "Actions", containing the ASCII protocol command(s)
+     shortened by everything up to the PVT stream number, for example
+     "call 2" or "io set do 1 1". If you want to insert multiple actions
+     after a point, put them in the same cell separated by a semicolon.
+     See the ASCII Protocol Manual
+     [PVT command reference](https://www.zaber.com/protocol-manual?protocol=ASCII#topic_command_pvt)
+     section for the list of available commands. Unit symbols are not supported;
+     analog output voltages are always in volts and schedule delay times are
+     always in milliseconds.
+
+     Note that the Relative and Actions columns are not automatically
+     detected, so if you include them you must include a header row.
+
+     Time values should always be relative when sent to a device or to the
+     various Generate... functions on this class. If you want to store
+     absolute times in a CSV file, you can use the ConvertTimeRelativeToAbsolute
+     function to convert after loading the file.
+
+     - Parameters:
+        - path: The path to the csv file to load.
+
+     - Returns: The PVT csv data loaded from the file.
+     */
+    public static func loadPartialSequenceData(path: String) async throws -> PvtPartialCsvData {
+        _assertSendable(PvtPartialCsvData.self)
+
+        var request = DtoRequests.PvtLoadCsvRequest()
+        request.path = path
+
+        let response = try await Gateway.callAsync("device/stream_pvt_load_partial_csv", request, PvtPartialCsvData.fromByteArray)
+        return response
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Converts the time values in a PvtSequenceItem array from absolute to relative.
+     Points passed to the Generate functions or sent to devices must have relative time values.
+
+     - Parameters:
+        - sequenceData: The sequence data for which to convert times from absolute to relative.
+          Point times must all be in the same units.
+
+     - Returns: The sequence data with times converted from absolute to relative.
+     */
+    public static func convertTimeAbsoluteToRelative(sequenceData: [PvtSequenceItem]) async throws -> [PvtSequenceItem] {
+        _assertSendable(PvtSequenceItem.self)
+
+        var request = DtoRequests.PvtConvertTimeRequest()
+        request.fromAbsolute = true
+        request.sequenceData = sequenceData
+
+        let response = try await Gateway.callAsync("device/stream_pvt_convert_time", request, DtoRequests.PvtConvertTimeResponse.fromByteArray)
+        return response.sequenceData
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Converts the time values in a PvtSequenceItem array from relative to absolute.
+
+     - Parameters:
+        - sequenceData: The sequence data for which to convert times from relative to absolute.
+          Point times must all be in the same units.
+
+     - Returns: The sequence data with times converted from relative to absolute.
+     */
+    public static func convertTimeRelativeToAbsolute(sequenceData: [PvtSequenceItem]) async throws -> [PvtSequenceItem] {
+        _assertSendable(PvtSequenceItem.self)
+
+        var request = DtoRequests.PvtConvertTimeRequest()
+        request.fromAbsolute = false
+        request.sequenceData = sequenceData
+
+        let response = try await Gateway.callAsync("device/stream_pvt_convert_time", request, DtoRequests.PvtConvertTimeResponse.fromByteArray)
+        return response.sequenceData
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Converts the time values in a PvtPartialSequenceItem array from absolute to relative.
+     Points passed to the Generate functions or sent to devices must have relative time values.
+
+     - Parameters:
+        - sequenceData: The sequence data for which to convert times from absolute to relative.
+          Point times must all be in the same units.
+
+     - Returns: The sequence data with times converted from absolute to relative.
+     */
+    public static func convertTimeAbsoluteToRelativePartial(sequenceData: [PvtPartialSequenceItem]) async throws -> [PvtPartialSequenceItem] {
+        _assertSendable(PvtPartialSequenceItem.self)
+
+        var request = DtoRequests.PvtPartialConvertTimeRequest()
+        request.fromAbsolute = true
+        request.sequenceData = sequenceData
+
+        let response = try await Gateway.callAsync("device/stream_pvt_convert_time_partial", request, DtoRequests.PvtPartialConvertTimeResponse.fromByteArray)
+        return response.sequenceData
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Converts the time values in a PvtPartialSequenceItem array from relative to absolute.
+
+     - Parameters:
+        - sequenceData: The sequence data for which to convert times from relative to absolute.
+          Point times must all be in the same units.
+
+     - Returns: The sequence data with times converted from relative to absolute.
+     */
+    public static func convertTimeRelativeToAbsolutePartial(sequenceData: [PvtPartialSequenceItem]) async throws -> [PvtPartialSequenceItem] {
+        _assertSendable(PvtPartialSequenceItem.self)
+
+        var request = DtoRequests.PvtPartialConvertTimeRequest()
+        request.fromAbsolute = false
+        request.sequenceData = sequenceData
+
+        let response = try await Gateway.callAsync("device/stream_pvt_convert_time_partial", request, DtoRequests.PvtPartialConvertTimeResponse.fromByteArray)
+        return response.sequenceData
     }
 
     /**
@@ -306,7 +502,7 @@ public final class PvtSequence: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.streamId = self.pvtId
         request.pvt = true
-        request.pvtBuffer = pvtBuffer.bufferId
+        request.pvtBuffer = pvtBuffer.bufferNumber
         request.pvtAxes = pvtAxes
 
         try await Gateway.callAsync("device/stream_setup_store_composite", request)
@@ -319,7 +515,7 @@ public final class PvtSequence: @unchecked Sendable {
 
      - Parameters:
         - pvtBuffer: The PVT buffer to queue actions in.
-        - axes: Numbers of physical axes to setup the PVT sequence on.
+        - axes: The axis numbers of the physical axes to setup the PVT sequence on.
      */
     public func setupStore(pvtBuffer: PvtBuffer, _ axes: Int...) async throws  {
         var request = DtoRequests.StreamSetupStoreRequest()
@@ -327,7 +523,7 @@ public final class PvtSequence: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.streamId = self.pvtId
         request.pvt = true
-        request.pvtBuffer = pvtBuffer.bufferId
+        request.pvtBuffer = pvtBuffer.bufferNumber
         request.axes = axes
 
         try await Gateway.callAsync("device/stream_setup_store", request)
@@ -347,7 +543,7 @@ public final class PvtSequence: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.streamId = self.pvtId
         request.pvt = true
-        request.pvtBuffer = pvtBuffer.bufferId
+        request.pvtBuffer = pvtBuffer.bufferNumber
 
         try await Gateway.callAsync("device/stream_call", request)
     }
@@ -358,6 +554,8 @@ public final class PvtSequence: @unchecked Sendable {
      Queues a point with absolute coordinates in the PVT sequence.
      If some or all velocities are not provided, the sequence calculates the velocities
      from surrounding points using finite difference.
+     If time value is zero, the device must already be idle at the specified position
+     and the specified velocity must be zero.
      The last point of the sequence must have defined velocity (likely zero).
 
      - Parameters:
@@ -384,6 +582,12 @@ public final class PvtSequence: @unchecked Sendable {
      Module: ZaberMotionAscii
 
      Queues points with absolute coordinates in the PVT sequence.
+     Each point must have its time value measured relative to the previous point
+     or unexpected behavior will result.
+
+     Note that if the first time value is zero, the device must already be idle at
+     the position of the first point and the velocity of that point must be zero.
+     All other time values must be greater than zero.
 
      - Parameters:
         - positions: Per-axis sequences of positions.
@@ -392,6 +596,7 @@ public final class PvtSequence: @unchecked Sendable {
         - times: Segment times from one point to another.
           For times [t0, t1, ...] and positions [p0, p1, ...], t1 is the time it takes to move from p0 to p1.
      */
+    @available(*, deprecated, message: "This method is being replaced by the new SubmitSequenceData method.")
     public func points(positions: [MeasurementSequence], velocities: [MeasurementSequence], times: MeasurementSequence) async throws  {
         var request = DtoRequests.PvtPointsRequest()
         request.interfaceId = self.device.connection.interfaceId
@@ -412,6 +617,10 @@ public final class PvtSequence: @unchecked Sendable {
      Queues a point with coordinates relative to the previous point in the PVT sequence.
      If some or all velocities are not provided, the sequence calculates the velocities
      from surrounding points using finite difference.
+
+     The time value must be greater than zero, and each point must have its time value
+     measured relative to the previous point or unexpected behavior will result.
+
      The last point of the sequence must have defined velocity (likely zero).
 
      - Parameters:
@@ -438,6 +647,8 @@ public final class PvtSequence: @unchecked Sendable {
      Module: ZaberMotionAscii
 
      Queues points with coordinates relative to the previous point in the PVT sequence.
+     All time values must be greater than zero and each point must have its time value
+     measured relative to the previous point or unexpected behavior will result.
 
      - Parameters:
         - positions: Per-axis sequences of positions.
@@ -446,6 +657,7 @@ public final class PvtSequence: @unchecked Sendable {
         - times: Segment times from one point to another.
           For times [t0, t1, ...] and positions [p0, p1, ...], t1 is the time it takes to move from p0 to p1.
      */
+    @available(*, deprecated, message: "This method is being replaced by the new SubmitSequenceData method.")
     public func pointsRelative(positions: [MeasurementSequence], velocities: [MeasurementSequence], times: MeasurementSequence) async throws  {
         var request = DtoRequests.PvtPointsRequest()
         request.interfaceId = self.device.connection.interfaceId
@@ -661,19 +873,27 @@ public final class PvtSequence: @unchecked Sendable {
     /**
      Module: ZaberMotionAscii
 
-     Writes the contents of a PvtSequenceData object to the sequence.
+     Writes the contents of a PvtSequenceItem array to the sequence.
+     Each point must have its time value measured relative to the previous point
+     or unexpected behavior will result. If your point times are absolute (measured
+     from the start of the sequence), use the ConvertTimeAbsoluteToRelative
+     function to convert them before submitting.
+
+     If the first point in the sequence has a time value of zero, it is
+     considered the starting position. It must have an absolute position,
+     zero velocity, and the device must already be idle at the specified position.
 
      - Parameters:
         - sequenceData: The PVT sequence data to submit.
      */
-    public func submitSequenceData(sequenceData: PvtSequenceData) async throws  {
+    public func submitSequenceData(sequenceData: [PvtSequenceItem]) async throws  {
         var request = DtoRequests.PvtSubmitSequenceDataRequest()
         request.interfaceId = self.device.connection.interfaceId
         request.device = self.device.deviceAddress
         request.streamId = self.pvtId
         request.sequenceData = sequenceData
 
-        try await Gateway.callAsync("device/stream_pvt_submit_data", request)
+        try await Gateway.callAsync("device/stream_pvt_submit_sequence_data", request)
     }
 
     /**
@@ -711,6 +931,4 @@ public final class PvtSequence: @unchecked Sendable {
         let response = try Gateway.callSync("device/stream_get_mode", request, DtoRequests.StreamModeResponse.fromByteArray)
         return response.pvtMode
     }
-
 }
-

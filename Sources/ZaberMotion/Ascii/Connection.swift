@@ -651,38 +651,6 @@ public final class Connection: @unchecked Sendable {
         return response.value
     }
 
-
-    /**
-    Module: ZaberMotionAscii
-    Close the connection synchronously.
-    */
-    public func closeSync() throws  {
-        var request = DtoRequests.InterfaceEmptyRequest()
-        request.interfaceId = self.interfaceId
-
-        try Gateway.callSync("interface/close", request)
-    }
-
-    deinit {
-        guard interfaceId >= 0 else { return }
-
-        do {
-            try self.closeSync()
-        } catch let e as MotionLibException {
-            printToStderr("ZML Error \(e.toString())")
-        } catch {
-            printToStderr("System Error: \(error)")
-        }
-
-        do {
-            try Connection.free(interfaceId: self.interfaceId)
-        } catch let e as MotionLibException {
-            printToStderr("ZML Error: \(e.toString())")
-        } catch {
-            printToStderr("System Error: \(error)")
-        }
-    }
-
     #if canImport(Combine)
     /**
      Subscribe to all events.
@@ -691,7 +659,7 @@ public final class Connection: @unchecked Sendable {
         self._disconnected = Events.shared.disconnected.filter {
                 disconnectedEvent in
                 return disconnectedEvent.interfaceId == self.interfaceId &&
-                       disconnectedEvent.sessionId == sessionId
+                    disconnectedEvent.sessionId == sessionId
             }.map { disconnectedEvent in
                 do {
                     return try ExceptionConverter.convert(
@@ -710,7 +678,7 @@ public final class Connection: @unchecked Sendable {
             ).filter {
                 alertEventWrapper in
                 return alertEventWrapper.interfaceId == self.interfaceId &&
-                       alertEventWrapper.sessionId == sessionId
+                    alertEventWrapper.sessionId == sessionId
             }.map {
                 alertEventWrapper in
                 return alertEventWrapper.alert
@@ -722,7 +690,7 @@ public final class Connection: @unchecked Sendable {
             ).filter {
                 unknownResponseEventWrapper in
                 return unknownResponseEventWrapper.interfaceId == self.interfaceId &&
-                       unknownResponseEventWrapper.sessionId == sessionId
+                    unknownResponseEventWrapper.sessionId == sessionId
             }.map {
                 unknownResponseEventWrapper in
                 return unknownResponseEventWrapper.unknownResponse
@@ -762,4 +730,36 @@ public final class Connection: @unchecked Sendable {
     #else
     private func subscribe(sessionId: Int) {}
     #endif
+
+    /**
+     Module: ZaberMotionAscii
+
+     Close the connection synchronously.
+     */
+    private func close() throws {
+        var request = DtoRequests.InterfaceEmptyRequest()
+        request.interfaceId = self.interfaceId
+
+        try Gateway.callSync("interface/close", request)
+    }
+
+    deinit {
+        guard interfaceId >= 0 else { return }
+
+        do {
+            try close()
+        } catch let e as MotionLibException {
+            printToStderr("ZML Error: \(e.toString())")
+        } catch {
+            printToStderr("System Error: \(error)")
+        }
+
+        do {
+            try Connection.free(interfaceId: self.interfaceId)
+        } catch let e as MotionLibException {
+            printToStderr("ZML Error: \(e.toString())")
+        } catch {
+            printToStderr("System Error: \(error)")
+        }
+    }
 }

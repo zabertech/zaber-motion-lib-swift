@@ -420,5 +420,4 @@ public final class Process: @unchecked Sendable {
         let response = try Gateway.callSync("device/axis_to_string", request, DtoRequests.StringResponse.fromByteArray)
         return response.value
     }
-
 }

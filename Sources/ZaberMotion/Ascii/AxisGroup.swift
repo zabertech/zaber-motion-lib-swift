@@ -214,5 +214,4 @@ public final class AxisGroup: @unchecked Sendable {
         let response = try Gateway.callSync("axes/to_string", request, DtoRequests.StringResponse.fromByteArray)
         return response.value
     }
-
 }

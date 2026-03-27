@@ -119,7 +119,12 @@ public final class Transport: @unchecked Sendable {
         try Gateway.callSync("custom/interface/free", request)
     }
 
-    public func close() throws  {
+    /**
+     Module: ZaberMotionAscii
+
+     Close the connection synchronously.
+     */
+    private func close() throws {
         var request = DtoRequests.CustomInterfaceCloseRequest()
         request.transportId = self.transportId
 
@@ -127,7 +132,7 @@ public final class Transport: @unchecked Sendable {
     }
 
     deinit {
-        guard self.transportId >= 0 else { return }
+        guard transportId >= 0 else { return }
 
         do {
             try close()

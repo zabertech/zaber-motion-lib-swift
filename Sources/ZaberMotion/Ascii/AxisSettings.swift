@@ -443,5 +443,4 @@ public final class AxisSettings: @unchecked Sendable {
         let response = try await Gateway.callAsync("device/get_sync_axis_settings", request, DtoRequests.GetAxisSettingResults.fromByteArray)
         return response.results
     }
-
 }

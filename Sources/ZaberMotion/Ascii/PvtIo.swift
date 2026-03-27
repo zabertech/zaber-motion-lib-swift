@@ -313,5 +313,4 @@ public final class PvtIo: @unchecked Sendable {
 
         try await Gateway.callAsync("device/stream_cancel_all_outputs_schedule", request)
     }
-
 }

@@ -13,7 +13,7 @@ import Utils
 
  Class representing access to WDI Autofocus connection.
  */
-public final class WdiAutofocusProvider: @unchecked Sendable  {
+public final class WdiAutofocusProvider: @unchecked Sendable {
 
     package init(providerId: Int) {
         self.providerId = providerId
@@ -263,7 +263,12 @@ public final class WdiAutofocusProvider: @unchecked Sendable  {
         return response
     }
 
-    public func closeSync() throws  {
+    /**
+     Module: ZaberMotionMicroscopy
+
+     Close the connection synchronously.
+     */
+    private func close() throws {
         var request = DtoRequests.InterfaceEmptyRequest()
         request.interfaceId = self.providerId
 
@@ -271,10 +276,10 @@ public final class WdiAutofocusProvider: @unchecked Sendable  {
     }
 
     deinit {
-        guard self.providerId >= 0 else { return }
+        guard providerId >= 0 else { return }
 
         do {
-            try closeSync()
+            try close()
         } catch let e as MotionLibException {
             printToStderr("ZML Error: \(e.toString())")
         } catch {

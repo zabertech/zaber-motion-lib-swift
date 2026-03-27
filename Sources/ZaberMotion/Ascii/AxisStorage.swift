@@ -212,6 +212,4 @@ public final class AxisStorage: @unchecked Sendable {
         let response = try await Gateway.callAsync("device/storage_key_exists", request, DtoRequests.BoolResponse.fromByteArray)
         return response.value
     }
-
 }
-

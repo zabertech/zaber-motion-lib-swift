@@ -6,15 +6,9 @@ import DtoAscii
 
 
 public struct PvtGenerateVelocitiesRequest: Serializable {
-    public var positions: [DtoAscii.MeasurementSequence]
-    public var velocities: [DtoAscii.OptionalMeasurementSequence]?
-    public var times: DtoAscii.MeasurementSequence
-    public var timesRelative: Bool
+    public var sequenceItems: [DtoAscii.PvtPartialSequenceItem]
 
-    public init(positions: [DtoAscii.MeasurementSequence] = [], velocities: [DtoAscii.OptionalMeasurementSequence]? = nil, times: DtoAscii.MeasurementSequence = MeasurementSequence(), timesRelative: Bool = false) {
-        self.positions = positions
-        self.velocities = velocities
-        self.times = times
-        self.timesRelative = timesRelative
+    public init(sequenceItems: [DtoAscii.PvtPartialSequenceItem] = []) {
+        self.sequenceItems = sequenceItems
     }
 }

@@ -431,6 +431,4 @@ public final class Trigger: @unchecked Sendable {
 
         try await Gateway.callAsync("trigger/set_label", request)
     }
-
 }
-

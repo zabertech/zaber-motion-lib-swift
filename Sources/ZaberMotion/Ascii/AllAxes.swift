@@ -189,5 +189,4 @@ public final class AllAxes: @unchecked Sendable {
         let response = try Gateway.callSync("device/all_axes_to_string", request, DtoRequests.StringResponse.fromByteArray)
         return response.value
     }
-
 }

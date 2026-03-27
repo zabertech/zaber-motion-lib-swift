@@ -11,7 +11,8 @@ import Utils
 /**
  Module: ZaberMotionProduct
 
- Represents the controller part of one device - may be either a standalone controller or an integrated controller.
+ Use to manage a process controller.
+ Requires at least Firmware 7.35.
  */
 public final class ProcessController: @unchecked Sendable {
 
@@ -103,5 +104,4 @@ public final class ProcessController: @unchecked Sendable {
 
         try Gateway.callSync("process_controller/verify", request)
     }
-
 }

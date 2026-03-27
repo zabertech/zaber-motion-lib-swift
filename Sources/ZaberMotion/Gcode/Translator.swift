@@ -306,7 +306,7 @@ public final class Translator: @unchecked Sendable {
     }
 
     deinit {
-        guard self.translatorId >= 0 else { return }
+        guard translatorId >= 0 else { return }
 
         do {
             try Translator.free(translatorId: self.translatorId)

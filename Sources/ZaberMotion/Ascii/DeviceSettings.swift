@@ -426,5 +426,4 @@ public final class DeviceSettings: @unchecked Sendable {
         let response = try await Gateway.callAsync("device/get_sync_settings", request, DtoRequests.GetSettingResults.fromByteArray)
         return response.results
     }
-
 }

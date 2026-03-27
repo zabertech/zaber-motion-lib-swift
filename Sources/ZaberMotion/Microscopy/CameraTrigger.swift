@@ -78,5 +78,4 @@ public final class CameraTrigger: @unchecked Sendable {
         let response = try Gateway.callSync("device/device_to_string", request, DtoRequests.StringResponse.fromByteArray)
         return response.value
     }
-
 }

@@ -9,9 +9,9 @@ import DtoSerializable
 public struct PvtCsvData: Serializable {
 
     /**
-     * The positions, velocities and times of the PVT sequence.
+     * The points and actions of the PVT sequence.
      */
-    public var sequenceData: PvtSequenceData
+    public var sequenceData: [PvtSequenceItem]
 
     /**
      * The names of the columns in the CSV header.
@@ -19,7 +19,7 @@ public struct PvtCsvData: Serializable {
      */
     public var seriesNames: [String]
 
-    public init(sequenceData: PvtSequenceData = PvtSequenceData(), seriesNames: [String] = []) {
+    public init(sequenceData: [PvtSequenceItem] = [], seriesNames: [String] = []) {
         self.sequenceData = sequenceData
         self.seriesNames = seriesNames
     }

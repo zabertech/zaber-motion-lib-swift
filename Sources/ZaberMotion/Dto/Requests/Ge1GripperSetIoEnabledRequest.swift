@@ -1,0 +1,16 @@
+/* This file is generated. Do not modify by hand. */
+
+import Foundation
+import DtoSerializable
+
+public struct Ge1GripperSetIoEnabledRequest: Serializable {
+    public var connectionId: Int
+    public var enabled: Bool
+    public var saveToFlash: Bool
+
+    public init(connectionId: Int = 0, enabled: Bool = false, saveToFlash: Bool = false) {
+        self.connectionId = connectionId
+        self.enabled = enabled
+        self.saveToFlash = saveToFlash
+    }
+}

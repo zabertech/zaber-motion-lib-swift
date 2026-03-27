@@ -90,6 +90,8 @@ public final class ExceptionConverter {
                     throw InternalErrorException(message: "ExceptionConverter: \(GCodeSyntaxException.self) requires custom data.");
                 }
                 return try GCodeSyntaxException(message: message, customData: customDataUnwrapped)
+            case DtoRequests.Errors.ge1GripperMovementFailed:
+                return Ge1GripperMovementFailedException(message: message)
             case DtoRequests.Errors.incompatibleSharedLibrary:
                 return IncompatibleSharedLibraryException(message: message)
             case DtoRequests.Errors.internalError:
@@ -191,8 +193,6 @@ public final class ExceptionConverter {
                     throw InternalErrorException(message: "ExceptionConverter: \(SetPeripheralStateFailedException.self) requires custom data.");
                 }
                 return try SetPeripheralStateFailedException(message: message, customData: customDataUnwrapped)
-            case DtoRequests.Errors.settingNotFound:
-                return SettingNotFoundException(message: message)
             case DtoRequests.Errors.streamDiscontinuity:
                 return StreamDiscontinuityException(message: message)
             case DtoRequests.Errors.streamExecution:

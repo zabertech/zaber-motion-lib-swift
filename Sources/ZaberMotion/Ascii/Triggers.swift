@@ -129,5 +129,4 @@ public final class Triggers: @unchecked Sendable {
         let response = try await Gateway.callAsync("triggers/get_all_labels", request, DtoRequests.StringArrayResponse.fromByteArray)
         return response.values
     }
-
 }

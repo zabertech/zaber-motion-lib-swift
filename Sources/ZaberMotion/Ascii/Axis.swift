@@ -902,6 +902,4 @@ public final class Axis: @unchecked Sendable {
         let response = try Gateway.callSync("device/get_axis_identity", request, AxisIdentity.fromByteArray)
         return response
     }
-
 }
-

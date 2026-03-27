@@ -5,7 +5,7 @@ import DtoSerializable
 import DtoAscii
 
 
-internal enum CodingKeys: String, CodingKey {
+fileprivate enum CodingKeys: String, CodingKey {
     case variantValueType
     case axisTypeValue
     case ioPortLabelValue

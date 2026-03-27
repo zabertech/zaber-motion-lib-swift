@@ -79,5 +79,4 @@ public final class Warnings: @unchecked Sendable {
 
         try await Gateway.callAsync("device/wait_to_clear_warnings", request)
     }
-
 }

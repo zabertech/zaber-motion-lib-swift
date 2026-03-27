@@ -7,13 +7,13 @@ import Dto
 
 
 public struct PvtGenerateVelocitiesAndTimesRequest: Serializable {
-    public var positions: [DtoAscii.MeasurementSequence]
+    public var sequenceItems: [DtoAscii.PvtPartialSequenceItem]
     public var targetSpeed: Dto.Measurement
     public var targetAcceleration: Dto.Measurement
     public var resampleNumber: Int?
 
-    public init(positions: [DtoAscii.MeasurementSequence] = [], targetSpeed: Dto.Measurement = Measurement(), targetAcceleration: Dto.Measurement = Measurement(), resampleNumber: Int? = nil) {
-        self.positions = positions
+    public init(sequenceItems: [DtoAscii.PvtPartialSequenceItem] = [], targetSpeed: Dto.Measurement = Measurement(), targetAcceleration: Dto.Measurement = Measurement(), resampleNumber: Int? = nil) {
+        self.sequenceItems = sequenceItems
         self.targetSpeed = targetSpeed
         self.targetAcceleration = targetAcceleration
         self.resampleNumber = resampleNumber

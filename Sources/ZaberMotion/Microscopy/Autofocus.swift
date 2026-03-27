@@ -340,5 +340,4 @@ public final class Autofocus: @unchecked Sendable {
         let response = try Gateway.callSync("autofocus/to_string", request, DtoRequests.StringResponse.fromByteArray)
         return response.value
     }
-
 }

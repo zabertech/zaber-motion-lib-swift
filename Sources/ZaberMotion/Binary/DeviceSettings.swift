@@ -61,5 +61,4 @@ public final class DeviceSettings: @unchecked Sendable {
 
         try await Gateway.callAsync("binary/device/set_setting", request)
     }
-
 }

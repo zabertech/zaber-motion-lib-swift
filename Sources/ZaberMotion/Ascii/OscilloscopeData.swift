@@ -220,7 +220,7 @@ public final class OscilloscopeData: @unchecked Sendable {
     }
 
     deinit {
-        guard self.dataId >= 0 else { return }
+        guard dataId >= 0 else { return }
 
         do {
             try OscilloscopeData.free(dataId: self.dataId)
@@ -231,4 +231,3 @@ public final class OscilloscopeData: @unchecked Sendable {
         }
     }
 }
-

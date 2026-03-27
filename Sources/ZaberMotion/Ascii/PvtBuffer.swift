@@ -16,9 +16,9 @@ import Utils
  */
 public final class PvtBuffer: @unchecked Sendable {
 
-    package init(device: Device, bufferId: Int) {
+    package init(device: Device, bufferNumber: Int) {
         self.device = device
-        self.bufferId = bufferId
+        self.bufferNumber = bufferNumber
     }
 
     /**
@@ -33,7 +33,7 @@ public final class PvtBuffer: @unchecked Sendable {
 
      The number identifying the buffer on the device.
      */
-    public let bufferId: Int
+    public let bufferNumber: Int
 
     /**
      Module: ZaberMotionAscii
@@ -46,7 +46,7 @@ public final class PvtBuffer: @unchecked Sendable {
         var request = DtoRequests.StreamBufferGetContentRequest()
         request.interfaceId = self.device.connection.interfaceId
         request.device = self.device.deviceAddress
-        request.bufferId = self.bufferId
+        request.bufferNumber = self.bufferNumber
         request.pvt = true
 
         let response = try await Gateway.callAsync("device/stream_buffer_get_content", request, DtoRequests.StreamBufferGetContentResponse.fromByteArray)
@@ -56,20 +56,20 @@ public final class PvtBuffer: @unchecked Sendable {
     /**
      Module: ZaberMotionAscii
 
-     Gets the buffer contents as a PvtSequenceData object.
+     Gets the buffer contents as an array of PvtSequenceItem objects.
 
      - Returns: The PVT data loaded from the buffer.
      */
-    public func retrieveSequenceData() async throws -> PvtSequenceData {
-        _assertSendable(PvtSequenceData.self)
+    public func retrieveSequenceData() async throws -> [PvtSequenceItem] {
+        _assertSendable(PvtSequenceItem.self)
 
         var request = DtoRequests.PvtBufferGetSequenceDataRequest()
         request.interfaceId = self.device.connection.interfaceId
         request.device = self.device.deviceAddress
-        request.bufferId = self.bufferId
+        request.bufferNumber = self.bufferNumber
 
-        let response = try await Gateway.callAsync("device/pvt_buffer_get_data", request, PvtSequenceData.fromByteArray)
-        return response
+        let response = try await Gateway.callAsync("device/pvt_buffer_get_data", request, DtoRequests.PvtBufferGetSequenceDataResponse.fromByteArray)
+        return response.sequenceData
     }
 
     /**
@@ -82,10 +82,9 @@ public final class PvtBuffer: @unchecked Sendable {
         var request = DtoRequests.StreamBufferEraseRequest()
         request.interfaceId = self.device.connection.interfaceId
         request.device = self.device.deviceAddress
-        request.bufferId = self.bufferId
+        request.bufferNumber = self.bufferNumber
         request.pvt = true
 
         try await Gateway.callAsync("device/stream_buffer_erase", request)
     }
-
 }

@@ -113,7 +113,7 @@ public final class Stream: @unchecked Sendable {
         request.interfaceId = self.device.connection.interfaceId
         request.device = self.device.deviceAddress
         request.streamId = self.streamId
-        request.streamBuffer = streamBuffer.bufferId
+        request.streamBuffer = streamBuffer.bufferNumber
         request.axes = axes
 
         try await Gateway.callAsync("device/stream_setup_store_composite", request)
@@ -126,14 +126,14 @@ public final class Stream: @unchecked Sendable {
 
      - Parameters:
         - streamBuffer: The stream buffer to queue actions in.
-        - axes: Numbers of physical axes to setup the stream on.
+        - axes: The axis numbers of the physical axes to setup the stream on.
      */
     public func setupStore(streamBuffer: StreamBuffer, _ axes: Int...) async throws  {
         var request = DtoRequests.StreamSetupStoreRequest()
         request.interfaceId = self.device.connection.interfaceId
         request.device = self.device.deviceAddress
         request.streamId = self.streamId
-        request.streamBuffer = streamBuffer.bufferId
+        request.streamBuffer = streamBuffer.bufferNumber
         request.axes = axes
 
         try await Gateway.callAsync("device/stream_setup_store", request)
@@ -155,7 +155,7 @@ public final class Stream: @unchecked Sendable {
         request.interfaceId = self.device.connection.interfaceId
         request.device = self.device.deviceAddress
         request.streamId = self.streamId
-        request.streamBuffer = streamBuffer.bufferId
+        request.streamBuffer = streamBuffer.bufferNumber
         request.axesCount = axesCount
 
         try await Gateway.callAsync("device/stream_setup_store_arbitrary_axes", request)
@@ -174,7 +174,7 @@ public final class Stream: @unchecked Sendable {
         request.interfaceId = self.device.connection.interfaceId
         request.device = self.device.deviceAddress
         request.streamId = self.streamId
-        request.streamBuffer = streamBuffer.bufferId
+        request.streamBuffer = streamBuffer.bufferNumber
 
         try await Gateway.callAsync("device/stream_call", request)
     }
@@ -953,5 +953,4 @@ public final class Stream: @unchecked Sendable {
         let response = try Gateway.callSync("device/stream_get_mode", request, DtoRequests.StreamModeResponse.fromByteArray)
         return response.streamMode
     }
-
 }

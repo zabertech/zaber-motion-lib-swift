@@ -510,5 +510,4 @@ public final class Device: @unchecked Sendable {
         let response = try Gateway.callSync("binary/device/get_is_identified", request, DtoRequests.BoolResponse.fromByteArray)
         return response.value
     }
-
 }

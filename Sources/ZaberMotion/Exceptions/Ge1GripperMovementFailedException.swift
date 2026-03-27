@@ -6,12 +6,12 @@ import Foundation
 /**
  Module: ZaberMotionExceptions
 
- Thrown when a get or a set command cannot be found for a setting.
+ Thrown when a movement command for a GE1 series gripper fails.
  */
-public final class SettingNotFoundException: MotionLibException, @unchecked Sendable {
+public final class Ge1GripperMovementFailedException: MotionLibException, @unchecked Sendable {
 
     /**
-     Initializes a new instance of the SettingNotFoundException class.
+     Initializes a new instance of the Ge1GripperMovementFailedException class.
 
      - Parameters:
         - message: Message from the native library.

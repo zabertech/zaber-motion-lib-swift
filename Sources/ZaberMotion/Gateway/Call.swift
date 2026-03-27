@@ -179,7 +179,7 @@ public class LibraryManager {
             ZaberMotionCore.zml_set_serialization_mode(JSON_SERIALIZATION_MODE)
             #endif
 
-            let request = CheckVersionRequest(version: Constants.version, host: Constants.hostLanguage)
+            let request = CheckVersionRequest(version: Constants.version, host: "swift")
             try parseResponse(try callGatewaySyncInternal("library/check_version", request))
 
             Events.shared.ensureInitialized()

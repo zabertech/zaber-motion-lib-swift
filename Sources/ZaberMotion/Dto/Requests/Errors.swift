@@ -53,14 +53,14 @@ public enum Errors: Int, Codable, Sendable {
     case `serialPortBusy` = 49
     case `setDeviceStateFailed` = 50
     case `setPeripheralStateFailed` = 51
-    case `settingNotFound` = 52
-    case `streamDiscontinuity` = 53
-    case `streamExecution` = 54
-    case `streamMode` = 55
-    case `streamMovementFailed` = 56
-    case `streamMovementInterrupted` = 57
-    case `streamSetupFailed` = 58
-    case `timeout` = 59
-    case `transportAlreadyUsed` = 60
-    case `unknownRequest` = 61
+    case `streamDiscontinuity` = 52
+    case `streamExecution` = 53
+    case `streamMode` = 54
+    case `streamMovementFailed` = 55
+    case `streamMovementInterrupted` = 56
+    case `streamSetupFailed` = 57
+    case `timeout` = 58
+    case `transportAlreadyUsed` = 59
+    case `unknownRequest` = 60
+    case `ge1GripperMovementFailed` = 61
 }

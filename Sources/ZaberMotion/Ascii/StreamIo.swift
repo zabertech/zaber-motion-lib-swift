@@ -345,6 +345,4 @@ public final class StreamIo: @unchecked Sendable {
 
         try await Gateway.callAsync("device/stream_wait_analog_input", request)
     }
-
 }
-

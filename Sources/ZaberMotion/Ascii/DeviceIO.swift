@@ -541,6 +541,4 @@ public final class DeviceIO: @unchecked Sendable {
 
         try await Gateway.callAsync("device/cancel_all_outputs_schedule", request)
     }
-
 }
-

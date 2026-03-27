@@ -13,9 +13,9 @@ import ZaberMotionExceptions
  */
 public final class StreamBuffer: @unchecked Sendable {
 
-    package init(device: Device, bufferId: Int) {
+    package init(device: Device, bufferNumber: Int) {
         self.device = device
-        self.bufferId = bufferId
+        self.bufferNumber = bufferNumber
     }
 
     /**
@@ -30,7 +30,7 @@ public final class StreamBuffer: @unchecked Sendable {
 
      The number identifying the buffer on the device.
      */
-    public let bufferId: Int
+    public let bufferNumber: Int
 
     /**
      Module: ZaberMotionAscii
@@ -43,7 +43,7 @@ public final class StreamBuffer: @unchecked Sendable {
         var request = DtoRequests.StreamBufferGetContentRequest()
         request.interfaceId = self.device.connection.interfaceId
         request.device = self.device.deviceAddress
-        request.bufferId = self.bufferId
+        request.bufferNumber = self.bufferNumber
 
         let response = try await Gateway.callAsync("device/stream_buffer_get_content", request, DtoRequests.StreamBufferGetContentResponse.fromByteArray)
         return response.bufferLines
@@ -59,10 +59,8 @@ public final class StreamBuffer: @unchecked Sendable {
         var request = DtoRequests.StreamBufferEraseRequest()
         request.interfaceId = self.device.connection.interfaceId
         request.device = self.device.deviceAddress
-        request.bufferId = self.bufferId
+        request.bufferNumber = self.bufferNumber
 
         try await Gateway.callAsync("device/stream_buffer_erase", request)
     }
-
 }
-

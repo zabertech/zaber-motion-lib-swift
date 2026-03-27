@@ -328,5 +328,4 @@ public final class IlluminatorChannel: @unchecked Sendable {
         let response = try Gateway.callSync("device/axis_to_string", request, DtoRequests.StringResponse.fromByteArray)
         return response.value
     }
-
 }

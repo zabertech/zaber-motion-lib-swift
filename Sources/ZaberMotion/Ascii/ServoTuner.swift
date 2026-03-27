@@ -267,5 +267,4 @@ public final class ServoTuner: @unchecked Sendable {
         let response = try await Gateway.callAsync("servotuning/get_simple_tuning", request, SimpleTuning.fromByteArray)
         return response
     }
-
 }

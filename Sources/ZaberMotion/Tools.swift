@@ -82,5 +82,4 @@ public final class Tools {
         let response = try await Gateway.callAsync("tools/discover_tcp_devices", request, DtoRequests.DiscoverTCPDevicesResponse.fromByteArray)
         return response.result
     }
-
 }
