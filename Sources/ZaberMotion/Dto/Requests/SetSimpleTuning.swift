@@ -1,4 +1,5 @@
-/* This file is generated. Do not modify by hand. */
+// ===== THIS FILE IS GENERATED FROM A TEMPLATE ===== //
+// ============== DO NOT EDIT DIRECTLY ============== //
 
 import Foundation
 import DtoSerializable
@@ -18,8 +19,9 @@ public struct SetSimpleTuning: Serializable {
     public var motorInertia: Double?
     public var motorInertiaUnits: Units
     public var tuningParams: [DtoAscii.ServoTuningParam]
+    public var enableFeedForward: Bool
 
-    public init(interfaceId: Int = 0, device: Int = 0, axis: Int = 0, paramset: DtoAscii.ServoTuningParamset = ServoTuningParamset(rawValue: 0)!, loadInertia: Double = 0.0, loadInertiaUnits: Units = Units.native, carriageInertia: Double? = nil, carriageInertiaUnits: Units = Units.native, motorInertia: Double? = nil, motorInertiaUnits: Units = Units.native, tuningParams: [DtoAscii.ServoTuningParam] = []) {
+    public init(interfaceId: Int = 0, device: Int = 0, axis: Int = 0, paramset: DtoAscii.ServoTuningParamset = ServoTuningParamset(rawValue: 0)!, loadInertia: Double = 0.0, loadInertiaUnits: Units = Units.native, carriageInertia: Double? = nil, carriageInertiaUnits: Units = Units.native, motorInertia: Double? = nil, motorInertiaUnits: Units = Units.native, tuningParams: [DtoAscii.ServoTuningParam] = [], enableFeedForward: Bool = false) {
         self.interfaceId = interfaceId
         self.device = device
         self.axis = axis
@@ -31,5 +33,6 @@ public struct SetSimpleTuning: Serializable {
         self.motorInertia = motorInertia
         self.motorInertiaUnits = motorInertiaUnits
         self.tuningParams = tuningParams
+        self.enableFeedForward = enableFeedForward
     }
 }

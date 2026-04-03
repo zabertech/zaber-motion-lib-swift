@@ -1,4 +1,5 @@
-/* This file is generated. Do not modify by hand. */
+// ===== THIS FILE IS GENERATED FROM A TEMPLATE ===== //
+// ============== DO NOT EDIT DIRECTLY ============== //
 
 /**
  * Mode of logging output of the library.

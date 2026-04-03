@@ -6,7 +6,7 @@ import Foundation
 /**
  Module: ZaberMotionExceptions
 
- Thrown when a movement command for a GE1 series gripper fails.
+ Thrown when a movement command for a GE1x series gripper fails.
  */
 public final class Ge1GripperMovementFailedException: MotionLibException, @unchecked Sendable {
 

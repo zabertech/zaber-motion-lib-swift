@@ -9,7 +9,7 @@ import Utils
 /**
  Module: ZaberMotionProduct
 
- Class representing a GE1 series gripper.
+ Class representing a gripper in the GE1x series.
  */
 public final class GE1Gripper: @unchecked Sendable {
 
@@ -20,7 +20,7 @@ public final class GE1Gripper: @unchecked Sendable {
     /**
      Module: ZaberMotionProduct
 
-     The default device address for GE1 series grippers.
+     The default device address for a gripper in the GE1x series.
      */
     public static let defaultDeviceAddress: Int = 1;
 
@@ -34,7 +34,7 @@ public final class GE1Gripper: @unchecked Sendable {
     /**
      Module: ZaberMotionProduct
 
-     Opens a serial connection to a GE1 series gripper.
+     Opens a serial connection to a gripper.
 
      - Parameters:
         - portName: The name of the serial port to connect to.

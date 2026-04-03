@@ -227,8 +227,9 @@ public final class ServoTuner: @unchecked Sendable {
         - motorInertia: The inertia of the motor. Unless specified by the MotorInertiaUnits parameter,
           this is in units of kg⋅m².
         - motorInertiaUnits: The units the motor inertia was supplied in.
+        - enableFeedForward: Whether to enable the inertial feed-forward term.
      */
-    public func setSimpleTuning(paramset: ServoTuningParamset, tuningParams: [ServoTuningParam], loadInertia: Double, loadInertiaUnits: Units = Units.native, carriageInertia: Double? = nil, carriageInertiaUnits: Units = Units.native, motorInertia: Double? = nil, motorInertiaUnits: Units = Units.native) async throws  {
+    public func setSimpleTuning(paramset: ServoTuningParamset, tuningParams: [ServoTuningParam], loadInertia: Double, loadInertiaUnits: Units = Units.native, carriageInertia: Double? = nil, carriageInertiaUnits: Units = Units.native, motorInertia: Double? = nil, motorInertiaUnits: Units = Units.native, enableFeedForward: Bool = true) async throws  {
         var request = DtoRequests.SetSimpleTuning()
         request.interfaceId = self.axis.device.connection.interfaceId
         request.device = self.axis.device.deviceAddress
@@ -241,6 +242,7 @@ public final class ServoTuner: @unchecked Sendable {
         request.carriageInertiaUnits = carriageInertiaUnits
         request.motorInertia = motorInertia
         request.motorInertiaUnits = motorInertiaUnits
+        request.enableFeedForward = enableFeedForward
 
         try await Gateway.callAsync("servotuning/set_simple_tuning", request)
     }

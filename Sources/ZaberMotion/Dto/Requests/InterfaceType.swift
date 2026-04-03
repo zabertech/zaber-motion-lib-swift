@@ -1,4 +1,5 @@
-/* This file is generated. Do not modify by hand. */
+// ===== THIS FILE IS GENERATED FROM A TEMPLATE ===== //
+// ============== DO NOT EDIT DIRECTLY ============== //
 
 public enum InterfaceType: Int, Codable, Sendable {
     case `serialPort` = 0

@@ -1,7 +1,8 @@
-/* This file is generated. Do not modify by hand. */
+// ===== THIS FILE IS GENERATED FROM A TEMPLATE ===== //
+// ============== DO NOT EDIT DIRECTLY ============== //
 
 /**
- * State of a GE1 series gripper.
+ * State of a GE1x series gripper.
  */
 public enum Ge1GripperState: Int, Codable, Sendable {
     /// The gripper has not been homed and does not have a reference position.

@@ -1,7 +1,8 @@
-/* This file is generated. Do not modify by hand. */
+// ===== THIS FILE IS GENERATED FROM A TEMPLATE ===== //
+// ============== DO NOT EDIT DIRECTLY ============== //
 
 /**
- * Direction for a GE1 series gripper.
+ * Direction for a GE1x series gripper.
  */
 public enum Ge1GripperDirection: Int, Codable, Sendable {
     case `open` = 0
