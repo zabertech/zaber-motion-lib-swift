@@ -63,5 +63,5 @@ public enum Errors: Int, Codable, Sendable {
     case `timeout` = 58
     case `transportAlreadyUsed` = 59
     case `unknownRequest` = 60
-    case `ge1GripperMovementFailed` = 61
+    case `ge1xGripperMovementFailed` = 61
 }

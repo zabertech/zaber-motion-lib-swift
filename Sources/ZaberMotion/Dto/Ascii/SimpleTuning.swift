@@ -41,12 +41,18 @@ public struct SimpleTuning: Serializable {
      */
     public var tuningParams: [ServoTuningParam]
 
-    public init(isUsed: Bool = false, isSet: Bool = false, carriageInertia: Double? = nil, motorInertia: Double? = nil, loadInertia: Double = 0.0, tuningParams: [ServoTuningParam] = []) {
+    /**
+     * Whether feed-forward compensation was enabled when this tuning was applied.
+     */
+    public var enableFeedForward: Bool
+
+    public init(isUsed: Bool = false, isSet: Bool = false, carriageInertia: Double? = nil, motorInertia: Double? = nil, loadInertia: Double = 0.0, tuningParams: [ServoTuningParam] = [], enableFeedForward: Bool = false) {
         self.isUsed = isUsed
         self.isSet = isSet
         self.carriageInertia = carriageInertia
         self.motorInertia = motorInertia
         self.loadInertia = loadInertia
         self.tuningParams = tuningParams
+        self.enableFeedForward = enableFeedForward
     }
 }

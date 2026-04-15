@@ -4,7 +4,7 @@
 /**
  * Direction for a GE1x series gripper.
  */
-public enum Ge1GripperDirection: Int, Codable, Sendable {
+public enum Ge1xGripperDirection: Int, Codable, Sendable {
     case `open` = 0
     case `close` = 1
 }

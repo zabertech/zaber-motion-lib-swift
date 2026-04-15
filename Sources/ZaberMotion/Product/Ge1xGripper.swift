@@ -11,7 +11,7 @@ import Utils
 
  Class representing a gripper in the GE1x series.
  */
-public final class GE1Gripper: @unchecked Sendable {
+public final class Ge1xGripper: @unchecked Sendable {
 
     package init(connectionId: Int) {
         self.connectionId = connectionId
@@ -41,18 +41,18 @@ public final class GE1Gripper: @unchecked Sendable {
         - deviceAddress: The address of the gripper to connect to.
         - timeout: The timeout in milliseconds for any request sent using this connection.
 
-     - Returns: A GE1Gripper instance representing the connection to the gripper.
+     - Returns: A Ge1xGripper instance representing the connection to the gripper.
      */
-    public static func openConnection(portName: String, deviceAddress: Int = GE1Gripper.defaultDeviceAddress, timeout: Int = 500) async throws -> GE1Gripper {
-        _assertSendable(GE1Gripper.self)
+    public static func openConnection(portName: String, deviceAddress: Int = Ge1xGripper.defaultDeviceAddress, timeout: Int = 500) async throws -> Ge1xGripper {
+        _assertSendable(Ge1xGripper.self)
 
-        var request = DtoRequests.Ge1GripperOpenConnectionRequest()
+        var request = DtoRequests.Ge1xGripperOpenConnectionRequest()
         request.portName = portName
         request.deviceAddress = deviceAddress
         request.timeout = timeout
 
-        let response = try await Gateway.callAsync("ge1_gripper/open_connection", request, DtoRequests.IntResponse.fromByteArray)
-        return GE1Gripper(connectionId: response.value)
+        let response = try await Gateway.callAsync("ge1x_gripper/open_connection", request, DtoRequests.IntResponse.fromByteArray)
+        return Ge1xGripper(connectionId: response.value)
     }
 
     /**
@@ -61,10 +61,10 @@ public final class GE1Gripper: @unchecked Sendable {
      Closes the connection to the gripper.
      */
     public func close() async throws  {
-        var request = DtoRequests.Ge1GripperEmptyRequest()
+        var request = DtoRequests.Ge1xGripperEmptyRequest()
         request.connectionId = self.connectionId
 
-        try await Gateway.callAsync("ge1_gripper/close_connection", request)
+        try await Gateway.callAsync("ge1x_gripper/close_connection", request)
     }
 
     /**
@@ -78,11 +78,11 @@ public final class GE1Gripper: @unchecked Sendable {
      - Returns: The data at the specified register address.
      */
     public func readRegister(registerAddress: Int) async throws -> Int {
-        var request = DtoRequests.Ge1GripperReadRegisterRequest()
+        var request = DtoRequests.Ge1xGripperReadRegisterRequest()
         request.connectionId = self.connectionId
         request.registerAddress = registerAddress
 
-        let response = try await Gateway.callAsync("ge1_gripper/read_register", request, DtoRequests.IntResponse.fromByteArray)
+        let response = try await Gateway.callAsync("ge1x_gripper/read_register", request, DtoRequests.IntResponse.fromByteArray)
         return response.value
     }
 
@@ -96,12 +96,12 @@ public final class GE1Gripper: @unchecked Sendable {
         - data: The data to write to the specified register address.
      */
     public func writeRegister(registerAddress: Int, data: Int) async throws  {
-        var request = DtoRequests.Ge1GripperWriteRegisterRequest()
+        var request = DtoRequests.Ge1xGripperWriteRegisterRequest()
         request.connectionId = self.connectionId
         request.registerAddress = registerAddress
         request.data = data
 
-        try await Gateway.callAsync("ge1_gripper/write_register", request)
+        try await Gateway.callAsync("ge1x_gripper/write_register", request)
     }
 
     /**
@@ -113,11 +113,11 @@ public final class GE1Gripper: @unchecked Sendable {
         - waitUntilIdle: Wait until homing has completed before returning.
      */
     public func home(waitUntilIdle: Bool = true) async throws  {
-        var request = DtoRequests.Ge1GripperWaitUntilIdleRequest()
+        var request = DtoRequests.Ge1xGripperWaitUntilIdleRequest()
         request.connectionId = self.connectionId
         request.waitUntilIdle = waitUntilIdle
 
-        try await Gateway.callAsync("ge1_gripper/home", request)
+        try await Gateway.callAsync("ge1x_gripper/home", request)
     }
 
     /**
@@ -126,10 +126,10 @@ public final class GE1Gripper: @unchecked Sendable {
      Waits until the gripper has stopped moving.
      */
     public func waitUntilIdle() async throws  {
-        var request = DtoRequests.Ge1GripperEmptyRequest()
+        var request = DtoRequests.Ge1xGripperEmptyRequest()
         request.connectionId = self.connectionId
 
-        try await Gateway.callAsync("ge1_gripper/wait_until_idle", request)
+        try await Gateway.callAsync("ge1x_gripper/wait_until_idle", request)
     }
 
     /**
@@ -142,12 +142,12 @@ public final class GE1Gripper: @unchecked Sendable {
         - waitUntilIdle: Wait until the move has completed before returning.
      */
     public func move(position: Double, waitUntilIdle: Bool = true) async throws  {
-        var request = DtoRequests.Ge1GripperMoveRequest()
+        var request = DtoRequests.Ge1xGripperMoveRequest()
         request.connectionId = self.connectionId
         request.position = position
         request.waitUntilIdle = waitUntilIdle
 
-        try await Gateway.callAsync("ge1_gripper/move", request)
+        try await Gateway.callAsync("ge1x_gripper/move", request)
     }
 
     /**
@@ -159,12 +159,12 @@ public final class GE1Gripper: @unchecked Sendable {
         - waitUntilIdle: Wait until the move has completed before returning.
      */
     public func moveOpen(waitUntilIdle: Bool = true) async throws  {
-        var request = DtoRequests.Ge1GripperMoveRequest()
+        var request = DtoRequests.Ge1xGripperMoveRequest()
         request.connectionId = self.connectionId
         request.position = 100
         request.waitUntilIdle = waitUntilIdle
 
-        try await Gateway.callAsync("ge1_gripper/move", request)
+        try await Gateway.callAsync("ge1x_gripper/move", request)
     }
 
     /**
@@ -176,12 +176,12 @@ public final class GE1Gripper: @unchecked Sendable {
         - waitUntilIdle: Wait until the move has completed before returning.
      */
     public func moveClose(waitUntilIdle: Bool = true) async throws  {
-        var request = DtoRequests.Ge1GripperMoveRequest()
+        var request = DtoRequests.Ge1xGripperMoveRequest()
         request.connectionId = self.connectionId
         request.position = 0
         request.waitUntilIdle = waitUntilIdle
 
-        try await Gateway.callAsync("ge1_gripper/move", request)
+        try await Gateway.callAsync("ge1x_gripper/move", request)
     }
 
     /**
@@ -193,11 +193,11 @@ public final class GE1Gripper: @unchecked Sendable {
         - waitUntilIdle: Wait until the gripper has stopped before returning.
      */
     public func stop(waitUntilIdle: Bool = true) async throws  {
-        var request = DtoRequests.Ge1GripperWaitUntilIdleRequest()
+        var request = DtoRequests.Ge1xGripperWaitUntilIdleRequest()
         request.connectionId = self.connectionId
         request.waitUntilIdle = waitUntilIdle
 
-        try await Gateway.callAsync("ge1_gripper/stop", request)
+        try await Gateway.callAsync("ge1x_gripper/stop", request)
     }
 
     /**
@@ -209,11 +209,11 @@ public final class GE1Gripper: @unchecked Sendable {
         - force: The gripping force as a percentage from 20 to 100.
      */
     public func setForce(force: Int) async throws  {
-        var request = DtoRequests.Ge1GripperSetForceRequest()
+        var request = DtoRequests.Ge1xGripperSetForceRequest()
         request.connectionId = self.connectionId
         request.force = force
 
-        try await Gateway.callAsync("ge1_gripper/set_force", request)
+        try await Gateway.callAsync("ge1x_gripper/set_force", request)
     }
 
     /**
@@ -225,11 +225,11 @@ public final class GE1Gripper: @unchecked Sendable {
         - speed: The maximum speed as a percentage from 1 to 100.
      */
     public func setSpeed(speed: Int) async throws  {
-        var request = DtoRequests.Ge1GripperSetSpeedRequest()
+        var request = DtoRequests.Ge1xGripperSetSpeedRequest()
         request.connectionId = self.connectionId
         request.speed = speed
 
-        try await Gateway.callAsync("ge1_gripper/set_speed", request)
+        try await Gateway.callAsync("ge1x_gripper/set_speed", request)
     }
 
     /**
@@ -238,10 +238,10 @@ public final class GE1Gripper: @unchecked Sendable {
      Enables the gripper driver.
      */
     public func driverEnable() async throws  {
-        var request = DtoRequests.Ge1GripperEmptyRequest()
+        var request = DtoRequests.Ge1xGripperEmptyRequest()
         request.connectionId = self.connectionId
 
-        try await Gateway.callAsync("ge1_gripper/driver_enable", request)
+        try await Gateway.callAsync("ge1x_gripper/driver_enable", request)
     }
 
     /**
@@ -250,10 +250,10 @@ public final class GE1Gripper: @unchecked Sendable {
      Disables the gripper driver.
      */
     public func driverDisable() async throws  {
-        var request = DtoRequests.Ge1GripperEmptyRequest()
+        var request = DtoRequests.Ge1xGripperEmptyRequest()
         request.connectionId = self.connectionId
 
-        try await Gateway.callAsync("ge1_gripper/driver_disable", request)
+        try await Gateway.callAsync("ge1x_gripper/driver_disable", request)
     }
 
     /**
@@ -265,11 +265,11 @@ public final class GE1Gripper: @unchecked Sendable {
         - saveToFlash: Save the calibration results to flash memory so they are retained on power cycle.
      */
     public func calibrate(saveToFlash: Bool = true) async throws  {
-        var request = DtoRequests.Ge1GripperCalibrateRequest()
+        var request = DtoRequests.Ge1xGripperCalibrateRequest()
         request.connectionId = self.connectionId
         request.saveToFlash = saveToFlash
 
-        try await Gateway.callAsync("ge1_gripper/calibrate", request)
+        try await Gateway.callAsync("ge1x_gripper/calibrate", request)
     }
 
     /**
@@ -279,11 +279,11 @@ public final class GE1Gripper: @unchecked Sendable {
 
      - Returns: The current state of the gripper.
      */
-    public func getState() async throws -> Ge1GripperState {
-        var request = DtoRequests.Ge1GripperEmptyRequest()
+    public func getState() async throws -> Ge1xGripperState {
+        var request = DtoRequests.Ge1xGripperEmptyRequest()
         request.connectionId = self.connectionId
 
-        let response = try await Gateway.callAsync("ge1_gripper/get_state", request, DtoRequests.Ge1GripperGetStateResponse.fromByteArray)
+        let response = try await Gateway.callAsync("ge1x_gripper/get_state", request, DtoRequests.Ge1xGripperGetStateResponse.fromByteArray)
         return response.value
     }
 
@@ -294,11 +294,11 @@ public final class GE1Gripper: @unchecked Sendable {
 
      - Returns: The current error of the gripper.
      */
-    public func getError() async throws -> Ge1GripperError {
-        var request = DtoRequests.Ge1GripperEmptyRequest()
+    public func getError() async throws -> Ge1xGripperError {
+        var request = DtoRequests.Ge1xGripperEmptyRequest()
         request.connectionId = self.connectionId
 
-        let response = try await Gateway.callAsync("ge1_gripper/get_error", request, DtoRequests.Ge1GripperGetErrorResponse.fromByteArray)
+        let response = try await Gateway.callAsync("ge1x_gripper/get_error", request, DtoRequests.Ge1xGripperGetErrorResponse.fromByteArray)
         return response.value
     }
 
@@ -308,10 +308,10 @@ public final class GE1Gripper: @unchecked Sendable {
      Clears the current error of the gripper.
      */
     public func clearError() async throws  {
-        var request = DtoRequests.Ge1GripperEmptyRequest()
+        var request = DtoRequests.Ge1xGripperEmptyRequest()
         request.connectionId = self.connectionId
 
-        try await Gateway.callAsync("ge1_gripper/clear_error", request)
+        try await Gateway.callAsync("ge1x_gripper/clear_error", request)
     }
 
     /**
@@ -322,10 +322,10 @@ public final class GE1Gripper: @unchecked Sendable {
      - Returns: True if the gripper is homed, false otherwise.
      */
     public func isHomed() async throws -> Bool {
-        var request = DtoRequests.Ge1GripperEmptyRequest()
+        var request = DtoRequests.Ge1xGripperEmptyRequest()
         request.connectionId = self.connectionId
 
-        let response = try await Gateway.callAsync("ge1_gripper/is_homed", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("ge1x_gripper/is_homed", request, DtoRequests.BoolResponse.fromByteArray)
         return response.value
     }
 
@@ -337,10 +337,10 @@ public final class GE1Gripper: @unchecked Sendable {
      - Returns: The current position of the gripper as a percentage, where 0 is closed and 100 is open.
      */
     public func getPosition() async throws -> Double {
-        var request = DtoRequests.Ge1GripperEmptyRequest()
+        var request = DtoRequests.Ge1xGripperEmptyRequest()
         request.connectionId = self.connectionId
 
-        let response = try await Gateway.callAsync("ge1_gripper/get_position", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("ge1x_gripper/get_position", request, DtoRequests.DoubleResponse.fromByteArray)
         return response.value
     }
 
@@ -352,10 +352,10 @@ public final class GE1Gripper: @unchecked Sendable {
      - Returns: The current current of the gripper in milliamps.
      */
     public func getCurrent() async throws -> Int {
-        var request = DtoRequests.Ge1GripperEmptyRequest()
+        var request = DtoRequests.Ge1xGripperEmptyRequest()
         request.connectionId = self.connectionId
 
-        let response = try await Gateway.callAsync("ge1_gripper/get_current", request, DtoRequests.IntResponse.fromByteArray)
+        let response = try await Gateway.callAsync("ge1x_gripper/get_current", request, DtoRequests.IntResponse.fromByteArray)
         return response.value
     }
 
@@ -368,13 +368,13 @@ public final class GE1Gripper: @unchecked Sendable {
         - direction: The home direction to set.
         - saveToFlash: Save the home direction setting to flash memory so it is retained on power cycle.
      */
-    public func setHomeDirection(direction: Ge1GripperDirection, saveToFlash: Bool = true) async throws  {
-        var request = DtoRequests.Ge1GripperSetHomeDirectionRequest()
+    public func setHomeDirection(direction: Ge1xGripperDirection, saveToFlash: Bool = true) async throws  {
+        var request = DtoRequests.Ge1xGripperSetHomeDirectionRequest()
         request.connectionId = self.connectionId
         request.direction = direction
         request.saveToFlash = saveToFlash
 
-        try await Gateway.callAsync("ge1_gripper/set_home_direction", request)
+        try await Gateway.callAsync("ge1x_gripper/set_home_direction", request)
     }
 
     /**
@@ -387,12 +387,12 @@ public final class GE1Gripper: @unchecked Sendable {
         - saveToFlash: Save the auto home setting to flash memory so it is retained on power cycle.
      */
     public func setAutoHome(enabled: Bool, saveToFlash: Bool = true) async throws  {
-        var request = DtoRequests.Ge1GripperSetAutoHomeRequest()
+        var request = DtoRequests.Ge1xGripperSetAutoHomeRequest()
         request.connectionId = self.connectionId
         request.enabled = enabled
         request.saveToFlash = saveToFlash
 
-        try await Gateway.callAsync("ge1_gripper/set_auto_home", request)
+        try await Gateway.callAsync("ge1x_gripper/set_auto_home", request)
     }
 
     /**
@@ -405,12 +405,12 @@ public final class GE1Gripper: @unchecked Sendable {
         - saveToFlash: Save the IO enabled setting to flash memory so it is retained on power cycle.
      */
     public func setIoEnabled(enabled: Bool, saveToFlash: Bool = true) async throws  {
-        var request = DtoRequests.Ge1GripperSetIoEnabledRequest()
+        var request = DtoRequests.Ge1xGripperSetIoEnabledRequest()
         request.connectionId = self.connectionId
         request.enabled = enabled
         request.saveToFlash = saveToFlash
 
-        try await Gateway.callAsync("ge1_gripper/set_io_enabled", request)
+        try await Gateway.callAsync("ge1x_gripper/set_io_enabled", request)
     }
 
     /**
@@ -423,12 +423,12 @@ public final class GE1Gripper: @unchecked Sendable {
         - saveToFlash: Save the IO input filter setting to flash memory so it is retained on power cycle.
      */
     public func setIoInputFilter(duration: Int, saveToFlash: Bool = true) async throws  {
-        var request = DtoRequests.Ge1GripperSetIoInputFilterRequest()
+        var request = DtoRequests.Ge1xGripperSetIoInputFilterRequest()
         request.connectionId = self.connectionId
         request.duration = duration
         request.saveToFlash = saveToFlash
 
-        try await Gateway.callAsync("ge1_gripper/set_io_input_filter", request)
+        try await Gateway.callAsync("ge1x_gripper/set_io_input_filter", request)
     }
 
     /**
@@ -444,7 +444,7 @@ public final class GE1Gripper: @unchecked Sendable {
         - saveToFlash: Save the preset to flash memory so it is retained on power cycle.
      */
     public func setPreset(presetNumber: Int, position: Double, force: Int = 100, speed: Int = 100, saveToFlash: Bool = true) async throws  {
-        var request = DtoRequests.Ge1GripperSetPresetRequest()
+        var request = DtoRequests.Ge1xGripperSetPresetRequest()
         request.connectionId = self.connectionId
         request.presetNumber = presetNumber
         request.position = position
@@ -452,7 +452,7 @@ public final class GE1Gripper: @unchecked Sendable {
         request.speed = speed
         request.saveToFlash = saveToFlash
 
-        try await Gateway.callAsync("ge1_gripper/set_preset", request)
+        try await Gateway.callAsync("ge1x_gripper/set_preset", request)
     }
 
     /**
@@ -465,12 +465,12 @@ public final class GE1Gripper: @unchecked Sendable {
         - waitUntilIdle: Wait until the move has completed before returning.
      */
     public func activatePreset(presetNumber: Int, waitUntilIdle: Bool = true) async throws  {
-        var request = DtoRequests.Ge1GripperActivatePresetRequest()
+        var request = DtoRequests.Ge1xGripperActivatePresetRequest()
         request.connectionId = self.connectionId
         request.presetNumber = presetNumber
         request.waitUntilIdle = waitUntilIdle
 
-        try await Gateway.callAsync("ge1_gripper/activate_preset", request)
+        try await Gateway.callAsync("ge1x_gripper/activate_preset", request)
     }
 
     /**
@@ -481,10 +481,10 @@ public final class GE1Gripper: @unchecked Sendable {
      - Returns: The current preset number activated by the gripper IO input.
      */
     public func getIoInputPresetNumber() async throws -> Int {
-        var request = DtoRequests.Ge1GripperEmptyRequest()
+        var request = DtoRequests.Ge1xGripperEmptyRequest()
         request.connectionId = self.connectionId
 
-        let response = try await Gateway.callAsync("ge1_gripper/get_io_input_preset_number", request, DtoRequests.IntResponse.fromByteArray)
+        let response = try await Gateway.callAsync("ge1x_gripper/get_io_input_preset_number", request, DtoRequests.IntResponse.fromByteArray)
         return response.value
     }
 
@@ -497,10 +497,10 @@ public final class GE1Gripper: @unchecked Sendable {
         - connectionId: Connection ID to be freed.
      */
     static func free(connectionId: Int) throws  {
-        var request = DtoRequests.Ge1GripperEmptyRequest()
+        var request = DtoRequests.Ge1xGripperEmptyRequest()
         request.connectionId = connectionId
 
-        try Gateway.callSync("ge1_gripper/free_connection", request)
+        try Gateway.callSync("ge1x_gripper/free_connection", request)
     }
 
     /**
@@ -509,10 +509,10 @@ public final class GE1Gripper: @unchecked Sendable {
      Close the connection synchronously.
      */
     private func close() throws {
-        var request = DtoRequests.Ge1GripperEmptyRequest()
+        var request = DtoRequests.Ge1xGripperEmptyRequest()
         request.connectionId = self.connectionId
 
-        try Gateway.callSync("ge1_gripper/close_connection", request)
+        try Gateway.callSync("ge1x_gripper/close_connection", request)
     }
 
     deinit {
@@ -527,7 +527,7 @@ public final class GE1Gripper: @unchecked Sendable {
         }
 
         do {
-            try GE1Gripper.free(connectionId: self.connectionId)
+            try Ge1xGripper.free(connectionId: self.connectionId)
         } catch let e as MotionLibException {
             printToStderr("ZML Error: \(e.toString())")
         } catch {

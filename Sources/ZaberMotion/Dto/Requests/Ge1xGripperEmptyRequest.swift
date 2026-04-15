@@ -4,12 +4,10 @@
 import Foundation
 import DtoSerializable
 
-public struct Ge1GripperSetSpeedRequest: Serializable {
+public struct Ge1xGripperEmptyRequest: Serializable {
     public var connectionId: Int
-    public var speed: Int
 
-    public init(connectionId: Int = 0, speed: Int = 0) {
+    public init(connectionId: Int = 0) {
         self.connectionId = connectionId
-        self.speed = speed
     }
 }

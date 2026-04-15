@@ -4,7 +4,7 @@
 import Foundation
 import DtoSerializable
 
-public struct Ge1GripperCalibrateRequest: Serializable {
+public struct Ge1xGripperCalibrateRequest: Serializable {
     public var connectionId: Int
     public var saveToFlash: Bool
 

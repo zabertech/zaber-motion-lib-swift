@@ -34,6 +34,11 @@ public final class SettingConstants {
     public static let brakeState: String = "brake.state"
 
     /**
+     Calibration Error
+     */
+    public static let calibrationError: String = "calibration.error"
+
+    /**
      Calibration Type
      */
     public static let calibrationType: String = "calibration.type"
@@ -1009,6 +1014,11 @@ public final class SettingConstants {
     public static let limitCycleDist: String = "limit.cycle.dist"
 
     /**
+     Limit Cycle Mode
+     */
+    public static let limitCycleMode: String = "limit.cycle.mode"
+
+    /**
      Limit D Action
      */
     public static let limitDAction: String = "limit.d.action"
@@ -1417,6 +1427,11 @@ public final class SettingConstants {
      Pos
      */
     public static let pos: String = "pos"
+
+    /**
+     Pos Cycles
+     */
+    public static let posCycles: String = "pos.cycles"
 
     /**
      Process Control Dir

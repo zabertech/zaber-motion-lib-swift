@@ -4,7 +4,7 @@
 /**
  * Error for a GE1x series gripper.
  */
-public enum Ge1GripperError: Int, Codable, Sendable {
+public enum Ge1xGripperError: Int, Codable, Sendable {
     /// No error.
     case `none` = 0
     /// The gripper supply voltage is too low.

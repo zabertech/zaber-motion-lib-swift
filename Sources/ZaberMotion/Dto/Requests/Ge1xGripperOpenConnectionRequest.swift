@@ -4,7 +4,7 @@
 import Foundation
 import DtoSerializable
 
-public struct Ge1GripperOpenConnectionRequest: Serializable {
+public struct Ge1xGripperOpenConnectionRequest: Serializable {
     public var portName: String
     public var deviceAddress: Int
     public var timeout: Int

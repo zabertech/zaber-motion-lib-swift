@@ -4,7 +4,7 @@
 import Foundation
 import DtoSerializable
 
-public struct Ge1GripperSetPresetRequest: Serializable {
+public struct Ge1xGripperSetPresetRequest: Serializable {
     public var connectionId: Int
     public var presetNumber: Int
     public var position: Double

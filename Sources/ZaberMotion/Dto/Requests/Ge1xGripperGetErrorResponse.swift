@@ -6,10 +6,10 @@ import DtoSerializable
 import DtoProduct
 
 
-public struct Ge1GripperGetStateResponse: Serializable {
-    public var value: DtoProduct.Ge1GripperState
+public struct Ge1xGripperGetErrorResponse: Serializable {
+    public var value: DtoProduct.Ge1xGripperError
 
-    public init(value: DtoProduct.Ge1GripperState = Ge1GripperState(rawValue: 0)!) {
+    public init(value: DtoProduct.Ge1xGripperError = Ge1xGripperError(rawValue: 0)!) {
         self.value = value
     }
 }

@@ -90,8 +90,8 @@ public final class ExceptionConverter {
                     throw InternalErrorException(message: "ExceptionConverter: \(GCodeSyntaxException.self) requires custom data.");
                 }
                 return try GCodeSyntaxException(message: message, customData: customDataUnwrapped)
-            case DtoRequests.Errors.ge1GripperMovementFailed:
-                return Ge1GripperMovementFailedException(message: message)
+            case DtoRequests.Errors.ge1xGripperMovementFailed:
+                return Ge1xGripperMovementFailedException(message: message)
             case DtoRequests.Errors.incompatibleSharedLibrary:
                 return IncompatibleSharedLibraryException(message: message)
             case DtoRequests.Errors.internalError:

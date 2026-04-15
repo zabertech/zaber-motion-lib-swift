@@ -6,12 +6,12 @@ import DtoSerializable
 import DtoProduct
 
 
-public struct Ge1GripperSetHomeDirectionRequest: Serializable {
+public struct Ge1xGripperSetHomeDirectionRequest: Serializable {
     public var connectionId: Int
-    public var direction: DtoProduct.Ge1GripperDirection
+    public var direction: DtoProduct.Ge1xGripperDirection
     public var saveToFlash: Bool
 
-    public init(connectionId: Int = 0, direction: DtoProduct.Ge1GripperDirection = Ge1GripperDirection(rawValue: 0)!, saveToFlash: Bool = false) {
+    public init(connectionId: Int = 0, direction: DtoProduct.Ge1xGripperDirection = Ge1xGripperDirection(rawValue: 0)!, saveToFlash: Bool = false) {
         self.connectionId = connectionId
         self.direction = direction
         self.saveToFlash = saveToFlash

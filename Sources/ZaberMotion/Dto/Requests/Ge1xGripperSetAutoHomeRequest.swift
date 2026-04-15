@@ -4,14 +4,14 @@
 import Foundation
 import DtoSerializable
 
-public struct Ge1GripperSetIoInputFilterRequest: Serializable {
+public struct Ge1xGripperSetAutoHomeRequest: Serializable {
     public var connectionId: Int
-    public var duration: Int
+    public var enabled: Bool
     public var saveToFlash: Bool
 
-    public init(connectionId: Int = 0, duration: Int = 0, saveToFlash: Bool = false) {
+    public init(connectionId: Int = 0, enabled: Bool = false, saveToFlash: Bool = false) {
         self.connectionId = connectionId
-        self.duration = duration
+        self.enabled = enabled
         self.saveToFlash = saveToFlash
     }
 }

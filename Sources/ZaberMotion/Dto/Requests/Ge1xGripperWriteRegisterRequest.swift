@@ -4,7 +4,7 @@
 import Foundation
 import DtoSerializable
 
-public struct Ge1GripperWriteRegisterRequest: Serializable {
+public struct Ge1xGripperWriteRegisterRequest: Serializable {
     public var connectionId: Int
     public var registerAddress: Int
     public var data: Int

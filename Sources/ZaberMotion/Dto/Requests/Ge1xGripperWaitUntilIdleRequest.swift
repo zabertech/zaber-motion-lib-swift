@@ -4,12 +4,12 @@
 import Foundation
 import DtoSerializable
 
-public struct Ge1GripperSetForceRequest: Serializable {
+public struct Ge1xGripperWaitUntilIdleRequest: Serializable {
     public var connectionId: Int
-    public var force: Int
+    public var waitUntilIdle: Bool
 
-    public init(connectionId: Int = 0, force: Int = 0) {
+    public init(connectionId: Int = 0, waitUntilIdle: Bool = false) {
         self.connectionId = connectionId
-        self.force = force
+        self.waitUntilIdle = waitUntilIdle
     }
 }

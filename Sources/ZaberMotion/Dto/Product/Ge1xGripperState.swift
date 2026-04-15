@@ -4,7 +4,7 @@
 /**
  * State of a GE1x series gripper.
  */
-public enum Ge1GripperState: Int, Codable, Sendable {
+public enum Ge1xGripperState: Int, Codable, Sendable {
     /// The gripper has not been homed and does not have a reference position.
     case `noReferencePosition` = 0
     /// The gripper is currently performing a homing operation.

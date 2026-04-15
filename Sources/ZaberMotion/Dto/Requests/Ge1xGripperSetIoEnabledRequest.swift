@@ -4,7 +4,7 @@
 import Foundation
 import DtoSerializable
 
-public struct Ge1GripperSetAutoHomeRequest: Serializable {
+public struct Ge1xGripperSetIoEnabledRequest: Serializable {
     public var connectionId: Int
     public var enabled: Bool
     public var saveToFlash: Bool
