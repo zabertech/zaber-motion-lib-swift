@@ -4,6 +4,7 @@
 import UnitsInternal
 import Dto
 import DtoRequests
+import DtoAscii
 import Gateway
 import ZaberMotionExceptions
 import Utils
@@ -42,6 +43,33 @@ public final class AxisSettings: @unchecked Sendable {
         request.unit = unit
 
         let response = try await Gateway.callAsync("device/get_setting", request, DtoRequests.DoubleResponse.fromByteArray)
+        return response.value
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Returns any axis setting or property in its native type.
+     Note that specifying units will cause settings that are otherwise integers to be returned as floats.
+     For more information refer to the [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_settings).
+
+     - Parameters:
+        - setting: Name of the setting.
+        - unit: Units of setting to convert result to.
+
+     - Returns: Setting value.
+     */
+    public func getTyped(setting: String, unit: Units = Units.native) async throws -> TypedSetting {
+        _assertSendable(TypedSetting.self)
+
+        var request = DtoRequests.DeviceGetSettingRequest()
+        request.interfaceId = self.axis.device.connection.interfaceId
+        request.device = self.axis.device.deviceAddress
+        request.axis = self.axis.axisNumber
+        request.setting = setting
+        request.unit = unit
+
+        let response = try await Gateway.callAsync("device/get_setting_typed", request, DtoRequests.TypedSettingResponse.fromByteArray)
         return response.value
     }
 
@@ -206,10 +234,11 @@ public final class AxisSettings: @unchecked Sendable {
         - setting: Name of the setting.
         - value: Value of the setting in units specified by following argument.
         - unit: Units of the value.
+        - round: If true, round the result to the device's native decimal places.
 
      - Returns: Setting value.
      */
-    public func convertToNativeUnits(setting: String, value: Double, unit: Units) throws -> Double {
+    public func convertToNativeUnits(setting: String, value: Double, unit: Units, round: Bool = false) throws -> Double {
         var request = DtoRequests.DeviceConvertSettingRequest()
         request.interfaceId = self.axis.device.connection.interfaceId
         request.device = self.axis.device.deviceAddress
@@ -217,6 +246,7 @@ public final class AxisSettings: @unchecked Sendable {
         request.setting = setting
         request.value = value
         request.unit = unit
+        request.round = round
 
         let response = try Gateway.callSync("device/convert_setting", request, DtoRequests.DoubleResponse.fromByteArray)
         return response.value
@@ -418,6 +448,32 @@ public final class AxisSettings: @unchecked Sendable {
 
         let response = try await Gateway.callAsync("device/get_many_axis_settings", request, DtoRequests.GetAxisSettingResults.fromByteArray)
         return response.results
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Returns many axis settings or properties in their native types in as few requests as possible.
+     Note that specifying units will always return floating point values,
+     even for settings that are natively integers.
+     For more information refer to the [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_settings).
+
+     - Parameters:
+        - axisSettings: The settings to read.
+
+     - Returns: The setting values read.
+     */
+    public func getManyTyped(_ axisSettings: GetAxisSetting...) async throws -> [GetAxisSettingTypedResult] {
+        _assertSendable(GetAxisSettingTypedResult.self)
+
+        var request = DtoRequests.DeviceMultiGetSettingRequest()
+        request.interfaceId = self.axis.device.connection.interfaceId
+        request.device = self.axis.device.deviceAddress
+        request.axis = self.axis.axisNumber
+        request.axisSettings = axisSettings
+
+        let response = try await Gateway.callAsync("device/get_many_axis_settings_typed", request, DtoRequests.GetAxisSettingsTypedResponse.fromByteArray)
+        return response.values
     }
 
     /**

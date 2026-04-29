@@ -413,10 +413,8 @@ public final class Connection: @unchecked Sendable {
 
         do {
             try Connection.free(interfaceId: self.interfaceId)
-        } catch let e as MotionLibException {
-            printToStderr("ZML Error: \(e.toString())")
         } catch {
-            printToStderr("System Error: \(error)")
+            fatalError("Failed to free Connection resource: \(error)")
         }
     }
 }

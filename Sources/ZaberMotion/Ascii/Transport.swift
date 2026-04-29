@@ -144,10 +144,8 @@ public final class Transport: @unchecked Sendable {
 
         do {
             try Transport.free(transportId: self.transportId)
-        } catch let e as MotionLibException {
-            printToStderr("ZML Error: \(e.toString())")
         } catch {
-            printToStderr("System Error: \(error)")
+            fatalError("Failed to free Transport resource: \(error)")
         }
     }
 }

@@ -85,14 +85,16 @@ public final class UnitTable {
         - conversion: The unit conversion data retrieved from device or axis.
         - value: The value to be converted.
         - fromUnit: The unit which the value is being converted from.
+        - round: If true, round the result to the descriptor's native decimal places.
 
      - Returns: The converted value. Throws ConversionFailedException if unit is incompatible.
      */
-    public static func convertToNativeUnits(conversion: UnitConversionDescriptor, value: Double, fromUnit: Units) throws -> Double {
+    public static func convertToNativeUnits(conversion: UnitConversionDescriptor, value: Double, fromUnit: Units, round: Bool = false) throws -> Double {
         var request = DtoRequests.UnitConvertNativeRequest()
         request.conversion = conversion
         request.value = value
         request.unit = fromUnit
+        request.round = round
 
         let response = try Gateway.callSync("units/convert_to_native_unit", request, DtoRequests.DoubleResponse.fromByteArray)
         return response.value
@@ -129,14 +131,16 @@ public final class UnitTable {
         - conversion: The unit conversion data retrieved from device or axis.
         - values: The value to be converted.
         - fromUnit: The unit which the value is being converted from.
+        - round: If true, round the results to the descriptor's native decimal places.
 
      - Returns: The converted values. Throws ConversionFailedException if unit is incompatible.
      */
-    public static func convertToNativeUnitsBatch(conversion: UnitConversionDescriptor, values: [Double], fromUnit: Units) throws -> [Double] {
+    public static func convertToNativeUnitsBatch(conversion: UnitConversionDescriptor, values: [Double], fromUnit: Units, round: Bool = false) throws -> [Double] {
         var request = DtoRequests.UnitConvertNativeRequest()
         request.conversion = conversion
         request.values = values
         request.unit = fromUnit
+        request.round = round
 
         let response = try Gateway.callSync("units/convert_to_native_unit_batch", request, DtoRequests.DoubleArrayResponse.fromByteArray)
         return response.values

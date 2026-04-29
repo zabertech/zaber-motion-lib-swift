@@ -29,10 +29,16 @@ public struct UnitConversionDescriptor: Serializable {
      */
     public var resolution: Int?
 
-    public init(dimension: String = "", conversionFunction: String = "", scale: Double = 0.0, resolution: Int? = nil) {
+    /**
+     * Number of decimal places the device uses for the native representation of this setting or command argument.
+     */
+    public var decimalPlaces: Int
+
+    public init(dimension: String = "", conversionFunction: String = "", scale: Double = 0.0, resolution: Int? = nil, decimalPlaces: Int = 0) {
         self.dimension = dimension
         self.conversionFunction = conversionFunction
         self.scale = scale
         self.resolution = resolution
+        self.decimalPlaces = decimalPlaces
     }
 }

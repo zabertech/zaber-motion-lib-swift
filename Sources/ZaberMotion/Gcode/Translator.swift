@@ -310,10 +310,8 @@ public final class Translator: @unchecked Sendable {
 
         do {
             try Translator.free(translatorId: self.translatorId)
-        } catch let e as MotionLibException {
-            printToStderr("ZML Error: \(e.toString())")
         } catch {
-            printToStderr("System Error: \(error)")
+            fatalError("Failed to free Translator resource: \(error)")
         }
     }
 }

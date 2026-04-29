@@ -288,10 +288,8 @@ public final class WdiAutofocusProvider: @unchecked Sendable {
 
         do {
             try WdiAutofocusProvider.free(providerId: self.providerId)
-        } catch let e as MotionLibException {
-            printToStderr("ZML Error: \(e.toString())")
         } catch {
-            printToStderr("System Error: \(error)")
+            fatalError("Failed to free WdiAutofocusProvider resource: \(error)")
         }
     }
 }

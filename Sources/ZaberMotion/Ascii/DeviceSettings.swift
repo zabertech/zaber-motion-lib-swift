@@ -3,6 +3,7 @@
 
 import UnitsInternal
 import Dto
+import DtoAscii
 import DtoRequests
 import Gateway
 import ZaberMotionExceptions
@@ -41,6 +42,32 @@ public final class DeviceSettings: @unchecked Sendable {
         request.unit = unit
 
         let response = try await Gateway.callAsync("device/get_setting", request, DtoRequests.DoubleResponse.fromByteArray)
+        return response.value
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Returns any device setting or property in its native type.
+     Note that specifying units will cause settings that are otherwise integers to be returned as floats.
+     For more information refer to the [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_settings).
+
+     - Parameters:
+        - setting: Name of the setting.
+        - unit: Units of setting to convert result to.
+
+     - Returns: Setting value.
+     */
+    public func getTyped(setting: String, unit: Units = Units.native) async throws -> TypedSetting {
+        _assertSendable(TypedSetting.self)
+
+        var request = DtoRequests.DeviceGetSettingRequest()
+        request.interfaceId = device.connection.interfaceId
+        request.device = device.deviceAddress
+        request.setting = setting
+        request.unit = unit
+
+        let response = try await Gateway.callAsync("device/get_setting_typed", request, DtoRequests.TypedSettingResponse.fromByteArray)
         return response.value
     }
 
@@ -198,16 +225,18 @@ public final class DeviceSettings: @unchecked Sendable {
         - setting: Name of the setting.
         - value: Value of the setting in units specified by following argument.
         - unit: Units of the value.
+        - round: If true, round the result to the device's native decimal places.
 
      - Returns: Setting value.
      */
-    public func convertToNativeUnits(setting: String, value: Double, unit: Units) throws -> Double {
+    public func convertToNativeUnits(setting: String, value: Double, unit: Units, round: Bool = false) throws -> Double {
         var request = DtoRequests.DeviceConvertSettingRequest()
         request.interfaceId = device.connection.interfaceId
         request.device = device.deviceAddress
         request.setting = setting
         request.value = value
         request.unit = unit
+        request.round = round
 
         let response = try Gateway.callSync("device/convert_setting", request, DtoRequests.DoubleResponse.fromByteArray)
         return response.value
@@ -402,6 +431,61 @@ public final class DeviceSettings: @unchecked Sendable {
 
         let response = try await Gateway.callAsync("device/get_many_settings", request, DtoRequests.GetSettingResults.fromByteArray)
         return response.results
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Returns many device settings or properties in their native types in as few requests as possible.
+     Note that specifying units will always return floating point values,
+     even for settings that are natively integers.
+     For more information refer to the [ASCII Protocol Manual](https://www.zaber.com/protocol-manual#topic_settings).
+
+     - Parameters:
+        - settings: The settings to read.
+
+     - Returns: The setting values read.
+     */
+    public func getManyTyped(_ settings: GetSetting...) async throws -> [GetSettingTypedResult] {
+        _assertSendable(GetSettingTypedResult.self)
+
+        var request = DtoRequests.DeviceMultiGetSettingRequest()
+        request.interfaceId = device.connection.interfaceId
+        request.device = device.deviceAddress
+        request.settings = settings
+
+        let response = try await Gateway.callAsync("device/get_many_settings_typed", request, DtoRequests.GetSettingsTypedResponse.fromByteArray)
+        return response.values
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Gets many settings in as few requests as possible, parsing each as the caller-specified type.
+     Unlike GetManyTyped, the type is determined by the caller, not the device database.
+     If a value cannot be parsed as the requested type, an error is thrown.
+
+     - Parameters:
+        - floatSettings: Settings to read as float values. Supports unit conversion.
+        - intSettings: Settings to read as integer values. Unit conversion is not supported.
+        - boolSettings: Settings to read as boolean values.
+        - stringSettings: Settings to read as string values.
+
+     - Returns: The setting values grouped by type.
+     */
+    public func getManyByType(floatSettings: [GetSetting] = [], intSettings: [GetSetting] = [], boolSettings: [GetSetting] = [], stringSettings: [GetSetting] = []) async throws -> GetSettingsByTypeResult {
+        _assertSendable(GetSettingsByTypeResult.self)
+
+        var request = DtoRequests.DeviceGetManyByTypeRequest()
+        request.interfaceId = device.connection.interfaceId
+        request.device = device.deviceAddress
+        request.floatSettings = floatSettings
+        request.intSettings = intSettings
+        request.boolSettings = boolSettings
+        request.stringSettings = stringSettings
+
+        let response = try await Gateway.callAsync("device/get_many_settings_by_type", request, GetSettingsByTypeResult.fromByteArray)
+        return response
     }
 
     /**

@@ -14,8 +14,9 @@ public struct DeviceConvertSettingRequest: Serializable {
     public var unit: Units
     public var value: Double
     public var fromNative: Bool
+    public var round: Bool
 
-    public init(interfaceId: Int = 0, device: Int = 0, axis: Int = 0, setting: String = "", unit: Units = Units.native, value: Double = 0.0, fromNative: Bool = false) {
+    public init(interfaceId: Int = 0, device: Int = 0, axis: Int = 0, setting: String = "", unit: Units = Units.native, value: Double = 0.0, fromNative: Bool = false, round: Bool = false) {
         self.interfaceId = interfaceId
         self.device = device
         self.axis = axis
@@ -23,5 +24,6 @@ public struct DeviceConvertSettingRequest: Serializable {
         self.unit = unit
         self.value = value
         self.fromNative = fromNative
+        self.round = round
     }
 }

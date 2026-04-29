@@ -1,6 +1,7 @@
 ﻿// ===== THIS FILE IS GENERATED FROM A TEMPLATE ===== //
 // ============== DO NOT EDIT DIRECTLY ============== //
 
+import UnitsInternal
 import Dto
 import DtoAscii
 import DtoRequests
@@ -58,15 +59,23 @@ public final class PvtBuffer: @unchecked Sendable {
 
      Gets the buffer contents as an array of PvtSequenceItem objects.
 
+     - Parameters:
+        - axes: Per-axis unit conversion specification.
+          The length must match the number of axes in the buffer.
+          When omitted, position and velocity values are returned in native units.
+        - timeUnits: Units to convert time values to. Defaults to native.
+
      - Returns: The PVT data loaded from the buffer.
      */
-    public func retrieveSequenceData() async throws -> [PvtSequenceItem] {
+    public func retrieveSequenceData(axes: [PvtBufferAxisUnits] = [], timeUnits: Units = Units.native) async throws -> [PvtSequenceItem] {
         _assertSendable(PvtSequenceItem.self)
 
         var request = DtoRequests.PvtBufferGetSequenceDataRequest()
         request.interfaceId = self.device.connection.interfaceId
         request.device = self.device.deviceAddress
         request.bufferNumber = self.bufferNumber
+        request.axes = axes
+        request.timeUnits = timeUnits
 
         let response = try await Gateway.callAsync("device/pvt_buffer_get_data", request, DtoRequests.PvtBufferGetSequenceDataResponse.fromByteArray)
         return response.sequenceData

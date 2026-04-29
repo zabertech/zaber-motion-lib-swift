@@ -313,10 +313,8 @@ public final class OfflineTranslator: @unchecked Sendable {
 
         do {
             try OfflineTranslator.free(translatorId: self.translatorId)
-        } catch let e as MotionLibException {
-            printToStderr("ZML Error: \(e.toString())")
         } catch {
-            printToStderr("System Error: \(error)")
+            fatalError("Failed to free OfflineTranslator resource: \(error)")
         }
     }
 }

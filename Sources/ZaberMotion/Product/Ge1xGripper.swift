@@ -399,6 +399,7 @@ public final class Ge1xGripper: @unchecked Sendable {
      Module: ZaberMotionProduct
 
      Enables or disables IO control for the gripper.
+     When enabled, the gripper will not move to a preset position until the IO input changes.
 
      - Parameters:
         - enabled: True to enable IO control, false to disable.
@@ -434,7 +435,8 @@ public final class Ge1xGripper: @unchecked Sendable {
     /**
      Module: ZaberMotionProduct
 
-     Saves a position, force, and speed as a preset.
+     Saves a position, force, and speed as a preset that can be enabled using I/O or the activatePreset() method.
+     Note that presets are only activated by I/O when the I/O input changes to that preset number.
 
      - Parameters:
         - presetNumber: The preset number to save the preset to, from 1 to 4.
@@ -528,10 +530,8 @@ public final class Ge1xGripper: @unchecked Sendable {
 
         do {
             try Ge1xGripper.free(connectionId: self.connectionId)
-        } catch let e as MotionLibException {
-            printToStderr("ZML Error: \(e.toString())")
         } catch {
-            printToStderr("System Error: \(error)")
+            fatalError("Failed to free Ge1xGripper resource: \(error)")
         }
     }
 }

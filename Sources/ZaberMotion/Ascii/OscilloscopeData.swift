@@ -224,10 +224,8 @@ public final class OscilloscopeData: @unchecked Sendable {
 
         do {
             try OscilloscopeData.free(dataId: self.dataId)
-        } catch let e as MotionLibException {
-            printToStderr("ZML Error: \(e.toString())")
         } catch {
-            printToStderr("System Error: \(error)")
+            fatalError("Failed to free OscilloscopeData resource: \(error)")
         }
     }
 }
