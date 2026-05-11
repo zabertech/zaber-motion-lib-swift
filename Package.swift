@@ -11,8 +11,8 @@ import PackageDescription
 #if os(macOS)
 let coreTarget: Target = .binaryTarget(
     name: "ZaberMotionCore",
-    url: "https://software.zaber.com/downloads/ZML/Swift/9.2.0/ZaberMotionCore.xcframework.zip",
-        checksum: "21dbcb46de2bc63ec409869c5f60f482e37d8f22803557fdd3c86273b076cde9"
+    url: "https://software.zaber.com/downloads/ZML/Swift/9.2.1/ZaberMotionCore.xcframework.zip",
+        checksum: "284ca4503a94c7edb8e83c45abb7592915bc67b68f3d9af34278d58724c27c7b"
 )
 #else
 let coreTarget: Target = .systemLibrary(

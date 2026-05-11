@@ -260,14 +260,10 @@ public final class Ge1xGripper: @unchecked Sendable {
      Module: ZaberMotionProduct
 
      Performs a calibration of the travel range by moving to the fully open and fully closed positions.
-
-     - Parameters:
-        - saveToFlash: Save the calibration results to flash memory so they are retained on power cycle.
      */
-    public func calibrate(saveToFlash: Bool = true) async throws  {
-        var request = DtoRequests.Ge1xGripperCalibrateRequest()
+    public func calibrate() async throws  {
+        var request = DtoRequests.Ge1xGripperEmptyRequest()
         request.connectionId = self.connectionId
-        request.saveToFlash = saveToFlash
 
         try await Gateway.callAsync("ge1x_gripper/calibrate", request)
     }
