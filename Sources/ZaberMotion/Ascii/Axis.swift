@@ -628,6 +628,30 @@ public final class Axis: @unchecked Sendable {
     /**
      Module: ZaberMotionAscii
 
+     Checks whether the axis supports the given command.
+
+     - Parameters:
+        - command: Command to check.
+          Parameters can be denoted by question marks, valid values, or the parameter name.
+        - allowPartial: If true, also matches commands that are a prefix of a supported command.
+
+     - Returns: True if the command is supported.
+     */
+    public func hasCommand(command: String, allowPartial: Bool = false) throws -> Bool {
+        var request = DtoRequests.DeviceHasCommandRequest()
+        request.interfaceId = self.device.connection.interfaceId
+        request.device = self.device.deviceAddress
+        request.axis = self.axisNumber
+        request.command = command
+        request.allowPartial = allowPartial
+
+        let response = try Gateway.callSync("device/has_command", request, DtoRequests.BoolResponse.fromByteArray)
+        return response.value
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
      Retrieves unit conversion descriptors for a command, allowing unit conversion without a device.
      The descriptors can be used with the ConvertTo/FromNativeUnits methods of the UnitTable class.
      Parameters in the command template are denoted by a question mark.

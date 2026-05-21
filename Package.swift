@@ -11,8 +11,8 @@ import PackageDescription
 #if os(macOS)
 let coreTarget: Target = .binaryTarget(
     name: "ZaberMotionCore",
-    url: "https://software.zaber.com/downloads/ZML/Swift/9.2.1/ZaberMotionCore.xcframework.zip",
-        checksum: "284ca4503a94c7edb8e83c45abb7592915bc67b68f3d9af34278d58724c27c7b"
+    url: "https://software.zaber.com/downloads/ZML/Swift/9.3.0/ZaberMotionCore.xcframework.zip",
+        checksum: "cebdde65f29e18ec48ad727a9f3694b9ee389208127934e4a502442744bf478a"
 )
 #else
 let coreTarget: Target = .systemLibrary(
@@ -46,6 +46,7 @@ let package = Package(
                 "ZaberMotionExceptions",
                 "ZaberMotionGcode",
                 "ZaberMotionMicroscopy",
+                "ZaberMotionMovement",
                 "ZaberMotionProduct",
             ]
         )
@@ -69,6 +70,7 @@ let package = Package(
                 "Exceptions",
                 "Gcode",
                 "Microscopy",
+                "Movement",
                 "Product",
                 "Units",
                 "Utils",
@@ -146,6 +148,20 @@ let package = Package(
             path: "Sources/ZaberMotion/Microscopy"
         ),
         .target(
+            name: "ZaberMotionMovement",
+            dependencies: [
+                "DtoMovement",
+                "DtoRequests",
+                "Gateway",
+                "ZaberMotionAscii",
+                "ZaberMotionExceptions",
+                "UnitsInternal",
+                "Dto",
+                "Utils",
+            ],
+            path: "Sources/ZaberMotion/Movement"
+        ),
+        .target(
             name: "ZaberMotionProduct",
             dependencies: [
                 "DtoProduct",
@@ -174,6 +190,7 @@ let package = Package(
                 "Exceptions",
                 "Gcode",
                 "Microscopy",
+                "Movement",
                 "Product",
                 "Requests",
                 "Serializable"
@@ -226,6 +243,14 @@ let package = Package(
             path: "Sources/ZaberMotion/Dto/Microscopy"
         ),
         .target(
+            name: "DtoMovement",
+            dependencies: [
+                "DtoSerializable",
+                "Dto"
+            ],
+            path: "Sources/ZaberMotion/Dto/Movement"
+        ),
+        .target(
             name: "DtoProduct",
             dependencies: [
                 "DtoSerializable"
@@ -240,6 +265,7 @@ let package = Package(
                 "DtoAscii",
                 "DtoBinary",
                 "DtoMicroscopy",
+                "DtoMovement",
                 "DtoProduct",
                 "DtoGcode",
                 "UnitsInternal"

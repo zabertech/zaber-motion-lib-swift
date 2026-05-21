@@ -388,6 +388,27 @@ public final class AxisSettings: @unchecked Sendable {
     /**
      Module: ZaberMotionAscii
 
+     Indicates whether the specified setting exists on this axis.
+
+     - Parameters:
+        - setting: Name of the setting.
+
+     - Returns: True if the setting exists on this axis.
+     */
+    public func hasSetting(setting: String) throws -> Bool {
+        var request = DtoRequests.DeviceGetSettingRequest()
+        request.interfaceId = self.axis.device.connection.interfaceId
+        request.device = self.axis.device.deviceAddress
+        request.axis = self.axis.axisNumber
+        request.setting = setting
+
+        let response = try Gateway.callSync("device/has_setting", request, DtoRequests.BoolResponse.fromByteArray)
+        return response.value
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
      Retrieves unit conversion descriptor for a setting, allowing unit conversion without a device.
      The descriptor can be used with the ConvertTo/FromNativeUnits methods of the UnitTable class.
 

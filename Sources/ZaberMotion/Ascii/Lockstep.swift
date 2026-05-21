@@ -59,7 +59,7 @@ public final class Lockstep: @unchecked Sendable {
      Disable the lockstep group.
      */
     public func disable() async throws  {
-        var request = DtoRequests.LockstepDisableRequest()
+        var request = DtoRequests.LockstepEmptyRequest()
         request.interfaceId = self.device.connection.interfaceId
         request.device = self.device.deviceAddress
         request.lockstepGroupId = self.lockstepGroupId

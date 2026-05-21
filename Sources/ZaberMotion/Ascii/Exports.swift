@@ -63,3 +63,4 @@ public typealias TriggerCondition = DtoAscii.TriggerCondition
 public typealias TriggerAction = DtoAscii.TriggerAction
 public typealias TriggerOperation = DtoAscii.TriggerOperation
 public typealias DigitalOutputAction = DtoAscii.DigitalOutputAction
+public typealias AccelType = DtoAscii.AccelType

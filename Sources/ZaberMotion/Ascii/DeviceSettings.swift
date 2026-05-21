@@ -372,6 +372,26 @@ public final class DeviceSettings: @unchecked Sendable {
     /**
      Module: ZaberMotionAscii
 
+     Indicates whether the specified setting exists on this device.
+
+     - Parameters:
+        - setting: Name of the setting.
+
+     - Returns: True if the setting exists on this device.
+     */
+    public func hasSetting(setting: String) throws -> Bool {
+        var request = DtoRequests.DeviceGetSettingRequest()
+        request.interfaceId = device.connection.interfaceId
+        request.device = device.deviceAddress
+        request.setting = setting
+
+        let response = try Gateway.callSync("device/has_setting", request, DtoRequests.BoolResponse.fromByteArray)
+        return response.value
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
      Retrieves unit conversion descriptor for a setting, allowing unit conversion without a device.
      The descriptor can be used with the ConvertTo/FromNativeUnits methods of the UnitTable class.
 
