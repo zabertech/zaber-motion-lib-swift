@@ -16,10 +16,11 @@ public struct GetSettingBoolResult: Serializable {
 
     /**
      * The list of values returned.
+     * A value is null when the device responds with NA, indicating the setting is not supported by the device or an axis.
      */
-    public var values: [Bool]
+    public var values: [Bool?]
 
-    public init(setting: String = "", values: [Bool] = []) {
+    public init(setting: String = "", values: [Bool?] = []) {
         self.setting = setting
         self.values = values
     }

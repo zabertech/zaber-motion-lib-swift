@@ -16,10 +16,11 @@ public struct GetSettingStringResult: Serializable {
 
     /**
      * The list of values returned.
+     * A value is null when the device responds with NA, indicating the setting is not supported by the device or an axis.
      */
-    public var values: [String]
+    public var values: [String?]
 
-    public init(setting: String = "", values: [String] = []) {
+    public init(setting: String = "", values: [String?] = []) {
         self.setting = setting
         self.values = values
     }

@@ -851,7 +851,7 @@ public final class Axis: @unchecked Sendable {
      - Parameters:
         - amplitude: Amplitude of the sinusoidal motion (half of the motion's peak-to-peak range).
         - amplitudeUnits: Units of position.
-        - period: Period of the sinusoidal motion in milliseconds.
+        - period: Period of the sinusoidal motion.
         - periodUnits: Units of time.
         - count: Number of sinusoidal cycles to complete.
           Must be a multiple of 0.5

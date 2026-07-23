@@ -11,6 +11,7 @@ public struct GetSettingsByTypeResult: Serializable {
 
     /**
      * Float setting results.
+     * A value is NaN when the device responds with NA, indicating the setting is not supported by the device or an axis.
      */
     public var floatSettings: [GetSettingResult]
 

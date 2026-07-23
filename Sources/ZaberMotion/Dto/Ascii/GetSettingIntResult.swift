@@ -16,10 +16,11 @@ public struct GetSettingIntResult: Serializable {
 
     /**
      * The list of values returned.
+     * A value is null when the device responds with NA, indicating the setting is not supported by the device or an axis.
      */
-    public var values: [Int64]
+    public var values: [Int64?]
 
-    public init(setting: String = "", values: [Int64] = []) {
+    public init(setting: String = "", values: [Int64?] = []) {
         self.setting = setting
         self.values = values
     }

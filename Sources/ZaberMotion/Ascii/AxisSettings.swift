@@ -452,6 +452,8 @@ public final class AxisSettings: @unchecked Sendable {
      Module: ZaberMotionAscii
 
      Gets many setting values in as few requests as possible.
+     A returned value is NaN when the device responds with NA,
+     indicating the setting is not supported by the axis.
 
      - Parameters:
         - axisSettings: The settings to read.

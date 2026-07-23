@@ -33,6 +33,23 @@ public final class Tools {
     /**
      Module: ZaberMotion
 
+     Lists all serial ports on the computer together with details such as the USB
+     vendor and product identifiers of the device behind each USB port.
+
+     - Returns: Array of serial ports with their details.
+     */
+    public static func listSerialPortsDetails() async throws -> [SerialPortDetails] {
+        _assertSendable(SerialPortDetails.self)
+
+        let request = DtoRequests.EmptyRequest()
+
+        let response = try await Gateway.callAsync("tools/list_serial_ports_details", request, DtoRequests.ToolsListSerialPortsDetailsResponse.fromByteArray)
+        return response.ports
+    }
+
+    /**
+     Module: ZaberMotion
+
      Returns path of message router named pipe on Windows
      or file path of unix domain socket on UNIX.
 

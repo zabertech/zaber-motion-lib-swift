@@ -18,6 +18,7 @@ public struct GetSettingResult: Serializable {
 
     /**
      * The list of values returned.
+     * A value is NaN when the device responds with NA, indicating the setting is not supported by the device or an axis.
      */
     public var values: [Double]
 

@@ -459,7 +459,8 @@ public final class Moveable: @unchecked Sendable {
     /**
      Module: ZaberMotionMovement
 
-     Returns the maximum acceleration of the moveable. For a lockstep group, returns the lowest value across all axes.
+     Returns the maximum acceleration of the moveable.
+     For a lockstep group, returns the lowest value across all axes.
 
      - Parameters:
         - accelType: Which acceleration ramp to return. Defaults to AccelDecel.

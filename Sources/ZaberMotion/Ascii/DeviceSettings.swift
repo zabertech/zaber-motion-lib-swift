@@ -435,6 +435,8 @@ public final class DeviceSettings: @unchecked Sendable {
      Module: ZaberMotionAscii
 
      Gets many setting values in as few device requests as possible.
+     A returned value is NaN when the device responds with NA,
+     indicating the setting is not supported by the device or an axis.
 
      - Parameters:
         - settings: The settings to read.
@@ -483,7 +485,9 @@ public final class DeviceSettings: @unchecked Sendable {
 
      Gets many settings in as few requests as possible, parsing each as the caller-specified type.
      Unlike GetManyTyped, the type is determined by the caller, not the device database.
-     If a value cannot be parsed as the requested type, an error is thrown.
+     Settings that are not supported by the device or an axis yield NaN (float)
+     or null (integer, boolean, and string) values.
+     If a value exists but cannot be parsed as the requested type, an error is thrown.
 
      - Parameters:
         - floatSettings: Settings to read as float values. Supports unit conversion.

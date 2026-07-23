@@ -18,6 +18,7 @@ public struct GetAxisSettingResult: Serializable {
 
     /**
      * The value read.
+     * The value is NaN when the device responds with NA, indicating the setting is not supported by the axis.
      */
     public var value: Double
 
