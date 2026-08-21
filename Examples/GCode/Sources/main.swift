@@ -6,7 +6,7 @@ import ZaberMotionExceptions
 
 do {
     try Library.setLogOutput(mode: LogOutputMode.stdout)
-    try Library.setDeviceDbSource(sourceType: DeviceDbSourceType.webService, urlOrFilePath: "https://api.zaber.io/device-db/master")
+    try Library.setDeviceDbSource(sourceType: DeviceDbSourceType.webService, urlOrFilePath: "master")
 
     let conn = try await Connection.openTcp(hostName: "localhost", port: 11321)
     let detected = try await conn.detectDevices()

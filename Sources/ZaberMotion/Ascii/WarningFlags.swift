@@ -86,7 +86,7 @@ public final class WarningFlags {
     public static let stalledAndStopped: String = "FS"
 
     /**
-     Stream Bounds Error
+     Stream/PVT Sequence Bounds Error
      */
     public static let streamBoundsError: String = "FB"
 
@@ -156,7 +156,7 @@ public final class WarningFlags {
     public static let movementInterrupted: String = "NI"
 
     /**
-     Stream Discontinuity
+     Stream/PVT Sequence Discontinuity
      */
     public static let streamDiscontinuity: String = "ND"
 

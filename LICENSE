@@ -1159,7 +1159,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ------------------
-github.com/stretchr/testify v1.7.1
+github.com/stretchr/testify v1.11.1
 ------------------
 MIT License
 
@@ -1862,10 +1862,10 @@ Public License instead of this License.  But first, please read
 <https://www.gnu.org/licenses/why-not-lgpl.html>.
 
 ------------------
-github.com/zabertech/go-serial v0.0.0-20250729220630-0e47786acc33 (fork github.com/bugst/go-serial)
+github.com/zabertech/go-serial v0.0.0-20260624150618-80eea0f9b8d8 (fork github.com/bugst/go-serial)
 ------------------
 
-Copyright (c) 2014-2016, Cristian Maglie.
+Copyright (c) 2014-2026, Cristian Maglie.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -1897,9 +1897,8 @@ LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
 ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 
-
 ------------------
-gitlab.com/ZaberTech/zaber-device-db-service v0.0.0-20260321034906-d07612c69337
+gitlab.com/ZaberTech/zaber-device-db-service v0.0.0-20260819205842-f65107591f67
 ------------------
 Copyright 2022 Zaber Technologies Inc.
 
@@ -1910,7 +1909,7 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ------------------
-gitlab.com/ZaberTech/zaber-go-lib v0.0.0-20260321034215-e98f002fe839
+gitlab.com/ZaberTech/zaber-go-lib v0.0.0-20260819201212-d5b77ec59709
 ------------------
 Copyright 2022 Zaber Technologies Inc.
 
@@ -2250,7 +2249,7 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ------------------
-golang.org/x/sys v0.42.0
+golang.org/x/sys v0.46.0
 ------------------
 Copyright 2009 The Go Authors.
 
@@ -2338,7 +2337,7 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ------------------
-gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
+gopkg.in/yaml.v3 v3.0.1
 ------------------
 
 This project is covered by two different licenses: MIT and Apache.

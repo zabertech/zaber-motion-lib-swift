@@ -17,7 +17,9 @@ public struct Measurement: Serializable {
     public var value: Double
 
     /**
-     * Optional units of the measurement.
+     * Optional units of measure.
+     * If not set, most functions assume device native units as the default.
+     * Some contexts, such as the Movable class allow you to specify custom default units.
      */
     public var unit: Units?
 
