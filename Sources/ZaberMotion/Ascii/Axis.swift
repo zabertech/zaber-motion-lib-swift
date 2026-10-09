@@ -141,7 +141,9 @@ public final class Axis: @unchecked Sendable {
      Homes axis. Axis returns to its homing position.
 
      - Parameters:
-        - waitUntilIdle: Determines whether function should return after the movement is finished or just started.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
      */
     public func home(waitUntilIdle: Bool = true) async throws  {
         var request = DtoRequests.DeviceHomeRequest()
@@ -159,7 +161,9 @@ public final class Axis: @unchecked Sendable {
      Stops ongoing axis movement. Decelerates until zero speed.
 
      - Parameters:
-        - waitUntilIdle: Determines whether function should return after the movement is finished or just started.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
      */
     public func stop(waitUntilIdle: Bool = true) async throws  {
         var request = DtoRequests.DeviceStopRequest()
@@ -213,7 +217,7 @@ public final class Axis: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.axis = self.axisNumber
 
-        let response = try await Gateway.callAsync("device/is_parked", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/is_parked", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -248,7 +252,7 @@ public final class Axis: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.axis = self.axisNumber
 
-        let response = try await Gateway.callAsync("device/is_busy", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/is_busy", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -265,7 +269,7 @@ public final class Axis: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.axis = self.axisNumber
 
-        let response = try await Gateway.callAsync("device/is_homed", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/is_homed", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -277,7 +281,9 @@ public final class Axis: @unchecked Sendable {
      - Parameters:
         - position: Absolute position.
         - unit: Units of position.
-        - waitUntilIdle: Determines whether function should return after the movement is finished or just started.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
         - velocity: Movement velocity.
           Default value of 0 indicates that the maxspeed setting is used instead.
           Requires at least Firmware 7.25.
@@ -314,7 +320,9 @@ public final class Axis: @unchecked Sendable {
      Moves the axis to the maximum position as specified by limit.max.
 
      - Parameters:
-        - waitUntilIdle: Determines whether function should return after the movement is finished or just started.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
         - velocity: Movement velocity.
           Default value of 0 indicates that the maxspeed setting is used instead.
           Requires at least Firmware 7.25.
@@ -345,7 +353,9 @@ public final class Axis: @unchecked Sendable {
      Moves the axis to the minimum position as specified by limit.min.
 
      - Parameters:
-        - waitUntilIdle: Determines whether function should return after the movement is finished or just started.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
         - velocity: Movement velocity.
           Default value of 0 indicates that the maxspeed setting is used instead.
           Requires at least Firmware 7.25.
@@ -378,7 +388,9 @@ public final class Axis: @unchecked Sendable {
      - Parameters:
         - position: Relative position.
         - unit: Units of position.
-        - waitUntilIdle: Determines whether function should return after the movement is finished or just started.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
         - velocity: Movement velocity.
           Default value of 0 indicates that the maxspeed setting is used instead.
           Requires at least Firmware 7.25.
@@ -450,7 +462,7 @@ public final class Axis: @unchecked Sendable {
         request.setting = "pos"
         request.unit = unit
 
-        let response = try await Gateway.callAsync("device/get_setting", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_setting", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -467,7 +479,7 @@ public final class Axis: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.axis = self.axisNumber
 
-        let response = try await Gateway.callAsync("device/get_index_count", request, DtoRequests.IntResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_index_count", request, DtoRequests.IntValue.fromByteArray)
         return response.value
     }
 
@@ -484,7 +496,7 @@ public final class Axis: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.axis = self.axisNumber
 
-        let response = try await Gateway.callAsync("device/get_index_position", request, DtoRequests.IntResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_index_position", request, DtoRequests.IntValue.fromByteArray)
         return response.value
     }
 
@@ -495,7 +507,9 @@ public final class Axis: @unchecked Sendable {
 
      - Parameters:
         - index: Index position. Index positions are numbered from 1.
-        - waitUntilIdle: Determines whether function should return after the movement is finished or just started.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
         - velocity: Movement velocity.
           Default value of 0 indicates that the maxspeed setting is used instead.
           Requires at least Firmware 7.25.
@@ -621,7 +635,7 @@ public final class Axis: @unchecked Sendable {
         request.commandTemplate = commandTemplate
         request.parameters = parameters
 
-        let response = try Gateway.callSync("device/prepare_command", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("device/prepare_command", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 
@@ -645,7 +659,7 @@ public final class Axis: @unchecked Sendable {
         request.command = command
         request.allowPartial = allowPartial
 
-        let response = try Gateway.callSync("device/has_command", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try Gateway.callSync("device/has_command", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -705,7 +719,7 @@ public final class Axis: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.axis = self.axisNumber
 
-        let response = try Gateway.callSync("device/axis_to_string", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("device/axis_to_string", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 
@@ -722,7 +736,7 @@ public final class Axis: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.axis = self.axisNumber
 
-        let response = try await Gateway.callAsync("device/get_state", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_state", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 
@@ -856,7 +870,9 @@ public final class Axis: @unchecked Sendable {
         - count: Number of sinusoidal cycles to complete.
           Must be a multiple of 0.5
           If count is not specified or set to 0, the axis will move indefinitely.
-        - waitUntilIdle: Determines whether function should return after the movement is finished or just started.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
      */
     public func moveSin(amplitude: Double, amplitudeUnits: Units, period: Double, periodUnits: Units, count: Double = 0, waitUntilIdle: Bool = true) async throws  {
         var request = DtoRequests.DeviceMoveSinRequest()
@@ -881,7 +897,9 @@ public final class Axis: @unchecked Sendable {
      the motion ends at the half-way point of the sinusoidal trajectory.
 
      - Parameters:
-        - waitUntilIdle: Determines whether function should return after the movement is finished.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
      */
     public func moveSinStop(waitUntilIdle: Bool = true) async throws  {
         var request = DtoRequests.DeviceStopRequest()
@@ -906,7 +924,7 @@ public final class Axis: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.axis = self.axisNumber
 
-        let response = try Gateway.callSync("device/get_label", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("device/get_label", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 

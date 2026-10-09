@@ -4,10 +4,10 @@
 import Foundation
 import DtoSerializable
 
-public struct IntRequest: Serializable {
-    public var value: Int
+public struct StringValue: Serializable {
+    public var value: String
 
-    public init(value: Int = 0) {
+    public init(value: String = "") {
         self.value = value
     }
 }

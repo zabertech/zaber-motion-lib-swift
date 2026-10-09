@@ -219,7 +219,7 @@ public final class Device: @unchecked Sendable {
         request.toUnit = toUnit
         request.timeout = timeout
 
-        let response = try await Gateway.callAsync("binary/device/generic_command_with_units", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("binary/device/generic_command_with_units", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -241,7 +241,7 @@ public final class Device: @unchecked Sendable {
         request.unit = unit
         request.timeout = timeout
 
-        let response = try await Gateway.callAsync("binary/device/home", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("binary/device/home", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -263,7 +263,7 @@ public final class Device: @unchecked Sendable {
         request.unit = unit
         request.timeout = timeout
 
-        let response = try await Gateway.callAsync("binary/device/stop", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("binary/device/stop", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -288,7 +288,7 @@ public final class Device: @unchecked Sendable {
         request.unit = unit
         request.timeout = timeout
 
-        let response = try await Gateway.callAsync("binary/device/move", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("binary/device/move", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -313,7 +313,7 @@ public final class Device: @unchecked Sendable {
         request.unit = unit
         request.timeout = timeout
 
-        let response = try await Gateway.callAsync("binary/device/move", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("binary/device/move", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -336,7 +336,7 @@ public final class Device: @unchecked Sendable {
         request.arg = velocity
         request.unit = unit
 
-        let response = try await Gateway.callAsync("binary/device/move", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("binary/device/move", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -365,7 +365,7 @@ public final class Device: @unchecked Sendable {
         request.interfaceId = self.connection.interfaceId
         request.device = self.deviceAddress
 
-        let response = try await Gateway.callAsync("binary/device/is_busy", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("binary/device/is_busy", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -438,7 +438,7 @@ public final class Device: @unchecked Sendable {
         request.interfaceId = self.connection.interfaceId
         request.device = self.deviceAddress
 
-        let response = try await Gateway.callAsync("binary/device/is_parked", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("binary/device/is_parked", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -459,7 +459,7 @@ public final class Device: @unchecked Sendable {
         request.setting = BinarySettings.currentPosition
         request.unit = unit
 
-        let response = try await Gateway.callAsync("binary/device/get_setting", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("binary/device/get_setting", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -475,7 +475,7 @@ public final class Device: @unchecked Sendable {
         request.interfaceId = self.connection.interfaceId
         request.device = self.deviceAddress
 
-        let response = try Gateway.callSync("binary/device/device_to_string", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("binary/device/device_to_string", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 
@@ -507,7 +507,7 @@ public final class Device: @unchecked Sendable {
         request.interfaceId = self.connection.interfaceId
         request.device = self.deviceAddress
 
-        let response = try Gateway.callSync("binary/device/get_is_identified", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try Gateway.callSync("binary/device/get_is_identified", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 }

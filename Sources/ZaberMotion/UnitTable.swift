@@ -27,11 +27,11 @@ public final class UnitTable {
      - Returns: Symbols corresponding to the given unit. Throws NoValueForKey if no symbol is defined.
      */
     public static func getSymbol(unit: Units) throws -> String {
-        var request = DtoRequests.UnitGetSymbolRequest()
-        request.unit = unit
+        var request = DtoRequests.UnitsValue()
+        request.value = unit
 
-        let response = try Gateway.callSync("units/get_symbol", request, DtoRequests.UnitGetSymbolResponse.fromByteArray)
-        return response.symbol
+        let response = try Gateway.callSync("units/get_symbol", request, DtoRequests.StringValue.fromByteArray)
+        return response.value
     }
 
     /**
@@ -46,11 +46,11 @@ public final class UnitTable {
      - Returns: The unit enum value with the given symbols. Throws NoValueForKey if the symbol is not supported for lookup.
      */
     public static func getUnit(symbol: String) throws -> Units {
-        var request = DtoRequests.UnitGetEnumRequest()
-        request.symbol = symbol
+        var request = DtoRequests.StringValue()
+        request.value = symbol
 
-        let response = try Gateway.callSync("units/get_enum", request, DtoRequests.UnitGetEnumResponse.fromByteArray)
-        return response.unit
+        let response = try Gateway.callSync("units/get_enum", request, DtoRequests.UnitsValue.fromByteArray)
+        return response.value
     }
 
     /**
@@ -72,7 +72,7 @@ public final class UnitTable {
         request.fromUnit = fromUnit
         request.toUnit = toUnit
 
-        let response = try Gateway.callSync("units/convert_unit", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try Gateway.callSync("units/convert_unit", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -96,7 +96,7 @@ public final class UnitTable {
         request.unit = fromUnit
         request.round = round
 
-        let response = try Gateway.callSync("units/convert_to_native_unit", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try Gateway.callSync("units/convert_to_native_unit", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -118,7 +118,7 @@ public final class UnitTable {
         request.value = value
         request.unit = toUnit
 
-        let response = try Gateway.callSync("units/convert_from_native_unit", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try Gateway.callSync("units/convert_from_native_unit", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -142,7 +142,7 @@ public final class UnitTable {
         request.unit = fromUnit
         request.round = round
 
-        let response = try Gateway.callSync("units/convert_to_native_unit_batch", request, DtoRequests.DoubleArrayResponse.fromByteArray)
+        let response = try Gateway.callSync("units/convert_to_native_unit_batch", request, DtoRequests.DoubleArrayValue.fromByteArray)
         return response.values
     }
 
@@ -164,7 +164,7 @@ public final class UnitTable {
         request.values = values
         request.unit = toUnit
 
-        let response = try Gateway.callSync("units/convert_from_native_unit_batch", request, DtoRequests.DoubleArrayResponse.fromByteArray)
+        let response = try Gateway.callSync("units/convert_from_native_unit_batch", request, DtoRequests.DoubleArrayValue.fromByteArray)
         return response.values
     }
 }

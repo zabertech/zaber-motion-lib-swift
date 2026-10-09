@@ -61,8 +61,8 @@ public final class Illuminator: @unchecked Sendable {
         request.interfaceId = connection.interfaceId
         request.deviceAddress = deviceAddress
 
-        let response = try await Gateway.callAsync("illuminator/detect", request, DtoRequests.FindDeviceResponse.fromByteArray)
-        return try Illuminator(device: Device(connection: connection, deviceAddress: response.address))
+        let response = try await Gateway.callAsync("illuminator/detect", request, DtoRequests.IntValue.fromByteArray)
+        return try Illuminator(device: Device(connection: connection, deviceAddress: response.value))
     }
 
     /**
@@ -109,7 +109,7 @@ public final class Illuminator: @unchecked Sendable {
         request.interfaceId = self.device.connection.interfaceId
         request.device = self.device.deviceAddress
 
-        let response = try Gateway.callSync("device/device_to_string", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("device/device_to_string", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 

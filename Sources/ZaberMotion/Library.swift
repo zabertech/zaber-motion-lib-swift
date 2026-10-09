@@ -106,7 +106,7 @@ public final class Library {
     public static func isDeviceDbStoreEnabled() throws -> Bool {
         let request = DtoRequests.EmptyRequest()
 
-        let response = try Gateway.callSync("device_db/check_store", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try Gateway.callSync("device_db/check_store", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -131,8 +131,8 @@ public final class Library {
         - mode: Whether to turn internal mode on or off.
      */
     public static func setInternalMode(mode: Bool) throws  {
-        var request = DtoRequests.SetInternalModeRequest()
-        request.mode = mode
+        var request = DtoRequests.BoolValue()
+        request.value = mode
 
         try Gateway.callSync("library/set_internal_mode", request)
     }
@@ -148,7 +148,7 @@ public final class Library {
           Negative value restores the default period.
      */
     public static func setIdlePollingPeriod(period: Int) throws  {
-        var request = DtoRequests.IntRequest()
+        var request = DtoRequests.IntValue()
         request.value = period
 
         try Gateway.callSync("library/set_idle_polling_period", request)
@@ -177,7 +177,7 @@ public final class Library {
         - hostApplication: String name of the host application with which ZML is bundled.
      */
     public static func setHostApplication(hostApplication: String) throws  {
-        var request = DtoRequests.StringResponse()
+        var request = DtoRequests.StringValue()
         request.value = hostApplication
 
         try Gateway.callSync("library/set_host_application", request)

@@ -59,8 +59,8 @@ public final class Translator: @unchecked Sendable {
         request.streamId = stream.streamId
         request.config = config
 
-        let response = try await Gateway.callAsync("gcode/create_live", request, DtoRequests.TranslatorCreateResponse.fromByteArray)
-        return Translator(translatorId: response.translatorId)
+        let response = try await Gateway.callAsync("gcode/create_live", request, DtoRequests.IntValue.fromByteArray)
+        return Translator(translatorId: response.value)
     }
 
     /**
@@ -94,6 +94,8 @@ public final class Translator: @unchecked Sendable {
 
      - Parameters:
         - waitUntilIdle: Determines whether to wait for the stream to finish all the movements.
+          When false, you must call WaitUntilIdle on the underlying stream afterwards
+          to detect and handle any errors that occur during the movement.
 
      - Returns: The remaining stream commands.
      */
@@ -113,8 +115,8 @@ public final class Translator: @unchecked Sendable {
      Call this method after performing a movement outside of translator.
      */
     public func resetPosition() async throws  {
-        var request = DtoRequests.TranslatorEmptyRequest()
-        request.translatorId = self.translatorId
+        var request = DtoRequests.IntValue()
+        request.value = self.translatorId
 
         try await Gateway.callAsync("gcode/reset_position_from_stream", request)
     }
@@ -177,7 +179,7 @@ public final class Translator: @unchecked Sendable {
         request.axis = axis
         request.unit = unit
 
-        let response = try Gateway.callSync("gcode/get_axis_position", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try Gateway.callSync("gcode/get_axis_position", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -242,7 +244,7 @@ public final class Translator: @unchecked Sendable {
         request.axis = axis
         request.unit = unit
 
-        let response = try Gateway.callSync("gcode/get_axis_offset", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try Gateway.callSync("gcode/get_axis_offset", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -253,8 +255,8 @@ public final class Translator: @unchecked Sendable {
      Axis positions become uninitialized.
      */
     public func resetAfterStreamError() throws  {
-        var request = DtoRequests.TranslatorEmptyRequest()
-        request.translatorId = self.translatorId
+        var request = DtoRequests.IntValue()
+        request.value = self.translatorId
 
         try Gateway.callSync("gcode/reset_after_stream_error", request)
     }
@@ -284,8 +286,8 @@ public final class Translator: @unchecked Sendable {
         - translatorId: The ID of the translator.
      */
     static func free(translatorId: Int) throws  {
-        var request = DtoRequests.TranslatorEmptyRequest()
-        request.translatorId = translatorId
+        var request = DtoRequests.IntValue()
+        request.value = translatorId
 
         try Gateway.callSync("gcode/free", request)
     }
@@ -298,10 +300,10 @@ public final class Translator: @unchecked Sendable {
      - Returns: Current coordinate system.
      */
     func getCurrentCoordinateSystem() throws -> String {
-        var request = DtoRequests.TranslatorEmptyRequest()
-        request.translatorId = self.translatorId
+        var request = DtoRequests.IntValue()
+        request.value = self.translatorId
 
-        let response = try Gateway.callSync("gcode/get_current_coordinate_system", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("gcode/get_current_coordinate_system", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 

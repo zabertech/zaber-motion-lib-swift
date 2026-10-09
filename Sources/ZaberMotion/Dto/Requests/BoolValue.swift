@@ -4,10 +4,10 @@
 import Foundation
 import DtoSerializable
 
-public struct UnitGetEnumRequest: Serializable {
-    public var symbol: String
+public struct BoolValue: Serializable {
+    public var value: Bool
 
-    public init(symbol: String = "") {
-        self.symbol = symbol
+    public init(value: Bool = false) {
+        self.value = value
     }
 }

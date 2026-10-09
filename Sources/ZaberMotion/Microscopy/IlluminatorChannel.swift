@@ -128,7 +128,7 @@ public final class IlluminatorChannel: @unchecked Sendable {
         request.device = self.illuminator.device.deviceAddress
         request.axis = self.channelNumber
 
-        let response = try await Gateway.callAsync("illuminator/is_on", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("illuminator/is_on", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -163,7 +163,7 @@ public final class IlluminatorChannel: @unchecked Sendable {
         request.device = self.illuminator.device.deviceAddress
         request.axis = self.channelNumber
 
-        let response = try await Gateway.callAsync("illuminator/get_intensity", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("illuminator/get_intensity", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -258,7 +258,7 @@ public final class IlluminatorChannel: @unchecked Sendable {
         request.device = self.illuminator.device.deviceAddress
         request.axis = self.channelNumber
 
-        let response = try await Gateway.callAsync("device/get_state", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_state", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 
@@ -325,7 +325,7 @@ public final class IlluminatorChannel: @unchecked Sendable {
         request.axis = self.channelNumber
         request.typeOverride = "Channel"
 
-        let response = try Gateway.callSync("device/axis_to_string", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("device/axis_to_string", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 }

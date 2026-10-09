@@ -1862,7 +1862,7 @@ Public License instead of this License.  But first, please read
 <https://www.gnu.org/licenses/why-not-lgpl.html>.
 
 ------------------
-github.com/zabertech/go-serial v0.0.0-20260624150618-80eea0f9b8d8 (fork github.com/bugst/go-serial)
+github.com/zabertech/go-serial v0.0.0-20261008164244-44769dd03ba1 (fork github.com/bugst/go-serial)
 ------------------
 
 Copyright (c) 2014-2026, Cristian Maglie.
@@ -1898,7 +1898,7 @@ ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 
 ------------------
-gitlab.com/ZaberTech/zaber-device-db-service v0.0.0-20260819205842-f65107591f67
+gitlab.com/ZaberTech/zaber-device-db-service v0.0.0-20260921205747-eac99eee662c
 ------------------
 Copyright 2022 Zaber Technologies Inc.
 
@@ -1909,7 +1909,7 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ------------------
-gitlab.com/ZaberTech/zaber-go-lib v0.0.0-20260819201212-d5b77ec59709
+gitlab.com/ZaberTech/zaber-go-lib v0.0.0-20260921192229-256ae84503cb
 ------------------
 Copyright 2022 Zaber Technologies Inc.
 

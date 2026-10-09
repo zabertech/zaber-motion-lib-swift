@@ -86,8 +86,8 @@ public final class Connection: @unchecked Sendable {
         request.baudRate = baudRate
         request.useMessageIds = useMessageIds
 
-        let response = try await Gateway.callAsync("binary/interface/open", request, DtoRequests.OpenInterfaceResponse.fromByteArray)
-        return Connection(interfaceId: response.interfaceId)
+        let response = try await Gateway.callAsync("binary/interface/open", request, DtoRequests.IntValue.fromByteArray)
+        return Connection(interfaceId: response.value)
     }
 
     /**
@@ -112,8 +112,8 @@ public final class Connection: @unchecked Sendable {
         request.port = port
         request.useMessageIds = useMessageIds
 
-        let response = try await Gateway.callAsync("binary/interface/open", request, DtoRequests.OpenInterfaceResponse.fromByteArray)
-        return Connection(interfaceId: response.interfaceId)
+        let response = try await Gateway.callAsync("binary/interface/open", request, DtoRequests.IntValue.fromByteArray)
+        return Connection(interfaceId: response.value)
     }
 
     /**
@@ -122,8 +122,8 @@ public final class Connection: @unchecked Sendable {
      Close the connection.
      */
     public func close() async throws  {
-        var request = DtoRequests.InterfaceEmptyRequest()
-        request.interfaceId = self.interfaceId
+        var request = DtoRequests.IntValue()
+        request.value = self.interfaceId
 
         try await Gateway.callAsync("interface/close", request)
     }
@@ -219,10 +219,10 @@ public final class Connection: @unchecked Sendable {
      - Returns: Total number of devices that responded to the renumber.
      */
     public func renumberDevices() async throws -> Int {
-        var request = DtoRequests.InterfaceEmptyRequest()
-        request.interfaceId = self.interfaceId
+        var request = DtoRequests.IntValue()
+        request.value = self.interfaceId
 
-        let response = try await Gateway.callAsync("binary/device/renumber", request, DtoRequests.IntResponse.fromByteArray)
+        let response = try await Gateway.callAsync("binary/device/renumber", request, DtoRequests.IntValue.fromByteArray)
         return response.value
     }
 
@@ -274,10 +274,10 @@ public final class Connection: @unchecked Sendable {
      - Returns: A string that represents the connection.
      */
     public func toString() throws -> String {
-        var request = DtoRequests.InterfaceEmptyRequest()
-        request.interfaceId = self.interfaceId
+        var request = DtoRequests.IntValue()
+        request.value = self.interfaceId
 
-        let response = try Gateway.callSync("interface/to_string", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("interface/to_string", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 
@@ -290,8 +290,8 @@ public final class Connection: @unchecked Sendable {
         - interfaceId: The ID of the connection.
      */
     static func free(interfaceId: Int) throws  {
-        var request = DtoRequests.InterfaceEmptyRequest()
-        request.interfaceId = interfaceId
+        var request = DtoRequests.IntValue()
+        request.value = interfaceId
 
         try Gateway.callSync("interface/free", request)
     }
@@ -304,10 +304,10 @@ public final class Connection: @unchecked Sendable {
      - Returns: Is open.
      */
     func retrieveIsOpen() throws -> Bool {
-        var request = DtoRequests.InterfaceEmptyRequest()
-        request.interfaceId = self.interfaceId
+        var request = DtoRequests.IntValue()
+        request.value = self.interfaceId
 
-        let response = try Gateway.callSync("interface/get_is_open", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try Gateway.callSync("interface/get_is_open", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -394,8 +394,8 @@ public final class Connection: @unchecked Sendable {
      Close the connection synchronously.
      */
     private func close() throws {
-        var request = DtoRequests.InterfaceEmptyRequest()
-        request.interfaceId = self.interfaceId
+        var request = DtoRequests.IntValue()
+        request.value = self.interfaceId
 
         try Gateway.callSync("interface/close", request)
     }

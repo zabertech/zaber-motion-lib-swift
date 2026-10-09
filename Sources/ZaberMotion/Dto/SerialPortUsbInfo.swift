@@ -19,8 +19,16 @@ public struct SerialPortUsbInfo: Serializable {
      */
     public var productId: Int
 
-    public init(vendorId: Int = 0, productId: Int = 0) {
+    /**
+     * Latency timer of the port in milliseconds.
+     * Only available for FTDI-based devices such as the Zaber X-USBDC.
+     * Only available on Windows and Linux.
+     */
+    public var latencyTimer: Int?
+
+    public init(vendorId: Int = 0, productId: Int = 0, latencyTimer: Int? = nil) {
         self.vendorId = vendorId
         self.productId = productId
+        self.latencyTimer = latencyTimer
     }
 }

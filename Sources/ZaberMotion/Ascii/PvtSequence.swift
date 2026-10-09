@@ -279,8 +279,8 @@ public final class PvtSequence: @unchecked Sendable {
     public static func loadSequenceData(path: String) async throws -> PvtCsvData {
         _assertSendable(PvtCsvData.self)
 
-        var request = DtoRequests.PvtLoadCsvRequest()
-        request.path = path
+        var request = DtoRequests.StringValue()
+        request.value = path
 
         let response = try await Gateway.callAsync("device/stream_pvt_load_csv", request, PvtCsvData.fromByteArray)
         return response
@@ -350,8 +350,8 @@ public final class PvtSequence: @unchecked Sendable {
     public static func loadPartialSequenceData(path: String) async throws -> PvtPartialCsvData {
         _assertSendable(PvtPartialCsvData.self)
 
-        var request = DtoRequests.PvtLoadCsvRequest()
-        request.path = path
+        var request = DtoRequests.StringValue()
+        request.value = path
 
         let response = try await Gateway.callAsync("device/stream_pvt_load_partial_csv", request, PvtPartialCsvData.fromByteArray)
         return response
@@ -739,7 +739,7 @@ public final class PvtSequence: @unchecked Sendable {
         request.streamId = self.pvtId
         request.pvt = true
 
-        let response = try await Gateway.callAsync("device/stream_is_busy", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/stream_is_busy", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -757,7 +757,7 @@ public final class PvtSequence: @unchecked Sendable {
         request.streamId = self.pvtId
         request.pvt = true
 
-        let response = try Gateway.callSync("device/stream_to_string", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("device/stream_to_string", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 
@@ -836,7 +836,7 @@ public final class PvtSequence: @unchecked Sendable {
         request.streamId = self.pvtId
         request.pvt = true
 
-        let response = try await Gateway.callAsync("device/stream_check_disabled", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/stream_check_disabled", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 

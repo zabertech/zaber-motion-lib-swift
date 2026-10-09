@@ -6,10 +6,10 @@ import DtoSerializable
 import UnitsInternal
 
 
-public struct UnitGetSymbolRequest: Serializable {
-    public var unit: Units
+public struct UnitsValue: Serializable {
+    public var value: Units
 
-    public init(unit: Units = Units.native) {
-        self.unit = unit
+    public init(value: Units = Units.native) {
+        self.value = value
     }
 }

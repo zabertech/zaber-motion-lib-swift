@@ -57,7 +57,7 @@ public final class Moveable: @unchecked Sendable {
         request.device = axis.device.deviceAddress
         request.defaultUnits = units
 
-        let response = try await Gateway.callAsync("moveable/setup", request, DtoRequests.IntResponse.fromByteArray)
+        let response = try await Gateway.callAsync("moveable/setup", request, DtoRequests.IntValue.fromByteArray)
         return Moveable(moveableId: response.value, device: axis.device)
     }
 
@@ -82,7 +82,7 @@ public final class Moveable: @unchecked Sendable {
         request.device = lockstep.device.deviceAddress
         request.defaultUnits = units
 
-        let response = try await Gateway.callAsync("moveable/setup", request, DtoRequests.IntResponse.fromByteArray)
+        let response = try await Gateway.callAsync("moveable/setup", request, DtoRequests.IntValue.fromByteArray)
         return Moveable(moveableId: response.value, device: lockstep.device)
     }
 
@@ -107,7 +107,7 @@ public final class Moveable: @unchecked Sendable {
         request.device = device.deviceAddress
         request.defaultUnits = units
 
-        let response = try await Gateway.callAsync("moveable/setup", request, DtoRequests.IntResponse.fromByteArray)
+        let response = try await Gateway.callAsync("moveable/setup", request, DtoRequests.IntValue.fromByteArray)
         return Moveable(moveableId: response.value, device: device)
     }
 
@@ -120,7 +120,9 @@ public final class Moveable: @unchecked Sendable {
         - position: Absolute position to move to.
         - velocity: Movement velocity. If not specified, the maximum velocity setting is used.
         - acceleration: Movement acceleration. If not specified, the default acceleration setting is used.
-        - waitUntilIdle: Determines whether function should return after the movement is finished or just started.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
         - cyclicDirection: Which direction a cyclic device should take to get to the target position.
         - extraCycles: Number of extra cycles to complete before stopping at the target.
      */
@@ -146,7 +148,9 @@ public final class Moveable: @unchecked Sendable {
         - position: Relative displacement to move by.
         - velocity: Movement velocity. If not specified, the maximum velocity setting is used.
         - acceleration: Movement acceleration. If not specified, the default acceleration setting is used.
-        - waitUntilIdle: Determines whether function should return after the movement is finished or just started.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
      */
     public func moveRelative(position: MeasurementOrValue, velocity: MeasurementOrValue? = nil, acceleration: MeasurementOrValue? = nil, waitUntilIdle: Bool = true) async throws  {
         var request = DtoRequests.MoveableMoveRequest()
@@ -167,7 +171,9 @@ public final class Moveable: @unchecked Sendable {
      - Parameters:
         - velocity: Velocity to move at.
         - acceleration: Movement acceleration. If not specified, the default acceleration setting is used.
-        - waitUntilIdle: Determines whether function should return after the movement is finished or just started.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
      */
     public func moveVelocity(velocity: MeasurementOrValue, acceleration: MeasurementOrValue? = nil, waitUntilIdle: Bool = true) async throws  {
         var request = DtoRequests.MoveableMoveRequest()
@@ -187,7 +193,9 @@ public final class Moveable: @unchecked Sendable {
      - Parameters:
         - velocity: Movement velocity. If not specified, the maximum velocity setting is used.
         - acceleration: Movement acceleration. If not specified, the default acceleration setting is used.
-        - waitUntilIdle: Determines whether function should return after the movement is finished or just started.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
      */
     public func moveMax(velocity: MeasurementOrValue? = nil, acceleration: MeasurementOrValue? = nil, waitUntilIdle: Bool = true) async throws  {
         var request = DtoRequests.MoveableMoveRequest()
@@ -207,7 +215,9 @@ public final class Moveable: @unchecked Sendable {
      - Parameters:
         - velocity: Movement velocity. If not specified, the maximum velocity setting is used.
         - acceleration: Movement acceleration. If not specified, the default acceleration setting is used.
-        - waitUntilIdle: Determines whether function should return after the movement is finished or just started.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
      */
     public func moveMin(velocity: MeasurementOrValue? = nil, acceleration: MeasurementOrValue? = nil, waitUntilIdle: Bool = true) async throws  {
         var request = DtoRequests.MoveableMoveRequest()
@@ -234,7 +244,7 @@ public final class Moveable: @unchecked Sendable {
         request.moveableId = self.moveableId
         request.unit = unit
 
-        let response = try await Gateway.callAsync("moveable/get_position", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("moveable/get_position", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -253,7 +263,7 @@ public final class Moveable: @unchecked Sendable {
         request.moveableId = self.moveableId
         request.unit = unit
 
-        let response = try await Gateway.callAsync("moveable/get_encoder_position", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("moveable/get_encoder_position", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -263,7 +273,9 @@ public final class Moveable: @unchecked Sendable {
      Moves the moveable to the home position.
 
      - Parameters:
-        - waitUntilIdle: Determines whether function should return after the movement is finished or just started.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
      */
     public func home(waitUntilIdle: Bool = true) async throws  {
         var request = DtoRequests.MoveableMoveRequest()
@@ -281,10 +293,10 @@ public final class Moveable: @unchecked Sendable {
      - Returns: True if the moveable has position reference and was homed.
      */
     public func isHomed() async throws -> Bool {
-        var request = DtoRequests.MoveableIdRequest()
-        request.moveableId = self.moveableId
+        var request = DtoRequests.IntValue()
+        request.value = self.moveableId
 
-        let response = try await Gateway.callAsync("moveable/is_homed", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("moveable/is_homed", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -296,10 +308,10 @@ public final class Moveable: @unchecked Sendable {
      - Returns: True if the moveable is currently executing a motion command.
      */
     public func isBusy() async throws -> Bool {
-        var request = DtoRequests.MoveableIdRequest()
-        request.moveableId = self.moveableId
+        var request = DtoRequests.IntValue()
+        request.value = self.moveableId
 
-        let response = try await Gateway.callAsync("moveable/is_busy", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("moveable/is_busy", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -311,10 +323,10 @@ public final class Moveable: @unchecked Sendable {
      - Returns: True if the moveable is parked.
      */
     public func isParked() async throws -> Bool {
-        var request = DtoRequests.MoveableIdRequest()
-        request.moveableId = self.moveableId
+        var request = DtoRequests.IntValue()
+        request.value = self.moveableId
 
-        let response = try await Gateway.callAsync("moveable/is_parked", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("moveable/is_parked", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -324,7 +336,9 @@ public final class Moveable: @unchecked Sendable {
      Stops ongoing movement of the moveable.
 
      - Parameters:
-        - waitUntilIdle: Determines whether function should return after the movement is finished or just started.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
      */
     public func stop(waitUntilIdle: Bool = true) async throws  {
         var request = DtoRequests.MoveableMoveRequest()
@@ -345,7 +359,9 @@ public final class Moveable: @unchecked Sendable {
         - count: Number of sinusoidal cycles to complete.
           Must be a multiple of 0.5.
           If count is not specified or set to 0, the moveable will move indefinitely.
-        - waitUntilIdle: Determines whether function should return after the movement is finished or just started.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
      */
     public func moveSin(amplitude: MeasurementOrValue, period: MeasurementOrValue, count: Double = 0, waitUntilIdle: Bool = true) async throws  {
         var request = DtoRequests.MoveableMoveSinRequest()
@@ -366,7 +382,9 @@ public final class Moveable: @unchecked Sendable {
      the motion ends at the half-way point of the sinusoidal trajectory.
 
      - Parameters:
-        - waitUntilIdle: Determines whether function should return after the movement is finished.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
      */
     public func moveSinStop(waitUntilIdle: Bool = true) async throws  {
         var request = DtoRequests.MoveableMoveRequest()
@@ -382,8 +400,8 @@ public final class Moveable: @unchecked Sendable {
      Parks the moveable.
      */
     public func park() async throws  {
-        var request = DtoRequests.MoveableIdRequest()
-        request.moveableId = self.moveableId
+        var request = DtoRequests.IntValue()
+        request.value = self.moveableId
 
         try await Gateway.callAsync("moveable/park", request)
     }
@@ -394,8 +412,8 @@ public final class Moveable: @unchecked Sendable {
      Unparks the moveable.
      */
     public func unpark() async throws  {
-        var request = DtoRequests.MoveableIdRequest()
-        request.moveableId = self.moveableId
+        var request = DtoRequests.IntValue()
+        request.value = self.moveableId
 
         try await Gateway.callAsync("moveable/unpark", request)
     }
@@ -415,7 +433,7 @@ public final class Moveable: @unchecked Sendable {
         request.moveableId = self.moveableId
         request.unit = unit
 
-        let response = try await Gateway.callAsync("moveable/get_velocity", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("moveable/get_velocity", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -436,7 +454,7 @@ public final class Moveable: @unchecked Sendable {
         request.moveableId = self.moveableId
         request.unit = unit
 
-        let response = try await Gateway.callAsync("moveable/get_max_speed", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("moveable/get_max_speed", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -474,7 +492,7 @@ public final class Moveable: @unchecked Sendable {
         request.accelType = accelType
         request.unit = unit
 
-        let response = try await Gateway.callAsync("moveable/get_max_acceleration", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("moveable/get_max_acceleration", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -511,7 +529,7 @@ public final class Moveable: @unchecked Sendable {
         request.moveableId = self.moveableId
         request.unit = unit
 
-        let response = try await Gateway.callAsync("moveable/get_limit_min", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("moveable/get_limit_min", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -530,7 +548,7 @@ public final class Moveable: @unchecked Sendable {
         request.moveableId = self.moveableId
         request.unit = unit
 
-        let response = try await Gateway.callAsync("moveable/get_limit_max", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("moveable/get_limit_max", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -544,10 +562,10 @@ public final class Moveable: @unchecked Sendable {
     public func getLockstep() async throws -> Lockstep? {
         _assertSendable(Lockstep.self)
 
-        var request = DtoRequests.MoveableIdRequest()
-        request.moveableId = self.moveableId
+        var request = DtoRequests.IntValue()
+        request.value = self.moveableId
 
-        let response = try await Gateway.callAsync("moveable/get_lockstep", request, DtoRequests.IntResponse.fromByteArray)
+        let response = try await Gateway.callAsync("moveable/get_lockstep", request, DtoRequests.IntValue.fromByteArray)
         return response.value != 0 ? Lockstep(device: device, lockstepGroupId: response.value) : nil
     }
 
@@ -562,10 +580,10 @@ public final class Moveable: @unchecked Sendable {
     public func getAxis() async throws -> Axis {
         _assertSendable(Axis.self)
 
-        var request = DtoRequests.MoveableIdRequest()
-        request.moveableId = self.moveableId
+        var request = DtoRequests.IntValue()
+        request.value = self.moveableId
 
-        let response = try await Gateway.callAsync("moveable/get_axis", request, DtoRequests.IntResponse.fromByteArray)
+        let response = try await Gateway.callAsync("moveable/get_axis", request, DtoRequests.IntValue.fromByteArray)
         return Axis(device: device, axisNumber: response.value)
     }
 
@@ -576,8 +594,8 @@ public final class Moveable: @unchecked Sendable {
      If the driver is already disabled, the driver remains disabled.
      */
     public func driverDisable() async throws  {
-        var request = DtoRequests.MoveableIdRequest()
-        request.moveableId = self.moveableId
+        var request = DtoRequests.IntValue()
+        request.value = self.moveableId
 
         try await Gateway.callAsync("moveable/driver_disable", request)
     }
@@ -624,8 +642,8 @@ public final class Moveable: @unchecked Sendable {
         - moveableId: The ID of the moveable to free.
      */
     static func free(moveableId: Int) throws  {
-        var request = DtoRequests.MoveableIdRequest()
-        request.moveableId = moveableId
+        var request = DtoRequests.IntValue()
+        request.value = moveableId
 
         try Gateway.callSync("moveable/free", request)
     }

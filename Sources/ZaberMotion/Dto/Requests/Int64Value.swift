@@ -4,10 +4,10 @@
 import Foundation
 import DtoSerializable
 
-public struct BoolResponse: Serializable {
-    public var value: Bool
+public struct Int64Value: Serializable {
+    public var value: Int64
 
-    public init(value: Bool = false) {
+    public init(value: Int64 = 0) {
         self.value = value
     }
 }

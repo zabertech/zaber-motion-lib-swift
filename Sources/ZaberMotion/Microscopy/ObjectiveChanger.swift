@@ -96,7 +96,7 @@ public final class ObjectiveChanger: @unchecked Sendable {
         request.device = self.turret.deviceAddress
         request.axis = 1
 
-        let response = try await Gateway.callAsync("device/get_index_position", request, DtoRequests.IntResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_index_position", request, DtoRequests.IntValue.fromByteArray)
         return response.value
     }
 
@@ -113,7 +113,7 @@ public final class ObjectiveChanger: @unchecked Sendable {
         request.device = self.turret.deviceAddress
         request.axis = 1
 
-        let response = try await Gateway.callAsync("device/get_index_count", request, DtoRequests.IntResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_index_count", request, DtoRequests.IntValue.fromByteArray)
         return response.value
     }
 
@@ -137,7 +137,7 @@ public final class ObjectiveChanger: @unchecked Sendable {
         request.focusAxis = self.focusAxis.axisNumber
         request.unit = unit
 
-        let response = try await Gateway.callAsync("objective_changer/get_datum", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("objective_changer/get_datum", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -176,7 +176,7 @@ public final class ObjectiveChanger: @unchecked Sendable {
         request.interfaceId = self.turret.connection.interfaceId
         request.device = self.turret.deviceAddress
 
-        let response = try Gateway.callSync("device/device_to_string", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("device/device_to_string", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 

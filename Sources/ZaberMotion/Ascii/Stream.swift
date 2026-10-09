@@ -667,7 +667,7 @@ public final class Stream: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.streamId = self.streamId
 
-        let response = try await Gateway.callAsync("device/stream_is_busy", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/stream_is_busy", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -689,7 +689,7 @@ public final class Stream: @unchecked Sendable {
         request.streamId = self.streamId
         request.unit = unit
 
-        let response = try await Gateway.callAsync("device/stream_get_max_speed", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/stream_get_max_speed", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -732,7 +732,7 @@ public final class Stream: @unchecked Sendable {
         request.streamId = self.streamId
         request.unit = unit
 
-        let response = try await Gateway.callAsync("device/stream_get_max_tangential_acceleration", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/stream_get_max_tangential_acceleration", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -775,7 +775,7 @@ public final class Stream: @unchecked Sendable {
         request.streamId = self.streamId
         request.unit = unit
 
-        let response = try await Gateway.callAsync("device/stream_get_max_centripetal_acceleration", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/stream_get_max_centripetal_acceleration", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -813,7 +813,7 @@ public final class Stream: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.streamId = self.streamId
 
-        let response = try Gateway.callSync("device/stream_to_string", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("device/stream_to_string", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 
@@ -888,7 +888,7 @@ public final class Stream: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.streamId = self.streamId
 
-        let response = try await Gateway.callAsync("device/stream_check_disabled", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/stream_check_disabled", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 

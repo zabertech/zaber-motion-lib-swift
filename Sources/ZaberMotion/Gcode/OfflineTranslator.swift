@@ -57,8 +57,8 @@ public final class OfflineTranslator: @unchecked Sendable {
         request.definition = definition
         request.config = config
 
-        let response = try await Gateway.callAsync("gcode/create", request, DtoRequests.TranslatorCreateResponse.fromByteArray)
-        return OfflineTranslator(translatorId: response.translatorId)
+        let response = try await Gateway.callAsync("gcode/create", request, DtoRequests.IntValue.fromByteArray)
+        return OfflineTranslator(translatorId: response.value)
     }
 
     /**
@@ -83,8 +83,8 @@ public final class OfflineTranslator: @unchecked Sendable {
         request.axes = axes
         request.config = config
 
-        let response = try await Gateway.callAsync("gcode/create_from_device", request, DtoRequests.TranslatorCreateResponse.fromByteArray)
-        return OfflineTranslator(translatorId: response.translatorId)
+        let response = try await Gateway.callAsync("gcode/create_from_device", request, DtoRequests.IntValue.fromByteArray)
+        return OfflineTranslator(translatorId: response.value)
     }
 
     /**
@@ -115,8 +115,8 @@ public final class OfflineTranslator: @unchecked Sendable {
      - Returns: The remaining stream commands.
      */
     public func flush() throws -> [String] {
-        var request = DtoRequests.TranslatorEmptyRequest()
-        request.translatorId = self.translatorId
+        var request = DtoRequests.IntValue()
+        request.value = self.translatorId
 
         let response = try Gateway.callSync("gcode/flush", request, DtoRequests.TranslatorFlushResponse.fromByteArray)
         return response.commands
@@ -180,7 +180,7 @@ public final class OfflineTranslator: @unchecked Sendable {
         request.axis = axis
         request.unit = unit
 
-        let response = try Gateway.callSync("gcode/get_axis_position", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try Gateway.callSync("gcode/get_axis_position", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -245,7 +245,7 @@ public final class OfflineTranslator: @unchecked Sendable {
         request.axis = axis
         request.unit = unit
 
-        let response = try Gateway.callSync("gcode/get_axis_offset", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try Gateway.callSync("gcode/get_axis_offset", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -256,8 +256,8 @@ public final class OfflineTranslator: @unchecked Sendable {
      Axis positions become uninitialized.
      */
     public func resetAfterStreamError() throws  {
-        var request = DtoRequests.TranslatorEmptyRequest()
-        request.translatorId = self.translatorId
+        var request = DtoRequests.IntValue()
+        request.value = self.translatorId
 
         try Gateway.callSync("gcode/reset_after_stream_error", request)
     }
@@ -287,8 +287,8 @@ public final class OfflineTranslator: @unchecked Sendable {
         - translatorId: The ID of the translator.
      */
     static func free(translatorId: Int) throws  {
-        var request = DtoRequests.TranslatorEmptyRequest()
-        request.translatorId = translatorId
+        var request = DtoRequests.IntValue()
+        request.value = translatorId
 
         try Gateway.callSync("gcode/free", request)
     }
@@ -301,10 +301,10 @@ public final class OfflineTranslator: @unchecked Sendable {
      - Returns: Current coordinate system.
      */
     func getCurrentCoordinateSystem() throws -> String {
-        var request = DtoRequests.TranslatorEmptyRequest()
-        request.translatorId = self.translatorId
+        var request = DtoRequests.IntValue()
+        request.value = self.translatorId
 
-        let response = try Gateway.callSync("gcode/get_current_coordinate_system", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("gcode/get_current_coordinate_system", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 

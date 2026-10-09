@@ -4,10 +4,10 @@
 import Foundation
 import DtoSerializable
 
-public struct UnitGetSymbolResponse: Serializable {
-    public var symbol: String
+public struct DoubleValue: Serializable {
+    public var value: Double
 
-    public init(symbol: String = "") {
-        self.symbol = symbol
+    public init(value: Double = 0.0) {
+        self.value = value
     }
 }

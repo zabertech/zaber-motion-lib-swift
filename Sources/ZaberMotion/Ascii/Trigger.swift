@@ -409,7 +409,7 @@ public final class Trigger: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.triggerNumber = self.triggerNumber
 
-        let response = try await Gateway.callAsync("trigger/get_label", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try await Gateway.callAsync("trigger/get_label", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 

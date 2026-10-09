@@ -61,7 +61,7 @@ public final class DeviceStorage: @unchecked Sendable {
         request.key = key
         request.decode = decode
 
-        let response = try await Gateway.callAsync("device/get_storage", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_storage", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 
@@ -100,7 +100,7 @@ public final class DeviceStorage: @unchecked Sendable {
         request.device = device.deviceAddress
         request.key = key
 
-        let response = try await Gateway.callAsync("device/get_storage_number", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_storage_number", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -139,7 +139,7 @@ public final class DeviceStorage: @unchecked Sendable {
         request.device = device.deviceAddress
         request.key = key
 
-        let response = try await Gateway.callAsync("device/get_storage_bool", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_storage_bool", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -159,7 +159,7 @@ public final class DeviceStorage: @unchecked Sendable {
         request.device = device.deviceAddress
         request.key = key
 
-        let response = try await Gateway.callAsync("device/erase_storage", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/erase_storage", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -180,7 +180,7 @@ public final class DeviceStorage: @unchecked Sendable {
         request.device = device.deviceAddress
         request.prefix = prefix
 
-        let response = try await Gateway.callAsync("device/storage_list_keys", request, DtoRequests.StringArrayResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/storage_list_keys", request, DtoRequests.StringArrayValue.fromByteArray)
         return response.values
     }
 
@@ -200,7 +200,7 @@ public final class DeviceStorage: @unchecked Sendable {
         request.device = device.deviceAddress
         request.key = key
 
-        let response = try await Gateway.callAsync("device/storage_key_exists", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/storage_key_exists", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 }

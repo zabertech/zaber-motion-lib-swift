@@ -73,7 +73,9 @@ public final class Lockstep: @unchecked Sendable {
      Stops ongoing lockstep group movement. Decelerates until zero speed.
 
      - Parameters:
-        - waitUntilIdle: Determines whether function should return after the movement is finished or just started.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
      */
     public func stop(waitUntilIdle: Bool = true) async throws  {
         var request = DtoRequests.LockstepStopRequest()
@@ -91,7 +93,9 @@ public final class Lockstep: @unchecked Sendable {
      Retracts the axes of the lockstep group until a home associated with an individual axis is detected.
 
      - Parameters:
-        - waitUntilIdle: Determines whether function should return after the movement is finished or just started.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
      */
     public func home(waitUntilIdle: Bool = true) async throws  {
         var request = DtoRequests.LockstepHomeRequest()
@@ -112,7 +116,9 @@ public final class Lockstep: @unchecked Sendable {
      - Parameters:
         - position: Absolute position.
         - unit: Units of position.
-        - waitUntilIdle: Determines whether function should return after the movement is finished or just started.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
         - velocity: Movement velocity.
           Default value of 0 indicates that the maxspeed setting is used instead.
           Requires at least Firmware 7.25.
@@ -148,7 +154,9 @@ public final class Lockstep: @unchecked Sendable {
      - Parameters:
         - position: Relative position.
         - unit: Units of position.
-        - waitUntilIdle: Determines whether function should return after the movement is finished or just started.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
         - velocity: Movement velocity.
           Default value of 0 indicates that the maxspeed setting is used instead.
           Requires at least Firmware 7.25.
@@ -217,7 +225,9 @@ public final class Lockstep: @unchecked Sendable {
         - count: Number of sinusoidal cycles to complete.
           Must be a multiple of 0.5
           If count is not specified or set to 0, the axis will move indefinitely.
-        - waitUntilIdle: Determines whether function should return after the movement is finished or just started.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
      */
     public func moveSin(amplitude: Double, amplitudeUnits: Units, period: Double, periodUnits: Units, count: Double = 0, waitUntilIdle: Bool = true) async throws  {
         var request = DtoRequests.LockstepMoveSinRequest()
@@ -242,7 +252,9 @@ public final class Lockstep: @unchecked Sendable {
      the motion ends at the half-way point of the sinusoidal trajectory.
 
      - Parameters:
-        - waitUntilIdle: Determines whether function should return after the movement is finished.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
      */
     public func moveSinStop(waitUntilIdle: Bool = true) async throws  {
         var request = DtoRequests.LockstepStopRequest()
@@ -262,7 +274,9 @@ public final class Lockstep: @unchecked Sendable {
      Respects lim.max for all axes in the group.
 
      - Parameters:
-        - waitUntilIdle: Determines whether function should return after the movement is finished or just started.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
         - velocity: Movement velocity.
           Default value of 0 indicates that the maxspeed setting is used instead.
           Requires at least Firmware 7.25.
@@ -295,7 +309,9 @@ public final class Lockstep: @unchecked Sendable {
      Respects lim.min for all axes in the group.
 
      - Parameters:
-        - waitUntilIdle: Determines whether function should return after the movement is finished or just started.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
         - velocity: Movement velocity.
           Default value of 0 indicates that the maxspeed setting is used instead.
           Requires at least Firmware 7.25.
@@ -351,7 +367,7 @@ public final class Lockstep: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.lockstepGroupId = self.lockstepGroupId
 
-        let response = try await Gateway.callAsync("device/lockstep_is_busy", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/lockstep_is_busy", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -390,7 +406,7 @@ public final class Lockstep: @unchecked Sendable {
         request.lockstepGroupId = self.lockstepGroupId
         request.unit = unit
 
-        let response = try await Gateway.callAsync("device/lockstep_get_offsets", request, DtoRequests.DoubleArrayResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/lockstep_get_offsets", request, DtoRequests.DoubleArrayValue.fromByteArray)
         return response.values
     }
 
@@ -412,7 +428,7 @@ public final class Lockstep: @unchecked Sendable {
         request.lockstepGroupId = self.lockstepGroupId
         request.unit = unit
 
-        let response = try await Gateway.callAsync("device/lockstep_get_twists", request, DtoRequests.DoubleArrayResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/lockstep_get_twists", request, DtoRequests.DoubleArrayValue.fromByteArray)
         return response.values
     }
 
@@ -433,7 +449,7 @@ public final class Lockstep: @unchecked Sendable {
         request.lockstepGroupId = self.lockstepGroupId
         request.unit = unit
 
-        let response = try await Gateway.callAsync("device/lockstep_get_pos", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/lockstep_get_pos", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -476,7 +492,7 @@ public final class Lockstep: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.lockstepGroupId = self.lockstepGroupId
 
-        let response = try await Gateway.callAsync("device/lockstep_is_enabled", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/lockstep_is_enabled", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -493,7 +509,7 @@ public final class Lockstep: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.lockstepGroupId = self.lockstepGroupId
 
-        let response = try Gateway.callSync("device/lockstep_to_string", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("device/lockstep_to_string", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 
@@ -539,7 +555,7 @@ public final class Lockstep: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.lockstepGroupId = self.lockstepGroupId
 
-        let response = try await Gateway.callAsync("device/lockstep_is_parked", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/lockstep_is_parked", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 }

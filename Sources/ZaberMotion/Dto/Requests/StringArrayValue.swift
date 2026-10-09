@@ -4,10 +4,10 @@
 import Foundation
 import DtoSerializable
 
-public struct FindDeviceResponse: Serializable {
-    public var address: Int
+public struct StringArrayValue: Serializable {
+    public var values: [String]
 
-    public init(address: Int = 0) {
-        self.address = address
+    public init(values: [String] = []) {
+        self.values = values
     }
 }

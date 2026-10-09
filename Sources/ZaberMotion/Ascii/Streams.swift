@@ -73,7 +73,7 @@ public final class Streams: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.pvt = false
 
-        let response = try await Gateway.callAsync("device/stream_buffer_list", request, DtoRequests.IntArrayResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/stream_buffer_list", request, DtoRequests.IntArrayValue.fromByteArray)
         return response.values
     }
 }

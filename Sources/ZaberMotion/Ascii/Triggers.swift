@@ -39,7 +39,7 @@ public final class Triggers: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.setting = "trigger.numtriggers"
 
-        let response = try await Gateway.callAsync("triggers/get_setting", request, DtoRequests.IntResponse.fromByteArray)
+        let response = try await Gateway.callAsync("triggers/get_setting", request, DtoRequests.IntValue.fromByteArray)
         return response.value
     }
 
@@ -56,7 +56,7 @@ public final class Triggers: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.setting = "trigger.numactions"
 
-        let response = try await Gateway.callAsync("triggers/get_setting", request, DtoRequests.IntResponse.fromByteArray)
+        let response = try await Gateway.callAsync("triggers/get_setting", request, DtoRequests.IntValue.fromByteArray)
         return response.value
     }
 
@@ -126,7 +126,7 @@ public final class Triggers: @unchecked Sendable {
         request.interfaceId = self.device.connection.interfaceId
         request.device = self.device.deviceAddress
 
-        let response = try await Gateway.callAsync("triggers/get_all_labels", request, DtoRequests.StringArrayResponse.fromByteArray)
+        let response = try await Gateway.callAsync("triggers/get_all_labels", request, DtoRequests.StringArrayValue.fromByteArray)
         return response.values
     }
 }

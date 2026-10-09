@@ -29,7 +29,9 @@ public final class AllAxes: @unchecked Sendable {
      Homes all axes. Axes return to their homing positions.
 
      - Parameters:
-        - waitUntilIdle: Determines whether function should return after the movement is finished or just started.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
      */
     public func home(waitUntilIdle: Bool = true) async throws  {
         var request = DtoRequests.DeviceHomeRequest()
@@ -47,7 +49,9 @@ public final class AllAxes: @unchecked Sendable {
      Stops ongoing axes movement. Decelerates until zero speed.
 
      - Parameters:
-        - waitUntilIdle: Determines whether function should return after the movement is finished or just started.
+        - waitUntilIdle: Determines whether the function waits for the movement to finish before returning.
+          When false, you must call WaitUntilIdle afterwards
+          to detect and handle any errors that occur during the movement.
      */
     public func stop(waitUntilIdle: Bool = true) async throws  {
         var request = DtoRequests.DeviceStopRequest()
@@ -119,7 +123,7 @@ public final class AllAxes: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.axis = 0
 
-        let response = try await Gateway.callAsync("device/is_busy", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/is_busy", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -136,7 +140,7 @@ public final class AllAxes: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.axis = 0
 
-        let response = try await Gateway.callAsync("device/is_homed", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/is_homed", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -186,7 +190,7 @@ public final class AllAxes: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.axis = 0
 
-        let response = try Gateway.callSync("device/all_axes_to_string", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("device/all_axes_to_string", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 }

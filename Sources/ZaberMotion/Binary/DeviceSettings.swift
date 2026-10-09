@@ -37,7 +37,7 @@ public final class DeviceSettings: @unchecked Sendable {
         request.setting = setting
         request.unit = unit
 
-        let response = try await Gateway.callAsync("binary/device/get_setting", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("binary/device/get_setting", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 

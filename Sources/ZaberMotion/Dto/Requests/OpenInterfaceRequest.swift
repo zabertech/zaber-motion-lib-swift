@@ -21,8 +21,9 @@ public struct OpenInterfaceRequest: Serializable {
     public var api: String
     public var testPort: Bool
     public var mockDevices: [DtoAscii.MockDevice]?
+    public var exclusive: Bool
 
-    public init(interfaceType: InterfaceType = InterfaceType(rawValue: 0)!, portName: String = "", baudRate: Int = 0, hostName: String = "", port: Int = 0, transport: Int = 0, rejectRoutedConnection: Bool = false, cloudId: String = "", connectionName: String? = nil, realm: String? = nil, token: String = "", api: String = "", testPort: Bool = false, mockDevices: [DtoAscii.MockDevice]? = nil) {
+    public init(interfaceType: InterfaceType = InterfaceType(rawValue: 0)!, portName: String = "", baudRate: Int = 0, hostName: String = "", port: Int = 0, transport: Int = 0, rejectRoutedConnection: Bool = false, cloudId: String = "", connectionName: String? = nil, realm: String? = nil, token: String = "", api: String = "", testPort: Bool = false, mockDevices: [DtoAscii.MockDevice]? = nil, exclusive: Bool = false) {
         self.interfaceType = interfaceType
         self.portName = portName
         self.baudRate = baudRate
@@ -37,5 +38,6 @@ public struct OpenInterfaceRequest: Serializable {
         self.api = api
         self.testPort = testPort
         self.mockDevices = mockDevices
+        self.exclusive = exclusive
     }
 }

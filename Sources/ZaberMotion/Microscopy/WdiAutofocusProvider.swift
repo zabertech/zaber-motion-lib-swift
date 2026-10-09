@@ -61,7 +61,7 @@ public final class WdiAutofocusProvider: @unchecked Sendable {
         request.hostName = hostName
         request.port = port
 
-        let response = try await Gateway.callAsync("wdi/open", request, DtoRequests.IntResponse.fromByteArray)
+        let response = try await Gateway.callAsync("wdi/open", request, DtoRequests.IntValue.fromByteArray)
         return WdiAutofocusProvider(providerId: response.value)
     }
 
@@ -71,8 +71,8 @@ public final class WdiAutofocusProvider: @unchecked Sendable {
      Close the connection.
      */
     public func close() async throws  {
-        var request = DtoRequests.InterfaceEmptyRequest()
-        request.interfaceId = self.providerId
+        var request = DtoRequests.IntValue()
+        request.value = self.providerId
 
         try await Gateway.callAsync("wdi/close", request)
     }
@@ -100,7 +100,7 @@ public final class WdiAutofocusProvider: @unchecked Sendable {
         request.offset = offset
         request.registerBank = registerBank
 
-        let response = try await Gateway.callAsync("wdi/read", request, DtoRequests.IntArrayResponse.fromByteArray)
+        let response = try await Gateway.callAsync("wdi/read", request, DtoRequests.IntArrayValue.fromByteArray)
         return response.values
     }
 
@@ -149,7 +149,7 @@ public final class WdiAutofocusProvider: @unchecked Sendable {
         request.offset = offset
         request.registerBank = registerBank
 
-        let response = try await Gateway.callAsync("wdi/read_float", request, DtoRequests.DoubleArrayResponse.fromByteArray)
+        let response = try await Gateway.callAsync("wdi/read_float", request, DtoRequests.DoubleArrayValue.fromByteArray)
         return response.values
     }
 
@@ -211,8 +211,8 @@ public final class WdiAutofocusProvider: @unchecked Sendable {
     public func getStatus() async throws -> WdiAutofocusProviderStatus {
         _assertSendable(WdiAutofocusProviderStatus.self)
 
-        var request = DtoRequests.InterfaceEmptyRequest()
-        request.interfaceId = self.providerId
+        var request = DtoRequests.IntValue()
+        request.value = self.providerId
 
         let response = try await Gateway.callAsync("wdi/get_status", request, DtoRequests.WdiGetStatusResponse.fromByteArray)
         return response.status
@@ -226,10 +226,10 @@ public final class WdiAutofocusProvider: @unchecked Sendable {
      - Returns: A string that represents the connection.
      */
     public func toString() throws -> String {
-        var request = DtoRequests.InterfaceEmptyRequest()
-        request.interfaceId = self.providerId
+        var request = DtoRequests.IntValue()
+        request.value = self.providerId
 
-        let response = try Gateway.callSync("wdi/to_string", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("wdi/to_string", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 
@@ -242,8 +242,8 @@ public final class WdiAutofocusProvider: @unchecked Sendable {
         - providerId: The ID of the connection to free.
      */
     static func free(providerId: Int) throws  {
-        var request = DtoRequests.InterfaceEmptyRequest()
-        request.interfaceId = providerId
+        var request = DtoRequests.IntValue()
+        request.value = providerId
 
         try Gateway.callSync("wdi/free", request)
     }
@@ -256,8 +256,8 @@ public final class WdiAutofocusProvider: @unchecked Sendable {
      - Returns: Firmware version.
      */
     func retrieveFirmwareVersion() throws -> FirmwareVersion {
-        var request = DtoRequests.InterfaceEmptyRequest()
-        request.interfaceId = self.providerId
+        var request = DtoRequests.IntValue()
+        request.value = self.providerId
 
         let response = try Gateway.callSync("wdi/get_firmware_version", request, FirmwareVersion.fromByteArray)
         return response
@@ -269,8 +269,8 @@ public final class WdiAutofocusProvider: @unchecked Sendable {
      Close the connection synchronously.
      */
     private func close() throws {
-        var request = DtoRequests.InterfaceEmptyRequest()
-        request.interfaceId = self.providerId
+        var request = DtoRequests.IntValue()
+        request.value = self.providerId
 
         try Gateway.callSync("wdi/close", request)
     }

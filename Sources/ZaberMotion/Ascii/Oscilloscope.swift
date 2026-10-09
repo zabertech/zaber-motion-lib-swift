@@ -96,7 +96,7 @@ public final class Oscilloscope: @unchecked Sendable {
         request.setting = "scope.timebase"
         request.unit = unit
 
-        let response = try await Gateway.callAsync("device/get_setting", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_setting", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -138,7 +138,7 @@ public final class Oscilloscope: @unchecked Sendable {
         request.setting = "scope.timebase"
         request.unit = unit
 
-        let response = try await Gateway.callAsync("oscilloscope/get_frequency", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("oscilloscope/get_frequency", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -180,7 +180,7 @@ public final class Oscilloscope: @unchecked Sendable {
         request.setting = "scope.delay"
         request.unit = unit
 
-        let response = try await Gateway.callAsync("device/get_setting", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_setting", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -217,7 +217,7 @@ public final class Oscilloscope: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.setting = "scope.numchannels"
 
-        let response = try await Gateway.callAsync("oscilloscope/get_setting", request, DtoRequests.IntResponse.fromByteArray)
+        let response = try await Gateway.callAsync("oscilloscope/get_setting", request, DtoRequests.IntValue.fromByteArray)
         return response.value
     }
 
@@ -234,7 +234,7 @@ public final class Oscilloscope: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.setting = "scope.channel.size.max"
 
-        let response = try await Gateway.callAsync("oscilloscope/get_setting", request, DtoRequests.IntResponse.fromByteArray)
+        let response = try await Gateway.callAsync("oscilloscope/get_setting", request, DtoRequests.IntValue.fromByteArray)
         return response.value
     }
 
@@ -251,7 +251,7 @@ public final class Oscilloscope: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.setting = "scope.channel.size"
 
-        let response = try await Gateway.callAsync("oscilloscope/get_setting", request, DtoRequests.IntResponse.fromByteArray)
+        let response = try await Gateway.callAsync("oscilloscope/get_setting", request, DtoRequests.IntValue.fromByteArray)
         return response.value
     }
 

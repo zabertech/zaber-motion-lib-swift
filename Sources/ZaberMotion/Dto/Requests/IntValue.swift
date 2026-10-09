@@ -4,10 +4,10 @@
 import Foundation
 import DtoSerializable
 
-public struct InterfaceEmptyRequest: Serializable {
-    public var interfaceId: Int
+public struct IntValue: Serializable {
+    public var value: Int
 
-    public init(interfaceId: Int = 0) {
-        self.interfaceId = interfaceId
+    public init(value: Int = 0) {
+        self.value = value
     }
 }

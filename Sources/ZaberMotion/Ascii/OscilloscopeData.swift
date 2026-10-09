@@ -85,7 +85,7 @@ public final class OscilloscopeData: @unchecked Sendable {
         request.dataId = self.dataId
         request.unit = unit
 
-        let response = try Gateway.callSync("oscilloscopedata/get_timebase", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try Gateway.callSync("oscilloscopedata/get_timebase", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -104,7 +104,7 @@ public final class OscilloscopeData: @unchecked Sendable {
         request.dataId = self.dataId
         request.unit = unit
 
-        let response = try Gateway.callSync("oscilloscopedata/get_frequency", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try Gateway.callSync("oscilloscopedata/get_frequency", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -124,7 +124,7 @@ public final class OscilloscopeData: @unchecked Sendable {
         request.dataId = self.dataId
         request.unit = unit
 
-        let response = try Gateway.callSync("oscilloscopedata/get_delay", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try Gateway.callSync("oscilloscopedata/get_delay", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -145,7 +145,7 @@ public final class OscilloscopeData: @unchecked Sendable {
         request.index = index
         request.unit = unit
 
-        let response = try Gateway.callSync("oscilloscopedata/get_sample_time", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try Gateway.callSync("oscilloscopedata/get_sample_time", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -164,7 +164,7 @@ public final class OscilloscopeData: @unchecked Sendable {
         request.dataId = self.dataId
         request.unit = unit
 
-        let response = try Gateway.callSync("oscilloscopedata/get_sample_times", request, DtoRequests.DoubleArrayResponse.fromByteArray)
+        let response = try Gateway.callSync("oscilloscopedata/get_sample_times", request, DtoRequests.DoubleArrayValue.fromByteArray)
         return response.values
     }
 
@@ -198,8 +198,8 @@ public final class OscilloscopeData: @unchecked Sendable {
         - dataId: The ID of the data buffer to delete.
      */
     static func free(dataId: Int) throws  {
-        var request = DtoRequests.OscilloscopeDataIdentifier()
-        request.dataId = dataId
+        var request = DtoRequests.IntValue()
+        request.value = dataId
 
         try Gateway.callSync("oscilloscopedata/free", request)
     }
@@ -212,8 +212,8 @@ public final class OscilloscopeData: @unchecked Sendable {
      - Returns: Capture properties.
      */
     func retrieveProperties() throws -> OscilloscopeCaptureProperties {
-        var request = DtoRequests.OscilloscopeDataIdentifier()
-        request.dataId = self.dataId
+        var request = DtoRequests.IntValue()
+        request.value = self.dataId
 
         let response = try Gateway.callSync("oscilloscopedata/get_properties", request, OscilloscopeCaptureProperties.fromByteArray)
         return response

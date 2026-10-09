@@ -4,10 +4,10 @@
 import Foundation
 import DtoSerializable
 
-public struct DoubleResponse: Serializable {
-    public var value: Double
+public struct DoubleArrayValue: Serializable {
+    public var values: [Double]
 
-    public init(value: Double = 0.0) {
-        self.value = value
+    public init(values: [Double] = []) {
+        self.values = values
     }
 }

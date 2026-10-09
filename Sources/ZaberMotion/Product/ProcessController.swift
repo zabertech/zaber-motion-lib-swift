@@ -88,7 +88,7 @@ public final class ProcessController: @unchecked Sendable {
         request.interfaceId = self.device.connection.interfaceId
         request.device = self.device.deviceAddress
 
-        let response = try Gateway.callSync("device/device_to_string", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("device/device_to_string", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 

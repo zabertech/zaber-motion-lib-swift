@@ -153,7 +153,7 @@ public final class Microscope: @unchecked Sendable {
         request.interfaceId = self.connection.interfaceId
         request.config = config
 
-        let response = try await Gateway.callAsync("microscope/is_initialized", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("microscope/is_initialized", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -169,7 +169,7 @@ public final class Microscope: @unchecked Sendable {
         request.interfaceId = self.connection.interfaceId
         request.config = config
 
-        let response = try Gateway.callSync("microscope/to_string", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("microscope/to_string", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 

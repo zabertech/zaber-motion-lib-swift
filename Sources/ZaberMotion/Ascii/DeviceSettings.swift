@@ -41,7 +41,7 @@ public final class DeviceSettings: @unchecked Sendable {
         request.setting = setting
         request.unit = unit
 
-        let response = try await Gateway.callAsync("device/get_setting", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_setting", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -110,7 +110,7 @@ public final class DeviceSettings: @unchecked Sendable {
         request.device = device.deviceAddress
         request.setting = setting
 
-        let response = try await Gateway.callAsync("device/get_setting_str", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_setting_str", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 
@@ -151,7 +151,7 @@ public final class DeviceSettings: @unchecked Sendable {
         request.device = device.deviceAddress
         request.setting = setting
 
-        let response = try await Gateway.callAsync("device/get_setting_int", request, DtoRequests.Int64Response.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_setting_int", request, DtoRequests.Int64Value.fromByteArray)
         return response.value
     }
 
@@ -192,7 +192,7 @@ public final class DeviceSettings: @unchecked Sendable {
         request.device = device.deviceAddress
         request.setting = setting
 
-        let response = try await Gateway.callAsync("device/get_setting_bool", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_setting_bool", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -238,7 +238,7 @@ public final class DeviceSettings: @unchecked Sendable {
         request.unit = unit
         request.round = round
 
-        let response = try Gateway.callSync("device/convert_setting", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try Gateway.callSync("device/convert_setting", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -263,7 +263,7 @@ public final class DeviceSettings: @unchecked Sendable {
         request.value = value
         request.unit = unit
 
-        let response = try Gateway.callSync("device/convert_setting", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try Gateway.callSync("device/convert_setting", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -285,7 +285,7 @@ public final class DeviceSettings: @unchecked Sendable {
         request.setting = setting
         request.unit = unit
 
-        let response = try Gateway.callSync("device/get_setting_default", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try Gateway.callSync("device/get_setting_default", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -305,7 +305,7 @@ public final class DeviceSettings: @unchecked Sendable {
         request.device = device.deviceAddress
         request.setting = setting
 
-        let response = try Gateway.callSync("device/get_setting_default_str", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("device/get_setting_default_str", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 
@@ -325,7 +325,7 @@ public final class DeviceSettings: @unchecked Sendable {
         request.device = device.deviceAddress
         request.setting = setting
 
-        let response = try Gateway.callSync("device/get_setting_default_int", request, DtoRequests.Int64Response.fromByteArray)
+        let response = try Gateway.callSync("device/get_setting_default_int", request, DtoRequests.Int64Value.fromByteArray)
         return response.value
     }
 
@@ -345,7 +345,7 @@ public final class DeviceSettings: @unchecked Sendable {
         request.device = device.deviceAddress
         request.setting = setting
 
-        let response = try Gateway.callSync("device/get_setting_default_bool", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try Gateway.callSync("device/get_setting_default_bool", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -365,7 +365,7 @@ public final class DeviceSettings: @unchecked Sendable {
         request.device = device.deviceAddress
         request.setting = setting
 
-        let response = try Gateway.callSync("device/can_convert_setting", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try Gateway.callSync("device/can_convert_setting", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -385,7 +385,7 @@ public final class DeviceSettings: @unchecked Sendable {
         request.device = device.deviceAddress
         request.setting = setting
 
-        let response = try Gateway.callSync("device/has_setting", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try Gateway.callSync("device/has_setting", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -427,7 +427,7 @@ public final class DeviceSettings: @unchecked Sendable {
         request.device = device.deviceAddress
         request.setting = setting
 
-        let response = try await Gateway.callAsync("device/get_setting_from_all_axes", request, DtoRequests.DoubleArrayResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_setting_from_all_axes", request, DtoRequests.DoubleArrayValue.fromByteArray)
         return response.values
     }
 

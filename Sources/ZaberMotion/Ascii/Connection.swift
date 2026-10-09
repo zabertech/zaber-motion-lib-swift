@@ -125,10 +125,13 @@ public final class Connection: @unchecked Sendable {
           failing if the connection is already opened by a message router instance.
         - testPort: Some operating systems may allow opening a serial port that is not writable.
           Tests if the serial port is writable, and throws an exception if it is not.
+        - exclusive: If true, the port is opened for exclusive use,
+          disconnecting any other application that shares the port through Zaber Launcher.
+          Has no effect on a direct connection, which is always exclusive.
 
      - Returns: An object representing the port.
      */
-    public static func openSerialPort(portName: String, baudRate: Int = Connection.defaultBaudRate, direct: Bool = false, testPort: Bool = false) async throws -> Connection {
+    public static func openSerialPort(portName: String, baudRate: Int = Connection.defaultBaudRate, direct: Bool = false, testPort: Bool = false, exclusive: Bool = false) async throws -> Connection {
         _assertSendable(Connection.self)
 
         var request = DtoRequests.OpenInterfaceRequest()
@@ -137,9 +140,10 @@ public final class Connection: @unchecked Sendable {
         request.baudRate = baudRate
         request.rejectRoutedConnection = direct
         request.testPort = testPort
+        request.exclusive = exclusive
 
-        let response = try await Gateway.callAsync("interface/open", request, DtoRequests.OpenInterfaceResponse.fromByteArray)
-        return Connection(interfaceId: response.interfaceId)
+        let response = try await Gateway.callAsync("interface/open", request, DtoRequests.IntValue.fromByteArray)
+        return Connection(interfaceId: response.value)
     }
 
     /**
@@ -161,8 +165,8 @@ public final class Connection: @unchecked Sendable {
         request.hostName = hostName
         request.port = port
 
-        let response = try await Gateway.callAsync("interface/open", request, DtoRequests.OpenInterfaceResponse.fromByteArray)
-        return Connection(interfaceId: response.interfaceId)
+        let response = try await Gateway.callAsync("interface/open", request, DtoRequests.IntValue.fromByteArray)
+        return Connection(interfaceId: response.value)
     }
 
     /**
@@ -182,8 +186,8 @@ public final class Connection: @unchecked Sendable {
         request.interfaceType = DtoRequests.InterfaceType.custom
         request.transport = transport.transportId
 
-        let response = try await Gateway.callAsync("interface/open", request, DtoRequests.OpenInterfaceResponse.fromByteArray)
-        return Connection(interfaceId: response.interfaceId)
+        let response = try await Gateway.callAsync("interface/open", request, DtoRequests.IntValue.fromByteArray)
+        return Connection(interfaceId: response.value)
     }
 
     /**
@@ -195,9 +199,10 @@ public final class Connection: @unchecked Sendable {
      - Parameters:
         - cloudId: The cloud ID to connect to.
         - token: The token to authenticate with. By default the connection will be unauthenticated.
-        - connectionName: The name of the connection to open.
+        - connectionName: The ID or name of the connection to open.
           Can be left empty to default to the only connection present.
-          Otherwise, use serial port name for serial port connection or hostname:port for TCP connection.
+          The ID is the serial port name for serial port connections or hostname:port for TCP connections.
+          The name is the one shown for the connection in Zaber Launcher.
         - realm: The realm to connect to.
           Can be left empty for the default account realm.
         - api: The URL of the API to receive connection info from.
@@ -215,8 +220,8 @@ public final class Connection: @unchecked Sendable {
         request.realm = realm
         request.api = api
 
-        let response = try await Gateway.callAsync("interface/open", request, DtoRequests.OpenInterfaceResponse.fromByteArray)
-        return Connection(interfaceId: response.interfaceId)
+        let response = try await Gateway.callAsync("interface/open", request, DtoRequests.IntValue.fromByteArray)
+        return Connection(interfaceId: response.value)
     }
 
     /**
@@ -228,9 +233,10 @@ public final class Connection: @unchecked Sendable {
      - Parameters:
         - hostName: Hostname or IP address.
         - port: Port number.
-        - connectionName: The name of the connection to open.
+        - connectionName: The ID or name of the connection to open.
           Can be left empty to default to the only connection present.
-          Otherwise, use serial port name for serial port connection or hostname:port for TCP connection.
+          The ID is the serial port name for serial port connections or hostname:port for TCP connections.
+          The name is the one shown for the connection in Zaber Launcher.
 
      - Returns: An object representing the connection.
      */
@@ -243,8 +249,8 @@ public final class Connection: @unchecked Sendable {
         request.port = port
         request.connectionName = connectionName
 
-        let response = try await Gateway.callAsync("interface/open", request, DtoRequests.OpenInterfaceResponse.fromByteArray)
-        return Connection(interfaceId: response.interfaceId)
+        let response = try await Gateway.callAsync("interface/open", request, DtoRequests.IntValue.fromByteArray)
+        return Connection(interfaceId: response.value)
     }
 
     /**
@@ -265,8 +271,8 @@ public final class Connection: @unchecked Sendable {
         request.interfaceType = InterfaceType.mock
         request.mockDevices = devices
 
-        let response = try await Gateway.callAsync("interface/open", request, DtoRequests.OpenInterfaceResponse.fromByteArray)
-        return Connection(interfaceId: response.interfaceId)
+        let response = try await Gateway.callAsync("interface/open", request, DtoRequests.IntValue.fromByteArray)
+        return Connection(interfaceId: response.value)
     }
 
     /**
@@ -277,10 +283,10 @@ public final class Connection: @unchecked Sendable {
      Throws an exception if the connection is already open.
      */
     public func reopen() async throws  {
-        var request = DtoRequests.InterfaceEmptyRequest()
-        request.interfaceId = self.interfaceId
+        var request = DtoRequests.IntValue()
+        request.value = self.interfaceId
 
-        let response = try await Gateway.callAsync("interface/reopen", request, DtoRequests.IntResponse.fromByteArray)
+        let response = try await Gateway.callAsync("interface/reopen", request, DtoRequests.IntValue.fromByteArray)
         subscribe(sessionId: response.value)
     }
 
@@ -405,8 +411,8 @@ public final class Connection: @unchecked Sendable {
      Resets ASCII protocol message IDs. Only for testing purposes.
      */
     public func resetIds() throws  {
-        var request = DtoRequests.InterfaceEmptyRequest()
-        request.interfaceId = self.interfaceId
+        var request = DtoRequests.IntValue()
+        request.value = self.interfaceId
 
         try Gateway.callSync("interface/reset_ids", request)
     }
@@ -417,8 +423,8 @@ public final class Connection: @unchecked Sendable {
      Close the connection.
      */
     public func close() async throws  {
-        var request = DtoRequests.InterfaceEmptyRequest()
-        request.interfaceId = self.interfaceId
+        var request = DtoRequests.IntValue()
+        request.value = self.interfaceId
 
         try await Gateway.callAsync("interface/close", request)
     }
@@ -462,7 +468,7 @@ public final class Connection: @unchecked Sendable {
         request.interfaceId = self.interfaceId
         request.address = firstAddress
 
-        let response = try await Gateway.callAsync("device/renumber_all", request, DtoRequests.IntResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/renumber_all", request, DtoRequests.IntValue.fromByteArray)
         return response.value
     }
 
@@ -512,6 +518,8 @@ public final class Connection: @unchecked Sendable {
      - Parameters:
         - waitUntilIdle: Determines whether the function should return immediately
           or wait until the devices are stopped.
+          When false, you must call WaitUntilIdle on each underlying axis afterwards
+          to detect and handle any errors that occur during the movement.
 
      - Returns: The addresses of the devices that were stopped by this command.
      */
@@ -532,6 +540,8 @@ public final class Connection: @unchecked Sendable {
      - Parameters:
         - waitUntilIdle: Determines whether the function should return immediately
           or wait until the devices are homed.
+          When false, you must call WaitUntilIdle on each underlying axis afterwards
+          to detect and handle any errors that occur during the movement.
 
      - Returns: The addresses of the devices that were homed by this command.
      */
@@ -552,10 +562,10 @@ public final class Connection: @unchecked Sendable {
      - Returns: A string that represents the connection.
      */
     public func toString() throws -> String {
-        var request = DtoRequests.InterfaceEmptyRequest()
-        request.interfaceId = self.interfaceId
+        var request = DtoRequests.IntValue()
+        request.value = self.interfaceId
 
-        let response = try Gateway.callSync("interface/to_string", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("interface/to_string", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 
@@ -568,8 +578,8 @@ public final class Connection: @unchecked Sendable {
         - interfaceId: The ID of the connection.
      */
     static func free(interfaceId: Int) throws  {
-        var request = DtoRequests.InterfaceEmptyRequest()
-        request.interfaceId = interfaceId
+        var request = DtoRequests.IntValue()
+        request.value = interfaceId
 
         try Gateway.callSync("interface/free", request)
     }
@@ -582,10 +592,10 @@ public final class Connection: @unchecked Sendable {
      - Returns: Default request timeout.
      */
     func retrieveTimeout() throws -> Int {
-        var request = DtoRequests.InterfaceEmptyRequest()
-        request.interfaceId = self.interfaceId
+        var request = DtoRequests.IntValue()
+        request.value = self.interfaceId
 
-        let response = try Gateway.callSync("interface/get_timeout", request, DtoRequests.IntResponse.fromByteArray)
+        let response = try Gateway.callSync("interface/get_timeout", request, DtoRequests.IntValue.fromByteArray)
         return response.value
     }
 
@@ -613,10 +623,10 @@ public final class Connection: @unchecked Sendable {
      - Returns: Checksum enabled.
      */
     func retrieveChecksumEnabled() throws -> Bool {
-        var request = DtoRequests.InterfaceEmptyRequest()
-        request.interfaceId = self.interfaceId
+        var request = DtoRequests.IntValue()
+        request.value = self.interfaceId
 
-        let response = try Gateway.callSync("interface/get_checksum_enabled", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try Gateway.callSync("interface/get_checksum_enabled", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -644,10 +654,10 @@ public final class Connection: @unchecked Sendable {
      - Returns: Is open.
      */
     func retrieveIsOpen() throws -> Bool {
-        var request = DtoRequests.InterfaceEmptyRequest()
-        request.interfaceId = self.interfaceId
+        var request = DtoRequests.IntValue()
+        request.value = self.interfaceId
 
-        let response = try Gateway.callSync("interface/get_is_open", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try Gateway.callSync("interface/get_is_open", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -737,8 +747,8 @@ public final class Connection: @unchecked Sendable {
      Close the connection synchronously.
      */
     private func close() throws {
-        var request = DtoRequests.InterfaceEmptyRequest()
-        request.interfaceId = self.interfaceId
+        var request = DtoRequests.IntValue()
+        request.value = self.interfaceId
 
         try Gateway.callSync("interface/close", request)
     }

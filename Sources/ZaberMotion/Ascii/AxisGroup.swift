@@ -153,7 +153,7 @@ public final class AxisGroup: @unchecked Sendable {
         request.devices = axes.map { $0.device.deviceAddress }
         request.axes = axes.map { $0.axisNumber }
 
-        let response = try await Gateway.callAsync("axes/is_busy", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("axes/is_busy", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -170,7 +170,7 @@ public final class AxisGroup: @unchecked Sendable {
         request.devices = axes.map { $0.device.deviceAddress }
         request.axes = axes.map { $0.axisNumber }
 
-        let response = try await Gateway.callAsync("axes/is_homed", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("axes/is_homed", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -194,7 +194,7 @@ public final class AxisGroup: @unchecked Sendable {
         request.setting = "pos"
         request.unit = unit
 
-        let response = try await Gateway.callAsync("axes/get_setting", request, DtoRequests.DoubleArrayResponse.fromByteArray)
+        let response = try await Gateway.callAsync("axes/get_setting", request, DtoRequests.DoubleArrayValue.fromByteArray)
         return response.values
     }
 
@@ -211,7 +211,7 @@ public final class AxisGroup: @unchecked Sendable {
         request.devices = axes.map { $0.device.deviceAddress }
         request.axes = axes.map { $0.axisNumber }
 
-        let response = try Gateway.callSync("axes/to_string", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("axes/to_string", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 }

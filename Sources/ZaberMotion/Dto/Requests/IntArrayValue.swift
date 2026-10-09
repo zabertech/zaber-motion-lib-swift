@@ -4,10 +4,10 @@
 import Foundation
 import DtoSerializable
 
-public struct PvtLoadCsvRequest: Serializable {
-    public var path: String
+public struct IntArrayValue: Serializable {
+    public var values: [Int]
 
-    public init(path: String = "") {
-        self.path = path
+    public init(values: [Int] = []) {
+        self.values = values
     }
 }

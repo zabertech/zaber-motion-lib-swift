@@ -429,6 +429,11 @@ public final class SettingConstants {
     public static let encoder1RefPhase: String = "encoder.1.ref.phase"
 
     /**
+     Encoder 1 Ref Phase Tune
+     */
+    public static let encoder1RefPhaseTune: String = "encoder.1.ref.phase.tune"
+
+    /**
      Encoder 1 Type
      */
     public static let encoder1Type: String = "encoder.1.type"
@@ -567,6 +572,11 @@ public final class SettingConstants {
      Encoder 2 Sin Gain Tune
      */
     public static let encoder2SinGainTune: String = "encoder.2.sin.gain.tune"
+
+    /**
+     Encoder 2 Sin Phase Shift
+     */
+    public static let encoder2SinPhaseShift: String = "encoder.2.sin.phase.shift"
 
     /**
      Encoder 2 Type
@@ -757,6 +767,26 @@ public final class SettingConstants {
      Ictrl Pi Kp
      */
     public static let ictrlPiKp: String = "ictrl.pi.kp"
+
+    /**
+     Ictrl Pidff Kd
+     */
+    public static let ictrlPidffKd: String = "ictrl.pidff.kd"
+
+    /**
+     Ictrl Pidff Ki
+     */
+    public static let ictrlPidffKi: String = "ictrl.pidff.ki"
+
+    /**
+     Ictrl Pidff Kp
+     */
+    public static let ictrlPidffKp: String = "ictrl.pidff.kp"
+
+    /**
+     Ictrl Pidff Lp
+     */
+    public static let ictrlPidffLp: String = "ictrl.pidff.lp"
 
     /**
      Ictrl Type
@@ -1324,6 +1354,61 @@ public final class SettingConstants {
     public static let motionTrackingSignalValidDi: String = "motion.tracking.signal.valid.di"
 
     /**
+     Motor Cogging 1 Amplitude
+     */
+    public static let motorCogging1Amplitude: String = "motor.cogging.1.amplitude"
+
+    /**
+     Motor Cogging 1 Harmonic
+     */
+    public static let motorCogging1Harmonic: String = "motor.cogging.1.harmonic"
+
+    /**
+     Motor Cogging 1 Phase
+     */
+    public static let motorCogging1Phase: String = "motor.cogging.1.phase"
+
+    /**
+     Motor Cogging 2 Amplitude
+     */
+    public static let motorCogging2Amplitude: String = "motor.cogging.2.amplitude"
+
+    /**
+     Motor Cogging 2 Harmonic
+     */
+    public static let motorCogging2Harmonic: String = "motor.cogging.2.harmonic"
+
+    /**
+     Motor Cogging 2 Phase
+     */
+    public static let motorCogging2Phase: String = "motor.cogging.2.phase"
+
+    /**
+     Motor Cogging 3 Amplitude
+     */
+    public static let motorCogging3Amplitude: String = "motor.cogging.3.amplitude"
+
+    /**
+     Motor Cogging 3 Harmonic
+     */
+    public static let motorCogging3Harmonic: String = "motor.cogging.3.harmonic"
+
+    /**
+     Motor Cogging 3 Phase
+     */
+    public static let motorCogging3Phase: String = "motor.cogging.3.phase"
+
+    /**
+     Motor Cogging Amplitude Max
+     */
+    public static let motorCoggingAmplitudeMax: String = "motor.cogging.amplitude.max"
+
+    /**
+     Motor Cogging Compensation Enable
+     */
+    public static let motorCoggingCompensationEnable: String = "motor.cogging.compensation.enable"
+
+    /**
      Motor Current Continuous Max
      */
     public static let motorCurrentContinuousMax: String = "motor.current.continuous.max"
@@ -1357,6 +1442,11 @@ public final class SettingConstants {
      Motor Ke
      */
     public static let motorKe: String = "motor.ke"
+
+    /**
+     Motor Kf
+     */
+    public static let motorKf: String = "motor.kf"
 
     /**
      Motor Phase

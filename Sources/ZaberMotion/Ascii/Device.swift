@@ -363,7 +363,7 @@ public final class Device: @unchecked Sendable {
         request.commandTemplate = commandTemplate
         request.parameters = parameters
 
-        let response = try Gateway.callSync("device/prepare_command", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("device/prepare_command", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 
@@ -386,7 +386,7 @@ public final class Device: @unchecked Sendable {
         request.command = command
         request.allowPartial = allowPartial
 
-        let response = try Gateway.callSync("device/has_command", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try Gateway.callSync("device/has_command", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -443,7 +443,7 @@ public final class Device: @unchecked Sendable {
         request.interfaceId = self.connection.interfaceId
         request.device = self.deviceAddress
 
-        let response = try Gateway.callSync("device/device_to_string", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("device/device_to_string", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 
@@ -459,7 +459,7 @@ public final class Device: @unchecked Sendable {
         request.interfaceId = self.connection.interfaceId
         request.device = self.deviceAddress
 
-        let response = try await Gateway.callAsync("device/get_state", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_state", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 
@@ -537,8 +537,9 @@ public final class Device: @unchecked Sendable {
      Module: ZaberMotionAscii
 
      Changes the address of this device.
-     After the address is successfully changed, the existing device class instance no longer represents the device.
+     After the address is successfully changed, the existing device instance no longer represents the device.
      Instead, use the new device instance returned by this method.
+     The identity of this device is discarded, and the new device needs to be identified before using it.
 
      - Parameters:
         - address: The new address to assign to the device.
@@ -557,7 +558,7 @@ public final class Device: @unchecked Sendable {
         request.device = self.deviceAddress
         request.address = address
 
-        let response = try await Gateway.callAsync("device/renumber", request, DtoRequests.IntResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/renumber", request, DtoRequests.IntValue.fromByteArray)
         return Device(connection: self.connection, deviceAddress: response.value)
     }
 
@@ -595,7 +596,7 @@ public final class Device: @unchecked Sendable {
         request.interfaceId = self.connection.interfaceId
         request.device = self.deviceAddress
 
-        let response = try Gateway.callSync("device/get_label", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("device/get_label", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 
@@ -627,7 +628,7 @@ public final class Device: @unchecked Sendable {
         request.interfaceId = self.connection.interfaceId
         request.device = self.deviceAddress
 
-        let response = try Gateway.callSync("device/get_is_identified", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try Gateway.callSync("device/get_is_identified", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 }

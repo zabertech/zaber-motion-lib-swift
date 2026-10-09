@@ -151,7 +151,7 @@ public final class Process: @unchecked Sendable {
         request.axis = self.processNumber
         request.setting = "process.control.mode"
 
-        let response = try await Gateway.callAsync("device/get_setting", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_setting", request, DtoRequests.DoubleValue.fromByteArray)
         return ProcessControllerMode(rawValue: Int(response.value))!
     }
 
@@ -255,7 +255,7 @@ public final class Process: @unchecked Sendable {
         request.device = self.controller.device.deviceAddress
         request.axis = self.processNumber
 
-        let response = try await Gateway.callAsync("process_controller/is_bridge", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("process_controller/is_bridge", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -350,7 +350,7 @@ public final class Process: @unchecked Sendable {
         request.device = self.controller.device.deviceAddress
         request.axis = self.processNumber
 
-        let response = try await Gateway.callAsync("device/get_state", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_state", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 
@@ -417,7 +417,7 @@ public final class Process: @unchecked Sendable {
         request.axis = self.processNumber
         request.typeOverride = "Process"
 
-        let response = try Gateway.callSync("device/axis_to_string", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("device/axis_to_string", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 }

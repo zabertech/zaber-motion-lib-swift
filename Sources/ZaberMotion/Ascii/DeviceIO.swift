@@ -78,7 +78,7 @@ public final class DeviceIO: @unchecked Sendable {
         request.portType = portType
         request.channelNumber = channelNumber
 
-        let response = try await Gateway.callAsync("device/get_io_label", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_io_label", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 
@@ -117,7 +117,7 @@ public final class DeviceIO: @unchecked Sendable {
         request.channelType = "di"
         request.channelNumber = channelNumber
 
-        let response = try await Gateway.callAsync("device/get_digital_io", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_digital_io", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -138,7 +138,7 @@ public final class DeviceIO: @unchecked Sendable {
         request.channelType = "do"
         request.channelNumber = channelNumber
 
-        let response = try await Gateway.callAsync("device/get_digital_io", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_digital_io", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -159,7 +159,7 @@ public final class DeviceIO: @unchecked Sendable {
         request.channelType = "ai"
         request.channelNumber = channelNumber
 
-        let response = try await Gateway.callAsync("device/get_analog_io", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_analog_io", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -180,7 +180,7 @@ public final class DeviceIO: @unchecked Sendable {
         request.channelType = "ao"
         request.channelNumber = channelNumber
 
-        let response = try await Gateway.callAsync("device/get_analog_io", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_analog_io", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 

@@ -42,7 +42,7 @@ public final class FilterChanger: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.axis = 1
 
-        let response = try await Gateway.callAsync("device/get_index_count", request, DtoRequests.IntResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_index_count", request, DtoRequests.IntValue.fromByteArray)
         return response.value
     }
 
@@ -60,7 +60,7 @@ public final class FilterChanger: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.axis = 1
 
-        let response = try await Gateway.callAsync("device/get_index_position", request, DtoRequests.IntResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_index_position", request, DtoRequests.IntValue.fromByteArray)
         return response.value
     }
 
@@ -96,7 +96,7 @@ public final class FilterChanger: @unchecked Sendable {
         request.interfaceId = self.device.connection.interfaceId
         request.device = self.device.deviceAddress
 
-        let response = try Gateway.callSync("device/device_to_string", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("device/device_to_string", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 }

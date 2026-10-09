@@ -58,7 +58,7 @@ public final class Tools {
     public static func getMessageRouterPipePath() throws -> String {
         let request = DtoRequests.EmptyRequest()
 
-        let response = try Gateway.callSync("tools/get_message_router_pipe", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("tools/get_message_router_pipe", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 
@@ -73,7 +73,7 @@ public final class Tools {
     public static func getDbServicePipePath() throws -> String {
         let request = DtoRequests.EmptyRequest()
 
-        let response = try Gateway.callSync("tools/get_db_service_pipe", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("tools/get_db_service_pipe", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 

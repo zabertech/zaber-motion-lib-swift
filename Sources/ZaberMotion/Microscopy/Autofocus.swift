@@ -158,7 +158,7 @@ public final class Autofocus: @unchecked Sendable {
         request.device = self.focusAxis.device.deviceAddress
         request.axis = self.focusAxis.axisNumber
 
-        let response = try await Gateway.callAsync("device/is_busy", request, DtoRequests.BoolResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/is_busy", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -181,7 +181,7 @@ public final class Autofocus: @unchecked Sendable {
         request.setting = "motion.tracking.limit.min"
         request.unit = unit
 
-        let response = try await Gateway.callAsync("device/get_setting", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_setting", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -204,7 +204,7 @@ public final class Autofocus: @unchecked Sendable {
         request.setting = "motion.tracking.limit.max"
         request.unit = unit
 
-        let response = try await Gateway.callAsync("device/get_setting", request, DtoRequests.DoubleResponse.fromByteArray)
+        let response = try await Gateway.callAsync("device/get_setting", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -337,7 +337,7 @@ public final class Autofocus: @unchecked Sendable {
         request.focusAxis = self.focusAxis.axisNumber
         request.turretAddress = objectiveTurret?.deviceAddress ?? 0
 
-        let response = try Gateway.callSync("autofocus/to_string", request, DtoRequests.StringResponse.fromByteArray)
+        let response = try Gateway.callSync("autofocus/to_string", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 }
