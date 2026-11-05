@@ -3,6 +3,7 @@
 
 import Foundation
 import DtoRequests
+import DtoExceptions
 
 /**
  Converts errors from the native library to specific exceptions.
@@ -13,213 +14,224 @@ public final class ExceptionConverter {
     @available(*, unavailable) private init() {}
 
     /**
-     Converts errors from the native library to specific exceptions.
+     Reconstructs a specific exception from a serialized exception.
+     The error type says what the custom data is, so it is simply taken as that.
 
      - Parameters:
-        - error: Error type from the native library.
-        - message: Error message from the native library.
-        - customData: Raw unparsed custom data for the exception.
+        - serialized: The serialized exception from the native library.
 
-     - Returns: Specific exception converted from native library error.
+     - Returns: Specific exception converted from the serialized exception.
      */
-    public static func convert(error: DtoRequests.Errors, message: String, customData: Data? = nil) throws -> MotionLibException {
+    public static func deserialize(_ serialized: ExceptionWireFormat) throws -> MotionLibException {
+        guard let error = DtoRequests.Errors(rawValue: serialized.type) else {
+            let context = DecodingError.Context(codingPath: [], debugDescription: "Unknown error type: \(serialized.type).")
+            throw DecodingError.dataCorrupted(context)
+        }
         switch error {
             case DtoRequests.Errors.badCommand:
-                guard let customDataUnwrapped = customData else {
-                    throw InternalErrorException(message: "ExceptionConverter: \(BadCommandException.self) requires custom data.");
+                guard case .commandFailedExceptionData(let value)? = serialized.customData else {
+                    throw missingCustomData(BadCommandException.self, CommandFailedExceptionData.self)
                 }
-                return try BadCommandException(message: message, customData: customDataUnwrapped)
+                return BadCommandException(message: serialized.message, customData: value)
             case DtoRequests.Errors.badData:
-                guard let customDataUnwrapped = customData else {
-                    throw InternalErrorException(message: "ExceptionConverter: \(BadDataException.self) requires custom data.");
+                guard case .commandFailedExceptionData(let value)? = serialized.customData else {
+                    throw missingCustomData(BadDataException.self, CommandFailedExceptionData.self)
                 }
-                return try BadDataException(message: message, customData: customDataUnwrapped)
+                return BadDataException(message: serialized.message, customData: value)
             case DtoRequests.Errors.binaryCommandFailed:
-                guard let customDataUnwrapped = customData else {
-                    throw InternalErrorException(message: "ExceptionConverter: \(BinaryCommandFailedException.self) requires custom data.");
+                guard case .binaryCommandFailedExceptionData(let value)? = serialized.customData else {
+                    throw missingCustomData(BinaryCommandFailedException.self, BinaryCommandFailedExceptionData.self)
                 }
-                return try BinaryCommandFailedException(message: message, customData: customDataUnwrapped)
+                return BinaryCommandFailedException(message: serialized.message, customData: value)
             case DtoRequests.Errors.commandFailed:
-                guard let customDataUnwrapped = customData else {
-                    throw InternalErrorException(message: "ExceptionConverter: \(CommandFailedException.self) requires custom data.");
+                guard case .commandFailedExceptionData(let value)? = serialized.customData else {
+                    throw missingCustomData(CommandFailedException.self, CommandFailedExceptionData.self)
                 }
-                return try CommandFailedException(message: message, customData: customDataUnwrapped)
+                return CommandFailedException(message: serialized.message, customData: value)
             case DtoRequests.Errors.commandPreempted:
-                return CommandPreemptedException(message: message)
+                return CommandPreemptedException(message: serialized.message)
             case DtoRequests.Errors.commandTooLong:
-                guard let customDataUnwrapped = customData else {
-                    throw InternalErrorException(message: "ExceptionConverter: \(CommandTooLongException.self) requires custom data.");
+                guard case .commandTooLongExceptionData(let value)? = serialized.customData else {
+                    throw missingCustomData(CommandTooLongException.self, CommandTooLongExceptionData.self)
                 }
-                return try CommandTooLongException(message: message, customData: customDataUnwrapped)
+                return CommandTooLongException(message: serialized.message, customData: value)
             case DtoRequests.Errors.connectionClosed:
-                return ConnectionClosedException(message: message)
+                return ConnectionClosedException(message: serialized.message)
             case DtoRequests.Errors.connectionFailed:
-                return ConnectionFailedException(message: message)
+                return ConnectionFailedException(message: serialized.message)
             case DtoRequests.Errors.conversionFailed:
-                return ConversionFailedException(message: message)
+                return ConversionFailedException(message: serialized.message)
             case DtoRequests.Errors.deviceAddressConflict:
-                guard let customDataUnwrapped = customData else {
-                    throw InternalErrorException(message: "ExceptionConverter: \(DeviceAddressConflictException.self) requires custom data.");
+                guard case .deviceAddressConflictExceptionData(let value)? = serialized.customData else {
+                    throw missingCustomData(DeviceAddressConflictException.self, DeviceAddressConflictExceptionData.self)
                 }
-                return try DeviceAddressConflictException(message: message, customData: customDataUnwrapped)
+                return DeviceAddressConflictException(message: serialized.message, customData: value)
             case DtoRequests.Errors.deviceBusy:
-                return DeviceBusyException(message: message)
+                return DeviceBusyException(message: serialized.message)
             case DtoRequests.Errors.deviceDbFailed:
-                guard let customDataUnwrapped = customData else {
-                    throw InternalErrorException(message: "ExceptionConverter: \(DeviceDbFailedException.self) requires custom data.");
+                guard case .deviceDbFailedExceptionData(let value)? = serialized.customData else {
+                    throw missingCustomData(DeviceDbFailedException.self, DeviceDbFailedExceptionData.self)
                 }
-                return try DeviceDbFailedException(message: message, customData: customDataUnwrapped)
+                return DeviceDbFailedException(message: serialized.message, customData: value)
             case DtoRequests.Errors.deviceDetectionFailed:
-                return DeviceDetectionFailedException(message: message)
+                return DeviceDetectionFailedException(message: serialized.message)
             case DtoRequests.Errors.deviceFailed:
-                return DeviceFailedException(message: message)
+                return DeviceFailedException(message: serialized.message)
             case DtoRequests.Errors.deviceNotIdentified:
-                return DeviceNotIdentifiedException(message: message)
+                return DeviceNotIdentifiedException(message: serialized.message)
             case DtoRequests.Errors.driverDisabled:
-                guard let customDataUnwrapped = customData else {
-                    throw InternalErrorException(message: "ExceptionConverter: \(DriverDisabledException.self) requires custom data.");
+                guard case .commandFailedExceptionData(let value)? = serialized.customData else {
+                    throw missingCustomData(DriverDisabledException.self, CommandFailedExceptionData.self)
                 }
-                return try DriverDisabledException(message: message, customData: customDataUnwrapped)
+                return DriverDisabledException(message: serialized.message, customData: value)
             case DtoRequests.Errors.gCodeExecution:
-                guard let customDataUnwrapped = customData else {
-                    throw InternalErrorException(message: "ExceptionConverter: \(GCodeExecutionException.self) requires custom data.");
+                guard case .gCodeExecutionExceptionData(let value)? = serialized.customData else {
+                    throw missingCustomData(GCodeExecutionException.self, GCodeExecutionExceptionData.self)
                 }
-                return try GCodeExecutionException(message: message, customData: customDataUnwrapped)
+                return GCodeExecutionException(message: serialized.message, customData: value)
             case DtoRequests.Errors.gCodeSyntax:
-                guard let customDataUnwrapped = customData else {
-                    throw InternalErrorException(message: "ExceptionConverter: \(GCodeSyntaxException.self) requires custom data.");
+                guard case .gCodeSyntaxExceptionData(let value)? = serialized.customData else {
+                    throw missingCustomData(GCodeSyntaxException.self, GCodeSyntaxExceptionData.self)
                 }
-                return try GCodeSyntaxException(message: message, customData: customDataUnwrapped)
+                return GCodeSyntaxException(message: serialized.message, customData: value)
             case DtoRequests.Errors.ge1xGripperMovementFailed:
-                return Ge1xGripperMovementFailedException(message: message)
+                return Ge1xGripperMovementFailedException(message: serialized.message)
             case DtoRequests.Errors.incompatibleSharedLibrary:
-                return IncompatibleSharedLibraryException(message: message)
+                return IncompatibleSharedLibraryException(message: serialized.message)
             case DtoRequests.Errors.internalError:
-                return InternalErrorException(message: message)
+                return InternalErrorException(message: serialized.message)
             case DtoRequests.Errors.invalidArgument:
-                return InvalidArgumentException(message: message)
+                return InvalidArgumentException(message: serialized.message)
             case DtoRequests.Errors.invalidCsvData:
-                return InvalidCsvDataException(message: message)
+                return InvalidCsvDataException(message: serialized.message)
             case DtoRequests.Errors.invalidData:
-                return InvalidDataException(message: message)
+                return InvalidDataException(message: serialized.message)
             case DtoRequests.Errors.invalidOperation:
-                return InvalidOperationException(message: message)
+                return InvalidOperationException(message: serialized.message)
             case DtoRequests.Errors.invalidPacket:
-                guard let customDataUnwrapped = customData else {
-                    throw InternalErrorException(message: "ExceptionConverter: \(InvalidPacketException.self) requires custom data.");
+                guard case .invalidPacketExceptionData(let value)? = serialized.customData else {
+                    throw missingCustomData(InvalidPacketException.self, InvalidPacketExceptionData.self)
                 }
-                return try InvalidPacketException(message: message, customData: customDataUnwrapped)
+                return InvalidPacketException(message: serialized.message, customData: value)
             case DtoRequests.Errors.invalidParkState:
-                return InvalidParkStateException(message: message)
+                return InvalidParkStateException(message: serialized.message)
             case DtoRequests.Errors.invalidRequestData:
-                return InvalidRequestDataException(message: message)
+                return InvalidRequestDataException(message: serialized.message)
             case DtoRequests.Errors.invalidResponse:
-                guard let customDataUnwrapped = customData else {
-                    throw InternalErrorException(message: "ExceptionConverter: \(InvalidResponseException.self) requires custom data.");
+                guard case .invalidResponseExceptionData(let value)? = serialized.customData else {
+                    throw missingCustomData(InvalidResponseException.self, InvalidResponseExceptionData.self)
                 }
-                return try InvalidResponseException(message: message, customData: customDataUnwrapped)
+                return InvalidResponseException(message: serialized.message, customData: value)
             case DtoRequests.Errors.ioChannelOutOfRange:
-                return IoChannelOutOfRangeException(message: message)
+                return IoChannelOutOfRangeException(message: serialized.message)
             case DtoRequests.Errors.ioFailed:
-                return IoFailedException(message: message)
+                return IoFailedException(message: serialized.message)
             case DtoRequests.Errors.lockstepEnabled:
-                return LockstepEnabledException(message: message)
+                return LockstepEnabledException(message: serialized.message)
             case DtoRequests.Errors.lockstepNotEnabled:
-                return LockstepNotEnabledException(message: message)
+                return LockstepNotEnabledException(message: serialized.message)
+            case DtoRequests.Errors.motionLibAggregate:
+                let innerExceptions: [MotionLibException] = try serialized.innerExceptions.map { try deserialize($0) }
+                return MotionLibAggregateException(message: serialized.message, exceptions: innerExceptions)
             case DtoRequests.Errors.movementFailed:
-                guard let customDataUnwrapped = customData else {
-                    throw InternalErrorException(message: "ExceptionConverter: \(MovementFailedException.self) requires custom data.");
+                guard case .movementFailedExceptionData(let value)? = serialized.customData else {
+                    throw missingCustomData(MovementFailedException.self, MovementFailedExceptionData.self)
                 }
-                return try MovementFailedException(message: message, customData: customDataUnwrapped)
+                return MovementFailedException(message: serialized.message, customData: value)
             case DtoRequests.Errors.movementInterrupted:
-                guard let customDataUnwrapped = customData else {
-                    throw InternalErrorException(message: "ExceptionConverter: \(MovementInterruptedException.self) requires custom data.");
+                guard case .movementInterruptedExceptionData(let value)? = serialized.customData else {
+                    throw missingCustomData(MovementInterruptedException.self, MovementInterruptedExceptionData.self)
                 }
-                return try MovementInterruptedException(message: message, customData: customDataUnwrapped)
+                return MovementInterruptedException(message: serialized.message, customData: value)
             case DtoRequests.Errors.noDeviceFound:
-                return NoDeviceFoundException(message: message)
+                return NoDeviceFoundException(message: serialized.message)
             case DtoRequests.Errors.noValueForKey:
-                return NoValueForKeyException(message: message)
+                return NoValueForKeyException(message: serialized.message)
             case DtoRequests.Errors.notSupported:
-                return NotSupportedException(message: message)
+                return NotSupportedException(message: serialized.message)
             case DtoRequests.Errors.operationFailed:
-                guard let customDataUnwrapped = customData else {
-                    throw InternalErrorException(message: "ExceptionConverter: \(OperationFailedException.self) requires custom data.");
+                guard case .operationFailedExceptionData(let value)? = serialized.customData else {
+                    throw missingCustomData(OperationFailedException.self, OperationFailedExceptionData.self)
                 }
-                return try OperationFailedException(message: message, customData: customDataUnwrapped)
+                return OperationFailedException(message: serialized.message, customData: value)
             case DtoRequests.Errors.osFailed:
-                return OsFailedException(message: message)
+                return OsFailedException(message: serialized.message)
             case DtoRequests.Errors.outOfRequestIds:
-                return OutOfRequestIdsException(message: message)
+                return OutOfRequestIdsException(message: serialized.message)
             case DtoRequests.Errors.pvtDiscontinuity:
-                return PvtDiscontinuityException(message: message)
+                return PvtDiscontinuityException(message: serialized.message)
             case DtoRequests.Errors.pvtExecution:
-                guard let customDataUnwrapped = customData else {
-                    throw InternalErrorException(message: "ExceptionConverter: \(PvtExecutionException.self) requires custom data.");
+                guard case .pvtExecutionExceptionData(let value)? = serialized.customData else {
+                    throw missingCustomData(PvtExecutionException.self, PvtExecutionExceptionData.self)
                 }
-                return try PvtExecutionException(message: message, customData: customDataUnwrapped)
+                return PvtExecutionException(message: serialized.message, customData: value)
             case DtoRequests.Errors.pvtMode:
-                return PvtModeException(message: message)
+                return PvtModeException(message: serialized.message)
             case DtoRequests.Errors.pvtMovementFailed:
-                guard let customDataUnwrapped = customData else {
-                    throw InternalErrorException(message: "ExceptionConverter: \(PvtMovementFailedException.self) requires custom data.");
+                guard case .pvtMovementFailedExceptionData(let value)? = serialized.customData else {
+                    throw missingCustomData(PvtMovementFailedException.self, PvtMovementFailedExceptionData.self)
                 }
-                return try PvtMovementFailedException(message: message, customData: customDataUnwrapped)
+                return PvtMovementFailedException(message: serialized.message, customData: value)
             case DtoRequests.Errors.pvtMovementInterrupted:
-                guard let customDataUnwrapped = customData else {
-                    throw InternalErrorException(message: "ExceptionConverter: \(PvtMovementInterruptedException.self) requires custom data.");
+                guard case .pvtMovementInterruptedExceptionData(let value)? = serialized.customData else {
+                    throw missingCustomData(PvtMovementInterruptedException.self, PvtMovementInterruptedExceptionData.self)
                 }
-                return try PvtMovementInterruptedException(message: message, customData: customDataUnwrapped)
+                return PvtMovementInterruptedException(message: serialized.message, customData: value)
             case DtoRequests.Errors.pvtSequenceGenerationFailed:
-                return PvtSequenceGenerationFailedException(message: message)
+                return PvtSequenceGenerationFailedException(message: serialized.message)
             case DtoRequests.Errors.pvtSetupFailed:
-                return PvtSetupFailedException(message: message)
+                return PvtSetupFailedException(message: serialized.message)
             case DtoRequests.Errors.remoteMode:
-                guard let customDataUnwrapped = customData else {
-                    throw InternalErrorException(message: "ExceptionConverter: \(RemoteModeException.self) requires custom data.");
+                guard case .commandFailedExceptionData(let value)? = serialized.customData else {
+                    throw missingCustomData(RemoteModeException.self, CommandFailedExceptionData.self)
                 }
-                return try RemoteModeException(message: message, customData: customDataUnwrapped)
+                return RemoteModeException(message: serialized.message, customData: value)
             case DtoRequests.Errors.requestTimeout:
-                return RequestTimeoutException(message: message)
+                return RequestTimeoutException(message: serialized.message)
             case DtoRequests.Errors.serialPortBusy:
-                return SerialPortBusyException(message: message)
+                return SerialPortBusyException(message: serialized.message)
             case DtoRequests.Errors.setDeviceStateFailed:
-                guard let customDataUnwrapped = customData else {
-                    throw InternalErrorException(message: "ExceptionConverter: \(SetDeviceStateFailedException.self) requires custom data.");
+                guard case .setDeviceStateExceptionData(let value)? = serialized.customData else {
+                    throw missingCustomData(SetDeviceStateFailedException.self, SetDeviceStateExceptionData.self)
                 }
-                return try SetDeviceStateFailedException(message: message, customData: customDataUnwrapped)
+                return SetDeviceStateFailedException(message: serialized.message, customData: value)
             case DtoRequests.Errors.setPeripheralStateFailed:
-                guard let customDataUnwrapped = customData else {
-                    throw InternalErrorException(message: "ExceptionConverter: \(SetPeripheralStateFailedException.self) requires custom data.");
+                guard case .setPeripheralStateExceptionData(let value)? = serialized.customData else {
+                    throw missingCustomData(SetPeripheralStateFailedException.self, SetPeripheralStateExceptionData.self)
                 }
-                return try SetPeripheralStateFailedException(message: message, customData: customDataUnwrapped)
+                return SetPeripheralStateFailedException(message: serialized.message, customData: value)
             case DtoRequests.Errors.streamDiscontinuity:
-                return StreamDiscontinuityException(message: message)
+                return StreamDiscontinuityException(message: serialized.message)
             case DtoRequests.Errors.streamExecution:
-                guard let customDataUnwrapped = customData else {
-                    throw InternalErrorException(message: "ExceptionConverter: \(StreamExecutionException.self) requires custom data.");
+                guard case .streamExecutionExceptionData(let value)? = serialized.customData else {
+                    throw missingCustomData(StreamExecutionException.self, StreamExecutionExceptionData.self)
                 }
-                return try StreamExecutionException(message: message, customData: customDataUnwrapped)
+                return StreamExecutionException(message: serialized.message, customData: value)
             case DtoRequests.Errors.streamMode:
-                return StreamModeException(message: message)
+                return StreamModeException(message: serialized.message)
             case DtoRequests.Errors.streamMovementFailed:
-                guard let customDataUnwrapped = customData else {
-                    throw InternalErrorException(message: "ExceptionConverter: \(StreamMovementFailedException.self) requires custom data.");
+                guard case .streamMovementFailedExceptionData(let value)? = serialized.customData else {
+                    throw missingCustomData(StreamMovementFailedException.self, StreamMovementFailedExceptionData.self)
                 }
-                return try StreamMovementFailedException(message: message, customData: customDataUnwrapped)
+                return StreamMovementFailedException(message: serialized.message, customData: value)
             case DtoRequests.Errors.streamMovementInterrupted:
-                guard let customDataUnwrapped = customData else {
-                    throw InternalErrorException(message: "ExceptionConverter: \(StreamMovementInterruptedException.self) requires custom data.");
+                guard case .streamMovementInterruptedExceptionData(let value)? = serialized.customData else {
+                    throw missingCustomData(StreamMovementInterruptedException.self, StreamMovementInterruptedExceptionData.self)
                 }
-                return try StreamMovementInterruptedException(message: message, customData: customDataUnwrapped)
+                return StreamMovementInterruptedException(message: serialized.message, customData: value)
             case DtoRequests.Errors.streamSetupFailed:
-                return StreamSetupFailedException(message: message)
+                return StreamSetupFailedException(message: serialized.message)
             case DtoRequests.Errors.timeout:
-                return TimeoutException(message: message)
+                return TimeoutException(message: serialized.message)
             case DtoRequests.Errors.transportAlreadyUsed:
-                return TransportAlreadyUsedException(message: message)
+                return TransportAlreadyUsedException(message: serialized.message)
             case DtoRequests.Errors.unknownRequest:
-                return UnknownRequestException(message: message)
+                return UnknownRequestException(message: serialized.message)
         }
+    }
+
+    private static func missingCustomData(_ exceptionType: MotionLibException.Type, _ customDataType: Any.Type) -> DecodingError {
+        let context = DecodingError.Context(codingPath: [], debugDescription: "\(exceptionType) requires custom data.")
+        return DecodingError.valueNotFound(customDataType, context)
     }
 }

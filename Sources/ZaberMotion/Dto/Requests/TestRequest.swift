@@ -8,10 +8,12 @@ public struct TestRequest: Serializable {
     public var returnError: Bool
     public var dataPing: String
     public var returnErrorWithData: Bool
+    public var returnAggregateError: Bool
 
-    public init(returnError: Bool = false, dataPing: String = "", returnErrorWithData: Bool = false) {
+    public init(returnError: Bool = false, dataPing: String = "", returnErrorWithData: Bool = false, returnAggregateError: Bool = false) {
         self.returnError = returnError
         self.dataPing = dataPing
         self.returnErrorWithData = returnErrorWithData
+        self.returnAggregateError = returnAggregateError
     }
 }

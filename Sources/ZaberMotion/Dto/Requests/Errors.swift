@@ -64,4 +64,5 @@ public enum Errors: Int, Codable, Sendable {
     case `transportAlreadyUsed` = 59
     case `unknownRequest` = 60
     case `ge1xGripperMovementFailed` = 61
+    case `motionLibAggregate` = 62
 }

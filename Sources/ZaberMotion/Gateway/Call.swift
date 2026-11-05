@@ -1,3 +1,4 @@
+import DtoExceptions
 import DtoRequests
 import DtoSerializable
 import ZaberMotionExceptions
@@ -19,18 +20,7 @@ func handleException(_ gatewayResponse: GatewayResponse, _ responses: [Data]) th
         return
     }
 
-    if responses.count > 1 {
-        throw try ExceptionConverter.convert(
-            error: gatewayResponse.errorType,
-            message: gatewayResponse.errorMessage,
-            customData: responses[1]
-        )
-    } else {
-        throw try ExceptionConverter.convert(
-            error: gatewayResponse.errorType,
-            message: gatewayResponse.errorMessage
-        )
-    }
+    throw try ExceptionConverter.deserialize(ExceptionWireFormat.fromByteArray(responses[1]))
 }
 
 func parseResponse<T>(_ responses: [Data], _ responseParser: (Data) throws -> T) throws -> T {

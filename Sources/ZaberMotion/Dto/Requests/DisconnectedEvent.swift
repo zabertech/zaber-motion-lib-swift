@@ -3,6 +3,8 @@
 
 import Foundation
 import DtoSerializable
+import DtoExceptions
+
 
 /**
  * Event that is sent when a connection is lost.
@@ -20,19 +22,13 @@ public struct DisconnectedEvent: Serializable {
     public var sessionId: Int
 
     /**
-     * The type of error that caused the disconnection.
+     * The error that caused the disconnection.
      */
-    public var errorType: Errors
+    public var error: DtoExceptions.ExceptionWireFormat
 
-    /**
-     * The message describing the error.
-     */
-    public var errorMessage: String
-
-    public init(interfaceId: Int = 0, sessionId: Int = 0, errorType: Errors = Errors(rawValue: 0)!, errorMessage: String = "") {
+    public init(interfaceId: Int = 0, sessionId: Int = 0, error: DtoExceptions.ExceptionWireFormat = ExceptionWireFormat()) {
         self.interfaceId = interfaceId
         self.sessionId = sessionId
-        self.errorType = errorType
-        self.errorMessage = errorMessage
+        self.error = error
     }
 }

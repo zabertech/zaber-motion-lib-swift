@@ -672,10 +672,7 @@ public final class Connection: @unchecked Sendable {
                     disconnectedEvent.sessionId == sessionId
             }.map { disconnectedEvent in
                 do {
-                    return try ExceptionConverter.convert(
-                        error: disconnectedEvent.errorType,
-                        message: disconnectedEvent.errorMessage
-                    )
+                    return try ExceptionConverter.deserialize(disconnectedEvent.error)
                 } catch {
                     return InternalErrorException(message: "Failed to convert disconnected event: \(error)")
                 }

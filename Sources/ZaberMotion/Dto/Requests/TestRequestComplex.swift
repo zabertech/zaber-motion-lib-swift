@@ -3,15 +3,15 @@
 
 import Foundation
 import DtoSerializable
-import DtoAscii
+import Dto
 
 
 public struct TestRequestComplex: Serializable {
     public var intArray: [Int]
-    public var testVariant: TestVariant
+    public var measurementOrValue: Dto.MeasurementOrValue?
 
-    public init(intArray: [Int] = [], testVariant: TestVariant = .axisType(AxisType(rawValue: 0)!)) {
+    public init(intArray: [Int] = [], measurementOrValue: Dto.MeasurementOrValue? = nil) {
         self.intArray = intArray
-        self.testVariant = testVariant
+        self.measurementOrValue = measurementOrValue
     }
 }

@@ -75,6 +75,31 @@ private enum TestError: Error {
         }
     }
 
+    @Test("Asynchronous call throws aggregate error")
+    func testAggregateError() async throws {
+        let testRequest = TestRequest(
+            returnError: false, dataPing: "", returnErrorWithData: false, returnAggregateError: true)
+
+        await #expect {
+            try await Gateway.callAsync("test/request", testRequest, TestResponse.fromByteArray)
+        } throws: { error in
+            guard let error = error as? ZaberMotionExceptions.MotionLibAggregateException else {
+                return false
+            }
+
+            guard error.exceptions.count == 2,
+                let nested = error.exceptions[0] as? ZaberMotionExceptions.MotionLibAggregateException,
+                error.exceptions[1] is InvalidPacketException
+            else {
+                return false
+            }
+
+            return nested.exceptions.count == 2
+                && nested.exceptions[0] is ZaberMotionExceptions.RequestTimeoutException
+                && nested.exceptions[1] is InvalidPacketException
+        }
+    }
+
     @Test("Asynchronous call with long response")
     func testLongResponse() async throws {
         let testRequest = TestRequest(

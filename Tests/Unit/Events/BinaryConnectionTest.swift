@@ -1,4 +1,5 @@
 #if canImport(Combine)
+import DtoExceptions
 import DtoRequests
 import DtoSerializable
 import Foundation
@@ -152,7 +153,8 @@ import ZaberMotionExceptions
         }
 
         let disconnectedEvent = DisconnectedEvent(
-            interfaceId: 3, errorType: .connectionClosed, errorMessage: "Test")
+            interfaceId: 3,
+            error: ExceptionWireFormat(type: Errors.connectionClosed.rawValue, message: "Test"))
         try Events.shared.testSendEvent("interface/disconnected", disconnectedEvent)
 
         await waitForExpectation(timeout: .seconds(1), description: "Received disconnected event") {
@@ -169,7 +171,7 @@ import ZaberMotionExceptions
 
         let cancellableOtherConnection = Events.shared.disconnected.sink { disconnectedEvent in
             if disconnectedEvent.interfaceId == 3 {
-                #expect(disconnectedEvent.errorMessage == "Other Connection")
+                #expect(disconnectedEvent.error.message == "Other Connection")
                 eventReceivedOtherConnection = true
             }
         }
@@ -182,11 +184,13 @@ import ZaberMotionExceptions
         }
 
         let disconnectedEventOtherConnection = DisconnectedEvent(
-            interfaceId: 3, errorType: .connectionClosed, errorMessage: "Other Connection")
+            interfaceId: 3,
+            error: ExceptionWireFormat(type: Errors.connectionClosed.rawValue, message: "Other Connection"))
         try Events.shared.testSendEvent("interface/disconnected", disconnectedEventOtherConnection)
 
         let disconnectedEvent = DisconnectedEvent(
-            interfaceId: 5, errorType: .connectionClosed, errorMessage: "Same Connection")
+            interfaceId: 5,
+            error: ExceptionWireFormat(type: Errors.connectionClosed.rawValue, message: "Same Connection"))
         try Events.shared.testSendEvent("interface/disconnected", disconnectedEvent)
 
         await waitForExpectation(timeout: .seconds(1), description: "Received disconnected event") {
@@ -216,7 +220,8 @@ import ZaberMotionExceptions
         }
 
         let disconnectedEvent = DisconnectedEvent(
-            interfaceId: 3, errorType: .connectionClosed, errorMessage: "Test")
+            interfaceId: 3,
+            error: ExceptionWireFormat(type: Errors.connectionClosed.rawValue, message: "Test"))
         try Events.shared.testSendEvent("interface/disconnected", disconnectedEvent)
 
         let replyOnlyEvent = ReplyOnlyEvent(deviceAddress: 1, command: 42, data: 101)

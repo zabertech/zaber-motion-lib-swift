@@ -2,7 +2,9 @@
 // ============== DO NOT EDIT DIRECTLY ============== //
 
 import UnitsInternal
+import Dto
 import DtoRequests
+import DtoAscii
 import Gateway
 import ZaberMotionExceptions
 import Utils
@@ -50,7 +52,7 @@ public final class Lockstep: @unchecked Sendable {
         request.lockstepGroupId = self.lockstepGroupId
         request.axes = axes
 
-        try await Gateway.callAsync("device/lockstep_enable", request)
+        try await Gateway.callAsync("lockstep/enable", request)
     }
 
     /**
@@ -64,7 +66,7 @@ public final class Lockstep: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.lockstepGroupId = self.lockstepGroupId
 
-        try await Gateway.callAsync("device/lockstep_disable", request)
+        try await Gateway.callAsync("lockstep/disable", request)
     }
 
     /**
@@ -84,7 +86,7 @@ public final class Lockstep: @unchecked Sendable {
         request.lockstepGroupId = self.lockstepGroupId
         request.waitUntilIdle = waitUntilIdle
 
-        try await Gateway.callAsync("device/lockstep_stop", request)
+        try await Gateway.callAsync("lockstep/stop", request)
     }
 
     /**
@@ -104,7 +106,7 @@ public final class Lockstep: @unchecked Sendable {
         request.lockstepGroupId = self.lockstepGroupId
         request.waitUntilIdle = waitUntilIdle
 
-        try await Gateway.callAsync("device/lockstep_home", request)
+        try await Gateway.callAsync("lockstep/home", request)
     }
 
     /**
@@ -127,8 +129,10 @@ public final class Lockstep: @unchecked Sendable {
           Default value of 0 indicates that the accel setting is used instead.
           Requires at least Firmware 7.25.
         - accelerationUnit: Units of acceleration.
+        - cyclicDirection: Which direction a cyclic lockstep group should take to get to the target position.
+        - extraCycles: Number of extra cycles to complete before stopping at the target.
      */
-    public func moveAbsolute(position: Double, unit: Units = Units.native, waitUntilIdle: Bool = true, velocity: Double = 0, velocityUnit: Units = Units.native, acceleration: Double = 0, accelerationUnit: Units = Units.native) async throws  {
+    public func moveAbsolute(position: Double, unit: Units = Units.native, waitUntilIdle: Bool = true, velocity: Double = 0, velocityUnit: Units = Units.native, acceleration: Double = 0, accelerationUnit: Units = Units.native, cyclicDirection: CyclicDirection? = nil, extraCycles: Int? = nil) async throws  {
         var request = DtoRequests.LockstepMoveRequest()
         request.interfaceId = self.device.connection.interfaceId
         request.device = self.device.deviceAddress
@@ -141,8 +145,10 @@ public final class Lockstep: @unchecked Sendable {
         request.velocityUnit = velocityUnit
         request.acceleration = acceleration
         request.accelerationUnit = accelerationUnit
+        request.cyclicDirection = cyclicDirection
+        request.extraCycles = extraCycles
 
-        try await Gateway.callAsync("device/lockstep_move", request)
+        try await Gateway.callAsync("lockstep/move", request)
     }
 
     /**
@@ -180,7 +186,7 @@ public final class Lockstep: @unchecked Sendable {
         request.acceleration = acceleration
         request.accelerationUnit = accelerationUnit
 
-        try await Gateway.callAsync("device/lockstep_move", request)
+        try await Gateway.callAsync("lockstep/move", request)
     }
 
     /**
@@ -208,7 +214,7 @@ public final class Lockstep: @unchecked Sendable {
         request.acceleration = acceleration
         request.accelerationUnit = accelerationUnit
 
-        try await Gateway.callAsync("device/lockstep_move", request)
+        try await Gateway.callAsync("lockstep/move", request)
     }
 
     /**
@@ -241,7 +247,7 @@ public final class Lockstep: @unchecked Sendable {
         request.count = count
         request.waitUntilIdle = waitUntilIdle
 
-        try await Gateway.callAsync("device/lockstep_move_sin", request)
+        try await Gateway.callAsync("lockstep/move_sin", request)
     }
 
     /**
@@ -263,7 +269,7 @@ public final class Lockstep: @unchecked Sendable {
         request.lockstepGroupId = self.lockstepGroupId
         request.waitUntilIdle = waitUntilIdle
 
-        try await Gateway.callAsync("device/lockstep_move_sin_stop", request)
+        try await Gateway.callAsync("lockstep/move_sin_stop", request)
     }
 
     /**
@@ -298,7 +304,7 @@ public final class Lockstep: @unchecked Sendable {
         request.acceleration = acceleration
         request.accelerationUnit = accelerationUnit
 
-        try await Gateway.callAsync("device/lockstep_move", request)
+        try await Gateway.callAsync("lockstep/move", request)
     }
 
     /**
@@ -333,7 +339,7 @@ public final class Lockstep: @unchecked Sendable {
         request.acceleration = acceleration
         request.accelerationUnit = accelerationUnit
 
-        try await Gateway.callAsync("device/lockstep_move", request)
+        try await Gateway.callAsync("lockstep/move", request)
     }
 
     /**
@@ -351,7 +357,7 @@ public final class Lockstep: @unchecked Sendable {
         request.lockstepGroupId = self.lockstepGroupId
         request.throwErrorOnFault = throwErrorOnFault
 
-        try await Gateway.callAsync("device/lockstep_wait_until_idle", request)
+        try await Gateway.callAsync("lockstep/wait_until_idle", request)
     }
 
     /**
@@ -367,7 +373,7 @@ public final class Lockstep: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.lockstepGroupId = self.lockstepGroupId
 
-        let response = try await Gateway.callAsync("device/lockstep_is_busy", request, DtoRequests.BoolValue.fromByteArray)
+        let response = try await Gateway.callAsync("lockstep/is_busy", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -384,7 +390,7 @@ public final class Lockstep: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.lockstepGroupId = self.lockstepGroupId
 
-        let response = try await Gateway.callAsync("device/lockstep_get_axis_numbers", request, DtoRequests.LockstepGetAxisNumbersResponse.fromByteArray)
+        let response = try await Gateway.callAsync("lockstep/get_axis_numbers", request, DtoRequests.LockstepGetAxisNumbersResponse.fromByteArray)
         return response.axes
     }
 
@@ -406,7 +412,7 @@ public final class Lockstep: @unchecked Sendable {
         request.lockstepGroupId = self.lockstepGroupId
         request.unit = unit
 
-        let response = try await Gateway.callAsync("device/lockstep_get_offsets", request, DtoRequests.DoubleArrayValue.fromByteArray)
+        let response = try await Gateway.callAsync("lockstep/get_offsets", request, DtoRequests.DoubleArrayValue.fromByteArray)
         return response.values
     }
 
@@ -428,7 +434,7 @@ public final class Lockstep: @unchecked Sendable {
         request.lockstepGroupId = self.lockstepGroupId
         request.unit = unit
 
-        let response = try await Gateway.callAsync("device/lockstep_get_twists", request, DtoRequests.DoubleArrayValue.fromByteArray)
+        let response = try await Gateway.callAsync("lockstep/get_twists", request, DtoRequests.DoubleArrayValue.fromByteArray)
         return response.values
     }
 
@@ -449,7 +455,7 @@ public final class Lockstep: @unchecked Sendable {
         request.lockstepGroupId = self.lockstepGroupId
         request.unit = unit
 
-        let response = try await Gateway.callAsync("device/lockstep_get_pos", request, DtoRequests.DoubleValue.fromByteArray)
+        let response = try await Gateway.callAsync("lockstep/get_pos", request, DtoRequests.DoubleValue.fromByteArray)
         return response.value
     }
 
@@ -476,7 +482,53 @@ public final class Lockstep: @unchecked Sendable {
         request.unit = unit
         request.axisIndex = axisIndex
 
-        try await Gateway.callAsync("device/lockstep_set_tolerance", request)
+        try await Gateway.callAsync("lockstep/set_tolerance", request)
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Gets the twist tolerances of secondary axes of an enabled lockstep group.
+
+     - Parameters:
+        - unit: Units of the tolerance.
+          Uses primary axis unit conversion.
+
+     - Returns: Twist tolerance for each secondary axis of the lockstep group.
+     */
+    public func getTolerances(unit: Units = Units.native) async throws -> [Double] {
+        var request = DtoRequests.LockstepGetRequest()
+        request.interfaceId = self.device.connection.interfaceId
+        request.device = self.device.deviceAddress
+        request.lockstepGroupId = self.lockstepGroupId
+        request.unit = unit
+
+        let response = try await Gateway.callAsync("lockstep/get_tolerances", request, DtoRequests.DoubleArrayValue.fromByteArray)
+        return response.values
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Gets information about the lockstep group, including its axes and offsets.
+
+     - Parameters:
+        - unit: Units of the offsets.
+          Uses primary axis unit conversion.
+
+     - Returns: Information about the lockstep group.
+     */
+    public func getInfo(unit: Units = Units.native) async throws -> LockstepInfo {
+        _assertSendable(LockstepInfo.self)
+
+        var request = DtoRequests.LockstepGetRequest()
+        request.interfaceId = self.device.connection.interfaceId
+        request.device = self.device.deviceAddress
+        request.lockstepGroupId = self.lockstepGroupId
+        request.unit = unit
+
+        let response = try await Gateway.callAsync("lockstep/get_info", request, LockstepInfo.fromByteArray)
+        return response
     }
 
     /**
@@ -492,7 +544,7 @@ public final class Lockstep: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.lockstepGroupId = self.lockstepGroupId
 
-        let response = try await Gateway.callAsync("device/lockstep_is_enabled", request, DtoRequests.BoolValue.fromByteArray)
+        let response = try await Gateway.callAsync("lockstep/is_enabled", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 
@@ -509,7 +561,7 @@ public final class Lockstep: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.lockstepGroupId = self.lockstepGroupId
 
-        let response = try Gateway.callSync("device/lockstep_to_string", request, DtoRequests.StringValue.fromByteArray)
+        let response = try Gateway.callSync("lockstep/to_string", request, DtoRequests.StringValue.fromByteArray)
         return response.value
     }
 
@@ -525,7 +577,7 @@ public final class Lockstep: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.lockstepGroupId = self.lockstepGroupId
 
-        try await Gateway.callAsync("device/lockstep_park", request)
+        try await Gateway.callAsync("lockstep/park", request)
     }
 
     /**
@@ -539,7 +591,7 @@ public final class Lockstep: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.lockstepGroupId = self.lockstepGroupId
 
-        try await Gateway.callAsync("device/lockstep_unpark", request)
+        try await Gateway.callAsync("lockstep/unpark", request)
     }
 
     /**
@@ -555,7 +607,7 @@ public final class Lockstep: @unchecked Sendable {
         request.device = self.device.deviceAddress
         request.lockstepGroupId = self.lockstepGroupId
 
-        let response = try await Gateway.callAsync("device/lockstep_is_parked", request, DtoRequests.BoolValue.fromByteArray)
+        let response = try await Gateway.callAsync("lockstep/is_parked", request, DtoRequests.BoolValue.fromByteArray)
         return response.value
     }
 }

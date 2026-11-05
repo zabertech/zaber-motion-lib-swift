@@ -1,8 +1,10 @@
 ﻿// ===== THIS FILE IS GENERATED FROM A TEMPLATE ===== //
 // ============== DO NOT EDIT DIRECTLY ============== //
 
+import UnitsInternal
 import Dto
 import DtoRequests
+import DtoAscii
 import Gateway
 import ZaberMotionExceptions
 import Utils
@@ -339,6 +341,30 @@ public final class Device: @unchecked Sendable {
         }
 
         return Lockstep(device: self, lockstepGroupId: lockstepGroupId)
+    }
+
+    /**
+     Module: ZaberMotionAscii
+
+     Gets information about all lockstep groups enabled on the device.
+     Requires at least Firmware 6.15 or 7.11.
+
+     - Parameters:
+        - unit: Units of the offsets.
+          Uses primary axis unit conversion.
+
+     - Returns: Information about each enabled lockstep group.
+     */
+    public func getLockstepInfo(unit: Units = Units.native) async throws -> [LockstepInfo] {
+        _assertSendable(LockstepInfo.self)
+
+        var request = DtoRequests.DeviceGetLockstepInfoRequest()
+        request.interfaceId = self.connection.interfaceId
+        request.device = self.deviceAddress
+        request.unit = unit
+
+        let response = try await Gateway.callAsync("device/get_lockstep_info", request, DtoRequests.DeviceGetLockstepInfoResponse.fromByteArray)
+        return response.infos
     }
 
     /**

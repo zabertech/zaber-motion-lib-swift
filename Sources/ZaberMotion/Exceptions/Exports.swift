@@ -25,3 +25,4 @@ public typealias DeviceDbInnerError = DtoExceptions.DeviceDbInnerError
 public typealias DeviceDbFailedExceptionData = DtoExceptions.DeviceDbFailedExceptionData
 public typealias GCodeSyntaxExceptionData = DtoExceptions.GCodeSyntaxExceptionData
 public typealias GCodeExecutionExceptionData = DtoExceptions.GCodeExecutionExceptionData
+public typealias ExceptionWireFormat = DtoExceptions.ExceptionWireFormat
